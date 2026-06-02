@@ -1,0 +1,21 @@
+﻿global type f_buscar_ingreso from function_object
+end type
+
+forward prototypes
+global function integer f_buscar_ingreso (datetime fecha1, datetime fecha2, string serie, double oferta, datetime fecha)
+end prototypes
+
+global function integer f_buscar_ingreso (datetime fecha1, datetime fecha2, string serie, double oferta, datetime fecha);datetime fec_ing
+SELECT min("INGRESO"."FECHA_PAGO") INTO :fec_ing  
+		FROM   "INGRESO"  
+		WHERE  ( "INGRESO"."SERIE" =:serie) AND 
+				 ( "INGRESO"."CONTRATO" =:oferta) AND
+				 ( "INGRESO"."FECHA_PAGO" <= :fecha1 ) AND  
+				 ( "INGRESO"."FECHA_PAGO" >= :fecha2 )  ;
+if fec_ing = fecha then			 
+	return 1
+else
+	return 0
+end if	
+end function
+

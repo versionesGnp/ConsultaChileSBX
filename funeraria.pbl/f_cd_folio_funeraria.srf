@@ -1,0 +1,20 @@
+﻿global type f_cd_folio_funeraria from function_object
+end type
+
+forward prototypes
+global function long f_cd_folio_funeraria (string as_base, string as_serie, double adb_numero, datetime adt_fecha, long al_estado, datetime adt_fecha_estado, string as_age, string as_sup, string as_jefe, long al_cod_parque)
+end prototypes
+
+global function long f_cd_folio_funeraria (string as_base, string as_serie, double adb_numero, datetime adt_fecha, long al_estado, datetime adt_fecha_estado, string as_age, string as_sup, string as_jefe, long al_cod_parque);long	ll_cd_funcion
+
+//f_cd_folio_funeraria(:as_base,:as_serie,:adb_numero,:adt_fecha,:al_estado,:adt_fecha_estado,:as_age,:as_sup,:as_jefe,:al_cod_parque)
+
+DECLARE funcion_cd_folio PROCEDURE FOR  F_CD_FOLIO_FUNER(:as_base,:as_serie,:adb_numero,:adt_fecha,:gs_user,:al_estado,:adt_fecha_estado,:as_age,:as_sup,:as_jefe,:al_cod_parque);
+EXECUTE funcion_cd_folio;
+if sqlca.sqlcode=0 then
+	fetch funcion_cd_folio into :ll_cd_funcion ;
+	close funcion_cd_folio;
+end if
+return ll_cd_funcion
+end function
+

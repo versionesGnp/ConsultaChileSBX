@@ -1,0 +1,29 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: configura filtro semanal para ERP~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_genfiltrarsem from function_object
+end type
+
+forward prototypes
+global subroutine f_genfiltrarsem (datawindow adw_1, string as_tem, string as_sem)
+end prototypes
+
+global subroutine f_genfiltrarsem (datawindow adw_1, string as_tem, string as_sem);/* f_GenFiltrarSem( as_tem, as_sem ) */
+DataWindowChild	ldwc_x
+String				ls_emp
+
+
+adw_1.GetChild ('c_codigo_sem', ldwc_x )
+ldwc_x.SetTransObject( SqlCa )
+ldwc_x.Retrieve( )
+
+ldwc_x.InsertRow( 1)
+ldwc_x.SetItem( 1, 'c_codigo_tem', as_tem )
+ldwc_x.SetItem( 1, 'c_codigo_sem', '')
+ldwc_x.SetItem( 1, 'v_nombre_sem', ' - Todas las Semanas -')
+ldwc_x.AcceptText( )
+
+ldwc_x.SetFilter( 'c_codigo_tem = "' + as_tem + '"'  )
+ldwc_x.Filter( )
+
+adw_1.Object.c_codigo_sem[ 1] = as_sem
+end subroutine
+

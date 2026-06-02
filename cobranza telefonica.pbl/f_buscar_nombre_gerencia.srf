@@ -1,0 +1,20 @@
+﻿global type f_buscar_nombre_gerencia from function_object
+end type
+
+forward prototypes
+global function string f_buscar_nombre_gerencia (string as_codigo)
+end prototypes
+
+global function string f_buscar_nombre_gerencia (string as_codigo);String	ls_string
+
+SELECT	"CARGO_DEPTO_GERENCIA"."NOMBRE"  
+INTO 		:ls_string  
+FROM 		"CARGO_DEPTO_GERENCIA"  
+WHERE 	"CARGO_DEPTO_GERENCIA"."CODIGO" = :as_codigo   
+USING		sqlca;
+if sqlca.sqlcode<>0 then
+	ls_string	= '-'
+end if
+Return 	ls_string
+end function
+

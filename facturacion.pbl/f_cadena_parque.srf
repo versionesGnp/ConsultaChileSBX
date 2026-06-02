@@ -1,0 +1,19 @@
+﻿global type f_cadena_parque from function_object
+end type
+
+forward prototypes
+global function integer f_cadena_parque (string base, string serie, long numero)
+end prototypes
+
+global function integer f_cadena_parque (string base, string serie, long numero);integer parque
+
+SELECT "CADENA"."COD_PARQUE"  into :parque
+FROM "CADENA"  
+WHERE ( "CADENA"."CODIGO" = :base ) AND  
+( "CADENA"."SERIE" = :serie ) AND  
+( "CADENA"."NUMERO" = :numero )  ;
+
+
+return parque
+end function
+

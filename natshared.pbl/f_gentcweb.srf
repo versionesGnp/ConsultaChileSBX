@@ -1,0 +1,108 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Retorna TipoCam desde web~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_gentcweb from function_object
+end type
+
+forward prototypes
+global function integer f_gentcweb (datetime ad_hoy, datetime ad_ser, ref decimal adc_usd, ref decimal adc_uf, ref decimal adc_int)
+end prototypes
+
+global function integer f_gentcweb (datetime ad_hoy, datetime ad_ser, ref decimal adc_usd, ref decimal adc_uf, ref decimal adc_int);/* f_GenTCWeb( ad_hoy, ad_ser, adc_usd, adc_uf, adc_int ) 
+	César Vilela R. 10/03/2022
+	*/
+
+Integer	li_rc, li_imp
+String	ls_url, ls_ReturnJson
+String	ls_json = '', ls_hoy, ls_ser, ls_xind
+
+HttpClient lnv_HttpClient
+JsonParser lnv_JsonParser
+
+DateTime	ld_hoy
+ld_hoy = ad_hoy //DateTime( Today( ) )
+
+// Determinar si buscará indicadores del día o de una fecha determinada
+ls_hoy = String( ld_hoy, 'yymmdd' )
+ls_ser = String( ad_ser, 'yymmdd' ) //f_ServerDate( )
+
+ls_xind = f_If( ls_hoy = ls_ser, '0', '1' )
+
+lnv_HttpClient = Create HttpClient
+lnv_HttpClient.SetRequestHeader("Content-Type", "application/json;charset=UTF-8")
+
+// Usar GET method para envío del Request
+ls_url = "https://www.mindicador.cl/api/" 
+
+Long ll_RootObject, ll_id, i
+Dec	ldc_uf, ldc_usd, ldc_int, ldc_val
+String ls_ind, ls_key, ls_name, ls_AInd[]
+Long	ll_array, ll_number_item
+
+Choose Case ls_xind
+	Case '0'
+		li_rc = lnv_HttpClient.SendRequest( "GET", ls_url )
+
+		// Obtains the response data
+		If li_rc = 1 And lnv_HttpClient.GetResponseStatusCode() = 200 Then
+			lnv_HttpClient.GetResponseBody( ls_ReturnJson )
+		End If
+			
+		lnv_JsonParser = Create JsonParser
+
+		ls_Json = ls_ReturnJson 
+
+		lnv_JsonParser.LoadString(ls_Json)
+		ll_RootObject = lnv_JsonParser.GetRootItem( )
+
+		ls_key = '/uf/valor'
+		ldc_uf = lnv_JsonParser.GetItemNumber( ls_key )
+		ls_key = '/dolar/valor'
+		ldc_usd = lnv_JsonParser.GetItemNumber( ls_key )
+		ls_key = '/dolar_intercambio/valor'
+		ldc_int = lnv_JsonParser.GetItemNumber( ls_key )
+		
+		Destroy lnv_JsonParser
+			
+	Case '1'
+		ls_hoy = String( ld_hoy, 'dd-mm-yyyy' )
+		ls_AInd = { 'uf', 'dolar', 'dolar_intercambio' }
+		
+		For i = 1 To UpperBound( ls_AInd )
+			ls_Ind = ls_AInd[ i] + '/' + ls_hoy
+			
+			li_rc = lnv_HttpClient.SendRequest("GET", ls_url + ls_ind )
+	
+			If li_rc = 1 And lnv_HttpClient.GetResponseStatusCode() = 200 Then
+				lnv_HttpClient.GetResponseBody( ls_ReturnJson )
+			End If
+				
+			lnv_JsonParser = Create JsonParser
+		
+			ls_Json = ls_ReturnJson
+		
+			lnv_JsonParser.LoadString(ls_Json)
+			ll_RootObject = lnv_JsonParser.GetRootItem( )
+			ll_array = lnv_JsonParser.GetItemArray(ll_RootObject, "serie")
+			ll_number_item = lnv_JsonParser.GetChildItem( ll_array, 1)
+			ldc_val = lnv_JsonParser.GetItemNumber(ll_number_item, "valor")
+			
+			Choose Case i 
+				Case 1
+					ldc_uf = ldc_val
+				Case 2
+					ldc_usd = ldc_val
+				Case 3
+					ldc_int = ldc_val
+			End Choose
+					
+			Destroy lnv_JsonParser
+		Next
+End Choose
+
+Destroy lnv_HttpClient
+adc_usd	= ldc_usd
+adc_uf	= ldc_uf
+adc_int	= ldc_int
+
+Return 1
+end function
+

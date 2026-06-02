@@ -1,0 +1,24 @@
+﻿global type f_cta_promesa_cierre_stgo from function_object
+end type
+
+forward prototypes
+global function double f_cta_promesa_cierre_stgo (string as_cod_age, datetime adt_fecha)
+end prototypes
+
+global function double f_cta_promesa_cierre_stgo (string as_cod_age, datetime adt_fecha);long	ll_cuenta_cierre
+
+SELECT	count("CADENA"."CODIGO")
+INTO		:ll_cuenta_cierre
+FROM		"CADENA","PAGARE","CONTRATO"  
+WHERE		( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+         ( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+         ( "PAGARE"."NRO_PAGARE" = "CONTRATO"."NRO_PAGARE" ) and  
+         ( "PAGARE"."SERIE_P" = "CONTRATO"."SERIE" ) and  
+         ( ( "CADENA"."CODIGO" = 'P' ) AND  
+         ( "CONTRATO"."AGENTE" = :as_cod_age ) AND  
+         ( "CADENA"."FECHA_PRIM_FACTURA" = :adt_fecha ) ) ;
+
+if isnull(ll_cuenta_cierre) then ll_cuenta_cierre=0
+Return ll_cuenta_cierre
+end function
+

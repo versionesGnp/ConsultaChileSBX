@@ -1,0 +1,23 @@
+﻿global type fadeeffect from function_object
+end type
+
+forward prototypes
+global function integer fadeeffect (boolean ab_on)
+end prototypes
+
+global function integer fadeeffect (boolean ab_on);
+// CVilela: 13/Mar/2025 - Cierra el FadeEffect
+
+Int	li_ret
+
+If IsValid( w_gen_fade_background ) Then
+	Close( w_gen_fade_background)
+End If
+
+If ab_on Then
+Open( w_gen_fade_background )
+End If
+
+Return li_ret
+end function
+

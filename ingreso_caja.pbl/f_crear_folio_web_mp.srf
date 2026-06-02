@@ -1,0 +1,22 @@
+﻿global type f_crear_folio_web_mp from function_object
+end type
+
+forward prototypes
+global subroutine f_crear_folio_web_mp (double al_nro_cuota, double al_rut, string as_base, string as_serie, double al_numero, double al_nro_cupon, datetime aldt_fec_vcto, string as_estado_cupon, string as_tipo_mov, string as_tipo_cob_pago, double al_folio_pago, datetime aldt_fecha_pago, double al_monto_ctto, double al_monto_ctto_peso, double al_monto_int_mora, double al_monto_gasto_mora, double al_nro_cuponera, string as_dv, string as_base_asoc, string as_serie_asoc, double al_numero_asoc, string as_tipo_moneda, string as_user, string as_caja, double al_folio)
+end prototypes
+
+global subroutine f_crear_folio_web_mp (double al_nro_cuota, double al_rut, string as_base, string as_serie, double al_numero, double al_nro_cupon, datetime aldt_fec_vcto, string as_estado_cupon, string as_tipo_mov, string as_tipo_cob_pago, double al_folio_pago, datetime aldt_fecha_pago, double al_monto_ctto, double al_monto_ctto_peso, double al_monto_int_mora, double al_monto_gasto_mora, double al_nro_cuponera, string as_dv, string as_base_asoc, string as_serie_asoc, double al_numero_asoc, string as_tipo_moneda, string as_user, string as_caja, double al_folio);//Double	ll_folio
+
+INSERT INTO "CUPONERAS_DETALLE_WEB"  
+			( "BASE",   	"SERIE",   	"NUMERO",   	"NRO_CUPON",   	"RUT",   	"NRO_CUOTA",   	"FECHA_VENC",   	"ESTADO_PAGO_CUPON",   	"TIPO_MOV",   	"TIPO_COB_PAGO",   	"FOLIO_PAGO",   	"FECHA_PAGO",   	"MONTO_CUOTA_CONTRATO",   	"MONTO_CUOTA_PESO",   	"MONTO_INTERES_MORA",   	"MONTO_GASTO_COBRANZA",   	"NRO_CUPONERA",   	"DV",   	"BASE_ASOC",   	"SERIE_ASOC",   	"NUMERO_ASOC",   	"FECHA_SISTEMA",   	"TIPO_MONEDA",   	"CODIGO_DSCTO_FUNERARIA",   	"PIE_PACTADO",   		"USUARIO_CREA",   	"USUARIO_MODIFICA",   	"FECHA_MODIFICA",   	"COD_CAJA",   	"CUPON_ORIGINAL" )  	
+VALUES 	(:as_base, 	:as_serie,   	:al_numero,   	:al_nro_cupon,   	:al_rut,	:al_nro_cuota,   	:aldt_fec_vcto,   	:as_estado_cupon,   			:as_tipo_mov,	:as_tipo_cob_pago,   	:al_folio_pago,   	:aldt_fecha_pago,	:al_monto_ctto,   						:al_monto_ctto_peso,   		:al_monto_int_mora,   			:al_monto_gasto_mora,   			:al_nro_cuponera,   	:as_dv, 	:as_base_asoc,   	:as_serie_asoc,   	:al_numero_asoc,   	sysdate,   				:as_tipo_moneda,   	null,   									null,   					:as_user,   				null,   							null,   						:as_caja,   		:al_folio )  
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	commit;
+else
+	rollback;
+end if
+//Return ll_folio
+
+end subroutine
+

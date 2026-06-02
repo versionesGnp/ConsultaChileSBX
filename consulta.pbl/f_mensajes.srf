@@ -1,0 +1,25 @@
+﻿global type f_mensajes from function_object
+end type
+
+forward prototypes
+global function integer f_mensajes (long rut)
+end prototypes
+
+global function integer f_mensajes (long rut);long ll_rut
+
+
+setNull(ll_rut)
+
+SELECT "MENSAJES"."RUT"  
+    INTO :ll_RUT 
+    FROM "MENSAJES"  
+   WHERE ( "MENSAJES"."RUT" =:RUT  ) ;   
+
+
+if IsNull(ll_RUT) then 
+	return 0
+else
+	return 1
+end if
+end function
+

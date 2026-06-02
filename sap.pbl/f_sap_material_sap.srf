@@ -1,0 +1,26 @@
+﻿global type f_sap_material_sap from function_object
+end type
+
+forward prototypes
+global function long f_sap_material_sap (string as_centro, string as_anno, string as_material)
+end prototypes
+
+global function long f_sap_material_sap (string as_centro, string as_anno, string as_material);long		ll_disponible
+connect using Trans_hana;
+
+//f_sap_materialel_sap(as_centro,as_anno,as_uso,as_material)
+
+SELECT	"SAPABAP1"."MARD"."LABST"
+INTO		:ll_disponible
+FROM 	"SAPABAP1"."MARD"
+WHERE	"SAPABAP1"."MARD"."MANDT" = :gs_mandatario AND
+			"SAPABAP1"."MARD"."WERKS" = :as_centro AND
+			"SAPABAP1"."MARD"."LFGJA" = :as_anno AND
+			"SAPABAP1"."MARD"."MATNR" = :as_material
+USING	Trans_hana;
+if isnull(ll_disponible) then ll_disponible=ll_disponible
+return		ll_disponible
+disconnect using Trans_hana;
+
+end function
+

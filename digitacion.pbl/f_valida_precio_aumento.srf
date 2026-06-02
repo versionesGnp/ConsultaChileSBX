@@ -1,0 +1,34 @@
+﻿global type f_valida_precio_aumento from function_object
+end type
+
+forward prototypes
+global function string f_valida_precio_aumento (long al_capac_actual, string as_uso, long al_capac_new, long al_cod_parque, string as_moneda, double adb_valor_uf)
+end prototypes
+
+global function string f_valida_precio_aumento (long al_capac_actual, string as_uso, long al_capac_new, long al_cod_parque, string as_moneda, double adb_valor_uf);string		ls_string
+double	ldb_precio,ldb_pie_min
+
+//f_valida_precio_aumento(al_capac_actual,as_uso,al_capac_new,al_cod_parque,as_moneda,adb_valor_uf)
+SELECT	"LISTA_PRECIO_AUMENTO"."PRECIO",   
+			"LISTA_PRECIO_AUMENTO"."PIE_MINIMO"
+INTO 		:ldb_precio,   
+			:ldb_pie_min
+FROM		"LISTA_PRECIO_AUMENTO"
+WHERE	( "LISTA_PRECIO_AUMENTO"."CAPAC_ACTUAL" = :al_capac_actual ) AND 
+			( "LISTA_PRECIO_AUMENTO"."USO" = :as_uso ) AND 
+			( "LISTA_PRECIO_AUMENTO"."CAPAC_NEW" = :al_capac_new ) AND 
+			( "LISTA_PRECIO_AUMENTO"."COD_PARQUE" = :al_cod_parque ) AND 
+			( "LISTA_PRECIO_AUMENTO"."ESTADO" = 'V' )
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if as_moneda='1' then
+		ldb_precio		= round(double(ldb_precio * adb_valor_uf),0)
+		ldb_pie_min		= round(double(ldb_pie_min * adb_valor_uf),0)
+	else
+//		messagebox("Advertencia "+ls_descrip_sepult,"Recuerde que pie minimo es de "+string(ldb_pie_min)+" U.F.")
+	end if
+end if
+ls_string					= string(ldb_precio)+'~t'+string(ldb_pie_min)+'~t'+string(0)+'~t'+string(0)+'~t'+string(0)
+return(ls_string)
+end function
+

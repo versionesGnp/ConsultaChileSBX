@@ -1,0 +1,44 @@
+﻿global type gf_obtener_dv from function_object
+end type
+
+forward prototypes
+global function character gf_obtener_dv (long al_nro_rut)
+end prototypes
+
+global function character gf_obtener_dv (long al_nro_rut);// public function uof_obtener_dv
+//
+// Argumento(s):
+// long al_nro_rut -> rut cuyo dígito verificador se va a calcular
+//
+// Retorna:
+// char -> dígito verificador
+
+// Objetivo: obtener el digito verificador de un rut
+
+int li_digitos[8],i
+int li_formula
+Char lc_digito_v
+
+//almacena en el arreglo digito, los 8 li_digitos del rut.
+FOR i=1 TO 8
+  li_digitos[i] = Mod(al_nro_rut,10)
+  al_nro_rut = truncate(al_nro_rut/10,0)	
+NEXT
+
+li_formula = li_digitos[1] *2 + li_digitos[2] *3 +li_digitos[3] *4 +li_digitos[4]*5
+li_formula = li_digitos[5] *6 + li_digitos[6] *7 +li_digitos[7] *2 +li_digitos[8]*3 + li_formula
+li_formula = 11 - Mod(li_formula,11)
+
+CHOOSE CASE li_formula
+	CASE  11
+		lc_digito_v ='0'
+	CASE  10
+		lc_digito_v ='K'
+	CASE ELSE
+		lc_digito_v = String(li_formula)
+END CHOOSE
+
+return lc_digito_v
+
+end function
+

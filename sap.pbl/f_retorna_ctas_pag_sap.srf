@@ -1,0 +1,118 @@
+﻿global type f_retorna_ctas_pag_sap from function_object
+end type
+
+forward prototypes
+global function long f_retorna_ctas_pag_sap (string as_base, string as_serie, double al_numero, string as_tipo_mov, string as_rezago)
+end prototypes
+
+global function long f_retorna_ctas_pag_sap (string as_base, string as_serie, double al_numero, string as_tipo_mov, string as_rezago);Long		ll_ctas_pag, ll_ctas_pag_s,ll_ctas_pag_m,ll_plazo_pie_pactado,ll_ctas_pag_pie_pactado,ll_numero_rez
+String		ls_base_rez,ls_serie_rez
+if as_rezago='N'  then
+	if as_base = 'O' or as_base='U' then
+		 SELECT "OFERTA_V"."CTA_PAG_S" , 	"OFERTA_V"."CTA_PAG_M",		"PAGO_OFERTA"."CTAS_PACTADAS_PIE",	"PAGO_OFERTA"."CTAS_PAGADAS_PIE"
+		 INTO    :ll_ctas_pag_s,						:ll_ctas_pag_m,					:ll_plazo_pie_pactado,							:ll_ctas_pag_pie_pactado
+		 FROM   "CADENA", "OFERTA_V",   "PAGO_OFERTA"  
+		 WHERE   ( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+				  ( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+				  ( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+				  ( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+				  ( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+				  ( ( "CADENA"."CODIGO" = :as_base ) AND  
+				  ( "CADENA"."SERIE" = :as_serie ) AND  
+				  ( "CADENA"."NUMERO" = :al_numero ) )   ;
+	elseif as_base = 'P' then
+		SELECT "PAGARE"."CTA_PAG_LA" +   "PAGARE"."CTA_PAG_ISA",	0,						0,								0
+		INTO    :ll_ctas_pag_s,														:ll_ctas_pag_m,	:ll_plazo_pie_pactado,	:ll_ctas_pag_pie_pactado
+		FROM   "CADENA",  "PAGARE"  
+		WHERE ( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+				( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+				( ( "CADENA"."CODIGO" = :as_base ) AND  
+				( "CADENA"."SERIE" = :as_serie ) AND  
+				( "CADENA"."NUMERO" = :al_numero ) )   ;
+	elseif as_base = 'C' then
+		SELECT 0,					"CONTRATO"."CTA_PAG_M",	0,								0
+		INTO    :ll_ctas_pag_s,	:ll_ctas_pag_m,					:ll_plazo_pie_pactado,	:ll_ctas_pag_pie_pactado
+		FROM   "CONTRATO",   "CADENA"  
+		WHERE ( "CONTRATO"."SERIE_C" = "CADENA"."SERIE" ) and  
+				( "CONTRATO"."NRO_CONTRATO" = "CADENA"."NUMERO" ) and  
+				(( "CADENA"."CODIGO" = :as_base ) AND  
+				( "CADENA"."SERIE" = :as_serie ) AND  
+				( "CADENA"."NUMERO" = :al_numero ) )   ;
+	elseif as_base = 'D' then
+		SELECT "DERECHO"."CTA_PAG_LA" +  "DERECHO"."CTA_PAG_ISA",	0,						0,								0
+		INTO    :ll_ctas_pag_s,															:ll_ctas_pag_m,	:ll_plazo_pie_pactado,	:ll_ctas_pag_pie_pactado
+		FROM   "CADENA",   "DERECHO"  
+		WHERE ( "CADENA"."SERIE" = "DERECHO"."SERIE_P" ) and  
+				( "CADENA"."NUMERO" = "DERECHO"."NRO_PAGARE" ) and  
+				( ( "CADENA"."CODIGO" = :as_base ) AND  
+				( "CADENA"."SERIE" = :as_serie ) AND  
+				( "CADENA"."NUMERO" = :al_numero ) )   ;
+	elseif as_base = 'L' then
+		SELECT "ANEXO_LIBERADOR"."CTA_PAG_M"  ,		0,						"PAGO_LIBERADOR"."CTAS_PACTADAS_PIE",	"PAGO_LIBERADOR"."CTAS_PAGADAS_PIE"
+		INTO    :ll_ctas_pag_s,									:ll_ctas_pag_m,	:ll_plazo_pie_pactado,								:ll_ctas_pag_pie_pactado
+		FROM   "ANEXO_LIBERADOR",  "CADENA",  "PAGO_LIBERADOR"  
+		WHERE ( "PAGO_LIBERADOR"."SERIE_M" = "ANEXO_LIBERADOR"."SERIE_M" ) and  
+				 ( "PAGO_LIBERADOR"."NRO_LIBERADOR" = "ANEXO_LIBERADOR"."NRO_LIBERADOR" ) and  
+				 ( "PAGO_LIBERADOR"."FOLIO" = "ANEXO_LIBERADOR"."ULT_FOLIO" ) and  
+				 ( "ANEXO_LIBERADOR"."SERIE_M" = "CADENA"."SERIE" ) and  
+				 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "CADENA"."NUMERO" ) and  
+				 ( ( "CADENA"."CODIGO" = :as_base ) AND  
+				 ( "CADENA"."SERIE" = :as_serie ) AND  
+				 ( "CADENA"."NUMERO" = :al_numero ) )     ;
+	elseif as_base = 'A' then
+		SELECT "ANEXO_AUMENTO"."CTA_PAG_M",		0,						"PAGO_AUMENTO"."CTAS_PACTADAS_PIE",	"PAGO_AUMENTO"."CTAS_PAGADAS_PIE"
+		INTO    :ll_ctas_pag_s,									:ll_ctas_pag_m,	:ll_plazo_pie_pactado,								:ll_ctas_pag_pie_pactado
+		FROM   "CADENA","ANEXO_AUMENTO","PAGO_AUMENTO"  
+		WHERE ( "PAGO_AUMENTO"."SERIE_M" = "ANEXO_AUMENTO"."SERIE_M" ) and  
+				 ( "PAGO_AUMENTO"."NRO_AUMENTO" = "ANEXO_AUMENTO"."NRO_AUMENTO" ) and  
+				 ( "PAGO_AUMENTO"."FOLIO" = "ANEXO_AUMENTO"."ULT_FOLIO" ) and  
+				 ( "ANEXO_AUMENTO"."SERIE_M" = "CADENA"."SERIE" ) and  
+				 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = "CADENA"."NUMERO" ) and  
+				 ( ( "CADENA"."CODIGO" = :as_base ) AND  
+				 ( "CADENA"."SERIE" = :as_serie ) AND  
+				 ( "CADENA"."NUMERO" = :al_numero ) )    ;
+	elseif as_base = 'R' then
+		SELECT  "REPACTA_MANTENCION"."CTAS_PAGADAS",	0,						0,								0
+		INTO    :ll_ctas_pag_s,											:ll_ctas_pag_m,	:ll_plazo_pie_pactado,	:ll_ctas_pag_pie_pactado
+		FROM    "CADENA",   "REPACTA_MANTENCION"  
+		WHERE ( "CADENA"."SERIE" = "REPACTA_MANTENCION"."SERIE" ) and  
+				 ( "CADENA"."CODIGO" = "REPACTA_MANTENCION"."BASE" ) and  
+				 ( "CADENA"."NUMERO" = "REPACTA_MANTENCION"."NUMERO" ) and  
+				 ( ( "CADENA"."CODIGO" = :as_base ) AND  
+				 ( "CADENA"."SERIE" = :as_serie ) AND  
+				 ( "CADENA"."NUMERO" = :al_numero ) )   ;
+	elseif as_base = 'F' or as_base = 'G' or as_base='V' then
+		SELECT 	"PRODUCTO_ANEXO"."CUOTAS_PAG"  ,	0,						"PRODUCTO_PAGO"."CTAS_PIE_PLAZO",		"PRODUCTO_PAGO"."CTAS_PIE_PAGADAS"
+		INTO 		:ll_ctas_pag_s,									:ll_ctas_pag_m,	:ll_plazo_pie_pactado,							:ll_ctas_pag_pie_pactado
+		FROM		"PRODUCTO_ANEXO",   "PRODUCTO_PAGO",   "CADENA"  
+		WHERE ( "PRODUCTO_ANEXO"."BASE" = "PRODUCTO_PAGO"."BASE" ) and  
+					( "PRODUCTO_ANEXO"."SERIE" = "PRODUCTO_PAGO"."SERIE" ) and  
+					( "PRODUCTO_ANEXO"."NUMERO" = "PRODUCTO_PAGO"."NUMERO" ) and  
+					( "PRODUCTO_ANEXO"."ULT_FOLIO" = "PRODUCTO_PAGO"."FOLIO" ) and  
+					( "PRODUCTO_PAGO"."SERIE" = "CADENA"."SERIE" ) and  
+					( "PRODUCTO_PAGO"."BASE" = "CADENA"."CODIGO" ) and  
+					( "PRODUCTO_PAGO"."NUMERO" = "CADENA"."NUMERO" ) and  
+					( ( "CADENA"."CODIGO" = :as_base ) AND  
+					( "CADENA"."SERIE" = :as_serie ) AND  
+					( "CADENA"."NUMERO" = :al_numero ) )   ;
+	end if;
+else
+	ll_ctas_pag		= 1
+end if
+if isnull(ll_ctas_pag_s) or ll_ctas_pag_s=0 then ll_ctas_pag_s=0
+if isnull(ll_ctas_pag_m) or ll_ctas_pag_m=0 then ll_ctas_pag_m=0
+if isnull(ll_plazo_pie_pactado) or ll_plazo_pie_pactado=0 then ll_plazo_pie_pactado=0
+if isnull(ll_ctas_pag_pie_pactado) or ll_ctas_pag_pie_pactado=0 then ll_ctas_pag_pie_pactado=0
+if as_tipo_mov = 'A' or as_tipo_mov = 'Q' then
+	if ll_plazo_pie_pactado > 0 then
+		if isnull(ll_ctas_pag_pie_pactado) or ll_ctas_pag_pie_pactado=0 then ll_ctas_pag_pie_pactado=0
+		ll_ctas_pag	= ll_ctas_pag_pie_pactado + 1
+	end if
+end if
+if as_tipo_mov='M' or as_tipo_mov='L' then ll_ctas_pag=1
+if as_tipo_mov='E' or as_tipo_mov='U' or as_tipo_mov='K' then ll_ctas_pag=ll_ctas_pag_s
+if as_tipo_mov='F' then ll_ctas_pag=ll_ctas_pag_m
+if as_tipo_mov<>'M' and as_tipo_mov<>'L' and as_tipo_mov<>'A' and as_tipo_mov<>'Q' and as_tipo_mov<>'E' and as_tipo_mov<>'U' and as_tipo_mov<>'K' and as_tipo_mov<>'F' then ll_ctas_pag=0
+Return ll_ctas_pag
+end function
+

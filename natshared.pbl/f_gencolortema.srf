@@ -1,0 +1,70 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Tema Default~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_gencolortema from function_object
+end type
+
+forward prototypes
+global subroutine f_gencolortema (string as_tema)
+end prototypes
+
+global subroutine f_gencolortema (string as_tema);/* f_GenColorTema( as_tema )
+	Autor: César Vilela R.
+	*/
+
+Integer	li_rheader, li_gheader, li_bheader, li_rlogo, li_glogo, li_blogo, li_rtoolbar, li_gtoolbar, li_btoolbar, &
+			li_rtextbar, li_gtextbar, li_btextbar, li_rmenubar, li_gmenubar, li_bmenubar, li_rtext, li_gtext, li_btext, &
+			li_roption, li_goption, li_boption, li_rgroup, li_ggroup, li_bgroup, li_rtitwin, li_gtitwin, li_btitwin, &
+			li_rbutton, li_gbutton, li_bbutton, li_rbuttonalt, li_gbuttonalt, li_bbuttonalt, &
+			li_rbuttonx, li_gbuttonx, li_bbuttonx
+/*			
+Long		gl_ctheader, gl_ctlogo, gl_cttoolbar, gl_cttextbar, gl_ctmenubar, gl_cttext, gl_ctoption, gl_ctgroup, gl_cttitwin, &
+			gl_ctbutton, gl_ctbuttonalt, gl_ctbuttonx
+*/
+
+Select	n_rheader_tma, n_gheader_tma, n_bheader_tma, 
+			n_rlogo_tma, n_glogo_tma, n_blogo_tma, 
+			n_rtoolbar_tma, n_gtoolbar_tma, n_btoolbar_tma, 
+			n_rtextbar_tma, n_gtextbar_tma, n_btextbar_tma, 
+			n_rmenubar_tma, n_gmenubar_tma, n_bmenubar_tma, 
+			n_rtext_tma, n_gtext_tma, n_btext_tma, 
+			n_roption_tma, n_goption_tma, n_boption_tma, 
+			n_rgroup_tma, n_ggroup_tma, n_bgroup_tma, 
+			n_rtitwin_tma, n_gtitwin_tma, n_btitwin_tma, 
+			n_rbutton_tma, n_gbutton_tma, n_bbutton_tma, 
+			n_rbuttonalt_tma, n_gbuttonalt_tma, n_bbuttonalt_tma, 
+			n_rbuttonx_tma, n_gbuttonx_tma, n_bbuttonx_tma
+Into		:li_rheader, :li_gheader, :li_bheader, 
+			:li_rlogo, :li_glogo, :li_blogo, 
+			:li_rtoolbar, :li_gtoolbar, :li_btoolbar, 
+			:li_rtextbar, :li_gtextbar, :li_btextbar, 
+			:li_rmenubar, :li_gmenubar, :li_bmenubar, 
+			:li_rtext, :li_gtext, :li_btext, 
+			:li_roption, :li_goption, :li_boption, 
+			:li_rgroup, :li_ggroup, :li_bgroup, 
+			:li_rtitwin, :li_gtitwin, :li_btitwin, 
+			:li_rbutton, :li_gbutton, :li_bbutton, 
+			:li_rbuttonalt, :li_gbuttonalt, :li_bbuttonalt, 
+			:li_rbuttonx, :li_gbuttonx, :li_bbuttonx
+From		gentema
+Where		c_codigo_tma = :as_tema ;
+
+gl_ctheader = f_Zero( RGB( li_rheader, li_gheader, li_bheader ) )
+gl_ctlogo = f_Zero( RGB( li_rlogo, li_glogo, li_blogo ) )
+gl_cttoolbar = f_Zero( RGB( li_rtoolbar, li_gtoolbar, li_btoolbar ) ) 
+gl_cttextbar = f_Zero( RGB( li_rtextbar, li_gtextbar, li_btextbar ) )
+gl_ctmenubar = f_Zero( RGB( li_rmenubar, li_gmenubar, li_bmenubar ) )
+gl_cttext = f_Zero( RGB( li_rtext, li_gtext, li_btext ) )
+gl_ctoption = f_Zero( RGB( li_roption, li_goption, li_boption ) ) 
+gl_ctgroup = f_Zero( RGB( li_rgroup, li_ggroup, li_bgroup ) )
+gl_cttitwin = f_Zero( RGB( li_rtitwin, li_gtitwin, li_btitwin ) ) 
+gl_ctbutton = f_Zero( RGB( li_rbutton, li_gbutton, li_bbutton ) )
+gl_ctbuttonalt = f_Zero( RGB( li_rbuttonalt, li_gbuttonalt, li_bbuttonalt ) ) 
+gl_ctbuttonx = f_Zero( RGB( li_rbuttonx, li_gbuttonx, li_bbuttonx ) )
+
+Return
+
+
+
+
+
+end subroutine
+

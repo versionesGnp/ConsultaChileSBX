@@ -1,0 +1,47 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Conexión a DB - Vea INI~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_sqlconnect from function_object
+end type
+
+forward prototypes
+global function integer f_sqlconnect (transaction atran_sql, string as_section)
+end prototypes
+
+global function integer f_sqlconnect (transaction atran_sql, string as_section);/* f_SQLConnect( atran_sql, as_section ) 
+	atran_sql = {Objeto conexión}
+	as_section = {sección del INI}
+	
+	-- Establece la conexión al servidor de base de datos
+	-- César Vilela 
+*/
+
+// Populate sqlca from current preference-file settings
+
+If Not IsValid( atran_sql ) Then
+	atran_sql = Create Transaction
+End If
+If IsNull( atran_sql ) Then
+	atran_sql = Create Transaction
+End If
+
+atran_sql.DBMS       = ProfileString (gs_ini, as_section, "dbms",       "")
+atran_sql.database   = ProfileString (gs_ini, as_section, "database",   "")
+atran_sql.userid     = ProfileString (gs_ini, as_section, "userid",     "")
+atran_sql.dbpass     = ProfileString (gs_ini, as_section, "dbpass",     "")
+atran_sql.logid      = ProfileString (gs_ini, as_section, "logid",      "")
+atran_sql.logpass    = ProfileString (gs_ini, as_section, "LogPassWord", "")
+atran_sql.servername = ProfileString (gs_ini, as_section, "servername", "")
+atran_sql.dbparm     = ProfileString (gs_ini, as_section, "dbparm",     "")
+atran_sql.Lock			= "RU"
+
+/* Actual DB connection */
+Connect Using atran_sql;
+
+If atran_sql.sqlcode <> 0 Then
+	MessageBox ( gs_aplicacion, 'No se puede establecer conexión a la base de datos: ' + atran_sql.sqlerrtext, StopSign! )
+	return -1
+End If
+
+Return 1
+
+end function
+

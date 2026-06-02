@@ -1,0 +1,19 @@
+﻿global type f_factor_gasto_cobranza from function_object
+end type
+
+forward prototypes
+global function double f_factor_gasto_cobranza ()
+end prototypes
+
+global function double f_factor_gasto_cobranza ();Double	ld_factor_gc
+
+SELECT DISTINCT MAX("INTERES_CUOTAS"."FACTOR_GC") 
+INTO 		:ld_factor_gc  
+FROM 		"INTERES_CUOTAS"  
+using		sqlca;
+if date(gdt_fec_sistema) >= date('01/10/2013') then
+	ld_factor_gc		= 0
+end if
+return 	ld_factor_gc
+end function
+

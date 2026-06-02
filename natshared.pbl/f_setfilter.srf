@@ -1,0 +1,23 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Establece Filtro Class~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_setfilter from function_object
+end type
+
+forward prototypes
+global function integer f_setfilter (string asobjtype, string asobjname, datawindow adwfil)
+end prototypes
+
+global function integer f_setfilter (string asobjtype, string asobjname, datawindow adwfil);
+/*	CVILELA: 
+	f_SetFilter( asObjType, asObjName, adwFil ) */
+
+s_parm	lstr_parm
+
+lstr_parm.s_cad[ 1] = asObjType
+lstr_parm.s_cad[ 2] = asObjName
+lstr_parm.dw_dat[ 1] = adwFil
+
+OpenWithParm( w_arch_gen_filter, lstr_parm )
+Return 1
+
+end function
+

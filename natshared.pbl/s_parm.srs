@@ -1,0 +1,13 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: BLClass - NVO Para comunicación entre objetos Message PowerObjectParm~r~n    Recomendación: NO MODIFICAR - NIVEL EXPERTO - APLICA A TODO BLEclipse~r~n*/
+global type s_parm from structure
+	string		s_cad[]
+	blob		blb_data[]
+	decimal { 4 }		n_num[]
+	datetime		d_fecha[]
+	datawindow		dw_dat[]
+	window		w_win[]
+	uo_datastore		ds_dat[]
+	any		a_any[]
+	w_gen_document		w_doc
+end type
+

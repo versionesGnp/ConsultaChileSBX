@@ -1,0 +1,82 @@
+﻿global type f_matenciones from function_object
+end type
+
+forward prototypes
+global function double f_matenciones (string select_string, ref datawindow dw_paso_mant)
+end prototypes
+
+global function double f_matenciones (string select_string, ref datawindow dw_paso_mant);STRING base,serie
+Double	numero
+double monto,cero,uno,dos,tres_cuatro,cinco_doce,trece,año,mes,valor,&
+		 mes_cero,mes_uno,mes_dos,mes_tres_cuatro,mes_cinco_doce,mes_trece,&
+		 monto_cero,monto_uno,monto_dos,monto_tres_cuatro,monto_cinco_doce,monto_trece
+
+PREPARE sqlsa FROM :select_string;
+DECLARE dyn_cursor DYNAMIC CURSOR FOR sqlsa;
+OPEN DYNAMIC dyn_cursor;  
+
+IF sqlca.sqlcode < 0 THEN
+	MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_ddlb_all()")
+	Return -1
+END IF
+Do While sqlca.sqlcode = 0
+	Fetch dyn_cursor into :año,:base,:serie,:numero,:mes,:valor;
+	If sqlca.sqlcode = 0 Then
+		monto = 0
+		if mes = 0 then
+			mes_cero ++
+		elseif mes = 1 then
+			mes_uno ++
+			monto = valor * mes //f_monto_mora_mant(base,serie,numero) * mes
+			monto_uno = monto_uno + monto
+		elseif mes = 2 then
+			mes_dos ++
+			monto = valor * mes //f_monto_mora_mant(base,serie,numero) * mes
+			monto_dos = monto_dos + monto
+		elseif mes >= 3 and mes <= 4 then
+			mes_tres_cuatro ++
+			monto = valor * mes //f_monto_mora_mant(base,serie,numero) * mes
+			monto_tres_cuatro = monto_tres_cuatro + monto
+		elseif mes >= 5 and mes <= 12 then
+			mes_cinco_doce ++
+			monto = valor * mes //f_monto_mora_mant(base,serie,numero) * mes
+			monto_cinco_doce = monto_cinco_doce + monto
+		elseif mes >= 13 then
+			mes_trece ++
+			monto = valor * mes //f_monto_mora_mant(base,serie,numero) * mes
+			monto_trece = monto_trece + monto
+		end if
+	ElseIf sqlca.sqlcode < 0 Then
+		MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_ddlb_all()")
+		Return -1
+	Else
+		Exit
+	End If
+Loop
+dw_paso_mant.insertrow(0)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),1,mes_cero)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),3,'0')
+dw_paso_mant.insertrow(0)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),1,mes_uno)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),2,monto_uno)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),3,'1')
+dw_paso_mant.insertrow(0)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),1,mes_dos)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),2,monto_dos)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),3,'2')
+dw_paso_mant.insertrow(0)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),1,mes_tres_cuatro)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),2,monto_tres_cuatro)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),3,'3 - 4')
+dw_paso_mant.insertrow(0)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),1,mes_cinco_doce)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),2,monto_cinco_doce)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),3,'5 - 12')
+dw_paso_mant.insertrow(0)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),1,mes_trece)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),2,monto_trece)
+dw_paso_mant.setitem(dw_paso_mant.rowcount(),3,'13 +')
+Close dyn_cursor;
+Return 1
+end function
+

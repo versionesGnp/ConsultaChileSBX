@@ -1,0 +1,35 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: NUEVO!  Exporta DW a PDF ~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_dwtopdf from function_object
+end type
+
+forward prototypes
+global function integer f_dwtopdf (datawindow adw_export)
+end prototypes
+
+global function integer f_dwtopdf (datawindow adw_export);/* Exporta los datos del DW adw_export a un documento de compatible lectura PDF
+	f_DWToPDF( adw_export )
+*/
+Integer	li_rc, li_ret
+String	ls_path, ls_file, ls_dir
+
+// Guardamos ruta actual
+ls_dir = GetCurrentDirectory()
+gs_file = ''
+// Tomamos nombre del archivo a generar
+li_rc = GetFileSaveName( "Guardar Documento como Archivo", ls_path, ls_file, "PDF", "Archivos PDF(*.PDF),*.PDF", "Documentos", 32770 )
+// Verificamos si dimos nombre al archivo a generar
+If li_rc = 1 then
+	ChangeDirectory( ls_dir )
+	adw_export.Object.DataWindow.Export.PDF.NativePDF.UsePrintSpec = 'Yes'
+	adw_export.Object.DataWindow.Export.PDF.Method = NativePDF!
+	adw_export.Object.DataWindow.Export.PDF.NativePDF.PDFStandard = 1 //PDF/A-1a
+		//adw_export.Object.DataWindow.Print.Orientation = 1 //Landscape!
+		//adw_export.Object.DataWindow.Print.Paper.Size = 1 //1 – Letter 8 1/2 x 11 in
+	li_ret = adw_export.SaveAs( ls_path, PDF!, False )
+	gs_file = ls_path
+End If
+ChangeDirectory( ls_dir )
+
+Return li_ret
+end function
+

@@ -1,0 +1,55 @@
+﻿global type f_valida_precio_liberador from function_object
+end type
+
+forward prototypes
+global function string f_valida_precio_liberador (string as_tipo_sepultura, string as_area, long al_capacidad, string as_uso, string as_moneda, double ld_valor_uf, string as_tipo_construc, long al_cod_parque, string as_base)
+end prototypes
+
+global function string f_valida_precio_liberador (string as_tipo_sepultura, string as_area, long al_capacidad, string as_uso, string as_moneda, double ld_valor_uf, string as_tipo_construc, long al_cod_parque, string as_base);string	ls_string,ls_descrip_sepult
+Double	ldb_cuota_mant,ldb_precio,ldb_derecho,ldb_mantencion,ldb_liberador,ldb_pie_minimo
+
+SELECT	"LISTA_PRECIO"."VALOR",   
+			"LISTA_PRECIO"."DERECHO",   
+			"LISTA_PRECIO"."MANTENCION",   
+			"LISTA_PRECIO"."LIBERADOR",   
+			"TIPO_SEPULTURA"."DESCRIPCION",
+			"LISTA_PRECIO"."PIE_MINIMO"
+INTO 		:ldb_precio,   
+			:ldb_derecho,   
+			:ldb_mantencion,   
+			:ldb_liberador,   
+			:ls_descrip_sepult,
+			:ldb_pie_minimo
+FROM 		"LISTA_PRECIO",
+			"TIPO_SEPULTURA"
+WHERE  ( "LISTA_PRECIO"."T_SEPULT" = "TIPO_SEPULTURA"."TIPO_SEP" ) and 
+		 ( "LISTA_PRECIO"."SECTOR" = :as_area ) AND  
+		 ( "LISTA_PRECIO"."T_CONST" = :as_tipo_construc ) AND
+		 ( "LISTA_PRECIO"."CANAL" = :as_uso ) AND  
+		 ( "LISTA_PRECIO"."COD_PARQUE" = :al_cod_parque ) AND 
+		 ( "LISTA_PRECIO"."T_SEPULT" = :as_tipo_sepultura )
+USING		sqlca;
+if sqlca.sqlcode=0 then
+//			 ( "LISTA_PRECIO"."CAPACIDAD" = :al_capacidad ) AND  
+	if as_moneda='1' then
+		ldb_precio		= round(double(ldb_precio * ld_valor_uf),0)
+		ldb_derecho		= round(double(ldb_derecho * ld_valor_uf),0)
+		ldb_liberador	= round(double(ldb_liberador * ld_valor_uf),0)
+		ldb_pie_minimo	= round(double(ldb_pie_minimo * ld_valor_uf),0)
+	else
+//		messagebox("Advertencia "+ls_descrip_sepult,"Recuerde que pie minimo es de "+string(ldb_pie_min)+" U.F.")
+	end if
+end if
+if as_base='L' then
+	ldb_precio	= ldb_liberador
+elseif as_base='D' then
+	ldb_precio	= ldb_derecho
+elseif as_base='A' then
+	ldb_precio	= 45
+elseif as_base='P' then
+	ldb_precio	= ldb_pie_minimo
+end if
+ls_string	= string(ldb_precio)+'~t'+string(ldb_derecho)+'~t'+string(ldb_mantencion)+'~t'+string(ldb_liberador)+'~t'+string(ldb_pie_minimo)
+return(ls_string)
+end function
+

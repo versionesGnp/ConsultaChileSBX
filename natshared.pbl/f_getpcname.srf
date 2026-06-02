@@ -1,0 +1,23 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Retorna nombre del dispositivo usa Kernel~r~n    Recomendación: Para MODIFICAR Consultar Experto~r~n*/
+global type f_getpcname from function_object
+end type
+
+forward prototypes
+global function string f_getpcname ()
+end prototypes
+
+global function string f_getpcname ();/* f_GetPcName( )
+	Devuelve el nombre de la PC activa Usa Kernel
+	Retorna {String} */
+
+String ls_compname
+long   ll_size
+
+
+ll_size = 20
+ls_compname = Space(ll_size)
+GetComputerNameA(ls_compname, ll_size)
+
+Return ls_compname 
+end function
+

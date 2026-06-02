@@ -1,0 +1,15 @@
+﻿global type gf_validar_siguiente_mes from function_object
+end type
+
+forward prototypes
+global function date gf_validar_siguiente_mes (date ad_fecha, long al_mes, string as_tipo, long al_dias)
+end prototypes
+
+global function date gf_validar_siguiente_mes (date ad_fecha, long al_mes, string as_tipo, long al_dias);date 		ld_fecha
+Long		ll_dias
+
+ll_dias	= al_dias * al_mes
+ld_fecha	= RelativeDate(ad_fecha, ll_dias)
+RETURN ld_fecha
+end function
+

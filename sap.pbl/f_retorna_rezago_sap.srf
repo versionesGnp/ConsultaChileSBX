@@ -1,0 +1,34 @@
+﻿global type f_retorna_rezago_sap from function_object
+end type
+
+forward prototypes
+global function string f_retorna_rezago_sap (string as_rezago, string as_base, string as_serie, double al_numero, string as_tipo_mov)
+end prototypes
+
+global function string f_retorna_rezago_sap (string as_rezago, string as_base, string as_serie, double al_numero, string as_tipo_mov);String		ls_rezago,ls_nro_contrato_sap
+
+if as_rezago = 'S' then
+	ls_rezago				= 'S'
+else
+	if al_numero > 0 then
+		if as_tipo_mov = 'E' or as_tipo_mov = 'A' or as_tipo_mov = 'Q' or as_tipo_mov = 'U' or as_tipo_mov = 'K' then
+			SELECT 	"SAP_CADENA"."NRO_CONTRATO_SAP"  
+			INTO 		:ls_nro_contrato_sap  
+			FROM 	"SAP_CADENA"  
+			WHERE 	(( "SAP_CADENA"."BASE" = :as_base ) AND  
+						( "SAP_CADENA"."SERIE" = :as_serie ) AND  
+						( "SAP_CADENA"."NUMERO" = :al_numero ) AND  
+						( "SAP_CADENA"."TIPO_DEUDA" = 'C' OR "SAP_CADENA"."TIPO_DEUDA" = 'E' ))   ;
+			if isnull(ls_nro_contrato_sap) or ls_nro_contrato_sap='' or len(ls_nro_contrato_sap)=0 then 
+				ls_rezago	= 'S'
+			else
+				ls_rezago	= 'N'
+			end if
+		else
+			ls_rezago		= 'N'
+		end if
+	end if
+end if
+Return ls_rezago
+end function
+

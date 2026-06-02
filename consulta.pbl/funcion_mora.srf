@@ -1,0 +1,32 @@
+﻿global type funcion_mora from function_object
+end type
+
+forward prototypes
+global function double funcion_mora (datetime primer, double pag, double cuotas, string as_estado_cadena)
+end prototypes
+
+global function double funcion_mora (datetime primer, double pag, double cuotas, string as_estado_cadena);double vmes,vano,vcuo_venc,vmora, ll_valor
+if as_estado_cadena='S' then 
+	vmora				= 0  
+else
+	vano				= year(today()) - year(DATE(primer))
+	vano				= vano * 12	 
+	vmes				= month(today()) - month(DATE(primer))
+	vcuo_venc		= vano + vmes
+	if (day(today())> day(DATE(Primer))) then
+		vcuo_venc	= vcuo_venc + 1
+	end if
+	if vcuo_venc <0 then
+		vcuo_venc	= 0
+	end if
+	if vcuo_venc> cuotas then
+		vcuo_venc	= cuotas
+	end if
+	vmora				= vcuo_venc - pag
+	IF vmora <= 0 then 
+		vmora			= 0
+	end if
+end if
+return(vmora)
+end function
+

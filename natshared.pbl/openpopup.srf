@@ -1,0 +1,25 @@
+﻿global type openpopup from function_object
+end type
+
+forward prototypes
+global function integer openpopup (ref wa_response aw_popup)
+end prototypes
+
+global function integer openpopup (ref wa_response aw_popup);
+// CVilela: 05/Mar/2025 - Cierra el FadeEffect
+
+Int	li_ret
+
+If IsValid( w_gen_fade_background ) Then
+	Close( w_gen_fade_background)
+End If
+
+Open( w_gen_fade_background )
+li_ret = Open( aw_popup )
+
+If IsValid( w_gen_fade_background ) Then
+	Close( w_gen_fade_background)
+End If
+Return li_ret
+end function
+

@@ -1,0 +1,18 @@
+﻿global type f_retorna_fecha_pago_mant from function_object
+end type
+
+forward prototypes
+global function date f_retorna_fecha_pago_mant (long al_periodo, date ad_fecha)
+end prototypes
+
+global function date f_retorna_fecha_pago_mant (long al_periodo, date ad_fecha);Date	ldt_fec_prox_pago
+
+DECLARE sp_prox_pago PROCEDURE FOR sp_calcular_vencimiento( :ad_fecha, :al_periodo );
+EXECUTE sp_prox_pago;
+if sqlca.sqlcode=0 then
+	fetch sp_prox_pago into :ldt_fec_prox_pago ;
+	close sp_prox_pago;
+end if
+Return ldt_fec_prox_pago
+end function
+

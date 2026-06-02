@@ -1,0 +1,186 @@
+﻿global type f_valida_menu_adm_venta2 from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_adm_venta2 (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_adm_venta2 (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_admventa.m_pagosventas'
+				m_menu_principal.m_admventa.m_pagosventas.visible																			= false
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.visible															= false
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.m_proceso.visible											= false
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.m_informes4.visible											= false
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.visible													= false
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.m_proceso0.visible									= false
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.m_informes5.visible									= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.visible																= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.visible									= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_proceso1.visible					= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_informes6.visible					= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.visible											= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_proceso2.visible							= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_informes7.visible							= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_proceso3.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_informes8.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_proceso4.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_informes9.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_proceso5.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_informes10.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_proceso6.visible			= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_informes11.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.visible										= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_proceso7.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_informes12.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.visible										= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_proceso8.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_informes13.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_comisiones'
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.visible															= false
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.m_proceso.visible											= false
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.m_informes4.visible											= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_comisiones.m_proceso'
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.m_proceso.visible											= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_comisiones.m_informes4'
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.m_informes4.visible											= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_clasificaciones'
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.visible													= false
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.m_proceso0.visible									= false
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.m_informes5.visible									= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.m_proceso0'
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.m_proceso0.visible									= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.m_informes5'
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.m_informes5.visible									= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.visible																= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.visible									= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_proceso1.visible					= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_informes6.visible					= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.visible											= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_proceso2.visible							= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_informes7.visible							= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_proceso3.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_informes8.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_proceso4.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_informes9.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_proceso5.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_informes10.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_proceso6.visible			= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_informes11.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.visible										= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_proceso7.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_informes12.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.visible										= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_proceso8.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_informes13.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.visible									= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_proceso1.visible					= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_informes6.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_proceso1'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_proceso1.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_informes6'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_informes6.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.visible											= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_proceso2.visible							= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_informes7.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_proceso2'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_proceso2.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_informes7'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_informes7.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_proceso3.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_informes8.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_proceso4.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_informes9.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_proceso5.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_informes10.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_proceso6.visible			= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_informes11.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_proceso3.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_informes8.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_proceso3'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_proceso3.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_informes8'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_informes8.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_proceso4.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_informes9.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_proceso4'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_proceso4.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_informes9'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_informes9.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_proceso5.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_informes10.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_proceso5'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_proceso5.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_informes10'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_informes10.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_proceso6.visible			= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_informes11.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_proceso6'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_proceso6.visible			= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_informes11'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_informes11.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.visible										= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_proceso7.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_informes12.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_proceso7'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_proceso7.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_informes12'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_informes12.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.visible										= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_proceso8.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_informes13.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_proceso8'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_proceso8.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_informes13'
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_informes13.visible						= false
+				
+			CASE 'm_menu_principal.m_admventa.m_comisiónfuneraria'
+				m_menu_principal.m_admventa.m_comisiónfuneraria.visible													= false
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_creaciónsolicitud.visible						= false
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_estadosolicitud.visible							= false
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_informes15.visible									= false
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_informes15.m_detallepagos.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_comisiónfuneraria.m_creaciónsolicitud'
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_creaciónsolicitud.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_comisiónfuneraria.m_estadosolicitud'
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_estadosolicitud.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_comisiónfuneraria.m_informes15'
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_informes15.visible									= false
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_informes15.m_detallepagos.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_comisiónfuneraria.m_informes15.m_detallepagos'
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_informes15.m_detallepagos.visible				= false
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

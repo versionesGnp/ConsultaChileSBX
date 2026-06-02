@@ -1,0 +1,52 @@
+﻿global type f_grabar_ingreso_servipag from function_object
+end type
+
+forward prototypes
+global function string f_grabar_ingreso_servipag (long al_folio, string as_tipo_cob, datetime adt_fecha_pago, string as_tipo_mov, long al_monto, long al_cuotas_pag, string as_serie, double al_numero, string as_caja, string as_rezago, double adb_uf_dia, string as_pago_hist, string as_base, long al_rut, string as_user, date adt_fecha_archivo, string as_cod_otro, datetime adt_fecha_deposito, long al_cod_parque, string as_cod_convenio, double adb_monto_sap, string as_rezago_sap, long al_ctas_pag_s_sap, string as_moneda_sap)
+end prototypes
+
+global function string f_grabar_ingreso_servipag (long al_folio, string as_tipo_cob, datetime adt_fecha_pago, string as_tipo_mov, long al_monto, long al_cuotas_pag, string as_serie, double al_numero, string as_caja, string as_rezago, double adb_uf_dia, string as_pago_hist, string as_base, long al_rut, string as_user, date adt_fecha_archivo, string as_cod_otro, datetime adt_fecha_deposito, long al_cod_parque, string as_cod_convenio, double adb_monto_sap, string as_rezago_sap, long al_ctas_pag_s_sap, string as_moneda_sap);String		ls_resp, ls_resp_ingre, ls_resp_ingreso, ls_resp_newsing
+
+ls_resp_ingre			= 'S'
+ls_resp_ingreso		= 'S'
+ls_resp_newsing		= 'S'
+INSERT INTO "INGRESO"  
+			 ( "FOLIO",	"TIPO_COB",	"FECHA_PAGO",	"TIPO_MOV",	"MONTO",	"CUOTAS_PAG",	"SERIE",		"CONTRATO",	"COD_CAJA",	"REZAGO",	"VALOR_UF",	"PAGO_HIST",	"BASE",		"RUT",	"USUARIO",	"COD_AGE",	"FECHA_VENC",	"PAGO_EXTERNO",	"LUGAR_EXTERNO",	"VIENE_DE",	"FECHA_ANT",	"FCHA_ANT",	"SERVIPAG",			"CODIGO_OTRO",	"TRASPASO_E",	"FECHA_TRASPASO_REZAGO",	"COD_PARQUE",	"FECHA_DEPOSITO",	"CONVENIO_BANCO",	"MONTO_UF",		"REZAGO_SAP",	"CTAS_PAG_CTTO",	"MONEDA_SAP" )
+VALUES 	 ( :al_folio,	:as_tipo_cob,	:adt_fecha_pago,	:as_tipo_mov,	:al_monto,	:al_cuotas_pag,	:as_serie,	:al_numero,		:as_caja,			:as_rezago,	:adb_uf_dia,	:as_pago_hist,	:as_base,	:al_rut,	:as_user,	null,			null,					null,						null,						null,			null,				null,				:adt_fecha_archivo,	:as_cod_otro,		'N',					:adt_fecha_deposito ,				:al_cod_parque,	:adt_fecha_deposito,	:as_cod_convenio,		:adb_monto_sap,	:as_rezago_sap,	:al_ctas_pag_s_sap,	:as_moneda_sap )  
+USING		Trans_2;
+if Trans_2.sqlcode=0 then
+	commit using Trans_2;
+	INSERT INTO "INGRE"  
+				 ( "FOLIO",	"TIPO_COB",	"FECHA_PAGO",	"TIPO_MOV",	"MONTO",	"CUOTAS_PAG",	"SERIE",		"CONTRATO",	"COD_CAJA",	"REZAGO",	"VALOR_UF",	"PAGO_HIST",	"BASE",		"RUT",	"USUARIO",	"COD_AGE",	"FECHA_VENC",	"PAGO_EXTERNO",	"LUGAR_EXTERNO",	"VIENE_DE",	"FECHA_ANT",	"SERVIPAG",			"CODIGO_OTRO",	"TRASPASO_E",	"COD_PARQUE")
+	VALUES 	 ( :al_folio,	:as_tipo_cob,	:adt_fecha_pago,	:as_tipo_mov,	:al_monto,	:al_cuotas_pag,	:as_serie,	:al_numero,		:as_caja,			:as_rezago,	:adb_uf_dia,	:as_pago_hist,	:as_base,	:al_rut,	:as_user,	null,			null,					null,						null,						null,			null,				:adt_fecha_archivo,	:as_cod_otro,		'N',					:al_cod_parque)  
+	USING		Trans_2;
+	if Trans_2.sqlcode=0 then
+		commit using Trans_2;
+	else
+		rollback using Trans_2;
+		ls_resp_ingre	= 'N'
+	end if
+	if as_tipo_cob='BE' then
+		INSERT INTO "INGRESO_NEWSING"  
+					 ( "FOLIO",	"TIPO_COB",	"FECHA_PAGO",	"TIPO_MOV",	"MONTO",	"CUOTAS_PAG",	"SERIE",		"CONTRATO",	"COD_CAJA",	"REZAGO",	"VALOR_UF",	"PAGO_HIST",	"BASE",		"RUT",	"USUARIO",	"COD_AGE",	"FECHA_VENC",	"PAGO_EXTERNO",	"LUGAR_EXTERNO",	"VIENE_DE",	"FECHA_ANT",	"FCHA_ANT",	"SERVIPAG",			"CODIGO_OTRO",	"TRASPASO_E",	"FECHA_TRASPASO_REZAGO",	"COD_PARQUE",	"FECHA_DEPOSITO",	"CONVENIO_BANCO",	"MONTO_UF",		"REZAGO_SAP",	"CTAS_PAG_CTTO",	"MONEDA_SAP",		"FOLIO_BE_ING" )
+		VALUES 	 ( :al_folio,	:as_tipo_cob,	:adt_fecha_pago,	:as_tipo_mov,	:al_monto,	:al_cuotas_pag,	:as_serie,	:al_numero,		:as_caja,			:as_rezago,	:adb_uf_dia,	:as_pago_hist,	:as_base,	:al_rut,	:as_user,	null,			null,					null,						null,						null,			null,				null,				:adt_fecha_archivo,	:as_cod_otro,		'N',					:adt_fecha_deposito ,				:al_cod_parque,	:adt_fecha_deposito,	:as_cod_convenio,		:adb_monto_sap,	:as_rezago_sap,	:al_ctas_pag_s_sap,	:as_moneda_sap,		:al_folio )  
+		USING		Trans_2;
+		if Trans_2.sqlcode=0 then
+			commit using Trans_2;
+		else
+			rollback using Trans_2;
+			ls_resp_newsing	= 'N'
+		end if
+	end if
+else
+	rollback using Trans_2;
+	ls_resp_ingreso	= 'N'
+end if
+if ls_resp_ingre	 = 'S' and ls_resp_ingreso = 'S' and ls_resp_newsing	 = 'S' then
+	ls_resp				= 'S'
+else
+	ls_resp				= 'N'
+end if
+return ls_resp
+end function
+

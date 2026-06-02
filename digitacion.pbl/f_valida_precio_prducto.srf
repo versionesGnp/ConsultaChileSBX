@@ -1,0 +1,48 @@
+﻿global type f_valida_precio_prducto from function_object
+end type
+
+forward prototypes
+global function string f_valida_precio_prducto (long al_tipo_benef, long al_cant_benef, long al_cod_serv, string as_uso, double ld_valor_uf, string as_moneda_rev)
+end prototypes
+
+global function string f_valida_precio_prducto (long al_tipo_benef, long al_cant_benef, long al_cod_serv, string as_uso, double ld_valor_uf, string as_moneda_rev);string	ls_string,ls_descrip_sepult,ls_moneda
+Double	ldb_cuota_mant,ldb_precio,ldb_derecho,ldb_mantencion,ldb_liberador,ldb_pie_minimo
+
+
+SELECT	"VALOR",		"DERECHO",		0,						"PRODUCTO_LISTA_PRECIO"."MONEDA" 
+INTO 		:ldb_precio,	:ldb_derecho,	:ldb_pie_minimo,	:ls_moneda
+FROM 	"PRODUCTO_LISTA_PRECIO"
+WHERE  	"PRODUCTO_LISTA_PRECIO"."TIPO_BENEFICIARIO" = :al_tipo_benef AND  
+	 		"PRODUCTO_LISTA_PRECIO"."CANTIDAD_BENEF" = :al_cant_benef AND  
+	 		"PRODUCTO_LISTA_PRECIO"."CODIGO_SERVICIO" = :al_cod_serv AND
+			"PRODUCTO_LISTA_PRECIO"."MONEDA" = :as_moneda_rev AND 
+	 		"PRODUCTO_LISTA_PRECIO"."USO" = :as_uso 
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	if as_moneda_rev='1' then
+		if ls_moneda='2' then
+			ldb_precio			= round(double(ldb_precio * ld_valor_uf),0)
+			ldb_derecho			= round(double(ldb_derecho * ld_valor_uf),0)
+			ldb_pie_minimo	= round(double(ldb_pie_minimo * ld_valor_uf),0)
+		else
+			ldb_precio			= double(ldb_precio)
+			ldb_derecho			= double(ldb_derecho)
+			ldb_pie_minimo	= double(ldb_pie_minimo)
+		end if
+	elseif as_moneda_rev='2' then
+		if ls_moneda='2' then
+			ldb_precio			= double(ldb_precio)
+			ldb_derecho			= double(ldb_derecho)
+			ldb_pie_minimo	= double(ldb_pie_minimo)
+		else
+			ldb_precio			= round(double(ldb_precio / ld_valor_uf),2)
+			ldb_derecho			= round(double(ldb_derecho / ld_valor_uf),2)
+			ldb_pie_minimo	= round(double(ldb_pie_minimo / ld_valor_uf),2)
+		end if
+	end if
+end if
+
+ls_string						= string(ldb_precio)+'~t'+string(ldb_derecho)+'~t'+string(ldb_pie_minimo)+'~t'+ls_moneda
+return(ls_string)
+end function
+

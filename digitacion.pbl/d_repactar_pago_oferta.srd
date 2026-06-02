@@ -1,0 +1,109 @@
+﻿release 7;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=1352 color="536870912" )
+table(column=(type=char(1) update=yes updatewhereclause=yes key=yes name=serie dbname="pago_oferta.serie" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes key=yes name=nro_oferta dbname="pago_oferta.nro_oferta" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha dbname="pago_oferta.fecha" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes key=yes name=folio dbname="pago_oferta.folio" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=precio dbname="pago_oferta.precio" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=pie dbname="pago_oferta.pie" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=tasa dbname="pago_oferta.tasa" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=capacidad dbname="pago_oferta.capacidad" )
+ column=(type=char(2) update=yes updatewhereclause=yes name=n_reduccion dbname="pago_oferta.n_reduccion" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=valor_cuota dbname="pago_oferta.valor_cuota" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=des_esp dbname="pago_oferta.des_esp" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=nro_cuotas dbname="pago_oferta.nro_cuotas" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=uf_dia dbname="pago_oferta.uf_dia" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=moneda dbname="pago_oferta.moneda" values="1 - Pesos	1/2 - U.F.	2/" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_prim dbname="pago_oferta.fecha_prim" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_ult dbname="pago_oferta.fecha_ult" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_entre dbname="pago_oferta.fecha_entre" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_pie dbname="pago_oferta.fecha_pie" )
+ column=(type=char(4) update=yes updatewhereclause=yes name=modificado dbname="pago_oferta.modificado" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_mod dbname="pago_oferta.fecha_mod" )
+ column=(type=char(2) update=yes updatewhereclause=yes name=area dbname="pago_oferta.area" values="A1	A1/A2	A2/A3	A3/A4	A4/" )
+ column=(type=number update=yes updatewhereclause=yes name=parque dbname="pago_oferta.parque" )
+ column=(type=char(8) update=yes updatewhereclause=yes name=sector dbname="pago_oferta.sector" )
+ column=(type=char(8) update=yes updatewhereclause=yes name=sepultura dbname="pago_oferta.sepultura" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=derecho_lib dbname="pago_oferta.derecho_lib" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=gastos_adm dbname="pago_oferta.gastos_adm" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=factura dbname="pago_oferta.factura" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_fact dbname="pago_oferta.fecha_fact" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=total_fact dbname="pago_oferta.total_fact" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=carta_bienv dbname="pago_oferta.carta_bienv" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=pie_pagado dbname="pago_oferta.pie_pagado" )
+ retrieve="  SELECT ~"PAGO_OFERTA~".~"SERIE~",   
+         ~"PAGO_OFERTA~".~"NRO_OFERTA~",   
+         ~"PAGO_OFERTA~".~"FECHA~",   
+         ~"PAGO_OFERTA~".~"FOLIO~",   
+         ~"PAGO_OFERTA~".~"PRECIO~",   
+         ~"PAGO_OFERTA~".~"PIE~",   
+         ~"PAGO_OFERTA~".~"TASA~",   
+         ~"PAGO_OFERTA~".~"CAPACIDAD~",   
+         ~"PAGO_OFERTA~".~"N_REDUCCION~",   
+         ~"PAGO_OFERTA~".~"VALOR_CUOTA~",   
+         ~"PAGO_OFERTA~".~"DES_ESP~",   
+         ~"PAGO_OFERTA~".~"NRO_CUOTAS~",   
+         ~"PAGO_OFERTA~".~"UF_DIA~",   
+         ~"PAGO_OFERTA~".~"MONEDA~",   
+         ~"PAGO_OFERTA~".~"FECHA_PRIM~",   
+         ~"PAGO_OFERTA~".~"FECHA_ULT~",   
+         ~"PAGO_OFERTA~".~"FECHA_ENTRE~",   
+         ~"PAGO_OFERTA~".~"FECHA_PIE~",   
+         ~"PAGO_OFERTA~".~"MODIFICADO~",   
+         ~"PAGO_OFERTA~".~"FECHA_MOD~",   
+         ~"PAGO_OFERTA~".~"AREA~",   
+         ~"PAGO_OFERTA~".~"PARQUE~",   
+         ~"PAGO_OFERTA~".~"SECTOR~",   
+         ~"PAGO_OFERTA~".~"SEPULTURA~",   
+         ~"PAGO_OFERTA~".~"DERECHO_LIB~",   
+         ~"PAGO_OFERTA~".~"GASTOS_ADM~",   
+         ~"PAGO_OFERTA~".~"FACTURA~",   
+         ~"PAGO_OFERTA~".~"FECHA_FACT~",   
+         ~"PAGO_OFERTA~".~"TOTAL_FACT~",   
+         ~"PAGO_OFERTA~".~"CARTA_BIENV~",   
+         ~"PAGO_OFERTA~".~"PIE_PAGADO~"  
+    FROM ~"PAGO_OFERTA~"  
+   WHERE ( ~"PAGO_OFERTA~".~"SERIE~" = :as_serie ) AND  
+         ( ~"PAGO_OFERTA~".~"NRO_OFERTA~" = :an_numero ) AND  
+         ( ~"PAGO_OFERTA~".~"FOLIO~" = :an_folio )
+" update="PAGO_OFERTA" updatewhere=0 updatekeyinplace=no arguments=(("as_serie", string),("an_numero", number),("an_folio", number),("modificar", number)) )
+text(band=detail alignment="1" text="Cap:" border="0" color="0" x="434" y="1092" height="64" width="123"  name=capacidad_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Area:" border="0" color="0" x="37" y="1092" height="64" width="142"  name=area_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="2" tabsequence=90 border="5" color="0" x="197" y="1084" height="80" width="192" format="[general]" protect="0~tmodificar"  name=area ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=8 alignment="2" tabsequence=100 border="5" color="0" x="576" y="1084" height="80" width="197" format="[general]" protect="0~tmodificar"  name=capacidad editmask.mask="###,##0" editmask.focusrectangle=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="1" text="Fecha Prim:" border="0" color="0" x="18" y="88" height="64" width="357"  name=fecha_prim_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Tasa:" border="0" color="0" x="18" y="256" height="68" width="357"  name=tasa_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Valor Cuota:" border="0" color="0" x="18" y="424" height="64" width="357"  name=valor_cuota_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Nro Cuotas:" border="0" color="0" x="18" y="592" height="68" width="357"  name=nro_cuotas_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Fecha Entre:" border="0" color="0" x="18" y="752" height="64" width="357"  name=fecha_entre_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Der. espec:" border="0" color="0" x="69" y="924" height="64" width="306"  name=t_1  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Pie:" border="0" color="0" x="18" y="1260" height="68" width="357"  name=pie_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="2" tabsequence=10 border="5" color="0" x="393" y="80" height="80" width="389" format="dd/mm/yyyy" protect="0~tmodificar"  name=fecha_prim editmask.mask="dd/mm/yyyy" editmask.focusrectangle=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=7 alignment="1" tabsequence=30 border="5" color="0" x="393" y="252" height="76" width="389" format="###,###,##0.0###" protect="0~tmodificar"  name=tasa edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=10 alignment="1" tabsequence=40 border="5" color="0" x="393" y="416" height="80" width="389" format="###,###,##0.0###" protect="0~tmodificar"  name=valor_cuota edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=12 alignment="2" tabsequence=60 border="5" color="0" x="393" y="588" height="76" width="389" format="######" protect="0~tmodificar"  name=nro_cuotas editmask.mask="###,##0" editmask.focusrectangle=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=17 alignment="2" tabsequence=70 border="5" color="0" x="393" y="752" height="76" width="389" format="dd/mm/yyyy" protect="0~tmodificar"  name=fecha_entre editmask.mask="dd/mm/yyyy" editmask.focusrectangle=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=11 alignment="1" tabsequence=80 border="5" color="0" x="393" y="920" height="76" width="389" format="###,###,##0.0###" protect="0~tmodificar"  name=des_esp edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=6 alignment="1" tabsequence=120 border="5" color="0" x="393" y="1256" height="76" width="389" format="###,###,##0.0###" protect="0~tmodificar"  name=pie edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="1" text="Fecha Ult:" border="0" color="0" x="814" y="88" height="64" width="357"  name=fecha_ult_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Moneda:" border="0" color="0" x="814" y="424" height="64" width="357"  name=moneda_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Precio:" border="0" color="0" x="983" y="1092" height="64" width="187"  name=precio_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Fecha Pie:" border="0" color="0" x="814" y="1260" height="68" width="357"  name=fecha_pie_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="2" tabsequence=20 border="5" color="0" x="1189" y="80" height="80" width="389" format="dd/mm/yyyy" protect="0~tmodificar"  name=fecha_ult editmask.mask="dd/mm/yyyy" editmask.focusrectangle=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=14 alignment="2" tabsequence=50 border="5" color="0" x="1189" y="416" height="80" width="389" format="[general]" protect="0~tmodificar"  name=moneda ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=5 alignment="1" tabsequence=110 border="5" color="0" x="1189" y="1084" height="80" width="389" format="###,###,##0.0###" protect="0~tmodificar"  name=precio edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=18 alignment="2" tabsequence=130 border="5" color="0" x="1189" y="1256" height="76" width="389" format="dd/mm/yyyy" protect="0~tmodificar"  name=fecha_pie editmask.mask="dd/mm/yyyy" editmask.focusrectangle=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Reemplazar pie original y fecha del pie original" border="0" color="0" x="18" y="1180" height="60" width="1198"  name=t_2 visible="1~tmodificar"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Reemplazar fechas de vencimiento de cuotas de sepultura" border="0" color="0" x="23" y="8" height="60" width="1518"  name=t_3 visible="1~tmodificar"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Reeplazar tasa de interés anual" border="0" color="0" x="18" y="180" height="60" width="818"  name=t_4 visible="1~tmodificar"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Reemplazar el valor de la cuota y el tipo de moneda" border="0" color="0" x="18" y="344" height="60" width="1321"  name=t_5 visible="1~tmodificar"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Reemplazar número de cuotas" border="0" color="0" x="18" y="516" height="60" width="795"  name=t_6 visible="1~tmodificar"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Reemplazar fecha de entrega de la sepultura" border="0" color="0" x="18" y="680" height="60" width="1161"  name=t_7 visible="1~tmodificar"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Modificar el derecho especial" border="0" color="0" x="18" y="844" height="60" width="763"  name=t_8 visible="1~tmodificar"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Modificar el tipo de sepultura" border="0" color="0" x="18" y="1012" height="60" width="750"  name=t_9 visible="1~tmodificar"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
+  

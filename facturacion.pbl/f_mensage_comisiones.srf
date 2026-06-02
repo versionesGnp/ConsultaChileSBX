@@ -1,0 +1,20 @@
+﻿global type f_mensage_comisiones from function_object
+end type
+
+forward prototypes
+global subroutine f_mensage_comisiones ()
+end prototypes
+
+global subroutine f_mensage_comisiones ();datetime fecha_com
+long     count_com
+
+
+SELECT DISTINCT max( "OFERTA_V"."FECHA_COM")  as fecha_com,count(1) as count_com  
+INTO :fecha_com,:count_com  
+FROM "OFERTA_V"  
+GROUP BY "OFERTA_V"."FECHA_COM"  
+HAVING ( "OFERTA_V"."FECHA_COM" = ( SELECT DISTINCT max("OFERTA_V"."FECHA_COM" ) FROM "OFERTA_V"  ) )   ;
+
+messagebox ('Última Actualización de Comisiones','Última Actualización de Comisiones el '+string(fecha_com,'dd/mm/yyyy')+' con '+string(count_com)+' reg. actualizados.', information! )
+end subroutine
+

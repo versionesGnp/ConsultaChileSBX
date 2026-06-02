@@ -1,0 +1,64 @@
+﻿global type f_insertar_servicio_producto from function_object
+end type
+
+forward prototypes
+global function string f_insertar_servicio_producto (string as_base, string as_serie, double al_numero, long al_cod_servicio, long al_capacidad, string as_moneda_m, double al_valor_cta_m)
+end prototypes
+
+global function string f_insertar_servicio_producto (string as_base, string as_serie, double al_numero, long al_cod_servicio, long al_capacidad, string as_moneda_m, double al_valor_cta_m);Long		ll_indi,ll_nulo,ll_corre,ll_count_serv,ll_count_gestionado
+String		ls_nulo,ls_res
+datetime	ldt_nulo
+
+Setnull(ll_nulo);Setnull(ls_nulo);Setnull(ldt_nulo)
+ll_corre		= 0
+SELECT 	Count("CADENA"."CODIGO" ) 
+INTO 		:ll_count_serv  
+FROM		"CADENA",  	"PRODUCTO_ANEXO",   	"PRODUCTO_PAGO"  
+WHERE 	( "PRODUCTO_ANEXO"."BASE" = "PRODUCTO_PAGO"."BASE" ) and  
+			( "CADENA"."CODIGO" = "PRODUCTO_ANEXO"."BASE" ) and  
+			( "CADENA"."SERIE" = "PRODUCTO_ANEXO"."SERIE" ) and  
+			( "CADENA"."NUMERO" = "PRODUCTO_ANEXO"."NUMERO" ) and  
+			( "PRODUCTO_ANEXO"."SERIE" = "PRODUCTO_PAGO"."SERIE" ) and  
+			( "PRODUCTO_ANEXO"."NUMERO" = "PRODUCTO_PAGO"."NUMERO" ) and  
+			( "PRODUCTO_ANEXO"."ULT_FOLIO" = "PRODUCTO_PAGO"."FOLIO" ) and  
+			( ( "CADENA"."CODIGO" = 'F' ) AND  
+			( "CADENA"."SERIE" = :as_serie ) AND  
+			( "CADENA"."NUMERO" = :gi_numero ) AND  
+			( "PRODUCTO_ANEXO"."USO" = 'NF' ) AND  
+			( "PRODUCTO_PAGO"."CODIGO_SERVICIO" >= 670 ) AND  
+			( "PRODUCTO_PAGO"."CODIGO_SERVICIO" <= 674 ) )   ;
+if isnull(ll_count_serv) then ll_count_serv=0
+if ll_count_serv > 0 then
+	SELECT 	Count("PRODUCTO_GESTION_SERVICIO"."BASE"  )
+	INTO 		:ll_count_gestionado  
+	FROM 	"PRODUCTO_GESTION_SERVICIO"  
+	WHERE 	( "PRODUCTO_GESTION_SERVICIO"."BASE" = :as_base ) AND  
+				( "PRODUCTO_GESTION_SERVICIO"."SERIE" = :as_serie ) AND  
+				( "PRODUCTO_GESTION_SERVICIO"."NUMERO" = :al_numero ) AND  
+				( "PRODUCTO_GESTION_SERVICIO"."CODIGO_SERVICIO" = :al_cod_servicio ) AND  
+				( "PRODUCTO_GESTION_SERVICIO"."ESTADO_REGISTRO" = 'G' )   ;
+	if isnull(ll_count_gestionado) then ll_count_gestionado=0
+	if ll_count_gestionado=0 then
+		for ll_indi=1 to al_capacidad
+			INSERT INTO "PRODUCTO_GESTION_SERVICIO"  
+						( "BASE",		"SERIE",   	"NUMERO",   	"CODIGO_SERVICIO",  	"CORRELATIVO",   	"ESTADO_REGISTRO",   	"RUT_BENEFICIARIO",   	"DV_BENEFICIARIO",   	"SW_ACTIVACION",   	"FECHA_ACTIVACION",   	"USUARIO_ACTIVACION",	"MONEDA_CTA_MORTUORIA",	"VALOR_CUOTA_MORTUORIA" )  
+			VALUES 	( :as_base,	:as_serie,   	:al_numero,   	:al_cod_servicio,   		:ll_indi,   				'A',   							:ll_nulo,   					:ls_nulo,   					1,   							:ldt_nulo,   						:ls_nulo,							:as_moneda_m,					:al_valor_cta_m )  
+			USING	sqlca;
+			if sqlca.sqlcode=0 then
+				commit;
+				ll_corre ++
+			else
+				rollback;
+			end if
+		next
+	end if
+end if
+if ll_corre = al_capacidad then
+	ls_res		= 'S'
+else
+	ls_res		= 'N'
+end if
+return ls_res
+
+end function
+

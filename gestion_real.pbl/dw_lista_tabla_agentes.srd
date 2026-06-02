@@ -1,0 +1,66 @@
+﻿release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 )
+header(height=144 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=char(5) updatewhereclause=yes name=agentes_cod_age dbname="agentes.cod_age" )
+ column=(type=char(20) updatewhereclause=yes name=agentes_nombre dbname="agentes.nombre" )
+ column=(type=char(15) updatewhereclause=yes name=agentes_a_paterno dbname="agentes.a_paterno" )
+ column=(type=char(15) updatewhereclause=yes name=agentes_a_materno dbname="agentes.a_materno" )
+ column=(type=decimal(4) updatewhereclause=yes name=agentes_nro_de_cont dbname="agentes.nro_de_cont" )
+ column=(type=datetime updatewhereclause=yes name=agentes_fecha_ini dbname="agentes.fecha_ini" )
+ column=(type=datetime updatewhereclause=yes name=agentes_fecha_fin dbname="agentes.fecha_fin" )
+ column=(type=char(1) updatewhereclause=yes name=agentes_estado dbname="agentes.estado" )
+ column=(type=char(5) updatewhereclause=yes name=agentes_cod_sup dbname="agentes.cod_sup" )
+ column=(type=decimal(0) updatewhereclause=yes name=agentes_rut dbname="agentes.rut" )
+ column=(type=char(1) updatewhereclause=yes name=agentes_tipo_cont dbname="agentes.tipo_cont" )
+ column=(type=decimal(4) updatewhereclause=yes name=agentes_meta dbname="agentes.meta" )
+ column=(type=char(1) updatewhereclause=yes name=agentes_clasificacion dbname="agentes.clasificacion" )
+ column=(type=decimal(4) updatewhereclause=yes name=agentes_vsp dbname="agentes.vsp" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"agentes~" )  TABLE(NAME=~"supervisor~" )  TABLE(NAME=~"jefe_ventas~" ) COLUMN(NAME=~"agentes.cod_age~") COLUMN(NAME=~"agentes.nombre~") COLUMN(NAME=~"agentes.a_paterno~") COLUMN(NAME=~"agentes.a_materno~") COLUMN(NAME=~"agentes.nro_de_cont~") COLUMN(NAME=~"agentes.fecha_ini~") COLUMN(NAME=~"agentes.fecha_fin~") COLUMN(NAME=~"agentes.estado~") COLUMN(NAME=~"agentes.cod_sup~") COLUMN(NAME=~"agentes.rut~") COLUMN(NAME=~"agentes.tipo_cont~") COLUMN(NAME=~"agentes.meta~") COLUMN(NAME=~"agentes.clasificacion~") COLUMN(NAME=~"agentes.vsp~")    JOIN (LEFT=~"agentes.cod_sup~"    OP =~"=~"RIGHT=~"supervisor.cod_sup~" )    JOIN (LEFT=~"supervisor.cod_jefe~"    OP =~"=~"RIGHT=~"jefe_ventas.jefe_ventas~" )WHERE(    EXP1 =~"~~~"AGENTES~~~".~~~"COD_SUP~~~"~"   OP =~"=~"    EXP2 =~":superv~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"AGENTES~~~".~~~"ESTADO~~~"~"   OP =~"=~"    EXP2 =~"'A'~" ) ) ARG(NAME = ~"superv~" TYPE = string) " arguments=(("superv", string)) )
+text(band=header alignment="2" text="Agentes
+Cod Age" border="0" color="0" x="9" y="8" height="128" width="229"  name=agentes_cod_age_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Nombre" border="0" color="0" x="247" y="8" height="128" width="576"  name=agentes_nombre_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+A Paterno" border="0" color="0" x="832" y="8" height="128" width="439"  name=agentes_a_paterno_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+A Materno" border="0" color="0" x="1280" y="8" height="128" width="439"  name=agentes_a_materno_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Nro De Cont" border="0" color="0" x="1728" y="8" height="128" width="329"  name=agentes_nro_de_cont_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Fecha Ini" border="0" color="0" x="2066" y="8" height="128" width="603"  name=agentes_fecha_ini_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Fecha Fin" border="0" color="0" x="2679" y="8" height="128" width="603"  name=agentes_fecha_fin_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Estado" border="0" color="0" x="3291" y="8" height="128" width="219"  name=agentes_estado_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Cod Sup" border="0" color="0" x="3520" y="8" height="128" width="229"  name=agentes_cod_sup_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Rut" border="0" color="0" x="3758" y="8" height="128" width="329"  name=agentes_rut_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Tipo Cont" border="0" color="0" x="4096" y="8" height="128" width="251"  name=agentes_tipo_cont_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Meta" border="0" color="0" x="4357" y="8" height="128" width="329"  name=agentes_meta_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Clasificacion" border="0" color="0" x="4695" y="8" height="128" width="334"  name=agentes_clasificacion_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Agentes
+Vsp" border="0" color="0" x="5038" y="8" height="128" width="384"  name=agentes_vsp_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="8" height="76" width="229" format="[general]"  name=agentes_cod_age edit.limit=5 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="247" y="8" height="76" width="576" format="[general]"  name=agentes_nombre edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="832" y="8" height="76" width="439" format="[general]"  name=agentes_a_paterno edit.limit=15 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1280" y="8" height="76" width="439" format="[general]"  name=agentes_a_materno edit.limit=15 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="1728" y="8" height="76" width="329" format="[general]"  name=agentes_nro_de_cont edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="2066" y="8" height="76" width="603" format="[shortdate] [time]"  name=agentes_fecha_ini edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="2679" y="8" height="76" width="603" format="[shortdate] [time]"  name=agentes_fecha_fin edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="3291" y="8" height="76" width="219" format="[general]"  name=agentes_estado edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="3520" y="8" height="76" width="229" format="[general]"  name=agentes_cod_sup edit.limit=5 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="0" x="3758" y="8" height="76" width="329" format="[general]"  name=agentes_rut edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="0" x="4096" y="8" height="76" width="251" format="[general]"  name=agentes_tipo_cont edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="0" color="0" x="4357" y="8" height="76" width="329" format="[general]"  name=agentes_meta edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="0" x="4695" y="8" height="76" width="334" format="[general]"  name=agentes_clasificacion edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="0" x="5038" y="8" height="64" width="384" format="[general]"  name=agentes_vsp edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
+  

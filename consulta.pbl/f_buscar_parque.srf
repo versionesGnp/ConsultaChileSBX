@@ -1,0 +1,20 @@
+﻿global type f_buscar_parque from function_object
+end type
+
+forward prototypes
+global function string f_buscar_parque (long al_cod_parque)
+end prototypes
+
+global function string f_buscar_parque (long al_cod_parque);String	ls_parque
+
+SELECT	"COD_PARQ"."NOMBRE"  
+INTO 		:ls_parque  
+FROM 		"COD_PARQ"  
+WHERE 	"COD_PARQ"."CODIGO" = :al_cod_parque   
+USING		sqlca;
+if sqlca.sqlcode<>0 then
+	ls_parque	= 'XXX'
+end if
+return ls_parque
+end function
+

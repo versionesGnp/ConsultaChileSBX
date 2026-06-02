@@ -1,0 +1,63 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Verifica si existe un error en DB y lo muestra en documento STD, ignora si todo va bien, BLScript Class~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_sqlerror from function_object
+end type
+
+forward prototypes
+global function integer f_sqlerror (transaction atran_sql, string as_usertext)
+end prototypes
+
+global function integer f_sqlerror (transaction atran_sql, string as_usertext);DataWindow	ldw_1
+w_arch_gen_preview	lw_rpt
+s_parm	lstr_parm
+Boolean	lb_halt = False ;
+
+
+If f_Trim( SqlCa.SqlErrText ) = '' Or SqlCa.SqlCode >= 0 Then Return 1
+lstr_parm.s_cad[1] = atran_sql.DataBase
+lstr_parm.s_cad[2] = as_usertext
+lstr_parm.s_cad[3] = String( atran_sql.SqlDBCode )
+lstr_parm.s_cad[4] = atran_sql.SqlErrText
+
+RollBack Using atran_sql ;
+
+OpenSheet( lw_rpt, gw_frame )
+
+// Revisión del Error
+Choose Case lstr_parm.s_cad[ 3] 
+	Case '3114', '999', '11001', '53'
+		lb_halt = True
+		lstr_parm.s_cad[ 4] =	'Conexión con Servidor se ha interrumpido.' + Char(13) + &
+										gs_sys + ' se cerrará, deberá informar y volver a ingresar con el usuario asignado.' + Char(13) + Char(13) + &
+										lstr_parm.s_cad[ 4]
+End Choose
+
+
+lw_rpt.Title = 'Reporte - SQL Error'
+ldw_1 = lw_rpt.dw_1 
+ldw_1.DataObject = 'd_arch_gen_rpt_sql_error' 
+ldw_1.InsertRow( 1 )
+ldw_1.Object.cgroup[ 1] = 'DATABASE'
+ldw_1.Object.sqlerrtext[ 1] = lstr_parm.s_cad[ 1]
+
+ldw_1.InsertRow( 2 )
+ldw_1.Object.cgroup[ 2] = 'USERTEXT'
+ldw_1.Object.sqlerrtext[ 2] = lstr_parm.s_cad[ 2]
+
+ldw_1.InsertRow( 3 )
+ldw_1.Object.cgroup[ 3] = 'SQL DBCODE'
+ldw_1.Object.sqlerrtext[ 3] = lstr_parm.s_cad[ 3]
+
+ldw_1.InsertRow( 4 )
+ldw_1.Object.cgroup[ 4] = 'SQL ERROR'
+ldw_1.Object.sqlerrtext[ 4] = lstr_parm.s_cad[ 4]
+
+ldw_1.TriggerEvent( RetrieveEnd! )
+
+IF lb_halt Then
+	If IsValid( w_gen_principal ) Then w_gen_principal.wf_HaltClose( )
+	Return -1
+End If
+Return -1
+
+end function
+

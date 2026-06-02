@@ -1,0 +1,40 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Upper a cada palabra x texto, BLScript Class~r~n    Recomendación: NO MODIFICAR - FRONT END-BACK END~r~n*/
+global type f_wordcap from function_object
+end type
+
+forward prototypes
+global function string f_wordcap (string as_text)
+end prototypes
+
+global function string f_wordcap (string as_text);/* f_WordCap( as_text )
+	Return {ls_text} <- Texto Editado
+	Autor: César Vilela R. */
+
+String	ls_text, ls_x
+Integer	li_len, li_i, li_sw   
+
+as_text = f_Trim( as_text )
+li_len = Len( as_text )
+li_i = 1
+li_sw = 1
+ls_text = ''
+
+Do While li_i <= li_len
+	ls_x = Mid( as_text, li_i, 1 ) 
+	If ls_x = ' ' Or li_i = 1 Then
+		li_sw = 1
+	Else
+		ls_x = Lower( ls_x )
+	End If
+	If li_sw = 1 And Not ls_x = ' ' Then
+		ls_x = Upper( ls_x )
+		li_sw = 0
+	End If
+
+	ls_text = ls_text + ls_x
+	li_i = li_i + 1
+Loop
+
+Return ls_text 
+end function
+

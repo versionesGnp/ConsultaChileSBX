@@ -1,0 +1,32 @@
+﻿global type f_buscar_descuento_promesa_nueva from function_object
+end type
+
+forward prototypes
+global function long f_buscar_descuento_promesa_nueva (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function long f_buscar_descuento_promesa_nueva (string as_base, string as_serie, double al_numero);Long	ll_monto
+
+/*SELECT DISTINCT "INGRESO"."MONTO"  
+INTO 		  :ll_monto  
+FROM 		  "INGRESO"  
+WHERE 	( "INGRESO"."BASE" = :as_base ) AND  
+         ( "INGRESO"."SERIE" = :as_serie ) AND  
+         ( "INGRESO"."CONTRATO" = :al_numero ) AND  
+			( "INGRESO"."TIPO_MOV" = 'S' ) AND  
+		   ( "INGRESO"."CODIGO_OTRO" = '107' ) AND
+         ( "INGRESO"."FECHA_PAGO" = (SELECT DISTINCT MAX("INGRESO"."FECHA_PAGO") FROM "INGRESO" WHERE ( "INGRESO"."BASE" = :as_base ) AND ( "INGRESO"."TIPO_MOV" = 'S' ) AND ( "INGRESO"."CODIGO_OTRO" = '107' ) AND ( "INGRESO"."SERIE" = :as_serie ) AND ( "INGRESO"."CONTRATO" = :al_numero ) ) ) 
+USING		sqlca;*/
+
+SELECT DISTINCT "INGRESO"."MONTO"  
+INTO 		  :ll_monto  
+FROM 		  "INGRESO"  
+WHERE 	( "INGRESO"."BASE" = :as_base ) AND  
+         ( "INGRESO"."SERIE" = :as_serie ) AND  
+         ( "INGRESO"."CONTRATO" = :al_numero ) AND  
+			( "INGRESO"."TIPO_MOV" = 'S' ) AND  
+         ( "INGRESO"."FECHA_PAGO" = (SELECT DISTINCT MAX("INGRESO"."FECHA_PAGO") FROM "INGRESO" WHERE ( "INGRESO"."BASE" = :as_base ) AND ( "INGRESO"."TIPO_MOV" = 'S' ) AND ( "INGRESO"."CODIGO_OTRO" = '107' ) AND ( "INGRESO"."SERIE" = :as_serie ) AND ( "INGRESO"."CONTRATO" = :al_numero ) ) ) 
+USING		sqlca;
+Return(ll_monto)
+end function
+

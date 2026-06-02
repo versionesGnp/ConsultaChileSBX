@@ -1,0 +1,65 @@
+﻿global type wf_buscar_super_por_ctto from function_object
+end type
+
+forward prototypes
+global function string wf_buscar_super_por_ctto (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function string wf_buscar_super_por_ctto (string as_base, string as_serie, double al_numero);String	ls_super
+
+CHOOSE CASE as_base
+	CASE 'O'
+		SELECT	"OFERTA_V"."COD_SUP"  
+		INTO 		:ls_super  
+		FROM 		"CADENA",   
+					"OFERTA_V",   
+					"PAGO_OFERTA"  
+		WHERE  ( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+				 ( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+				 ( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+				 ( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+				 ( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+				 (("CADENA"."CODIGO" = :as_base ) AND  
+				 ( "CADENA"."SERIE" = :as_serie ) AND  
+				 ( "CADENA"."NUMERO" = :al_numero ) )   
+		USING		sqlca;
+		
+	CASE 'L'
+		SELECT 	"ANEXO_LIBERADOR"."COD_SUPER"  
+		INTO 		:ls_super  
+		FROM 		"ANEXO_LIBERADOR",   
+					"CADENA",   
+					"PAGO_LIBERADOR"  
+		WHERE  ( "ANEXO_LIBERADOR"."SERIE_M" = "PAGO_LIBERADOR"."SERIE_M" ) and  
+				 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "PAGO_LIBERADOR"."NRO_LIBERADOR" ) and  
+				 ( "ANEXO_LIBERADOR"."ULT_FOLIO" = "PAGO_LIBERADOR"."FOLIO" ) and  
+				 ( "CADENA"."SERIE" = "ANEXO_LIBERADOR"."SERIE_M" ) and  
+				 ( "CADENA"."NUMERO" = "ANEXO_LIBERADOR"."NRO_LIBERADOR" ) and  
+				 (("CADENA"."CODIGO" = :as_base ) AND  
+				 ( "CADENA"."SERIE" = :as_serie ) AND  
+				 ( "CADENA"."NUMERO" = :al_numero ) )   
+		USINg		sqlca;
+
+	CASE 'C','R','P','D'
+		ls_super	= ''
+		
+	CASE 'A'
+		SELECT	"ANEXO_AUMENTO"."COD_SUPER"  
+		INTO 		:ls_super  
+		FROM 		"ANEXO_AUMENTO",   
+					"CADENA",   
+					"PAGO_AUMENTO"  
+		WHERE  ( "ANEXO_AUMENTO"."SERIE_M" = "PAGO_AUMENTO"."SERIE_M" ) and  
+				 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = "PAGO_AUMENTO"."NRO_AUMENTO" ) and  
+				 ( "ANEXO_AUMENTO"."ULT_FOLIO" = "PAGO_AUMENTO"."FOLIO" ) and  
+				 ( "CADENA"."SERIE" = "ANEXO_AUMENTO"."SERIE_M" ) and  
+				 ( "CADENA"."NUMERO" = "ANEXO_AUMENTO"."NRO_AUMENTO" ) and  
+				 (("CADENA"."CODIGO" = :as_base ) AND  
+				 ( "CADENA"."SERIE" = :as_serie ) AND  
+				 ( "CADENA"."NUMERO" = :al_numero ) )   
+		USING		sqlca;
+		
+END CHOOSE
+return (ls_super)
+end function
+

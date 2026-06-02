@@ -1,0 +1,30 @@
+﻿global type f_titulo_membrete_sepultura from function_object
+end type
+
+forward prototypes
+global function string f_titulo_membrete (string as_codigo)
+global function string f_titulo_membrete_sepultura (string as_codigo)
+end prototypes
+
+global function string f_titulo_membrete (string as_codigo);String	ls_titulo
+
+return(ls_titulo)
+end function
+
+global function string f_titulo_membrete_sepultura (string as_codigo);String	ls_titulo
+if /*as_codigo='C' or */ as_codigo='F' then
+	SELECT	"MEMBRETE_EMPRESA"."CASA_MATRIZ"  
+	INTO 		:ls_titulo  
+	FROM 	"MEMBRETE_EMPRESA"  
+	WHERE 	"MEMBRETE_EMPRESA"."CODIGO" = :as_codigo   
+	USING	sqlca;
+else
+	SELECT	"MEMBRETE_EMPRESA"."SUCURSAL"  
+	INTO 		:ls_titulo  
+	FROM 	"MEMBRETE_EMPRESA"  
+	WHERE 	"MEMBRETE_EMPRESA"."CODIGO" = :as_codigo   
+	USING	sqlca;
+end if
+return(ls_titulo)
+end function
+

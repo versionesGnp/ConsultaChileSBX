@@ -1,0 +1,31 @@
+﻿global type f_accesos from function_object
+end type
+
+forward prototypes
+global subroutine f_accesos (string acceso, string clave, datetime fecha)
+end prototypes
+
+global subroutine f_accesos (string acceso, string clave, datetime fecha);if DaysAfter(today(),date(fecha)) <= 0 and DaysAfter(today(),date(fecha)) >= -2 then
+	messagebox(gs_app_name,'Usted dispone de dos dias para cambiar su clave de acceso.',stopsign!)
+//	halt
+end if
+
+
+if integer(acceso) < gi_acceso or DaysAfter(today(),relativedate(date(fecha),2)) <= 0 then
+	messagebox(gs_app_name,'    Usted no tiene acceso a esta aplicación, ~n~r~n~r'+&
+					           'Favor dar aviso al Departamento de Informatica.',stopsign!)
+	halt
+else
+	gs_acceso = acceso
+	gs_clave	 = clave
+end if	
+//if integer(acceso) < integer('3') or DaysAfter(today(),date(fecha)) <= 0 then
+//	messagebox(gs_app_name,'    Usted no tiene acceso a esta aplicación, ~n~r~n~r'+&
+//					           'Favor dar aviso al Departamento de Informatica.',stopsign!)
+//	halt
+//else
+//	gs_acceso = acceso
+//	gs_clave	 = clave
+//end if	
+end subroutine
+

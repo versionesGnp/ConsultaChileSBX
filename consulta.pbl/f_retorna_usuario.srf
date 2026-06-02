@@ -1,0 +1,22 @@
+﻿global type f_retorna_usuario from function_object
+end type
+
+forward prototypes
+global function string f_retorna_usuario ()
+end prototypes
+
+global function string f_retorna_usuario ();String	ls_nombre
+SELECT	"ENCARGADOS"."NOMBRE"  
+INTO 		:ls_nombre  
+FROM 		"ENCARGADOS"  
+WHERE 	"ENCARGADOS"."CODIGO_USUARIO" = :gs_user   ;
+gs_nombre				= ls_nombre
+gs_nombre_usuario		= ls_nombre
+gs_nom_comp_usuario	= ls_nombre
+if len(gs_nombre_usuario)>15 then
+	gs_nombre_usuario = Mid(gs_nombre_usuario,1,15)
+end if
+ls_nombre				= trim(ls_nombre)
+return(ls_nombre)
+end function
+

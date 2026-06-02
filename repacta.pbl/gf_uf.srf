@@ -1,0 +1,19 @@
+﻿global type gf_uf from function_object
+end type
+
+forward prototypes
+global function double gf_uf (string ad_hoy)
+end prototypes
+
+global function double gf_uf (string ad_hoy);double id_uf
+date id_uf1
+
+id_uf1 = Date(ad_hoy)
+SELECT "TAB_UF"."VALOR_UF"  
+    INTO :id_uf
+    FROM "TAB_UF"  
+   WHERE "TAB_UF"."FECHA_UF" = :id_uf1;
+	
+RETURN id_uf
+end function
+

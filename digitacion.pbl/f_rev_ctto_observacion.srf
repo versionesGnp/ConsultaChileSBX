@@ -1,0 +1,179 @@
+﻿global type f_rev_ctto_observacion from function_object
+end type
+
+forward prototypes
+global function string f_rev_ctto_observacion (string as_parametro, long al_codigo_obs)
+end prototypes
+
+global function string f_rev_ctto_observacion (string as_parametro, long al_codigo_obs);string		ls_obs
+long		ll_min_dps,ll_max_dps,ll_min_aval,ll_max_aval,ll_cod_obs,ll_edad,&
+			ll_mes_ini,ll_mes_fin,ll_dias_ctto,ll_dias,ll_plazo_ctto,ll_plazo
+datetime	ldt_fec_ctto,ldt_fec_ini,ldt_fec_fin
+double	ldb_porce_ctto,ldb_porce
+
+//f_rev_ctto_observacion(al_parametro,al_codigo_obs)
+
+if al_codigo_obs=1 or al_codigo_obs=2 then
+	ll_edad									= long(as_parametro)
+	SELECT	"ANNO_INI",	"ANNO_FIN"
+	INTO		:ll_min_dps,	:ll_max_dps
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = 1 AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;
+	if isnull(ll_min_dps) then ll_min_dps=0
+	if isnull(ll_max_dps) then ll_max_dps=0
+	SELECT	"ANNO_INI",	"ANNO_FIN"
+	INTO		:ll_min_aval,:ll_max_aval
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = 2 AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;
+	if isnull(ll_min_aval) then ll_min_aval=0
+	if isnull(ll_max_aval) then ll_max_aval=0
+	if ll_edad>=ll_min_dps and ll_edad<ll_max_dps then
+		ll_cod_obs							= 1
+	elseif ll_edad>=ll_min_aval and ll_edad<ll_max_aval then
+		ll_cod_obs							= 2
+	end if
+	SELECT	"SIGLA"
+	INTO		:ls_obs
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = :ll_cod_obs AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;
+elseif al_codigo_obs=3 then
+	ldt_fec_ctto								= datetime(date(as_parametro),time('00:00:00'))
+	SELECT	"ANNO_INI",	"ANNO_FIN","SIGLA"
+	INTO		:ll_mes_ini,:ll_mes_fin,:ls_obs
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = :al_codigo_obs AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;	
+	if isnull(ll_mes_ini) then ll_mes_ini=0
+	if isnull(ll_mes_fin) then ll_mes_fin=0
+	if ll_mes_ini<0 and ll_mes_fin>0 then
+		SELECT to_date(add_months( to_date(:gdt_fec_sistema),:ll_mes_ini )) INTO :ldt_fec_ini FROM dual;
+		SELECT to_date(add_months( to_date(:gdt_fec_sistema),:ll_mes_fin )) INTO :ldt_fec_fin FROM dual;
+		if ldt_fec_ctto < ldt_fec_ini then
+			ls_obs								= ls_obs+' Menor '+string(ldt_fec_ini,'dd/mm/yyyy')
+		elseif ldt_fec_ctto > ldt_fec_fin then
+			ls_obs								= ls_obs+' Mayor '+string(ldt_fec_fin,'dd/mm/yyyy')
+		else
+			ls_obs								= ''	
+		end if
+	else
+		ls_obs									= ''		
+	end if
+	
+	
+elseif al_codigo_obs=4 then
+	ldb_porce_ctto								= double(as_parametro)
+	SELECT	"ANNO_INI","SIGLA"
+	INTO		:ldb_porce,:ls_obs
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = :al_codigo_obs AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;	
+	if isnull(ldb_porce) then ldb_porce=0
+	if ldb_porce_ctto < ldb_porce then
+		ls_obs								= 'Pie es un '+string(ldb_porce_ctto,"##0.0#")+'% del Valor de Venta, recuerde no debe ser Mayor o Igual al '+string(ldb_porce)+'%'
+	else
+		ls_obs								= ''		
+	end if
+elseif al_codigo_obs=5 or al_codigo_obs=13 then
+	ldb_porce_ctto								= double(as_parametro)
+	SELECT	"ANNO_INI","SIGLA"
+	INTO		:ldb_porce,:ls_obs
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = :al_codigo_obs AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;	
+	if isnull(ldb_porce) then ldb_porce=0
+	if ldb_porce_ctto < ldb_porce then
+		ls_obs									= ls_obs+' '+string(ldb_porce)+'%'
+	else
+		ls_obs									= ''		
+	end if	
+elseif al_codigo_obs=6 or al_codigo_obs=9  then
+	ll_dias_ctto									= long(as_parametro)
+	SELECT	"ANNO_INI","SIGLA"
+	INTO		:ll_dias,:ls_obs
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = :al_codigo_obs AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;	
+	if isnull(ll_dias) then ll_dias=0
+	if ll_dias_ctto > ll_dias then
+		ls_obs									= ls_obs+' '+string(ll_dias)+' Días'
+	else
+		ls_obs									= ''		
+	end if
+elseif al_codigo_obs=7 then
+	ll_plazo_ctto									= long(as_parametro)
+	SELECT	"ANNO_INI","SIGLA"
+	INTO		:ll_plazo,:ls_obs
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = :al_codigo_obs AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;	
+	if isnull(ll_plazo) then ll_plazo=0
+	if ll_plazo_ctto > ll_plazo then
+		ls_obs									= ls_obs+' '+string(ll_plazo)+' Cuotas'
+	else
+		ls_obs									= ''		
+	end if
+elseif al_codigo_obs=8 then
+	ll_plazo_ctto									= long(as_parametro)
+	SELECT	"ANNO_INI","SIGLA"
+	INTO		:ll_plazo,:ls_obs
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = :al_codigo_obs AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;	
+	if isnull(ll_plazo) then ll_plazo=0
+	if ll_plazo_ctto > ll_plazo then
+		ls_obs									= ls_obs+' '+string(ll_plazo)+' Cuotas'
+	else
+		ls_obs									= ''		
+	end if
+elseif al_codigo_obs=10 then
+	ldb_porce_ctto								= double(as_parametro)
+	SELECT	"ANNO_INI"
+	INTO		:ldb_porce
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = :al_codigo_obs AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;	
+	if isnull(ldb_porce) then ldb_porce=0
+	if ldb_porce_ctto > ldb_porce then
+		ls_obs									= 'Valor Cuota es un '+string(ldb_porce_ctto,"##0.0#")+'% de Renta Líquida declarada, recuerde no debe ser Mayor'+string(ldb_porce)+'%'
+	else
+		ls_obs									= ''		
+	end if	
+elseif al_codigo_obs=11 then
+	ldb_porce_ctto								= double(as_parametro)
+	SELECT	"ANNO_INI"
+	INTO		:ldb_porce
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = :al_codigo_obs AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;	
+	if isnull(ldb_porce) then ldb_porce=0
+	if ldb_porce_ctto < ldb_porce then
+		ls_obs									= 'Pie es un '+string(ldb_porce_ctto,"##0.0#")+'% del Valor de Venta, recuerde no debe ser Mayor o Igual  al '+string(ldb_porce)+'%'
+	else
+		ls_obs									= ''		
+	end if	
+elseif al_codigo_obs=12 then
+	SELECT	"SIGLA"
+	INTO		:ls_obs
+	FROM 	"REVISION_CONTRATOS_OBS_CODIGO"  
+	WHERE 	"REVISION_CONTRATOS_OBS_CODIGO"."CODIGO" = :al_codigo_obs AND  
+				"REVISION_CONTRATOS_OBS_CODIGO"."ESTADO" = 'V'
+	USING	sqlca;	
+end if
+if isnull(ls_obs) then ls_obs=''
+Return ls_obs
+end function
+

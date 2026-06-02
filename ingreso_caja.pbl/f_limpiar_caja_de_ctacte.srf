@@ -1,0 +1,43 @@
+﻿global type f_limpiar_caja_de_ctacte from function_object
+end type
+
+forward prototypes
+global subroutine f_limpiar_caja_de_ctacte ()
+end prototypes
+
+global subroutine f_limpiar_caja_de_ctacte ();if isvalid(w_forma_pago2) then close(w_forma_pago2)
+if isvalid(w_ingreso2) then
+	CHOOSE CASE w_ingreso2.tab_ingreso.SelectedTab
+		CASE 1 //Cupón
+			w_ingreso2.wf_limpiar_opciones()
+			w_ingreso2.tab_ingreso.tp_cupon.sle_n_contrato.setfocus()
+	
+		CASE 2 //Comprobante Ingreso
+			w_ingreso2.wf_limpiar_opciones()
+			w_ingreso2.tab_ingreso.tp_ci.dw_ci_buscar_cliente.setfocus()
+			w_ingreso2.tab_ingreso.tp_ci.dw_ci_buscar_cliente.setcolumn('rl_rut')
+	
+		CASE 3 //Boleta
+			w_ingreso2.wf_limpiar_opciones()
+			w_ingreso2.tab_ingreso.tp_be.dw_be_buscar_cliente.setfocus()
+			w_ingreso2.tab_ingreso.tp_be.dw_be_buscar_cliente.setcolumn('rl_rut')
+			
+		CASE 4 //Factura EXENTA
+			if gs_depto='C' or gs_depto='I'  then 
+				w_ingreso2.tab_ingreso.tp_boletas.cbx_factura_exenta.checked		= true
+			else
+				w_ingreso2.tab_ingreso.tp_boletas.cbx_factura_exenta.checked		= false
+			end if
+			w_ingreso2.wf_limpiar_opciones()
+			w_ingreso2.tab_ingreso.tp_boletas.dw_bl_buscar_cliente.setfocus()
+			w_ingreso2.tab_ingreso.tp_boletas.dw_bl_buscar_cliente.setcolumn('rl_rut')
+			
+		CASE 5 //Comprobante Factura
+			w_ingreso2.tab_ingreso.tp_porfacturar.cb_limpiar_factura.triggerevent(clicked!)
+			w_ingreso2.tab_ingreso.tp_porfacturar.em_folio_factura.text				= ''
+			w_ingreso2.tab_ingreso.tp_porfacturar.em_folio_factura.setfocus()
+			
+	END CHOOSE
+end if
+end subroutine
+

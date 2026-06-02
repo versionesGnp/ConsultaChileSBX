@@ -1,0 +1,33 @@
+﻿global type f_tiene_licencia from function_object
+end type
+
+forward prototypes
+global function string f_tiene_licencia (string as_codigo, datetime ad_fec_ini, datetime ad_fec_fin)
+end prototypes
+
+global function string f_tiene_licencia (string as_codigo, datetime ad_fec_ini, datetime ad_fec_fin);String	ls_resp
+gl_count_lic	= 0
+ls_resp			= ''
+SELECT 	sum("LICENCIAS"."NRO_DIAS")
+INTO 		:gl_count_lic  
+FROM 		"LICENCIAS"  
+WHERE 	( "LICENCIAS"."CODIGO_EMPLEADO" = :as_codigo ) AND  
+			(("LICENCIAS"."FECHA_INICIO_LICENCIA" >= :ad_fec_ini AND  
+			"LICENCIAS"."FECHA_INICIO_LICENCIA" <= :ad_fec_fin) OR  
+			("LICENCIAS"."FECHA_FIN_LICENCIA" >= :ad_fec_ini AND  
+			"LICENCIAS"."FECHA_FIN_LICENCIA" <= :ad_fec_fin))   
+USING		sqlca  ;
+
+if sqlca.sqlcode = 0 then
+	if gl_count_lic > 0 then
+		ls_resp	= 'SI'
+	else
+		ls_resp	= 'NO'
+	end if
+else
+	ls_resp	= 'NO'
+end if
+return(ls_resp)
+
+end function
+

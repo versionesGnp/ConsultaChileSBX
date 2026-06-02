@@ -1,0 +1,20 @@
+﻿global type f_calculo_meses from function_object
+end type
+
+forward prototypes
+global function long f_calculo_meses (datetime fecha_ini, datetime fecha_fin)
+end prototypes
+
+global function long f_calculo_meses (datetime fecha_ini, datetime fecha_fin);long		ll_anos,ll_tot_meses,ll_annos
+double	ldb_valor,ldb_meses
+
+ldb_valor		= (year(date(fecha_fin))) - (1 + (year(date(fecha_ini)))) + ( 12 - (month(date(fecha_ini))) + (month(date(fecha_fin)))) / 12
+ll_anos			= int(ldb_valor)
+ldb_meses		= round(((ldb_valor - ll_anos) * 12),0)
+ll_annos			= ll_anos * 12
+ll_tot_meses	= ll_annos + ldb_meses
+
+if isnull(ll_tot_meses) then ll_tot_meses=0
+return 		ll_tot_meses
+end function
+

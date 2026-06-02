@@ -1,0 +1,25 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Recibe login y retorna dept code.~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_gendepartamentoxuser from function_object
+end type
+
+forward prototypes
+global function string f_gendepartamentoxuser (string as_usu)
+end prototypes
+
+global function string f_gendepartamentoxuser (string as_usu);
+/* f_genDepartamentoxUser( as_usu ) */
+
+String	ls_dep
+
+
+Select	c_codigo_dep
+Into		:ls_dep
+From		genLogin
+Where		c_codigo_usu = :as_usu
+Using		SqlCa ;
+
+ls_dep = f_Trim( ls_dep )
+
+Return ls_dep
+end function
+

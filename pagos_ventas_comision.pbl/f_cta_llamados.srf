@@ -1,0 +1,21 @@
+﻿global type f_cta_llamados from function_object
+end type
+
+forward prototypes
+global function long f_cta_llamados (string as_cod_age, datetime adt_fec_ini, datetime adt_fec_fin)
+end prototypes
+
+global function long f_cta_llamados (string as_cod_age, datetime adt_fec_ini, datetime adt_fec_fin);long	ll_cta_llam
+
+//f_cta_llamados(as_cod_age,adt_fec_ini,adt_fec_fin)
+if as_cod_age='U3' then
+	ll_cta_llam								= 74	
+elseif as_cod_age='U8' then
+	ll_cta_llam								= 61	
+elseif as_cod_age='U13' then
+	ll_cta_llam								= 59
+end if
+if isnull(ll_cta_llam) then ll_cta_llam=0
+return	ll_cta_llam
+end function
+

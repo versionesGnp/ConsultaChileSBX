@@ -1,0 +1,48 @@
+﻿global type f_matenciones_anual from function_object
+end type
+
+forward prototypes
+global function double f_matenciones_anual (string select_string, ref datawindow dw_paso_mant, integer campo, integer reg)
+end prototypes
+
+global function double f_matenciones_anual (string select_string, ref datawindow dw_paso_mant, integer campo, integer reg);long   año,mora
+
+PREPARE sqlsa FROM :select_string;
+DECLARE dyn_cursor DYNAMIC CURSOR FOR sqlsa;
+OPEN DYNAMIC dyn_cursor;  
+
+IF sqlca.sqlcode < 0 THEN
+	MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_ddlb_all()")
+	Return -1
+END IF
+if reg = 1  then	dw_paso_mant.setitem( reg, 1 ,'Enero')
+if reg = 2  then	dw_paso_mant.setitem( reg, 1 ,'Febrero')
+if reg = 3  then	dw_paso_mant.setitem( reg, 1 ,'Marzo')
+if reg = 4  then	dw_paso_mant.setitem( reg, 1 ,'Abril')
+if reg = 5  then	dw_paso_mant.setitem( reg, 1 ,'Mayo')
+if reg = 6  then	dw_paso_mant.setitem( reg, 1 ,'Junio')
+if reg = 7  then	dw_paso_mant.setitem( reg, 1 ,'Julio')
+if reg = 8  then	dw_paso_mant.setitem( reg, 1 ,'Agosto')
+if reg = 9  then	dw_paso_mant.setitem( reg, 1 ,'Septiembre')
+if reg = 10 then	dw_paso_mant.setitem( reg, 1 ,'Octubre')
+if reg = 11 then	dw_paso_mant.setitem( reg, 1 ,'Noviembre')
+if reg = 12 then	dw_paso_mant.setitem( reg, 1 ,'Diciembre')
+Do While sqlca.sqlcode = 0
+	Fetch dyn_cursor into :mora;
+	If sqlca.sqlcode =  0 Then
+		dw_paso_mant.setitem(reg,campo,mora)
+		dw_paso_mant.accepttext ()
+//	elseIf sqlca.sqlcode =  100 Then
+//		dw_paso_mant.setitem(dw_paso_mant.rowcount(),campo,0)
+//		dw_paso_mant.accepttext ()
+	ElseIf sqlca.sqlcode < 0 Then
+		MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_matenciones_anual()")
+		Return -1
+	Else
+		Exit
+	End If
+Loop
+Close dyn_cursor;
+Return 1
+end function
+

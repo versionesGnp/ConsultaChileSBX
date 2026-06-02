@@ -1,0 +1,74 @@
+﻿global type f_sap_cadena2 from function_object
+end type
+
+forward prototypes
+global subroutine f_sap_cadena2 (string as_base, string as_serie, double adb_numero, string as_estado_ctto, string as_codig_sol)
+end prototypes
+
+global subroutine f_sap_cadena2 (string as_base, string as_serie, double adb_numero, string as_estado_ctto, string as_codig_sol);// f_sap_cadena2 (as_base,as_serie,adb_numero,as_estado_ctto,as_codig_sol,as_tipo_deuda) 
+
+
+if as_codig_sol = '1' or as_codig_sol = '2' then
+	UPDATE	"CADENA"  
+	SET 		"STATUS_MODIF_SAP" = 0
+	WHERE 	( "CADENA"."CODIGO" = :as_base ) AND  
+				( "CADENA"."SERIE" = :as_serie ) AND  
+				( "CADENA"."NUMERO" = :adb_numero )
+	USING	sqlca;
+	if sqlca.sqlcode = 0 then
+		commit using sqlca;
+	else
+		rollback using sqlca;
+	end if
+	
+	UPDATE	"SAP_CADENA"  
+	SET 		"STATUS_MODIF_SAP" = 0,   
+    		    		"TIPO_STATUS_SAP" = 'R',
+				"ESTADO_CTTO" = 'R',
+				"TIPO_MODIF_SAP" = :as_codig_sol
+				
+	WHERE 	"SAP_CADENA"."BASE" = :as_base AND  
+   	   			"SAP_CADENA"."SERIE" = :as_serie AND  
+         		"SAP_CADENA"."NUMERO" = :adb_numero
+	USING	sqlca;
+	if sqlca.sqlcode = 0 then
+		commit using sqlca;
+	else
+		rollback using sqlca;
+	end if
+elseif as_codig_sol = '10' or as_codig_sol = '16' or as_codig_sol = '19' or as_codig_sol = '0' then	
+	UPDATE	"SAP_CADENA"  
+	SET 		"STATUS_MODIF_SAP" = 0,   
+    		    		"TIPO_STATUS_SAP" = 'M',
+				"ESTADO_CTTO" = :as_estado_ctto,
+				"TIPO_MODIF_SAP" = :as_codig_sol
+	WHERE 	"SAP_CADENA"."BASE" = :as_base AND  
+   	   		   	"SAP_CADENA"."SERIE" = :as_serie AND  
+         		"SAP_CADENA"."NUMERO" = :adb_numero 
+	USING	sqlca;
+	if sqlca.sqlcode = 0 then
+		commit using sqlca;
+	else
+		rollback using sqlca;
+	end if
+	
+elseif as_codig_sol = '5' then
+	UPDATE	"SAP_CADENA"  
+	SET 		"STATUS_MODIF_SAP" = 0,   
+    		    		"TIPO_STATUS_SAP" = 'M',
+				"ESTADO_CTTO" = :as_estado_ctto,
+				"TIPO_MODIF_SAP" = :as_codig_sol
+	WHERE 	"SAP_CADENA"."BASE" = :as_base AND  
+   	   		   	"SAP_CADENA"."SERIE" = :as_serie AND  
+         		"SAP_CADENA"."NUMERO" = :adb_numero and
+				"SAP_CADENA"."TIPO_DEUDA" = 'C'	
+	USING	sqlca;
+	if sqlca.sqlcode = 0 then
+		commit using sqlca;
+	else
+		rollback using sqlca;
+	end if
+end if
+
+end subroutine
+

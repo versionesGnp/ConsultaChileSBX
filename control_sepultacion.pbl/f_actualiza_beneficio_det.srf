@@ -1,0 +1,90 @@
+﻿global type f_actualiza_beneficio_det from function_object
+end type
+
+forward prototypes
+global function string f_actualiza_beneficio_det (string as_base, string as_serie, double al_numero, string as_tipo_ficha, double al_folio_ficha, string as_proceso)
+end prototypes
+
+global function string f_actualiza_beneficio_det (string as_base, string as_serie, double al_numero, string as_tipo_ficha, double al_folio_ficha, string as_proceso);String		ls_retorno,ls_cod_mov,ls_cod_otro1,ls_cod_otro2,ls_cod_otro3,ls_cod_otro4,ls_cod_otro5,ls_cod_otro6
+Long		ll_cod_benef,ll_cod_benef_det
+
+connect using Trans_1;
+if as_proceso = 'M' then
+	DECLARE x1 CURSOR FOR  
+	SELECT	"TIPO_PROMOCION_ASOCIADOS"."COD_BENEFICIO",  	"TIPO_PROMOCION_ASOCIADOS"."COD_BENEF_DETALLE",  	"BENEFICIOS_COMPLEMENTARIO_DET"."COD_MOV_CONSULTA"  
+	FROM 	"BENEFICIOS_COMPLEMENTARIO_DET",  	"TIPO_PROMOCION_ASOCIADOS"  
+	WHERE ( "BENEFICIOS_COMPLEMENTARIO_DET"."CODIGO" = "TIPO_PROMOCION_ASOCIADOS"."COD_BENEFICIO" ) and  
+			  ( "BENEFICIOS_COMPLEMENTARIO_DET"."CODIGO_BENEFICIO" = "TIPO_PROMOCION_ASOCIADOS"."COD_BENEF_DETALLE" ) and  
+			  (("TIPO_PROMOCION_ASOCIADOS"."BASE" = :as_base ) AND  
+			  ( "TIPO_PROMOCION_ASOCIADOS"."SERIE" = :as_serie ) AND  
+			  ( "TIPO_PROMOCION_ASOCIADOS"."NUMERO" = :al_numero ) AND
+			  ( "TIPO_PROMOCION_ASOCIADOS"."ESTADO" = 'P' ))  
+	USING	sqlca;
+	open x1;
+	DO WHILE sqlca.sqlcode=0
+		fetch x1 into :ll_cod_benef, :ll_cod_benef_det, :ls_cod_mov;
+		if not isnull(ll_cod_benef_det) and ll_cod_benef_det>0 then
+			if isvalid(w_ingreso_ficha_sepultacion) then
+				ls_cod_otro1	= w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getitemstring(w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getrow(),'pago_otro_1')
+				ls_cod_otro2	= w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getitemstring(w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getrow(),'pago_otro_2')
+				ls_cod_otro3	= w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getitemstring(w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getrow(),'pago_otro_3')
+				ls_cod_otro4	= w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getitemstring(w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getrow(),'pago_otro_4')
+				ls_cod_otro5	= w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getitemstring(w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getrow(),'pago_otro_5')
+				ls_cod_otro6	= w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getitemstring(w_ingreso_ficha_sepultacion.tab_1.tabpage_4.dw_aranceles.getrow(),'pago_otro_6')
+				if ls_cod_mov = ls_cod_otro1 or ls_cod_mov = ls_cod_otro2 or ls_cod_mov = ls_cod_otro3 or ls_cod_mov = ls_cod_otro4 or ls_cod_mov = ls_cod_otro5 or ls_cod_mov = ls_cod_otro6 OR &
+					'26' = ls_cod_otro1 or '26' = ls_cod_otro2 or '26' = ls_cod_otro3 or '26' = ls_cod_otro4 or '26' = ls_cod_otro5 or '26' = ls_cod_otro6 or ls_cod_mov='M' then
+					UPDATE 	"TIPO_PROMOCION_ASOCIADOS"  
+					SET 		"TIPO_COB" = :as_tipo_ficha,   
+								"FOLIO" = :al_folio_ficha,   
+								"COD_CAJA" = :as_tipo_ficha,   
+		//						"USUARIO" = 'SISTEMA',   
+								"USUARIO_MODIFICA" = 'SISTEMA',
+								"FECHA_MODIFICA" = sysdate,
+								"TIPO_FICHA" = :as_tipo_ficha,   
+								"FOLIO_FICHA" = :al_folio_ficha,   
+								"ESTADO" = 'G',   
+								"FECHA_USO" = sysdate  
+					WHERE ( "TIPO_PROMOCION_ASOCIADOS"."COD_BENEFICIO" = :ll_cod_benef ) AND  
+							   ( "TIPO_PROMOCION_ASOCIADOS"."COD_BENEF_DETALLE" = :ll_cod_benef_det ) AND  
+							   ( "TIPO_PROMOCION_ASOCIADOS"."BASE" = :as_base ) AND  
+							   ( "TIPO_PROMOCION_ASOCIADOS"."SERIE" = :as_serie ) AND  
+							   ( "TIPO_PROMOCION_ASOCIADOS"."NUMERO" = :al_numero ) 
+					USING	Trans_1;
+					if Trans_1.sqlcode=0 then
+						commit using Trans_1;
+					else
+						rollback using Trans_1;
+					end if
+				end if
+			end if
+		end if
+		setnull(ll_cod_benef_det);setnull(ll_cod_benef);setnull(ls_cod_mov)
+	LOOP
+	close x1;
+elseif as_proceso='E' then
+	UPDATE 	"TIPO_PROMOCION_ASOCIADOS"  
+	SET		"ESTADO" = 'P',   
+				"TIPO_COB" = null,   
+				"FOLIO" = null,   
+				"COD_CAJA" = null,   
+	//			"USUARIO" = null,   
+				"TIPO_FICHA" = null,   
+				"FOLIO_FICHA" = null  
+	WHERE ( "TIPO_PROMOCION_ASOCIADOS"."BASE" = :as_base ) AND  
+			  ( "TIPO_PROMOCION_ASOCIADOS"."SERIE" = :as_serie ) AND  
+			  ( "TIPO_PROMOCION_ASOCIADOS"."NUMERO" = :al_numero ) AND  
+//			  ( "TIPO_PROMOCION_ASOCIADOS"."COD_BENEFICIO" = :ll_cod_benef ) AND  
+//			  ( "TIPO_PROMOCION_ASOCIADOS"."COD_BENEF_DETALLE" = :ll_cod_benef_det ) AND  
+			  ( "TIPO_PROMOCION_ASOCIADOS"."TIPO_FICHA" = :as_tipo_ficha ) AND  
+			  ( "TIPO_PROMOCION_ASOCIADOS"."FOLIO_FICHA" = :al_folio_ficha )  
+	USING	Trans_1;
+	if Trans_1.sqlcode=0 then
+		commit using Trans_1;
+	else
+		rollback using Trans_1;
+	end if
+
+end if
+Return ls_retorno
+end function
+

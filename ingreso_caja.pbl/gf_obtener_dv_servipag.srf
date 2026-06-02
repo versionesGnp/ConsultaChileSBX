@@ -1,0 +1,40 @@
+﻿global type gf_obtener_dv_servipag from function_object
+end type
+
+forward prototypes
+global function string gf_obtener_dv_servipag (double al_nro_rut)
+end prototypes
+
+global function string gf_obtener_dv_servipag (double al_nro_rut);Double		li_digitos[21]
+Double		i,li_formula
+string	lc_digito_v
+
+FOR i=1 TO 21
+	if al_nro_rut=0 or isnull(al_nro_rut) then
+		li_digitos[i]	= 0
+	else
+  		li_digitos[i]	= Mod(al_nro_rut,10)
+  		al_nro_rut 		= truncate(al_nro_rut/10,0)	
+	end if
+NEXT
+li_formula	= (li_digitos[1] * 2) + (li_digitos[2] * 3) + (li_digitos[3] * 4) + (li_digitos[4] * 5)
+li_formula	= (li_digitos[5] * 6) + (li_digitos[6] * 7) + (li_digitos[7] * 2) + (li_digitos[8] * 3 ) + li_formula
+li_formula	= (li_digitos[9] * 4) + (li_digitos[10] * 5) + (li_digitos[11] * 6) + (li_digitos[12] * 7) + li_formula
+li_formula	= (li_digitos[13] * 2) + (li_digitos[14] * 3) + (li_digitos[15] * 4) + (li_digitos[16] * 5) + li_formula
+li_formula	= (li_digitos[17] * 6) + (li_digitos[18] * 7) + (li_digitos[19] * 2) + (li_digitos[20] * 3) + li_formula
+li_formula	= (li_digitos[21] * 4) + li_formula
+
+li_formula	= 11 - Mod(li_formula,11)
+
+CHOOSE CASE li_formula
+	CASE  11
+		lc_digito_v ='0'
+	CASE  10
+		lc_digito_v ='K'
+	CASE ELSE
+		lc_digito_v = String(li_formula)
+END CHOOSE
+return lc_digito_v
+
+end function
+

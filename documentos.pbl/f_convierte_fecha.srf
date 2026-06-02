@@ -1,0 +1,47 @@
+﻿global type f_convierte_fecha from function_object
+end type
+
+forward prototypes
+global function string f_convierte_fecha (string fecha)
+end prototypes
+
+global function string f_convierte_fecha (string fecha);STRING CADENA1,CADENA2,CADENA3
+INTEGER I
+
+//TO_DATE('1-Jan-97 00:00:00','DD-MON-YY HH24:MI:SS')
+CADENA1 = 'TO_DATE('
+CADENA2 = '00:00:00'+"'"+','+"'"+'DD-MON-YYYY HH24:MI:SS'+"')"
+I = POS(FECHA,'/',1)
+CADENA3 = MID(FECHA,1,I - 1 ) 
+I = POS(FECHA,'/',I + 1 )
+IF INTEGER(MID(FECHA,I - 2,2 )) =  1  then
+	CADENA3 = CADENA3+'-'+'Jan'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 2 then
+	CADENA3 = CADENA3+'-'+'Feb'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 3 then
+	CADENA3 = CADENA3+'-'+'Mar'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 4 then
+	CADENA3 = CADENA3+'-'+'Apr'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 5 then
+	CADENA3 = CADENA3+'-'+'May'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 6 then
+	CADENA3 = CADENA3+'-'+'Jun'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 7 then
+	CADENA3 = CADENA3+'-'+'Jul'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 8 then
+	CADENA3 = CADENA3+'-'+'Aug'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 9 then
+	CADENA3 = CADENA3+'-'+'Sep'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 10 then
+	CADENA3 = CADENA3+'-'+'Oct'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 11 then
+	CADENA3 = CADENA3+'-'+'Nov'+'-'
+elseif INTEGER(MID(FECHA,I - 2,2 )) = 12 then
+	CADENA3 = CADENA3+'-'+'Dec'+'-'
+end if
+CADENA3 = cadena1+"'"+cadena3+MID(FECHA,I + 1 )+' '+cadena2
+RETURN cadena3
+
+
+end function
+

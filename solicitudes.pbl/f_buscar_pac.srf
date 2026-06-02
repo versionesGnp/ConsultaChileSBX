@@ -1,0 +1,80 @@
+﻿global type f_buscar_pac from function_object
+end type
+
+forward prototypes
+global function string f_buscar_pac (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function string f_buscar_pac (string as_base, string as_serie, double al_numero);String	ls_texto,ls_texto_t,ls_dscto_pla,ls_texto_pl
+Long		ll_mandato,ll_est_opera,ll_est_infor
+
+SELECT	"SOL_PAC"."FOLIO_MANDATO",	"SOL_PAC"."ESTATUS_OPERACION",	"SOL_PAC"."ESTATUS_INFORMATICA"  
+INTO 		:ll_mandato,					:ll_est_opera,							:ll_est_infor  
+FROM		"SOL_PAC",	"SOL_ESTATUS"  
+WHERE  ( "SOL_PAC"."BASE" = "SOL_ESTATUS"."BASE" ) and  
+		 ( "SOL_PAC"."SERIE" = "SOL_ESTATUS"."SERIE" ) and  
+		 ( "SOL_PAC"."NUMERO" = "SOL_ESTATUS"."NUMERO" ) and  
+		 ( "SOL_PAC"."CORRELATIVO" = "SOL_ESTATUS"."CORRELATIVO" ) and  
+		 (("SOL_PAC"."BASE" = :as_base ) AND  
+		 ( "SOL_PAC"."SERIE" = :as_serie ) AND  
+		 ( "SOL_PAC"."NUMERO" = :al_numero ) AND  
+		 ( "SOL_ESTATUS"."CODIGO_SOLICITUD" = '20' ) AND  
+		 ( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) )   
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if ll_est_opera=1 or ll_est_infor=1 then
+		ls_texto	= 'Tiene PAC, Falta Autorizar'
+	else
+		ls_texto	= 'Tiene PAC Mandato Nº '+string(ll_mandato,'###,###,###,###,###')
+	end if
+else
+	ls_texto		= 'NO Tiene PAC'
+end if
+
+SELECT	"SOL_PAT"."FOLIO_MANDATO",	"SOL_PAT"."ESTATUS_OPERACION",	"SOL_PAT"."ESTATUS_INFORMATICA"  
+INTO 		:ll_mandato,					:ll_est_opera,							:ll_est_infor  
+FROM		"SOL_PAT",	"SOL_ESTATUS"  
+WHERE  ( "SOL_PAT"."BASE" = "SOL_ESTATUS"."BASE" ) and  
+		 ( "SOL_PAT"."SERIE" = "SOL_ESTATUS"."SERIE" ) and  
+		 ( "SOL_PAT"."NUMERO" = "SOL_ESTATUS"."NUMERO" ) and  
+		 ( "SOL_PAT"."CORRELATIVO" = "SOL_ESTATUS"."CORRELATIVO" ) and  
+		 (("SOL_PAT"."BASE" = :as_base ) AND  
+		 ( "SOL_PAT"."SERIE" = :as_serie ) AND  
+		 ( "SOL_PAT"."NUMERO" = :al_numero ) AND  
+		 ( "SOL_ESTATUS"."CODIGO_SOLICITUD" = '21' ) AND  
+		 ( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) )   
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if ll_est_opera=1 or ll_est_infor=1 then
+		ls_texto_t	= 'Tiene PAT, Falta Autorizar'
+	else
+		ls_texto_t	= 'Tiene PAT Mandato Nº '+string(ll_mandato,'###,###,###,###,###')
+	end if
+else
+	ls_texto_t		= 'NO Tiene PAT'
+end if
+//
+
+SELECT 	"OFERTA_V"."DSCTO_PLANILLA"  
+INTO 		:ls_dscto_pla  
+FROM 	"OFERTA_V"  
+WHERE 	//"OFERTA_V"."BASE" = :as_base AND
+			"OFERTA_V"."SERIE" = :as_serie  AND  
+			"OFERTA_V"."NRO_OFERTA" = :al_numero
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	if ls_dscto_pla = 'S' then
+		ls_texto_pl		= 'Tiene Dscto. Planilla'
+	elseif 	ls_dscto_pla = 'N' then
+		ls_texto_pl		= 'NO Tiene Dscto. Planilla'
+	end if	
+else
+	ls_texto_pl		= 'NO Tiene Dscto. Planilla'
+end if	
+
+//
+ls_texto				= ls_texto + ' - '+ls_texto_t + ' - '+ls_texto_pl
+
+return ls_texto
+end function
+

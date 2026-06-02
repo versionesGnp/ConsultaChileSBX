@@ -1,0 +1,46 @@
+﻿global type f_valida_menu_licencia from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_licencia (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_licencia (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_licenciasmedicas'
+				m_menu_principal.m_licenciasmedicas.visible												= false
+				m_menu_principal.m_licenciasmedicas.m_mantención0.visible							= false
+				m_menu_principal.m_licenciasmedicas.m_mantención0.m_ingresolicencias.visible	= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.visible								= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_jefeventa1.visible			= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_empleado.visible				= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_médico.visible					= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_díaslicencia.visible			= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_porfecha.visible				= false
+			CASE 'm_menu_principal.m_licenciasmedicas.m_mantención0'
+				m_menu_principal.m_licenciasmedicas.m_mantención0.visible							= false
+				m_menu_principal.m_licenciasmedicas.m_mantención0.m_ingresolicencias.visible	= false
+			CASE 'm_menu_principal.m_licenciasmedicas.m_mantención0.m_ingresolicencias'
+				m_menu_principal.m_licenciasmedicas.m_mantención0.m_ingresolicencias.visible	= false
+			CASE 'm_menu_principal.m_licenciasmedicas.m_informes19'
+				m_menu_principal.m_licenciasmedicas.m_informes19.visible								= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_jefeventa1.visible			= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_empleado.visible				= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_médico.visible					= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_díaslicencia.visible			= false
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_porfecha.visible				= false
+			CASE 'm_menu_principal.m_licenciasmedicas.m_informes19.m_jefeventa1'
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_jefeventa1.visible			= false
+			CASE 'm_menu_principal.m_licenciasmedicas.m_informes19.m_empleado'
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_empleado.visible				= false
+			CASE 'm_menu_principal.m_licenciasmedicas.m_informes19.m_médico'
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_médico.visible					= false
+			CASE 'm_menu_principal.m_licenciasmedicas.m_informes19.m_díaslicencia'
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_díaslicencia.visible			= false
+			CASE 'm_menu_principal.m_licenciasmedicas.m_informes19.m_porfecha'
+				m_menu_principal.m_licenciasmedicas.m_informes19.m_porfecha.visible				= false
+		END CHOOSE
+END CHOOSE
+end subroutine
+

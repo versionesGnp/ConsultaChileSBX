@@ -1,0 +1,21 @@
+﻿global type f_estado_modif_cadena from function_object
+end type
+
+forward prototypes
+global function string f_estado_modif_cadena (string as_base, string as_serie, double adb_numero, string as_new_estado)
+end prototypes
+
+global function string f_estado_modif_cadena (string as_base, string as_serie, double adb_numero, string as_new_estado);string    ls_estado_factura
+
+//f_estado_modif_cadena(:as_base,:as_serie,:adb_numero,:as_new_estado)
+
+DECLARE estado_cadena PROCEDURE FOR F_ESTADO_MODIFICA_CADENA(:as_base,:as_serie,:adb_numero,:as_new_estado);
+EXECUTE estado_cadena;
+if sqlca.sqlcode=0 then
+                fetch estado_cadena into :ls_estado_factura;
+                close estado_cadena;
+end if
+return ls_estado_factura
+
+end function
+

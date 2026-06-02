@@ -1,0 +1,24 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: BLScript Class - Comprueba si tel tiempo señalado ha vencido~r~n    Recomendación: Nivel Experto~r~n*/
+global type f_timeout from function_object
+end type
+
+forward prototypes
+global function boolean f_timeout (ref time at_now, integer ai_sec)
+end prototypes
+
+global function boolean f_timeout (ref time at_now, integer ai_sec);/* f_TimeOut( at_now, ai_sec ) 
+	Autor: César Vilela R.
+*/
+Boolean	lb_ret
+Time		lt_time, lt_TimeOut
+
+
+If IsNull( at_now ) Or at_now = 00:00:00 Then at_now = Now( )
+lt_time = Now( )
+lt_TimeOut = RelativeTime( at_now, ai_sec )
+	
+lb_ret = ( lt_time > lt_TimeOut )
+
+Return lb_ret
+end function
+

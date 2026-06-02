@@ -1,0 +1,21 @@
+﻿global type f_update_sup from function_object
+end type
+
+forward prototypes
+global function integer f_update_sup (double total, string sup, string canal)
+end prototypes
+
+global function integer f_update_sup (double total, string sup, string canal);  UPDATE "META_SUPER"  
+     SET "TOTAL_UNIDAD" = :total  
+   WHERE ( "META_SUPER"."COD_SUP" = :sup ) AND  
+         ( "META_SUPER"."TIPO_CANAL" = :canal )   ;
+
+if sqlca.sqlcode = 0 then
+	return 1
+else
+	messagebox(gs_app_name,'F_UPDATE_SUP() '+'+sqlca.SQLErrText+',stopsign!)
+	return -1
+end if	
+
+end function
+

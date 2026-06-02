@@ -1,0 +1,118 @@
+﻿release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=148 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=2060 color="536870912" )
+table(column=(type=char(1) updatewhereclause=yes name=serie_m dbname="anexo_aumento.serie_m" )
+ column=(type=decimal(4) updatewhereclause=yes name=nro_aumento dbname="anexo_aumento.nro_aumento" )
+ column=(type=decimal(4) updatewhereclause=yes name=cta_pag_m dbname="anexo_aumento.cta_pag_m" )
+ column=(type=char(1) updatewhereclause=yes name=estado_comi dbname="anexo_aumento.estado_comi" )
+ column=(type=decimal(4) updatewhereclause=yes name=porce_sup dbname="anexo_aumento.porce_sup" )
+ column=(type=decimal(4) updatewhereclause=yes name=porce_age dbname="anexo_aumento.porce_age" )
+ column=(type=decimal(4) updatewhereclause=yes name=precio dbname="pago_aumento.precio" )
+ column=(type=decimal(4) updatewhereclause=yes name=pie dbname="pago_aumento.pie" )
+ column=(type=decimal(4) updatewhereclause=yes name=tasa dbname="pago_aumento.tasa" )
+ column=(type=decimal(4) updatewhereclause=yes name=valor_cuota dbname="pago_aumento.valor_cuota" )
+ column=(type=decimal(4) updatewhereclause=yes name=nro_cuotas dbname="pago_aumento.nro_cuotas" )
+ column=(type=decimal(4) updatewhereclause=yes name=uf_dia dbname="pago_aumento.uf_dia" )
+ column=(type=char(1) updatewhereclause=yes name=moneda dbname="pago_aumento.moneda" )
+ column=(type=datetime updatewhereclause=yes name=fecha_prim dbname="pago_aumento.fecha_prim" )
+ column=(type=datetime updatewhereclause=yes name=fecha_ult dbname="pago_aumento.fecha_ult" )
+ column=(type=decimal(4) updatewhereclause=yes name=gastos_adm dbname="pago_aumento.gastos_adm" )
+ column=(type=char(1) updatewhereclause=yes name=estado dbname="cadena.estado" )
+ column=(type=datetime updatewhereclause=yes name=fecha dbname="pago_aumento.fecha" )
+ column=(type=decimal(5) updatewhereclause=yes name=ct_pag dbname="compute_0019" )
+ column=(type=decimal(5) updatewhereclause=yes name=monto dbname="compute_0020" )
+ retrieve="  SELECT ~"ANEXO_AUMENTO~".~"SERIE_M~",   
+         ~"ANEXO_AUMENTO~".~"NRO_AUMENTO~",   
+         ~"ANEXO_AUMENTO~".~"CTA_PAG_M~",   
+         ~"ANEXO_AUMENTO~".~"ESTADO_COMI~",   
+         ~"ANEXO_AUMENTO~".~"PORCE_SUP~",   
+         ~"ANEXO_AUMENTO~".~"PORCE_AGE~",   
+         ~"PAGO_AUMENTO~".~"PRECIO~",   
+         ~"PAGO_AUMENTO~".~"PIE~",   
+         ~"PAGO_AUMENTO~".~"TASA~",   
+         ~"PAGO_AUMENTO~".~"VALOR_CUOTA~",   
+         ~"PAGO_AUMENTO~".~"NRO_CUOTAS~",   
+         ~"PAGO_AUMENTO~".~"UF_DIA~",   
+         ~"PAGO_AUMENTO~".~"MONEDA~",   
+         ~"PAGO_AUMENTO~".~"FECHA_PRIM~",   
+         ~"PAGO_AUMENTO~".~"FECHA_ULT~",   
+         ~"PAGO_AUMENTO~".~"GASTOS_ADM~",   
+         ~"CADENA~".~"ESTADO~",   
+         ~"PAGO_AUMENTO~".~"FECHA~",   
+         0,   
+         0  
+    FROM ~"ANEXO_AUMENTO~",   
+         ~"CADENA~",   
+         ~"PAGO_AUMENTO~"  
+   WHERE ( ~"ANEXO_AUMENTO~".~"SERIE_M~" = ~"PAGO_AUMENTO~".~"SERIE_M~" ) and  
+         ( ~"ANEXO_AUMENTO~".~"NRO_AUMENTO~" = ~"PAGO_AUMENTO~".~"NRO_AUMENTO~" ) and  
+         ( ~"ANEXO_AUMENTO~".~"ULT_FOLIO~" = ~"PAGO_AUMENTO~".~"FOLIO~" ) and  
+         ( ~"PAGO_AUMENTO~".~"SERIE_M~" = ~"CADENA~".~"SERIE~" ) and  
+         ( ~"PAGO_AUMENTO~".~"NRO_AUMENTO~" = ~"CADENA~".~"NUMERO~" ) and  
+         ((~"CADENA~".~"ESTADO~" = 'V') OR  
+         (~"CADENA~".~"ESTADO~" = 'C')) AND  
+         (~"CADENA~".~"ESTADO_CONTABLE~" <> 'C') AND  
+         ~"PAGO_AUMENTO~".~"TASA~" <> 0 AND  
+         ~"CADENA~".~"CODIGO~" = 'A'    
+" )
+text(band=header alignment="2" text="Anexo Liberador
+Serie M" border="0" color="0" x="261" y="4" height="128" width="430"  name=anexo_liberador_serie_m_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Anexo Liberador
+Cta Pag M" border="0" color="0" x="1129" y="4" height="128" width="430"  name=anexo_liberador_cta_pag_m_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Anexo Liberador
+Estado Comi" border="0" color="0" x="1563" y="4" height="128" width="430"  name=anexo_liberador_estado_comi_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Anexo Liberador
+Porce Sup" border="0" color="0" x="1998" y="4" height="128" width="430"  name=anexo_liberador_porce_sup_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Anexo Liberador
+Porce Age" border="0" color="0" x="2432" y="4" height="128" width="430"  name=anexo_liberador_porce_age_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Liberador
+Precio" border="0" color="0" x="2871" y="4" height="128" width="398"  name=pago_liberador_precio_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Liberador
+Pie" border="0" color="0" x="3273" y="4" height="128" width="398"  name=pago_liberador_pie_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Liberador
+Tasa" border="0" color="0" x="3675" y="4" height="128" width="398"  name=pago_liberador_tasa_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Liberador
+Valor Cuota" border="0" color="0" x="4078" y="4" height="128" width="398"  name=pago_liberador_valor_cuota_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Liberador
+Nro Cuotas" border="0" color="0" x="4480" y="4" height="128" width="398"  name=pago_liberador_nro_cuotas_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Liberador
+Uf Dia" border="0" color="0" x="4882" y="4" height="128" width="398"  name=pago_liberador_uf_dia_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Liberador
+Moneda" border="0" color="0" x="5285" y="4" height="128" width="402"  name=pago_liberador_moneda_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Liberador
+Fecha Prim" border="0" color="0" x="5691" y="4" height="128" width="603"  name=pago_liberador_fecha_prim_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Liberador
+Fecha Ult" border="0" color="0" x="6299" y="4" height="128" width="603"  name=pago_liberador_fecha_ult_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Liberador
+Gastos Adm" border="0" color="0" x="6907" y="4" height="128" width="398"  name=pago_liberador_gastos_adm_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Estado" border="0" color="0" x="7310" y="4" height="128" width="201"  name=cadena_estado_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Anexo Liberador
+Nro Liberador" border="0" color="0" x="695" y="4" height="128" width="430"  name=anexo_liberador_nro_liberador_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="0" x="7310" y="4" height="76" width="55" format="[general]"  name=estado edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="getrow()"border="0" color="0" x="18" y="8" height="64" width="224" format="[general]"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="0" x="279" y="8" height="64" width="393"  name=serie_m  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="727" y="12" height="64" width="375"  name=nro_aumento  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=0 border="0" color="0" x="1157" y="12" height="64" width="384"  name=cta_pag_m  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=0 border="0" color="0" x="1586" y="12" height="64" width="370"  name=estado_comi  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=0 border="0" color="0" x="2011" y="8" height="64" width="343"  name=porce_sup  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=0 border="0" color="0" x="2446" y="4" height="64" width="389"  name=porce_age  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=0 border="0" color="0" x="2944" y="8" height="64" width="256"  name=precio  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=0 border="0" color="0" x="3351" y="12" height="64" width="210"  name=pie  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=0 border="0" color="0" x="3730" y="4" height="64" width="233"  name=tasa  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=0 border="0" color="0" x="4105" y="12" height="64" width="334"  name=valor_cuota  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=0 border="0" color="0" x="4494" y="12" height="64" width="325"  name=nro_cuotas  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=0 border="0" color="0" x="4891" y="8" height="64" width="338"  name=uf_dia  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=0 border="0" color="0" x="5339" y="4" height="64" width="274"  name=moneda  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=0 border="0" color="0" x="5778" y="8" height="64" width="439"  name=fecha_prim  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=0 border="0" color="0" x="6400" y="8" height="64" width="443"  name=fecha_ult  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=0 border="0" color="0" x="6907" y="4" height="64" width="389"  name=gastos_adm  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="0" x="1358" y="160" height="76" width="443" format="[general]"  name=ct_pag edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="0" tabsequence=32766 border="0" color="0" x="1358" y="272" height="76" width="562" format="[general]"  name=monto edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="0" tabsequence=0 border="0" color="0" x="1358" y="376" height="64" width="384"  name=fecha  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
+  

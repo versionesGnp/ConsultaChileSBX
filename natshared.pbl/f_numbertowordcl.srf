@@ -1,0 +1,23 @@
+﻿//objectcomments /* Autor: PBResource/César Vilela~r~n    Función: Convierte un monto en texto(palabras) para país Chile~r~n    Recomendación: Nivel Experto~r~n*/
+global type f_numbertowordcl from function_object
+end type
+
+forward prototypes
+global function string f_numbertowordcl (decimal ad_number, string as_decimal, string as_moneda)
+end prototypes
+
+global function string f_numbertowordcl (decimal ad_number, string as_decimal, string as_moneda);/* f_NumberToWordCL( ad_number, ab_decimal, as_moneda ) */
+
+String	ls_numbertoword
+
+
+ls_numbertoword = fx_grl_montomill( ad_number )
+If as_decimal = '0' Then
+	ls_numbertoword = Left( ls_numbertoword, Len( ls_numbertoword ) - 8 )
+End If
+
+ls_numbertoword = ls_numbertoword + ' ' + as_moneda
+
+Return ls_numbertoword 
+end function
+

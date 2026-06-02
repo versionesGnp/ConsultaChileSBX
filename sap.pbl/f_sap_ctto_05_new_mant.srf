@@ -1,0 +1,94 @@
+﻿global type f_sap_ctto_05_new_mant from function_object
+end type
+
+forward prototypes
+global function long f_sap_ctto_05_new_mant (string as_base, string as_serie, double adb_numero, long al_nro_cuotas, long al_ctas_pag, datetime adt_fec_mant, long al_posic, long al_periodo, string as_origen_crea)
+end prototypes
+
+global function long f_sap_ctto_05_new_mant (string as_base, string as_serie, double adb_numero, long al_nro_cuotas, long al_ctas_pag, datetime adt_fec_mant, long al_posic, long al_periodo, string as_origen_crea);string		ls_base,ls_serie,ls_tipo_deuda,ls_nro_cuota,ls_cod_material,ls_centro,ls_centro_benef,ls_fecha,ls_forma_pago,ls_impto,ls_kap_cta,ls_int_cta,ls_gto_cta,ls_impto_13,ls_impto_3,ls_boleta
+long		ll_estado,ll_indice,ll_cant_material,ll_boleta,ll_periodo_mant,ll_cod_parque,ll_cta,ll_nro_cuota,ll_mora_mant,ll_nulo
+double	ldb_numero,ldb_kap_cta,ldb_int_cta,ldb_gto_cta,ldb_impto_13,ldb_impto_3
+
+connect using Trans_4;
+
+//f_sap_ctto_05_new_mant(as_base,as_serie,adb_numero,al_nro_cuotas,al_ctas_pag,adt_fec_mant,al_posic,al_periodo)	
+
+setnull(ll_nulo)
+
+SELECT	to_date(add_months( to_date(:adt_fec_mant),( :al_ctas_pag * :al_periodo) )) INTO :adt_fec_mant FROM dual;
+
+DECLARE x05 CURSOR FOR
+SELECT	"SAP_CADENA"."BASE",
+        		"SAP_CADENA"."SERIE",
+        		"SAP_CADENA"."NUMERO",
+        		"SAP_CADENA"."TIPO_DEUDA",
+			(NRO_CUOTA + :al_nro_cuotas),
+              TRIM(TO_CHAR((NRO_CUOTA + :al_nro_cuotas),'000')),
+        		"SAP_PERIODO_MANT"."INDICE",
+         	"SAP_TIPO_CONTRATO"."COD_MATERIAL_SAP",
+        		1,
+        		"SAP_CADENA"."CENTRO",
+        		"SAP_CADENA"."CENTRO_BENEF",
+        		TRIM(TO_CHAR((SELECT add_months(to_date(:adt_fec_mant),(( NRO_CUOTA  * "SAP_CADENA"."PERIODO_MANT") - ((2 * "SAP_CADENA"."PERIODO_MANT") - "SAP_PERIODO_MANT"."INDICE"))) FROM dual),'DD.MM.YYYY')),
+        		"SAP_CADENA"."FORMA_PAGO",
+        		'0',
+        		'ZCAP',
+			"SAP_CADENA"."VALOR_CUOTA_M",	  
+			'ZINT',
+        		0,
+        		'ZGAD',
+        		0,
+        		'ZIB1',
+         	0,
+        		'ZIB2',
+        		0,
+        		0,
+        		"SAP_CADENA"."PERIODO_MANT",
+        		"CADENA"."COD_PARQUE"	  
+        
+FROM		"SAP_CADENA","SAP_TIPO_CONTRATO","CADENA","SAP_PERIODO_MANT",
+        		( SELECT LEVEL NRO_CUOTA  FROM DUAL CONNECT BY LEVEL<= ( :al_ctas_pag) )
+WHERE   "SAP_CADENA"."BASE" = "CADENA"."CODIGO" AND
+        		"SAP_CADENA"."SERIE" = "CADENA"."SERIE" AND
+        		"SAP_CADENA"."NUMERO" = "CADENA"."NUMERO" AND
+        		"SAP_TIPO_CONTRATO"."BASE" = "SAP_CADENA"."BASE"  AND
+        		"SAP_TIPO_CONTRATO"."TIPO_DEUDA" = "SAP_CADENA"."TIPO_DEUDA" AND
+       		"SAP_CADENA"."PERIODO_MANT" = "SAP_PERIODO_MANT"."PERIODO_MANTEN" AND
+        		"SAP_CADENA"."ESTADO" = 'V' AND
+			"SAP_CADENA"."BASE" = :as_base and
+			"SAP_CADENA"."SERIE" = :as_serie and
+			"SAP_CADENA"."NUMERO" = :adb_numero and
+			"SAP_CADENA"."TIPO_DEUDA" = 'M' 
+
+ORDER BY 5 ASC, 7 ASC
+USING	Trans_4;
+open x05;
+if Trans_4.sqlcode=0 then
+	DO WHILE Trans_4.sqlcode=0
+	fetch x05 INTO	:ls_base,:ls_serie,:ldb_numero,:ls_tipo_deuda,:ll_nro_cuota,:ls_nro_cuota,:ll_indice,:ls_cod_material,:ll_cant_material,:ls_centro,:ls_centro_benef,:ls_fecha,:ls_forma_pago,:ls_impto,:ls_kap_cta,:ldb_kap_cta,:ls_int_cta,:ldb_int_cta,:ls_gto_cta,:ldb_gto_cta,:ls_impto_13,:ldb_impto_13,:ls_impto_3,:ldb_impto_3,:ll_boleta,:ll_periodo_mant,:ll_cod_parque;
+		if not isnull(ls_base) and ls_base<>'' and not isnull(ls_serie) and ls_serie<>'' and  not isnull(ldb_numero) and ldb_numero>0 and not isnull(ls_tipo_deuda) and ls_tipo_deuda<>'' then
+			ll_cta++
+			ldb_kap_cta						= round(f_cta_mant_posic(ldb_kap_cta,ll_cta,ll_periodo_mant),4)	  
+			al_posic							= al_posic + 10
+			ls_boleta							= '0'		
+						
+			INSERT INTO "SAP_CTTO_05_CUOTA"  
+         				( "BASE",		"SERIE",	"NUMERO",		"TIPO_DEUDA","NRO_POSIC_CTA",	"CODIGO_MATERIAL_SAP",	"CANT_MATERIAL",	"CENTRO",	"CENTRO_BENEF",	"FECHA_VCTO",	"NRO_CUOTA",	"FORMA_PAGO",	"IMPTO_CTA",	"CUOTA_K",	"MTO_CTA_K",	"CUOTA_I",	"MTO_CTA_I",	"CUOTA_G",	"MTO_CTA_G",	"IMPTO_13",	"MTO_IMPTO_13",	"IMPTO_3",	"MTO_IMPTO_3",	"NRO_BOLETA",	"ORIGEN_CREACION")
+			VALUES	( :ls_base,	:ls_serie,	:ldb_numero,	:ls_tipo_deuda,	:al_posic,				:ls_cod_material,				:ll_cant_material,		:ls_centro,	:ls_centro_benef,	:ls_fecha,			:ls_nro_cuota,	:ls_forma_pago,	:ls_impto,		:ls_kap_cta,	:ldb_kap_cta,	:ls_int_cta,	:ldb_int_cta,		:ls_gto_cta,	:ldb_gto_cta,	:ls_impto_13,	:ldb_impto_13,		:ls_impto_3,	:ldb_impto_3,		:ls_boleta,			:as_origen_crea)
+			USING	sqlca;
+			if sqlca.sqlcode = 0 then
+				commit using sqlca;
+				ll_estado					= 1
+			else
+				rollback using Trans_2;
+				ll_estado 				= 0
+			end if
+		end if
+		setnull(ls_base);setnull(ls_serie);setnull(ldb_numero);setnull(ls_tipo_deuda);setnull(ls_nro_cuota);setnull(ll_indice);setnull(ls_cod_material);setnull(ll_cant_material);setnull(ls_centro);setnull(ls_centro_benef);setnull(ls_fecha);setnull(ls_forma_pago);setnull(ls_impto);setnull(ls_kap_cta);setnull(ldb_kap_cta);setnull(ls_int_cta);setnull(ldb_int_cta);setnull(ls_gto_cta);setnull(ldb_gto_cta);setnull(ls_impto_13);setnull(ldb_impto_13);setnull(ls_impto_3);setnull(ldb_impto_3);setnull(ll_boleta);setnull(ll_periodo_mant);setnull(ll_cod_parque)
+	LOOP
+end if
+close x05;
+return ll_estado
+disconnect using Trans_4;
+end function
+

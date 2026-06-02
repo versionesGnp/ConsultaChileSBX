@@ -1,0 +1,26 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Comprueba si un valor es Fecha Válida~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_isdate from function_object
+end type
+
+forward prototypes
+global function boolean f_isdate (datetime ad_avalidar)
+end prototypes
+
+global function boolean f_isdate (datetime ad_avalidar);String	ls_avalidar
+
+ls_avalidar = String( Date( ad_avalidar ), 'yyyy/mm/dd' )
+If ls_avalidar = '0000/00/00' Then
+	Return False
+End If
+
+If Year( Date( ad_avalidar ) ) = 0 Or Year( Date( ad_avalidar ) ) = 1900 Then
+	Return False
+End If
+
+If Not IsDate( ls_avalidar ) Then
+	Return False
+End If
+
+Return True
+end function
+

@@ -1,0 +1,17 @@
+﻿global type f_print_dlg from function_object
+end type
+
+forward prototypes
+global function integer f_print_dlg (ref s_printdlgattrib astr_printdlg, window aw_obj)
+end prototypes
+
+global function integer f_print_dlg (ref s_printdlgattrib astr_printdlg, window aw_obj);long ll_hwnd
+
+ll_hwnd = handle (aw_obj)
+if ll_hwnd = 0 then
+	return -1
+end if
+
+return pfc_printdlg (ll_hwnd, astr_printdlg)
+end function
+

@@ -1,0 +1,34 @@
+﻿global type f_condic_premio from function_object
+end type
+
+forward prototypes
+global function string f_condic_premio (long al_tipo_premio, string as_cargo)
+end prototypes
+
+global function string f_condic_premio (long al_tipo_premio, string as_cargo);string	ls_condic_age,ls_condic_sup,ls_condic
+
+SELECT 	"PREMIO_TIPO"."CONDICION_AGE",   
+       	"PREMIO_TIPO"."CONDICION_SUP"  
+INTO		:ls_condic_age,   
+      	:ls_condic_sup  
+FROM		"PREMIO_TIPO"  
+WHERE 	"PREMIO_TIPO"."COD_PREMIO" = :al_tipo_premio
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ls_condic_age) and ls_condic_age<>'' and not isnull(ls_condic_sup) and ls_condic_sup<>'' then
+		if as_cargo='A' then
+			ls_condic				= ls_condic_age
+		elseif as_cargo='S' then
+			ls_condic				= ls_condic_sup
+		end if
+	else
+		ls_condic					= ''
+	end if
+else
+	ls_condic						= ''
+end if
+
+if isnull(ls_condic) then ls_condic = ''
+Return ls_condic
+end function
+

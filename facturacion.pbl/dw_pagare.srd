@@ -1,0 +1,70 @@
+﻿release 7;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=144 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=80 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=char(1) updatewhereclause=yes name=cadena_codigo dbname="cadena.codigo" )
+ column=(type=char(1) updatewhereclause=yes name=serie dbname="cadena.serie" )
+ column=(type=decimal(4) updatewhereclause=yes name=nro_oferta dbname="cadena.numero" )
+ column=(type=datetime updatewhereclause=yes name=fecha_prim dbname="pagare.fecha_prim" )
+ column=(type=decimal(0) updatewhereclause=yes name=pagare_cta_pag_la dbname="pagare.cta_pag_la" )
+ column=(type=decimal(0) updatewhereclause=yes name=pagare_cta_pag_isa dbname="pagare.cta_pag_isa" )
+ column=(type=decimal(4) updatewhereclause=yes name=valor_cuota dbname="pagare.valor_cuo" )
+ column=(type=decimal(4) updatewhereclause=yes name=nro_cuotas dbname="pagare.plazo" )
+ column=(type=decimal(4) updatewhereclause=yes name=tasa dbname="pagare.tasa" )
+ column=(type=decimal(4) updatewhereclause=yes name=pie dbname="pagare.pie_pagado" )
+ column=(type=char(1) updatewhereclause=yes name=moneda dbname="pagare.moneda" )
+ column=(type=datetime updatewhereclause=yes name=fecha_of dbname="pagare.fecha" )
+ column=(type=datetime updatewhereclause=yes name=fecha_of dbname="pagare.fechas_ingreso" )
+ column=(type=char(1) updatewhereclause=yes name=estado dbname="cadena.estado" )
+ column=(type=decimal(0) updatewhereclause=yes name=parque dbname="pagare.parque" )
+ column=(type=decimal(4) updatewhereclause=yes name=pagare_pie dbname="pagare.pie" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cadena~" )  TABLE(NAME=~"pagare~" ) COLUMN(NAME=~"cadena.codigo~") COLUMN(NAME=~"cadena.serie~") COLUMN(NAME=~"cadena.numero~") COLUMN(NAME=~"pagare.fecha_prim~") COLUMN(NAME=~"pagare.cta_pag_la~") COLUMN(NAME=~"pagare.cta_pag_isa~") COLUMN(NAME=~"pagare.valor_cuo~") COLUMN(NAME=~"pagare.plazo~") COLUMN(NAME=~"pagare.tasa~") COLUMN(NAME=~"pagare.pie_pagado~") COLUMN(NAME=~"pagare.moneda~") COLUMN(NAME=~"pagare.fecha~") COLUMN(NAME=~"pagare.fechas_ingreso~") COLUMN(NAME=~"cadena.estado~") COLUMN(NAME=~"pagare.parque~") COLUMN(NAME=~"pagare.pie~")    JOIN (LEFT=~"cadena.serie~"    OP =~"=~"RIGHT=~"pagare.serie_p~" )    JOIN (LEFT=~"cadena.numero~"    OP =~"=~"RIGHT=~"pagare.nro_pagare~" )WHERE(    EXP1 =~"~~~"CADENA~~~".~~~"CODIGO~~~"~"   OP =~"=~"    EXP2 =~"'P'~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"(~~~"CADENA~~~".~~~"ESTADO~~~"~"   OP =~"=~"    EXP2 =~"'V'~"    LOGIC =~"or~" ) WHERE(    EXP1 =~"~~~"CADENA~~~".~~~"ESTADO~~~"~"   OP =~"=~"    EXP2 =~"'C'~"    LOGIC =~"or~" ) WHERE(    EXP1 =~"~~~"CADENA~~~".~~~"ESTADO~~~"~"   OP =~"=~"    EXP2 =~"'S'~"    LOGIC =~"or~" ) WHERE(    EXP1 =~"~~~"CADENA~~~".~~~"ESTADO~~~"~"   OP =~"=~"    EXP2 =~"'T')~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"PAGARE~~~".~~~"TASA~~~"~"   OP =~"<>~"    EXP2 =~"0~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"CADENA~~~".~~~"ESTADO_CONTABLE~~~"~"   OP =~"<>~"    EXP2 =~"'C'~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"PAGARE~~~".~~~"ESTADO_CREDITO~~~"~"   OP =~"=~"    EXP2 =~"0~" ) ) ORDER(NAME=~"cadena.codigo~" ASC=yes )  ORDER(NAME=~"cadena.serie~" ASC=yes )  ORDER(NAME=~"cadena.numero~" ASC=yes ) "  sort="pie D " )
+text(band=header alignment="2" text="Cadena
+Codigo" border="6" color="0" x="219" y="8" height="128" width="201"  name=cadena_codigo_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Serie" border="6" color="0" x="439" y="8" height="128" width="201"  name=cadena_serie_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Numero" border="6" color="0" x="658" y="8" height="128" width="247"  name=cadena_numero_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pagare
+Fecha Prim" border="6" color="0" x="923" y="8" height="128" width="315"  name=pagare_fecha_prim_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pagare
+Cta Pag La" border="6" color="0" x="1257" y="8" height="128" width="329"  name=pagare_cta_pag_la_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pagare
+Valor Cuo" border="6" color="0" x="2309" y="8" height="128" width="329"  name=pagare_valor_cuo_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pagare
+Plazo" border="6" color="0" x="2656" y="8" height="128" width="329"  name=pagare_plazo_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pagare
+Cta Pag Isa" border="6" color="0" x="1605" y="8" height="128" width="329"  name=pagare_cta_pag_isa_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="ctas_pag_s
+" border="6" color="0" x="1957" y="8" height="128" width="329"  name=t_1  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pagare
+Tasa" border="6" color="0" x="3008" y="8" height="128" width="329"  name=pagare_tasa_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="pie_pagado
+" border="6" color="0" x="3360" y="8" height="128" width="329"  name=t_2  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="moneda
+" border="6" color="0" x="3712" y="8" height="128" width="329"  name=t_3  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pagare
+Pie" border="6" color="0" x="4645" y="8" height="128" width="265"  name=t_4  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression="getrow()"border="5" color="0" x="14" y="4" height="52" width="183" format="###,###,###"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="0" x="219" y="4" height="52" width="201" format="[general]"  name=cadena_codigo edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="5" color="0" x="439" y="4" height="52" width="201" format="[general]"  name=serie edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="5" color="0" x="923" y="4" height="52" width="315" format="dd/mm/yyyy"  name=fecha_prim edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="5" color="0" x="1605" y="4" height="52" width="329" format="[general]"  name=pagare_cta_pag_isa edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="5" color="0" x="2309" y="4" height="52" width="329" format="###,###,###"  name=valor_cuota edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="5" color="0" x="2656" y="4" height="52" width="329" format="[general]"  name=nro_cuotas edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="5" color="0" x="1253" y="4" height="52" width="329" format="[general]"  name=pagare_cta_pag_la edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="5" color="0" x="658" y="4" height="52" width="247" format="###,###,###"  name=nro_oferta edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression=" pagare_cta_pag_la + pagare_cta_pag_isa "border="5" color="0" x="1957" y="4" height="52" width="329" format="[general]"  name=ctas_pag_s  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="5" color="0" x="3008" y="4" height="52" width="329" format="[general]"  name=tasa edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="5" color="0" x="3360" y="4" height="52" width="329" format="[general]"  name=pie edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="5" color="0" x="3712" y="4" height="52" width="329" format="[general]"  name=moneda edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="5" color="0" x="4064" y="4" height="56" width="283" format="dd/mm/yyyy"  name=fecha_of edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="5" color="0" x="4370" y="4" height="56" width="78" format="[general]"  name=estado edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="5" color="0" x="4471" y="4" height="56" width="155" format="[general]"  name=parque edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="5" color="0" x="4645" y="4" height="56" width="265" format="[general]"  name=pagare_pie edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="0" expression="'Total  '+string(rowcount(),'###,###,###,###,###,##0')"border="0" color="0" x="78" y="4" height="64" width="901" format="[GENERAL]"  name=compute_2  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
+  

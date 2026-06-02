@@ -1,0 +1,32 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Emite documento (imprimir) sin Preview Class BLScript~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_printdirect from function_object
+end type
+
+forward prototypes
+global function datastore f_printdirect (string as_rpt, string as_name)
+end prototypes
+
+global function datastore f_printdirect (string as_rpt, string as_name);/* f_PrintDirect( as_rpt, as_name ) */
+uo_DataStore	lds_1
+
+
+lds_1 = Create uo_DataStore
+lds_1.DataObject = as_rpt
+lds_1.SetTransObject( SqlCa )
+
+If as_name = '' Then
+	as_name = lds_1.Describe( 'DataWindow.Print.DocumentName' )
+End If
+
+If as_name = '' Then 
+	as_name = 'Documento'
+End If
+
+as_name = gs_aplicacion + ' - ' + as_name
+
+lds_1.Modify( 'DataWindow.Print.DocumentName = "' + as_name + '"' )
+
+Return lds_1
+
+end function
+

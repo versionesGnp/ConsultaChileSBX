@@ -1,0 +1,882 @@
+﻿global type f_actualizar_desistir_credito from function_object
+end type
+
+forward prototypes
+global function long f_actualizar_desistir_credito (string as_tipo_mov, long al_monto, long al_nro_cuotas)
+end prototypes
+
+global function long f_actualizar_desistir_credito (string as_tipo_mov, long al_monto, long al_nro_cuotas);LONG		ll_CTA_PAG_S, ll_ultimo_folio, ll_total_cuotas,ll_abono,ll_total_pie_pagado, ll_total_pagado,&
+			ll_folio,ll_cuotas_pag_pie,ll_count_reg,ll_ctas_pag_isa,ll_fila,ll_ctas_pag_la,ll_plazo
+Datetime	ldt_fecha_hoy
+String		ls_tipo_cob
+date		idt_fecha_hoy
+
+if isvalid(w_forma_pago2) then
+	gs_tipo_cobro	= trim(w_forma_pago2.st_tipo_cobro.text)
+	idt_fecha_hoy	= date(w_ingreso2.st_fecha.text)
+	gd_hoy 			= Datetime(idt_fecha_hoy)
+	
+	IF gs_rezago = "S" THEN
+		RETURN 1
+	END IF
+	if (gs_base='O' or gs_base='U' or gs_base='L' or gs_base='A' or gs_base='M') and (as_tipo_mov='A' or as_tipo_mov='Q') then
+		ls_tipo_cob		= trim(w_forma_pago2.st_tipo_cobro.text)
+		ll_folio			= long(trim(w_forma_pago2.st_folio.text))
+		ldt_fecha_hoy	= datetime(date(idt_fecha_hoy),time('00:00:00'))
+	end if
+	CHOOSE CASE gs_base
+		CASE "O","U","M" // OFERTAS
+			CHOOSE CASE as_tipo_mov
+				CASE "E"	,"U"
+					SELECT	"OFERTA_V"."TOT_PAGADO",   
+								"OFERTA_V"."CTA_PAG_S"  
+					INTO 		:ll_total_pagado,   
+								:ll_CTA_PAG_S  
+					FROM 		"OFERTA_V"  
+					WHERE  ( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 ( "OFERTA_V"."NRO_OFERTA" = :gi_numero );    
+					ll_CTA_PAG_S		= ll_CTA_PAG_S - al_nro_cuotas
+					ll_total_pagado		= ll_total_pagado - al_monto
+	
+					UPDATE	"OFERTA_V"  
+					SET 		"CTA_PAG_S" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 ( "OFERTA_V"."NRO_OFERTA" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "L"	
+					// Otros, no modifica valores
+	
+				CASE "A","Q"
+					SELECT	"OFERTA_V"."TOT_PAGADO",   
+								"OFERTA_V"."ULT_FOLIO",   
+								"PAGO_OFERTA"."CTAS_PAGADAS_PIE",
+								"PAGO_OFERTA"."PIE_PAGADO"
+					INTO 		:ll_total_pagado,   
+								:ll_ultimo_folio,   
+								:ll_cuotas_pag_pie,
+								:ll_total_pie_pagado
+					FROM 	"OFERTA_V",   
+								"PAGO_OFERTA",   
+								"CADENA"  
+					WHERE  ( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+							 ( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+							 ( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+							 ( "OFERTA_V"."SERIE" = "CADENA"."SERIE" ) and  
+							 ( "OFERTA_V"."NRO_OFERTA" = "CADENA"."NUMERO" ) and  
+							 (("CADENA"."CODIGO" = 'O' ) AND  
+							 ( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 ( "OFERTA_V"."NRO_OFERTA" = :gi_numero ) )   
+					Using		sqlca;
+					if isnull(ll_total_pagado) then ll_total_pagado=0
+					if isnull(ll_ultimo_folio) then ll_ultimo_folio=0
+					if isnull(ll_cuotas_pag_pie) then ll_cuotas_pag_pie=0
+					if isnull(ll_total_pie_pagado) then ll_total_pie_pagado=0
+					ll_total_pagado		= ll_total_pagado - al_monto
+					UPDATE	"OFERTA_V"
+					SET 		"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  	( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 	( "OFERTA_V"."NRO_OFERTA" = :gi_numero )
+					USING	sqlca;
+					ll_cuotas_pag_pie		= ll_cuotas_pag_pie - al_nro_cuotas
+					ll_total_pie_pagado	= ll_total_pie_pagado - al_monto
+					SELECT	COUNT("DETALLE_PAGO_PIE"."NUMERO")  
+					INTO 		:ll_count_reg  
+					FROM 	"DETALLE_PAGO_PIE"  
+					WHERE  ( "DETALLE_PAGO_PIE"."BASE" = :gs_base ) AND  
+							 ( "DETALLE_PAGO_PIE"."SERIE" = :gs_serie ) AND  
+							 ( "DETALLE_PAGO_PIE"."NUMERO" = :gi_numero ) AND  
+							 ( "DETALLE_PAGO_PIE"."ESTADO" = 'C' )   
+					USING		sqlca;
+					if ll_count_reg>0 then
+						ll_cuotas_pag_pie	= ll_count_reg
+					end if
+					UPDATE	"PAGO_OFERTA"  
+					SET 		"PIE_PAGADO" = :ll_total_pie_pagado  
+					WHERE  ( "PAGO_OFERTA"."SERIE" = :gs_serie ) AND  
+							 ( "PAGO_OFERTA"."NRO_OFERTA" = :gi_numero ) AND  
+							 ( "PAGO_OFERTA"."FOLIO" = :ll_ultimo_folio )
+					USING		sqlca;
+					//,  "CTAS_PAGADAS_PIE" = :ll_cuotas_pag_pie
+				CASE "F"
+					SELECT	"OFERTA_V"."TOT_PAGADO_M",   
+								"OFERTA_V"."CTA_PAG_M"  
+					INTO 		:ll_total_pagado,   
+								:ll_CTA_PAG_S  
+					FROM 		"OFERTA_V"  
+					WHERE  ( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 ( "OFERTA_V"."NRO_OFERTA" = :gi_numero );    
+					ll_CTA_PAG_S		= ll_CTA_PAG_S - al_nro_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+	
+					UPDATE	"OFERTA_V"  
+					SET 		"CTA_PAG_M" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO_M" = :ll_total_pagado  
+					WHERE  ( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 ( "OFERTA_V"."NRO_OFERTA" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "M"
+					// no hace nada
+					
+				CASE "N" //Abono mantención
+					SELECT	"OFERTA_V"."ABONO_M", "OFERTA_V"."TOT_PAGADO_M"   
+					INTO 		:ll_abono, :ll_total_pagado   
+					FROM 	"OFERTA_V"  
+					WHERE  	( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 	( "OFERTA_V"."NRO_OFERTA" = :gi_numero );    
+	
+					ll_total_pagado	= ll_total_pagado - al_monto
+					ll_abono 			= ll_abono - al_monto
+	
+					UPDATE	"OFERTA_V"  
+					SET 		"ABONO_M" = :ll_abono, "TOT_PAGADO_M" = :ll_total_pagado  
+					WHERE  ( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 ( "OFERTA_V"."NRO_OFERTA" = :gi_numero )
+					USING		sqlca;
+					
+				CASE "I" // Abono cuota
+					SELECT	"OFERTA_V"."ABONO_C", "OFERTA_V"."TOT_PAGADO"   
+					INTO 		:ll_abono, :ll_total_pagado
+					FROM 	"OFERTA_V"  
+					WHERE  	( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 	( "OFERTA_V"."NRO_OFERTA" = :gi_numero );    
+					ll_total_pagado	= ll_total_pagado - al_monto
+					ll_abono 			= ll_abono - al_monto
+					
+					UPDATE 	"OFERTA_V"  
+					SET 		"ABONO_C" = :ll_abono, 
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  	( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 	( "OFERTA_V"."NRO_OFERTA" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "K"
+					SELECT	"OFERTA_V"."TOT_PAGADO", "OFERTA_V"."ULT_FOLIO"   
+					INTO 		:ll_total_pagado, 
+								:ll_ultimo_folio   
+					FROM 		"OFERTA_V"  
+					WHERE  	( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 	( "OFERTA_V"."NRO_OFERTA" = :gi_numero );    
+	
+					SELECT	"PAGO_OFERTA"."NRO_CUOTAS"
+					INTO 		:ll_total_cuotas
+					FROM 	"PAGO_OFERTA"
+					WHERE  	( "PAGO_OFERTA"."SERIE" = :gs_serie ) AND  
+							 	( "PAGO_OFERTA"."NRO_OFERTA" = :gi_numero ) AND  
+							 	( "PAGO_OFERTA"."FOLIO" = :ll_ultimo_folio );    
+	
+					ll_CTA_PAG_S 		= ll_total_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+	
+					UPDATE	"OFERTA_V"  
+					SET 		"CTA_PAG_S" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+							 ( "OFERTA_V"."NRO_OFERTA" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "S" //Modificar
+					if gs_codigo_otro='101'  then
+						IF gs_tipo_cobro = "BL"  THEN
+							SELECT	"OFERTA_V"."TOT_PAGADO_M",
+										"OFERTA_V"."ULT_FOLIO"
+							INTO 		:ll_total_pagado, 
+										:ll_ultimo_folio   
+							FROM 	"OFERTA_V"  
+							WHERE  	( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+									 	( "OFERTA_V"."NRO_OFERTA" = :gi_numero );    
+	
+							ll_total_pagado	= ll_total_pagado - al_monto 
+							UPDATE	"OFERTA_V"
+							SET 		"TOT_PAGADO_M" = :ll_total_pagado  
+							WHERE  	( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+									 	( "OFERTA_V"."NRO_OFERTA" = :gi_numero )
+							USING	sqlca;
+	
+						ELSE	
+							SELECT	"OFERTA_V"."TOT_PAGADO",
+										"OFERTA_V"."ULT_FOLIO"
+							INTO 		:ll_total_pagado, 
+										:ll_ultimo_folio   
+							FROM 	"OFERTA_V"  
+							WHERE  	( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+									 	( "OFERTA_V"."NRO_OFERTA" = :gi_numero );    
+		
+							ll_total_pagado	= ll_total_pagado - al_monto 
+		
+							UPDATE	"OFERTA_V"
+							SET 		"TOT_PAGADO" = :ll_total_pagado  
+							WHERE  	( "OFERTA_V"."SERIE" = :gs_serie ) AND  
+									 	( "OFERTA_V"."NRO_OFERTA" = :gi_numero )
+							USING	sqlca;
+	
+						END IF
+					end if
+			END CHOOSE
+	
+		CASE "C" // CONTRATOS ISA
+			CHOOSE CASE as_tipo_mov
+				CASE "E"	
+					// No se da este caso
+				CASE "L"	
+					// Otros, no modifica valores
+				CASE "A"
+					// No se da este caso
+				CASE "F"
+					SELECT	"CONTRATO"."TOT_PAGADO",   
+								"CONTRATO"."CTA_PAG_M"  
+					INTO 		:ll_total_pagado,   
+								:ll_CTA_PAG_S  
+					FROM 	"CONTRATO"  
+					WHERE  ( "CONTRATO"."SERIE_C" = :gs_serie ) AND  
+							 ( "CONTRATO"."NRO_CONTRATO" = :gi_numero );    
+	
+					ll_CTA_PAG_S		= ll_CTA_PAG_S - al_nro_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+	
+					UPDATE	"CONTRATO"  
+					SET 		"CTA_PAG_M" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "CONTRATO"."SERIE_C" = :gs_serie ) AND  
+							 ( "CONTRATO"."NRO_CONTRATO" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "M"
+					// no hace nada
+				CASE "N" //Abono mantención
+					SELECT	"CONTRATO"."ABONO_M", "CONTRATO"."TOT_PAGADO"   
+					INTO 		:ll_abono, :ll_total_pagado   
+					FROM 		"CONTRATO"  
+					WHERE  ( "CONTRATO"."SERIE_C" = :gs_serie ) AND  
+							 ( "CONTRATO"."NRO_CONTRATO" = :gi_numero );    
+	
+					ll_total_pagado	= ll_total_pagado - al_monto
+					ll_abono 			= ll_abono - al_monto
+	
+					UPDATE	"CONTRATO"  
+					SET 		"ABONO_M" = :ll_abono, 
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "CONTRATO"."SERIE_C" = :gs_serie ) AND  
+							 ( "CONTRATO"."NRO_CONTRATO" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "I" // Abono cuota
+					// NO SE DA ESTA OPCION
+				CASE "K"
+					//NO SE DA ESTA OPCION
+				CASE "S"
+					if gs_codigo_otro='101' then
+						SELECT	"CONTRATO"."TOT_PAGADO"
+						INTO 		:ll_total_pagado 
+						FROM 		"CONTRATO"  
+						WHERE  ( "CONTRATO"."SERIE_C" = :gs_serie ) AND  
+								 ( "CONTRATO"."NRO_CONTRATO" = :gi_numero );    
+						
+						ll_total_pagado	= ll_total_pagado - al_monto 
+						
+						UPDATE	"CONTRATO"
+						SET 		"TOT_PAGADO" = :ll_total_pagado  
+						WHERE  ( "CONTRATO"."SERIE_C" = :gs_serie ) AND  
+								 ( "CONTRATO"."NRO_CONTRATO" = :gi_numero )
+						USING		sqlca;
+	
+					end if
+			END CHOOSE
+	
+		CASE "L" // LIBERADOR
+			CHOOSE CASE as_tipo_mov
+				CASE "E"	,"U"
+					SELECT	"ANEXO_LIBERADOR"."TOT_PAGADO",   
+								"ANEXO_LIBERADOR"."CTA_PAG_M"  
+					INTO 		:ll_total_pagado,   
+								:ll_CTA_PAG_S  
+					FROM 		"ANEXO_LIBERADOR"  
+					WHERE  ( "ANEXO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+							 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero );    
+					
+					ll_CTA_PAG_S		= ll_CTA_PAG_S - al_nro_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+	
+					UPDATE	"ANEXO_LIBERADOR"  
+					SET 		"CTA_PAG_M" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  	( "ANEXO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+							 	( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "L"	
+					// OPCION NO UTILIZADA
+				CASE "A","Q"
+					SELECT	"ANEXO_LIBERADOR"."TOT_PAGADO",   
+								"ANEXO_LIBERADOR"."ULT_FOLIO",   
+								"PAGO_LIBERADOR"."CTAS_PAGADAS_PIE",
+								"PAGO_LIBERADOR"."PIE_PAGADO"
+					INTO 		:ll_total_pagado,   
+								:ll_ultimo_folio,   
+								:ll_cuotas_pag_pie,
+								:ll_total_pie_pagado
+					FROM 		"ANEXO_LIBERADOR",   
+								"PAGO_LIBERADOR",   
+								"CADENA"  
+					WHERE  ( "ANEXO_LIBERADOR"."SERIE_M" = "PAGO_LIBERADOR"."SERIE_M" ) and  
+							 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "PAGO_LIBERADOR"."NRO_LIBERADOR" ) and  
+							 ( "ANEXO_LIBERADOR"."ULT_FOLIO" = "PAGO_LIBERADOR"."FOLIO" ) and  
+							 ( "ANEXO_LIBERADOR"."SERIE_M" = "CADENA"."SERIE" ) and  
+							 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "CADENA"."NUMERO" ) and  
+							 (("CADENA"."CODIGO" = 'L' ) AND  
+							 ( "ANEXO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+							 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero ) )   
+					Using		sqlca;
+					if isnull(ll_total_pagado) then ll_total_pagado=0
+					if isnull(ll_ultimo_folio) then ll_ultimo_folio=0
+					if isnull(ll_cuotas_pag_pie) then ll_cuotas_pag_pie=0
+					if isnull(ll_total_pie_pagado) then ll_total_pie_pagado=0
+					ll_total_pagado		= ll_total_pagado - al_monto
+					UPDATE	"ANEXO_LIBERADOR"
+					SET 		"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  	( "ANEXO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+							 	( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero )
+					USING		sqlca;
+					ll_cuotas_pag_pie		= ll_cuotas_pag_pie - al_nro_cuotas
+					ll_total_pie_pagado	= ll_total_pie_pagado - al_monto
+					UPDATE	"PAGO_LIBERADOR"  
+					SET 		"PIE_PAGADO" = :ll_total_pie_pagado
+					WHERE  ( "PAGO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+							 ( "PAGO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero ) AND  
+							 ( "PAGO_LIBERADOR"."FOLIO" = :ll_ultimo_folio )
+					USING		sqlca;
+					// ,  "CTAS_PAGADAS_PIE" = :ll_cuotas_pag_pie  
+					CASE "F"
+					// NO EXISTE OPCION
+				CASE "M"
+					// NO EXISTE OPCION
+				CASE "N" //Abono mantención
+					// NO EXISTE OPCION				
+				CASE "I" // Abono cuota
+					SELECT	"ANEXO_LIBERADOR"."ABONO_M", "ANEXO_LIBERADOR"."TOT_PAGADO"   
+					INTO 		:ll_abono, :ll_total_pagado
+					FROM 	"ANEXO_LIBERADOR"  
+					WHERE  ( "ANEXO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+							 	( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero );    
+					
+					ll_total_pagado	= ll_total_pagado - al_monto
+					ll_abono 			= ll_abono - al_monto
+					
+					UPDATE	"ANEXO_LIBERADOR"  
+					SET 		"ABONO_M" = :ll_abono, "TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "ANEXO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+							 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero )
+					USING		sqlca;
+					
+				CASE "K"
+					SELECT	"ANEXO_LIBERADOR"."TOT_PAGADO", "ANEXO_LIBERADOR"."ULT_FOLIO"   
+					INTO 		:ll_total_pagado, 
+								:ll_ultimo_folio   
+					FROM 		"ANEXO_LIBERADOR"  
+					WHERE  ( "ANEXO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+							 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero );    
+					
+					SELECT	"PAGO_LIBERADOR"."NRO_CUOTAS"
+					INTO 		:ll_total_cuotas
+					FROM 		"PAGO_LIBERADOR"
+					WHERE  ( "PAGO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+							 ( "PAGO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero ) AND  
+							 ( "PAGO_LIBERADOR"."FOLIO" = :ll_ultimo_folio );    
+					
+					ll_CTA_PAG_S		= ll_total_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+					
+					UPDATE	"ANEXO_LIBERADOR"  
+					SET 		"CTA_PAG_M" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "ANEXO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+							 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero )
+					USING		sqlca;
+					
+				CASE "S"
+					if gs_codigo_otro='101' then
+						SELECT	"ANEXO_LIBERADOR"."TOT_PAGADO",
+									"ANEXO_LIBERADOR"."ULT_FOLIO"
+						INTO 		:ll_total_pagado, 
+									:ll_ultimo_folio   
+						FROM 		"ANEXO_LIBERADOR"  
+						WHERE  ( "ANEXO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+								 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero );    
+						
+						ll_total_pagado	= ll_total_pagado - al_monto 
+						
+						UPDATE	"ANEXO_LIBERADOR"
+						SET 		"TOT_PAGADO" = :ll_total_pagado  
+						WHERE  ( "ANEXO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+								 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero )
+						USING		sqlca;
+	
+					end if
+			END CHOOSE
+	
+		CASE "F","G" // FUNERARIA
+			CHOOSE CASE as_tipo_mov
+				CASE "E"	,"U"
+					SELECT	"PRODUCTO_ANEXO"."TOTAL_PAGADO",   
+								"PRODUCTO_ANEXO"."CUOTAS_PAG"  
+					INTO 		:ll_total_pagado,   
+								:ll_CTA_PAG_S  
+					FROM 	"PRODUCTO_ANEXO"  
+					WHERE  ( "PRODUCTO_ANEXO"."SERIE" = :gs_serie ) AND  
+							 ( "PRODUCTO_ANEXO"."NUMERO" = :gi_numero );    
+					
+					ll_CTA_PAG_S		= ll_CTA_PAG_S - al_nro_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+	
+					UPDATE	"PRODUCTO_ANEXO"  
+					SET 		"CUOTAS_PAG" = :ll_CTA_PAG_S,   
+								"TOTAL_PAGADO" = :ll_total_pagado  
+					WHERE  ( "PRODUCTO_ANEXO"."SERIE" = :gs_serie ) AND  
+							 ( "PRODUCTO_ANEXO"."NUMERO" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "L"	
+					// OPCION NO UTILIZADA
+					SELECT 	"PRODUCTO_ANEXO"."TOTAL_PAGADO",   
+								"PRODUCTO_ANEXO"."CUOTAS_PAG",   
+								"PRODUCTO_PAGO"."PLAZO"  
+					INTO 		:ll_total_pagado,   
+								:ll_CTA_PAG_S,   
+								:ll_plazo  
+					FROM 	"PRODUCTO_ANEXO",  	"PRODUCTO_PAGO"  
+					WHERE ( "PRODUCTO_ANEXO"."BASE" = "PRODUCTO_PAGO"."BASE" ) and  
+								( "PRODUCTO_ANEXO"."SERIE" = "PRODUCTO_PAGO"."SERIE" ) and  
+								( "PRODUCTO_ANEXO"."NUMERO" = "PRODUCTO_PAGO"."NUMERO" ) and  
+								( "PRODUCTO_ANEXO"."ULT_FOLIO" = "PRODUCTO_PAGO"."FOLIO" ) and  
+								(( "PRODUCTO_ANEXO"."SERIE" = :gs_serie ) AND  
+								( "PRODUCTO_ANEXO"."NUMERO" = :gi_numero ) )   ;
+	
+					if isnull(ll_CTA_PAG_S) then ll_CTA_PAG_S = 0
+					if ll_CTA_PAG_S = 0 then al_nro_cuotas = 1
+					ll_CTA_PAG_S		= ll_CTA_PAG_S - al_nro_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+					if ll_CTA_PAG_S > ll_plazo then ll_CTA_PAG_S = ll_plazo
+					
+					UPDATE	"PRODUCTO_ANEXO"  
+					SET 		"CUOTAS_PAG" = :ll_CTA_PAG_S,   
+								"TOTAL_PAGADO" = :ll_total_pagado  
+					WHERE  	( "PRODUCTO_ANEXO"."SERIE" = :gs_serie ) AND  
+								( "PRODUCTO_ANEXO"."NUMERO" = :gi_numero )
+					USING	sqlca;
+					
+				CASE "A","Q"
+					SELECT	"PRODUCTO_ANEXO"."TOTAL_PAGADO",   
+								"PRODUCTO_ANEXO"."ULT_FOLIO",   
+								"PRODUCTO_PAGO"."CTAS_PIE_PAGADAS",
+								"PRODUCTO_PAGO"."PIE_PAGADO"
+					INTO 		:ll_total_pagado,   
+								:ll_ultimo_folio,   
+								:ll_cuotas_pag_pie,
+								:ll_total_pie_pagado
+					FROM 	"PRODUCTO_ANEXO",   
+								"PRODUCTO_PAGO",   
+								"CADENA"  
+					WHERE  ( "PRODUCTO_ANEXO"."SERIE" = "PRODUCTO_PAGO"."SERIE" ) and  
+							 ( "PRODUCTO_ANEXO"."NUMERO" = "PRODUCTO_PAGO"."NUMERO" ) and  
+							 ( "PRODUCTO_ANEXO"."ULT_FOLIO" = "PRODUCTO_PAGO"."FOLIO" ) and  
+							 ( "PRODUCTO_ANEXO"."SERIE" = "CADENA"."SERIE" ) and  
+							 ( "PRODUCTO_ANEXO"."NUMERO" = "CADENA"."NUMERO" ) and  
+							 (("CADENA"."CODIGO" = 'F' OR "CADENA"."CODIGO" = 'G' ) AND  
+							 ( "PRODUCTO_ANEXO"."SERIE" = :gs_serie ) AND  
+							 ( "PRODUCTO_ANEXO"."NUMERO" = :gi_numero ) )   
+					Using		sqlca;
+					if isnull(ll_total_pagado) then ll_total_pagado=0
+					if isnull(ll_ultimo_folio) then ll_ultimo_folio=0
+					if isnull(ll_cuotas_pag_pie) then ll_cuotas_pag_pie=0
+					if isnull(ll_total_pie_pagado) then ll_total_pie_pagado=0
+					ll_total_pagado		= ll_total_pagado - al_monto
+					UPDATE	"PRODUCTO_ANEXO"
+					SET 		"TOTAL_PAGADO" = :ll_total_pagado  
+					WHERE  ( "PRODUCTO_ANEXO"."SERIE" = :gs_serie ) AND  
+							 ( "PRODUCTO_ANEXO"."NUMERO" = :gi_numero )
+					USING	sqlca;
+					ll_cuotas_pag_pie		= ll_cuotas_pag_pie - al_nro_cuotas
+					ll_total_pie_pagado	= ll_total_pie_pagado - al_monto
+					UPDATE	"PRODUCTO_PAGO"  
+					SET 		"PIE_PAGADO" = :ll_total_pie_pagado
+					WHERE  ( "PRODUCTO_PAGO"."SERIE" = :gs_serie ) AND  
+							 ( "PRODUCTO_PAGO"."NUMERO" = :gi_numero ) AND  
+							 ( "PRODUCTO_PAGO"."FOLIO" = :ll_ultimo_folio )
+					USING		sqlca;
+					//	"CTAS_PIE_PAGADAS" = :ll_cuotas_pag_pie  
+					CASE "F"
+					// NO EXISTE OPCION
+				CASE "M"
+					// NO EXISTE OPCION
+				CASE "N" //Abono mantención
+					// NO EXISTE OPCION				
+				CASE "I" // Abono cuota
+					// NO EXISTE OPCION	
+					
+				CASE "K"
+					SELECT	"PRODUCTO_ANEXO"."TOTAL_PAGADO", 	"PRODUCTO_ANEXO"."ULT_FOLIO"   
+					INTO 		:ll_total_pagado, 									:ll_ultimo_folio   
+					FROM 	"PRODUCTO_ANEXO"  
+					WHERE  ( "PRODUCTO_ANEXO"."SERIE" = :gs_serie ) AND  
+							 ( "PRODUCTO_ANEXO"."NUMERO" = :gi_numero );    
+					
+					SELECT	"PRODUCTO_PAGO"."PLAZO"
+					INTO 		:ll_total_cuotas
+					FROM 	"PRODUCTO_PAGO"
+					WHERE  ( "PRODUCTO_PAGO"."SERIE" = :gs_serie ) AND  
+							 ( "PRODUCTO_PAGO"."NUMERO" = :gi_numero ) AND  
+							 ( "PRODUCTO_PAGO"."FOLIO" = :ll_ultimo_folio );    
+					
+					ll_CTA_PAG_S		= ll_total_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+					
+					UPDATE	"PRODUCTO_ANEXO"  
+					SET 		"CUOTAS_PAG" = :ll_CTA_PAG_S,   
+								"TOTAL_PAGADO" = :ll_total_pagado  
+					WHERE  ( "PRODUCTO_ANEXO"."SERIE" = :gs_serie ) AND  
+								( "PRODUCTO_ANEXO"."NUMERO" = :gi_numero )
+					USING		sqlca;
+					
+				CASE "S"
+					if gs_codigo_otro='101' then
+						SELECT	"PRODUCTO_ANEXO"."TOTAL_PAGADO",
+									"PRODUCTO_ANEXO"."ULT_FOLIO"
+						INTO 		:ll_total_pagado, 
+									:ll_ultimo_folio   
+						FROM 	"PRODUCTO_ANEXO"  
+						WHERE  ( "PRODUCTO_ANEXO"."SERIE" = :gs_serie ) AND  
+								 ( "PRODUCTO_ANEXO"."NUMERO" = :gi_numero );    
+						
+						ll_total_pagado	= ll_total_pagado - al_monto 
+						
+						UPDATE	"PRODUCTO_ANEXO"
+						SET 		"TOTAL_PAGADO" = :ll_total_pagado  
+						WHERE  ( "PRODUCTO_ANEXO"."SERIE" = :gs_serie ) AND  
+								 	( "PRODUCTO_ANEXO"."NUMERO" = :gi_numero )
+						USING		sqlca;
+	
+					end if
+			END CHOOSE
+	
+		CASE "P" // PAGARE
+			CHOOSE CASE as_tipo_mov
+				CASE "E"	,"U"
+					SELECT	"PAGARE"."TOT_PAGADO",   
+								"PAGARE"."CTA_PAG_LA"  
+					INTO 		:ll_total_pagado,   
+								:ll_CTA_PAG_S  
+					FROM 	"PAGARE"  
+					WHERE  ( "PAGARE"."SERIE_P" = :gs_serie ) AND  
+							 ( "PAGARE"."NRO_PAGARE" = :gi_numero );    
+					
+					ll_CTA_PAG_S		= ll_CTA_PAG_S - al_nro_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+					
+					UPDATE	"PAGARE"  
+					SET 		"CTA_PAG_LA" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "PAGARE"."SERIE_P" = :gs_serie ) AND  
+							 ( "PAGARE"."NRO_PAGARE" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "L"	
+					// OPCION NO EXISTE
+				CASE "A","Q"
+					SELECT	"PAGARE"."TOT_PAGADO"
+					INTO 		:ll_total_pagado 
+					FROM 	"PAGARE"  
+					WHERE  ( "PAGARE"."SERIE_P" = :gs_serie ) AND  
+							 ( "PAGARE"."NRO_PAGARE" = :gi_numero );    
+	
+					ll_total_pagado	= ll_total_pagado - al_monto
+	
+					UPDATE	"PAGARE"
+					SET 		"TOT_PAGADO" = :ll_total_pagado ,
+								"PIE_PAGADO" = :al_monto 
+					WHERE  ( "PAGARE"."SERIE_P" = :gs_serie ) AND  
+							 ( "PAGARE"."NRO_PAGARE" = :gi_numero )
+					USING		sqlca;
+				 
+				CASE "F"
+					// OPCION NO EXISTE
+				CASE "M"
+					// OPCION NO EXISTE
+				CASE "N" //Abono mantención
+					// OPCION NO EXISTE				
+				CASE "I" // Abono cuota
+					SELECT	"PAGARE"."ABONO_PAG", "PAGARE"."TOT_PAGADO"   
+					INTO 		:ll_abono, :ll_total_pagado
+					FROM 		"PAGARE"  
+					WHERE  ( "PAGARE"."SERIE_P" = :gs_serie ) AND  
+							 ( "PAGARE"."NRO_PAGARE" = :gi_numero );    
+							 
+					ll_total_pagado	= ll_total_pagado - al_monto
+					ll_abono 			= ll_abono  - al_monto
+	
+					UPDATE	"PAGARE"  
+					SET 		"ABONO_PAG" = :ll_abono, "TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "PAGARE"."SERIE_P" = :gs_serie ) AND  
+							 ( "PAGARE"."NRO_PAGARE" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "K"
+					SELECT	"PAGARE"."TOT_PAGADO", 	"PAGARE"."PLAZO",	"PAGARE"."CTA_PAG_ISA",	"PAGARE"."CTA_PAG_LA"
+					INTO 		:ll_total_pagado, 				:ll_total_cuotas,		:ll_ctas_pag_isa,				:ll_CTA_PAG_S
+					FROM 	"PAGARE"  
+					WHERE  ( "PAGARE"."SERIE_P" = :gs_serie ) AND  
+							 ( "PAGARE"."NRO_PAGARE" = :gi_numero );    
+					
+					ll_CTA_PAG_S		= ll_total_cuotas	//al_nro_cuotas + ll_CTA_PAG_S
+					ll_total_pagado 	= ll_total_pagado - al_monto
+					UPDATE 	"PAGARE"  
+					SET 		"CTA_PAG_LA" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "PAGARE"."SERIE_P" = :gs_serie ) AND  
+							 ( "PAGARE"."NRO_PAGARE" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "S"
+					if gs_codigo_otro='101' then
+						SELECT	"PAGARE"."TOT_PAGADO"
+						INTO 		:ll_total_pagado
+						FROM 		"PAGARE"  
+						WHERE  ( "PAGARE"."SERIE_P" = :gs_serie ) AND  
+								 ( "PAGARE"."NRO_PAGARE" = :gi_numero );    
+		
+						ll_total_pagado	= ll_total_pagado - al_monto 
+		
+						UPDATE	"PAGARE"
+						SET 		"TOT_PAGADO" = :ll_total_pagado  
+						WHERE  ( "PAGARE"."SERIE_P" = :gs_serie ) AND  
+								 ( "PAGARE"."NRO_PAGARE" = :gi_numero )
+						USING		sqlca;
+	
+					end if
+			END CHOOSE
+	
+		CASE "D" // DERECHO 
+			CHOOSE CASE as_tipo_mov
+				CASE "E"	,"U"
+					SELECT	"DERECHO"."TOT_PAGADO",   
+								"DERECHO"."CTA_PAG_LA"  
+					INTO 		:ll_total_pagado,   
+								:ll_CTA_PAG_S  
+					FROM 		"DERECHO"  
+					WHERE  ( "DERECHO"."SERIE_P" = :gs_serie ) AND  
+							 ( "DERECHO"."NRO_PAGARE" = :gi_numero );    
+					
+					ll_CTA_PAG_S		= ll_CTA_PAG_S - al_nro_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+	
+					UPDATE	"DERECHO"  
+					SET 		"CTA_PAG_LA" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "DERECHO"."SERIE_P" = :gs_serie ) AND  
+							 ( "DERECHO"."NRO_PAGARE" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "L"	
+					// OPCION NO EXISTE
+				CASE "A","Q"
+					SELECT	"DERECHO"."TOT_PAGADO"
+					INTO 		:ll_total_pagado 
+					FROM 	"DERECHO"  
+					WHERE  ( "DERECHO"."SERIE_P" = :gs_serie ) AND  
+							 ( "DERECHO"."NRO_PAGARE" = :gi_numero );    
+	
+					ll_total_pagado	= ll_total_pagado - al_monto
+	
+					UPDATE	"DERECHO"
+					SET 		"TOT_PAGADO" = :ll_total_pagado ,
+								"PIE_PAGADO" = :al_monto 
+					WHERE  ( "DERECHO"."SERIE_P" = :gs_serie ) AND  
+							 ( "DERECHO"."NRO_PAGARE" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "F"
+					// OPCION NO EXISTE
+				CASE "M"
+					// OPCION NO EXISTE
+				CASE "N" //Abono mantención
+					// OPCION NO EXISTE				
+				CASE "I" // Abono cuota
+					SELECT	"DERECHO"."ABONO_PAG", "DERECHO"."TOT_PAGADO"   
+					INTO 		:ll_abono, :ll_total_pagado
+					FROM 		"DERECHO"  
+					WHERE  ( "DERECHO"."SERIE_P" = :gs_serie ) AND  
+							 ( "DERECHO"."NRO_PAGARE" = :gi_numero );    
+	
+					ll_total_pagado	= ll_total_pagado - al_monto
+					ll_abono 			= ll_abono - al_monto
+	
+					UPDATE	"DERECHO"  
+					SET 		"ABONO_PAG" = :ll_abono, "TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "DERECHO"."SERIE_P" = :gs_serie ) AND  
+							 ( "DERECHO"."NRO_PAGARE" = :gi_numero )
+					USING		sqlca;
+					
+				CASE "K"
+					SELECT	"DERECHO"."TOT_PAGADO", 	"DERECHO"."PLAZO",	"DERECHO"."CTA_PAG_ISA",	"DERECHO"."CTA_PAG_LA"
+					INTO 		:ll_total_pagado, 					:ll_total_cuotas,		:ll_ctas_pag_isa,					:ll_ctas_pag_la
+					FROM 		"DERECHO"  
+					WHERE  ( "DERECHO"."SERIE_P" = :gs_serie ) AND  
+							 ( "DERECHO"."NRO_PAGARE" = :gi_numero );    
+					
+					ll_CTA_PAG_S		= ll_total_cuotas		//ll_total_cuotas - (ll_ctas_pag_isa + ll_ctas_pag_la)
+					ll_total_pagado 	= ll_total_pagado - al_monto
+					
+					UPDATE	"DERECHO"  
+					SET 		"CTA_PAG_LA" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "DERECHO"."SERIE_P" = :gs_serie ) AND  
+							 ( "DERECHO"."NRO_PAGARE" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "S"
+					if gs_codigo_otro='101' then
+						SELECT	"DERECHO"."TOT_PAGADO"
+						INTO 		:ll_total_pagado
+						FROM 		"DERECHO"  
+						WHERE  ( "DERECHO"."SERIE_P" = :gs_serie ) AND  
+								 ( "DERECHO"."NRO_PAGARE" = :gi_numero );    
+		
+						ll_total_pagado	= ll_total_pagado - al_monto 
+		
+						UPDATE	"DERECHO"
+						SET 		"TOT_PAGADO" = :ll_total_pagado  
+						WHERE  ( "DERECHO"."SERIE_P" = :gs_serie ) AND  
+								 ( "DERECHO"."NRO_PAGARE" = :gi_numero )
+						USING		sqlca;
+	
+					end if
+			END CHOOSE
+	
+		CASE "A"
+			CHOOSE CASE as_tipo_mov
+				CASE "E"	,"U"
+					SELECT	"ANEXO_AUMENTO"."TOT_PAGADO",   
+								"ANEXO_AUMENTO"."CTA_PAG_M"  
+					INTO 		:ll_total_pagado,   
+								:ll_CTA_PAG_S  
+					FROM 		"ANEXO_AUMENTO"  
+					WHERE  ( "ANEXO_AUMENTO"."SERIE_M" = :gs_serie ) AND  
+							 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = :gi_numero );    
+					
+					ll_CTA_PAG_S		= ll_CTA_PAG_S - al_nro_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+	
+					UPDATE	"ANEXO_AUMENTO"  
+					SET 		"CTA_PAG_M" = :ll_CTA_PAG_S,   
+								"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "ANEXO_AUMENTO"."SERIE_M" = :gs_serie ) AND  
+							 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = :gi_numero )
+					USING		sqlca;		
+					
+				CASE "A","Q"
+					SELECT	"ANEXO_AUMENTO"."TOT_PAGADO",   
+								"ANEXO_AUMENTO"."ULT_FOLIO",   
+								"PAGO_AUMENTO"."CTAS_PAGADAS_PIE",
+								"PAGO_AUMENTO"."PIE_PAGADO"
+					INTO 		:ll_total_pagado,   
+								:ll_ultimo_folio,   
+								:ll_cuotas_pag_pie,
+								:ll_total_pie_pagado
+					FROM 		"ANEXO_AUMENTO",   
+								"PAGO_AUMENTO",   
+								"CADENA"  
+					WHERE  ( "ANEXO_AUMENTO"."SERIE_M" = "PAGO_AUMENTO"."SERIE_M" ) and  
+							 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = "PAGO_AUMENTO"."NRO_AUMENTO" ) and  
+							 ( "ANEXO_AUMENTO"."ULT_FOLIO" = "PAGO_AUMENTO"."FOLIO" ) and  
+							 ( "ANEXO_AUMENTO"."SERIE_M" = "CADENA"."SERIE" ) and  
+							 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = "CADENA"."NUMERO" ) and  
+							 (("CADENA"."CODIGO" = 'A' ) AND  
+							 ( "ANEXO_AUMENTO"."SERIE_M" = :gs_serie ) AND  
+							 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = :gi_numero ) )   
+					Using		sqlca;
+					if isnull(ll_total_pagado) then ll_total_pagado=0
+					if isnull(ll_ultimo_folio) then ll_ultimo_folio=0
+					if isnull(ll_cuotas_pag_pie) then ll_cuotas_pag_pie=0
+					if isnull(ll_total_pie_pagado) then ll_total_pie_pagado=0
+					ll_total_pagado		= ll_total_pagado - al_monto
+					UPDATE	"ANEXO_AUMENTO"
+					SET 		"TOT_PAGADO" = :ll_total_pagado  
+					WHERE  ( "ANEXO_AUMENTO"."SERIE_M" = :gs_serie ) AND  
+							 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = :gi_numero )
+					USING		sqlca;
+					ll_cuotas_pag_pie		= ll_cuotas_pag_pie - al_nro_cuotas
+					ll_total_pie_pagado	= ll_total_pie_pagado - al_monto
+					UPDATE	"PAGO_AUMENTO"  
+					SET 		"PIE_PAGADO" = :ll_total_pie_pagado
+					WHERE  ( "PAGO_AUMENTO"."SERIE_M" = :gs_serie ) AND  
+							 ( "PAGO_AUMENTO"."NRO_AUMENTO" = :gi_numero ) AND  
+							 ( "PAGO_AUMENTO"."FOLIO" = :ll_ultimo_folio )
+					USING		sqlca;
+					//,  "CTAS_PAGADAS_PIE" = :ll_cuotas_pag_pie  
+				CASE "S"
+					if gs_codigo_otro='101' then
+						SELECT	"ANEXO_AUMENTO"."TOT_PAGADO",
+									"ANEXO_AUMENTO"."ULT_FOLIO"
+						INTO 		:ll_total_pagado, 
+									:ll_ultimo_folio   
+						FROM 		"ANEXO_AUMENTO"  
+						WHERE  ( "ANEXO_AUMENTO"."SERIE_M" = :gs_serie ) AND  
+								 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = :gi_numero );    
+						
+						ll_total_pagado	= ll_total_pagado - al_monto 
+						
+						UPDATE	"ANEXO_AUMENTO"
+						SET 		"TOT_PAGADO" = :ll_total_pagado  
+						WHERE  ( "ANEXO_AUMENTO"."SERIE_M" = :gs_serie ) AND  
+								 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = :gi_numero )
+						USING		sqlca;
+	
+					end if
+			END CHOOSE
+			
+		CASE "R" // Reprogramación de Contratos de Mantención
+			CHOOSE CASE as_tipo_mov
+				CASE "E"	,"U"
+					SELECT	"REPACTA_MANTENCION"."CTAS_PAGADAS",
+								"REPACTA_MANTENCION"."TOTAL_PAGADO"  
+					INTO 		:ll_CTA_PAG_S, 	:ll_total_pagado  
+					FROM 		"REPACTA_MANTENCION"  
+					WHERE  ( "REPACTA_MANTENCION"."SERIE" = :gs_serie ) AND  
+							 ( "REPACTA_MANTENCION"."NUMERO" = :gi_numero )   ;				
+	
+					ll_CTA_PAG_S		= ll_CTA_PAG_S - al_nro_cuotas
+					ll_total_pagado 	= ll_total_pagado - al_monto
+					
+					UPDATE	"REPACTA_MANTENCION"  
+					SET 		"REPACTA_MANTENCION"."CTAS_PAGADAS" = :ll_CTA_PAG_S,   
+								"REPACTA_MANTENCION"."TOTAL_PAGADO" = :ll_total_pagado  
+					WHERE  ( "REPACTA_MANTENCION"."SERIE" = :gs_serie ) AND  
+							 ( "REPACTA_MANTENCION"."NUMERO" = :gi_numero )
+					USING		sqlca;
+	
+				CASE "L"	
+					// Otros, no modifica valores
+				CASE "S"
+					IF (gs_tipo_cobro = "BL" and gs_codigo_otro='101') THEN
+						SELECT	"REPACTA_MANTENCION"."TOTAL_PAGADO"  
+						INTO 		:ll_total_pagado  
+						FROM 		"REPACTA_MANTENCION"  
+						WHERE  ( "REPACTA_MANTENCION"."SERIE" = :gs_serie ) AND  
+								 ( "REPACTA_MANTENCION"."NUMERO" = :gi_numero )   ;				
+						
+						ll_total_pagado	= ll_total_pagado - al_monto 
+	
+						UPDATE	"REPACTA_MANTENCION"
+						SET 		"REPACTA_MANTENCION"."TOTAL_PAGADO" = :ll_total_pagado  
+						WHERE  ( "REPACTA_MANTENCION"."SERIE" = :gs_serie ) AND  
+								 ( "REPACTA_MANTENCION"."NUMERO" = :gi_numero )
+						USING		sqlca;
+	
+					END IF
+			END CHOOSE
+	END CHOOSE
+end if
+RETURN 0
+end function
+

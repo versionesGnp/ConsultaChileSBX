@@ -1,0 +1,55 @@
+﻿global type f_docto_pend from function_object
+end type
+
+forward prototypes
+global function long f_docto_pend (string as_base, string as_serie, double adb_numero, datetime adt_fec_cierre)
+end prototypes
+
+global function long f_docto_pend (string as_base, string as_serie, double adb_numero, datetime adt_fec_cierre);long	ll_docto_pend
+datetime	ldt_fec_fin
+
+//f_docto_pend(as_base,as_serie,al_numero,adt_fec_cierre)
+SELECT	"CIERRE_VENTA"."FEC_DOCTO_PENDIENTE"
+INTO		:ldt_fec_fin
+FROM 	"CIERRE_VENTA"  
+WHERE 	"CIERRE_VENTA"."CIERRE_VENTA" = :adt_fec_cierre
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ldt_fec_fin) then
+		ldt_fec_fin								= ldt_fec_fin
+	else
+		ldt_fec_fin								= gdt_fec_sistema
+	end if
+else
+	ldt_fec_fin									= gdt_fec_sistema
+end if
+SELECT	count("ESTADO_ENTREGA_OPERA")
+INTO		:ll_docto_pend
+FROM		"CD_FOLIO_DETALLE_EXCEPCION"  
+WHERE 	(("CD_FOLIO_DETALLE_EXCEPCION"."BASE" = :as_base AND  
+			"CD_FOLIO_DETALLE_EXCEPCION"."SERIE" = :as_serie AND  
+			"CD_FOLIO_DETALLE_EXCEPCION"."NUMERO" = :adb_numero AND  
+			"CD_FOLIO_DETALLE_EXCEPCION"."CODIGO_GRUPO_EXCEPCION" = 4 AND
+			"CD_FOLIO_DETALLE_EXCEPCION"."FECHA_RECEPCION_DOC_OPERA" >= :ldt_fec_fin and
+			"CD_FOLIO_DETALLE_EXCEPCION"."ESTADO" = 'V') OR
+			("CD_FOLIO_DETALLE_EXCEPCION"."BASE" = :as_base AND  
+			"CD_FOLIO_DETALLE_EXCEPCION"."SERIE" = :as_serie AND  
+			"CD_FOLIO_DETALLE_EXCEPCION"."NUMERO" = :adb_numero AND  
+			"CD_FOLIO_DETALLE_EXCEPCION"."CODIGO_GRUPO_EXCEPCION" = 4 AND
+			"CD_FOLIO_DETALLE_EXCEPCION"."ESTADO_ENTREGA_OPERA" = 'P' and
+			"CD_FOLIO_DETALLE_EXCEPCION"."ESTADO" = 'V'))
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ll_docto_pend) and ll_docto_pend > 0 then
+		ll_docto_pend									= ll_docto_pend
+	else
+		ll_docto_pend									= 0
+	end if
+else
+	ll_docto_pend										= 0
+end if
+if isnull(ll_docto_pend) then ll_docto_pend=0
+return ll_docto_pend
+
+end function
+

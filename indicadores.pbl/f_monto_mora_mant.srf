@@ -1,0 +1,25 @@
+﻿global type f_monto_mora_mant from function_object
+end type
+
+forward prototypes
+global function double f_monto_mora_mant (string base, string serie, double numero)
+end prototypes
+
+global function double f_monto_mora_mant (string base, string serie, double numero);double valor
+
+if base = 'O' then
+	SELECT "OFERTA_V"."VALOR_CUOTA_M"  
+	INTO :valor  
+	FROM "OFERTA_V"  
+	WHERE ( "OFERTA_V"."SERIE" = :serie ) AND  
+			( "OFERTA_V"."NRO_OFERTA" = :numero )   ;
+else
+	SELECT "CONTRATO"."VALOR_CUOTA_M"  
+   INTO :valor  
+   FROM "CONTRATO"  
+   WHERE ( "CONTRATO"."SERIE_C" = :serie ) AND  
+         ( "CONTRATO"."NRO_CONTRATO" = :numero )   ;
+end if
+return valor
+end function
+

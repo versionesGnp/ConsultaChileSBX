@@ -1,0 +1,21 @@
+﻿global type f_cta_vtas_ugn from function_object
+end type
+
+forward prototypes
+global function long f_cta_vtas_ugn (string as_cod_age, datetime adt_fec_ini, datetime adt_fec_fin)
+end prototypes
+
+global function long f_cta_vtas_ugn (string as_cod_age, datetime adt_fec_ini, datetime adt_fec_fin);long	ll_cta_vta
+
+//f_cta_vtas(as_cod_age,adt_fec_ini,adt_fec_fin)
+if as_cod_age='U3' then
+	ll_cta_vta							= 8
+elseif as_cod_age='U8' then
+	ll_cta_vta							= 6
+elseif as_cod_age='U13' then
+	ll_cta_vta							= 9
+end if
+if isnull(ll_cta_vta) then ll_cta_vta=0
+return ll_cta_vta
+end function
+

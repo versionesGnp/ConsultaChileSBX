@@ -1,0 +1,109 @@
+﻿global type f_valida_menu_visita_terreno from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_visita_terreno (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_visita_terreno (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_terreno'
+				m_menu_principal.m_terreno.visible																						= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.visible													= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_asignación.visible									= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_asignaciónespecial.visible						= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_gruposgenerados.visible							= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_eliminarcontratodecarteraasignada.visible	= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_reemplazarejecutivo.visible						= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_comisiones0.visible								= false
+				m_menu_principal.m_terreno.m_ingresargestión.visible																= false
+				m_menu_principal.m_terreno.m_veragenda.visible																		= false
+				m_menu_principal.m_terreno.m_veragenda.m_telefónica.visible														= false
+				m_menu_principal.m_terreno.m_veragenda.m_visitaterreno.visible													= false
+				m_menu_principal.m_terreno.m_informes3.visible																		= false
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.visible												= false
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.m_gestióntelefónica.visible					= false
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.m_gestiónvisitaterreno.visible				= false
+				m_menu_principal.m_terreno.m_informes3.m_gestiónporejecutivo.visible											= false
+				m_menu_principal.m_terreno.m_informes3.m_gestiónporejecutivocsdocumentaciónpendi.visible				= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.visible															= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularcontactotelefónico.visible		= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularvisitaterrenooatenciónp.visible	= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularenviocarta.visible					= false
+				m_menu_principal.m_terreno.m_informes3.m_general0.visible														= false
+				m_menu_principal.m_terreno.m_clasificaciónderiesgo.visible														= false
+			CASE 'm_menu_principal.m_terreno.m_gestiónatenciónenterreno'
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.visible													= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_asignación.visible									= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_asignaciónespecial.visible						= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_gruposgenerados.visible							= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_eliminarcontratodecarteraasignada.visible	= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_reemplazarejecutivo.visible						= false
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_comisiones0.visible								= false
+			CASE 'm_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_asignación'
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_asignación.visible									= false
+			CASE 'm_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_asignaciónespecial'
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_asignaciónespecial.visible						= false
+			CASE 'm_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_gruposgenerados'
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_gruposgenerados.visible							= false
+			CASE 'm_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_eliminarcontratodecarteraasignada'
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_eliminarcontratodecarteraasignada.visible	= false
+			CASE 'm_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_reemplazarejecutivo'
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_reemplazarejecutivo.visible						= false
+			CASE 'm_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_comisiones0'
+				m_menu_principal.m_terreno.m_gestiónatenciónenterreno.m_comisiones0.visible								= false
+			CASE 'm_menu_principal.m_terreno.m_ingresargestión'
+				m_menu_principal.m_terreno.m_ingresargestión.visible																= false
+			CASE 'm_menu_principal.m_terreno.m_veragenda'
+				m_menu_principal.m_terreno.m_veragenda.visible																		= false
+				m_menu_principal.m_terreno.m_veragenda.m_telefónica.visible														= false
+				m_menu_principal.m_terreno.m_veragenda.m_visitaterreno.visible													= false
+			CASE 'm_menu_principal.m_terreno.m_veragenda.m_telefónica'
+				m_menu_principal.m_terreno.m_veragenda.m_telefónica.visible														= false
+			CASE 'm_menu_principal.m_terreno.m_veragenda.m_visitaterreno'
+				m_menu_principal.m_terreno.m_veragenda.m_visitaterreno.visible													= false
+			CASE 'm_menu_principal.m_terreno.m_informes3'
+				m_menu_principal.m_terreno.m_informes3.visible																		= false
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.visible												= false
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.m_gestióntelefónica.visible					= false
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.m_gestiónvisitaterreno.visible				= false
+				m_menu_principal.m_terreno.m_informes3.m_gestiónporejecutivo.visible											= false
+				m_menu_principal.m_terreno.m_informes3.m_gestiónporejecutivocsdocumentaciónpendi.visible				= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.visible															= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularcontactotelefónico.visible		= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularvisitaterrenooatenciónp.visible	= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularenviocarta.visible					= false
+				m_menu_principal.m_terreno.m_informes3.m_general0.visible														= false
+			CASE 'm_menu_principal.m_terreno.m_informes3.m_cuadroestadítico'
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.visible												= false
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.m_gestióntelefónica.visible					= false
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.m_gestiónvisitaterreno.visible				= false
+			CASE 'm_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.m_gestióntelefónica'
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.m_gestióntelefónica.visible					= false
+			CASE 'm_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.m_gestiónvisitaterreno'
+				m_menu_principal.m_terreno.m_informes3.m_cuadroestadítico.m_gestiónvisitaterreno.visible				= false
+			CASE 'm_menu_principal.m_terreno.m_informes3.m_gestiónporejecutivo'
+				m_menu_principal.m_terreno.m_informes3.m_gestiónporejecutivo.visible											= false
+			CASE 'm_menu_principal.m_terreno.m_informes3.m_gestiónporejecutivocsdocumentaciónpendi'
+				m_menu_principal.m_terreno.m_informes3.m_gestiónporejecutivocsdocumentaciónpendi.visible				= false
+			CASE 'm_menu_principal.m_terreno.m_informes3.m_resumen'
+				m_menu_principal.m_terreno.m_informes3.m_resumen.visible															= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularcontactotelefónico.visible		= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularvisitaterrenooatenciónp.visible	= false
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularenviocarta.visible					= false
+			CASE 'm_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularcontactotelefónico'
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularcontactotelefónico.visible		= false
+			CASE 'm_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularvisitaterrenooatenciónp'
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularvisitaterrenooatenciónp.visible	= false
+			CASE 'm_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularenviocarta'
+				m_menu_principal.m_terreno.m_informes3.m_resumen.m_porestadotitularenviocarta.visible					= false
+			CASE 'm_menu_principal.m_terreno.m_informes3.m_general0'
+				m_menu_principal.m_terreno.m_informes3.m_general0.visible														= false
+			CASE 'm_menu_principal.m_terreno.m_clasificaciónderiesgo'
+				m_menu_principal.m_terreno.m_clasificaciónderiesgo.visible														= false
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

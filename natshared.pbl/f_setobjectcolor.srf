@@ -1,0 +1,61 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Configra color a objeto, reduce scripts~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_setobjectcolor from function_object
+end type
+
+forward prototypes
+global subroutine f_setobjectcolor (datawindow adw_1, string as_obj, string as_type, string as_color)
+end prototypes
+
+global subroutine f_setobjectcolor (datawindow adw_1, string as_obj, string as_type, string as_color);/* f_SetObjectColor( adw_1, as_obj, as_type, as_color )
+	Autor: César Vilela Requena
+	Cambia de color a un tipo de objeto de un DW */
+
+Boolean	lb_loop = True 
+Long		ll_ini, ll_fin, ll_pos, ll_len
+String	ls_sett, ls_type, ls_obj, ls_dataobj
+
+// Verificación si es existente un DWObject
+ls_dataobj = f_Trim( adw_1.DataObject )
+If ls_dataobj = '' Then Return 
+
+ls_sett	= adw_1.Object.DataWindow.Objects	// Lista de Objetos de un DW
+ll_len	= Len( ls_sett )
+ll_pos	= 1
+ll_ini	= 1
+
+Do While lb_loop
+	ll_pos	= f_Zero( Pos( ls_sett, '~t', ll_ini ) ) // Buscar la posicion del separador TAB
+	If ll_pos = 0 Then // Cuando no encuentre mas TAB debe indicar el final de la cadena
+		ll_fin = ll_len 
+	Else
+		ll_fin = ll_pos - ll_ini
+	End If
+	
+	If as_obj = '' Then
+		ls_obj	= Mid( ls_sett, ll_ini, ll_fin )	// Nombre del Objeto
+	Else
+		ls_obj	= as_obj
+		as_type	= f_Trim( adw_1.Describe( ls_obj + '.Type' ) )
+	End If
+	ls_type 	= f_Trim( adw_1.Describe( ls_obj + '.Type' ) )	//Tipo de Dato
+	
+	If Not ls_type = as_type Then ls_type = ''
+	
+	If ls_type = as_type Then
+		If ls_type = 'text' Then adw_1.Modify( ls_obj + '.Color = ' + as_color ) 
+		If ls_type = 'compute' Then adw_1.Modify( ls_obj + '.Color = ' + as_color )
+		If ls_type = 'column' Then adw_1.Modify( ls_obj + '.Color = ' + as_color )
+		
+		If ls_type = 'rectangle' Then 
+			adw_1.Modify( ls_obj + '.Brush.Color = ' + as_color )
+			adw_1.Modify( ls_obj + '.Pen.Color = ' + as_color )
+		End If
+	End If
+	
+	If ll_pos = 0 Then lb_loop = False
+	ll_ini = ll_pos + 1
+Loop
+
+Return  
+end subroutine
+

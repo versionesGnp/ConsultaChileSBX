@@ -1,0 +1,54 @@
+﻿global type f_pre_ingr_sum_docto from function_object
+end type
+
+forward prototypes
+global function double f_pre_ingr_sum_docto (string as_cod_pag1, string as_cod_pag2, long al_folio, datetime adt_fec_ini, datetime adt_fec_fin)
+end prototypes
+
+global function double f_pre_ingr_sum_docto (string as_cod_pag1, string as_cod_pag2, long al_folio, datetime adt_fec_ini, datetime adt_fec_fin);double	ldb_sum_ta,ldb_sum_ef,ldb_sum_ch,ldb_sum_tot
+
+//f_pre_ingr_sum_docto(as_cod_pag1,as_cod_pag2,al_folio,adt_fec_ini,adt_fec_fin)
+if as_cod_pag1='TD' or as_cod_pag2='TC' then
+	//tarjeta
+	SELECT	SUM("DOCUMENTOS"."MONTO")
+	INTO		:ldb_sum_ta
+	FROM		"DOCUMENTOS"  
+	WHERE	(	"DOCUMENTOS"."FOLIO" = :al_folio ) AND
+				(	"DOCUMENTOS"."TIPO_COB" = 'CI' OR "DOCUMENTOS"."TIPO_COB" = 'CU' OR "DOCUMENTOS"."TIPO_COB" = 'BE') AND 
+				(	"DOCUMENTOS"."FECHA_VENC"  >= :adt_fec_ini) AND 
+				(	"DOCUMENTOS"."COD_PAGO"= :as_cod_pag1 OR "DOCUMENTOS"."COD_PAGO"= :as_cod_pag2)
+	USING	sqlca;
+	if isnull (ldb_sum_ta) then ldb_sum_ta=0
+else
+	if as_cod_pag1='EF' then
+		//efectivo
+		SELECT	SUM("DOCUMENTOS"."MONTO")
+		INTO		:ldb_sum_ef
+		FROM		"DOCUMENTOS"  
+		WHERE	(	"DOCUMENTOS"."FOLIO" = :al_folio ) AND
+					(	"DOCUMENTOS"."TIPO_COB" = 'CI' OR "DOCUMENTOS"."TIPO_COB" = 'CU' OR "DOCUMENTOS"."TIPO_COB" = 'BE') AND 
+					(	"DOCUMENTOS"."FECHA_VENC"  >= :adt_fec_ini) AND 
+					(	"DOCUMENTOS"."FECHA_VENC"  <= :adt_fec_fin) AND 
+					(	"DOCUMENTOS"."COD_PAGO" = 'EF')
+		USING		sqlca;
+		if isnull (ldb_sum_ef) then ldb_sum_ef=0
+	elseif as_cod_pag1='CH' then
+		SELECT	SUM("DOCUMENTOS"."MONTO")
+		INTO		:ldb_sum_ch
+		FROM		"DOCUMENTOS"  
+		WHERE	( 	"DOCUMENTOS"."FOLIO" = :al_folio ) AND
+					(	"DOCUMENTOS"."TIPO_COB" = 'CI' OR "DOCUMENTOS"."TIPO_COB" = 'CU' OR "DOCUMENTOS"."TIPO_COB" = 'BE') AND
+					(	"DOCUMENTOS"."FECHA_VENC"  >= :adt_fec_ini) AND 
+					(	"DOCUMENTOS"."FECHA_VENC"  <= :adt_fec_fin) AND 
+					(	"DOCUMENTOS"."COD_PAGO" = 'CH' )
+		USING	sqlca;
+		if isnull (ldb_sum_ch) then ldb_sum_ch=0
+	end if
+end if
+ldb_sum_tot							= ldb_sum_ta + ldb_sum_ef + ldb_sum_ch
+if isnull(ldb_sum_tot) then ldb_sum_tot=0
+return	 ldb_sum_tot	
+
+
+end function
+

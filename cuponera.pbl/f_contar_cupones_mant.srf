@@ -1,0 +1,57 @@
+﻿global type f_contar_cupones_mant from function_object
+end type
+
+forward prototypes
+global function long f_contar_cupones_mant (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function long f_contar_cupones_mant (string as_base, string as_serie, double al_numero);Long		ll_count,ll_year_hoy,ll_year_venc_ult_cupon
+datetime	ldt_fecha_max_venc_mant
+
+SELECT 	count("CUPONERAS_DETALLE"."BASE")  
+INTO 		:ll_count  
+FROM 	"CUPONERAS_DETALLE",   
+			"CUPONERAS"  
+WHERE  ( "CUPONERAS_DETALLE"."BASE" = "CUPONERAS"."BASE" ) and  
+		 ( "CUPONERAS_DETALLE"."SERIE" = "CUPONERAS"."SERIE" ) and  
+		 ( "CUPONERAS_DETALLE"."NUMERO" = "CUPONERAS"."NUMERO" ) and  
+		 ( "CUPONERAS_DETALLE"."NRO_CUPONERA" = "CUPONERAS"."NRO_CUPONERA" ) and  
+		 (("CUPONERAS_DETALLE"."BASE" = :as_base ) AND  
+		 ( "CUPONERAS_DETALLE"."SERIE" = :as_serie ) AND  
+		 ( "CUPONERAS_DETALLE"."NUMERO" = :al_numero ) AND 
+		 ( "CUPONERAS_DETALLE"."TIPO_MOV" = 'F' ) AND 
+		 ( "CUPONERAS_DETALLE"."ESTADO_PAGO_CUPON" = 'V' ) AND  
+		 ( "CUPONERAS"."ESTADO_CUPONERA" = 'V' or "CUPONERAS"."ESTADO_CUPONERA" = 'C') )   ;
+if isnull(ll_count) or ll_count=0 then 
+	ll_count		= 0
+else
+	SELECT	MAX("CUPONERAS_DETALLE"."FECHA_VENC")  
+	INTO 		:ldt_fecha_max_venc_mant  
+	FROM 		"CUPONERAS_DETALLE",   
+				"CUPONERAS"  
+	WHERE  ( "CUPONERAS_DETALLE"."BASE" = "CUPONERAS"."BASE" ) and  
+			 ( "CUPONERAS_DETALLE"."SERIE" = "CUPONERAS"."SERIE" ) and  
+			 ( "CUPONERAS_DETALLE"."NUMERO" = "CUPONERAS"."NUMERO" ) and  
+			 ( "CUPONERAS_DETALLE"."NRO_CUPONERA" = "CUPONERAS"."NRO_CUPONERA" ) and  
+			 (("CUPONERAS_DETALLE"."BASE" = :as_base ) AND  
+			 ( "CUPONERAS_DETALLE"."SERIE" = :as_serie ) AND  
+			 ( "CUPONERAS_DETALLE"."NUMERO" = :al_numero ) AND  
+			 ( "CUPONERAS_DETALLE"."ESTADO_PAGO_CUPON" = 'V' ) AND  
+			 ( "CUPONERAS"."ESTADO_CUPONERA" = 'V' or "CUPONERAS"."ESTADO_CUPONERA" = 'C' ) AND  
+			 ( "CUPONERAS_DETALLE"."TIPO_MOV" = 'F' ) )   
+	USING		sqlca;
+	if sqlca.sqlcode=0 then
+		ll_year_hoy					= year(date(gdt_fec_sistema))
+		ll_year_venc_ult_cupon	= year(date(ldt_fecha_max_venc_mant))
+		if ll_year_venc_ult_cupon > (ll_year_hoy + 1) then
+//			ll_count					= 200
+		else
+//			ll_count					= 1
+		end if
+	else
+//		ll_count						= 200
+	end if
+end if
+return(ll_count)
+end function
+

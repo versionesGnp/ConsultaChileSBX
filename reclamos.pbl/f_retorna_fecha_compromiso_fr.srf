@@ -1,0 +1,17 @@
+﻿global type f_retorna_fecha_compromiso_fr from function_object
+end type
+
+forward prototypes
+global function datetime f_retorna_fecha_compromiso_fr (long al_folio)
+end prototypes
+
+global function datetime f_retorna_fecha_compromiso_fr (long al_folio);Datetime	ldt_fecha_comp
+
+SELECT DISTINCT MAX( "RECLAMO_SOLICITUD_DETALLE"."FECHA_COMPROMISO"  )
+INTO 		:ldt_fecha_comp  
+FROM 	"RECLAMO_SOLICITUD_DETALLE"  
+WHERE 	( "RECLAMO_SOLICITUD_DETALLE"."NUMERO_RECLAMO" = :al_folio ) AND  
+			( "RECLAMO_SOLICITUD_DETALLE"."FECHA_COMPROMISO" is not null )   ;
+Return ldt_fecha_comp
+end function
+

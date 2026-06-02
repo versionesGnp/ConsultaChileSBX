@@ -1,0 +1,80 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Afecta a todo el sistema según el país del user, impuestos, filtros, Mask, proveedores, etc~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genconfiguraxpais from function_object
+end type
+
+forward prototypes
+global function string f_genconfiguraxpais (string as_pai, string as_valor)
+end prototypes
+
+global function string f_genconfiguraxpais (string as_pai, string as_valor);String	ls_ret
+
+
+as_valor = Upper( f_Trim( as_valor ) )
+as_pai = Upper( f_Trim( as_pai ) )
+
+Choose Case as_valor
+	Case 'ID'
+		Choose Case as_pai
+			Case 'CL' 
+				ls_ret = 'RUT'
+			Case 'MEX' 
+				ls_ret = 'RFC'
+			Case 'PER' 
+				ls_ret = 'DNI'
+		End Choose
+		
+	Case 'FECALTA'
+		Choose Case as_pai
+			Case 'CL' 
+				ls_ret = 'F. Ingreso'
+			Case 'MEX' 
+				ls_ret = 'F. Alta'
+			Case 'PER' 
+				ls_ret = 'F. Ingreso'
+		End Choose
+		
+	Case 'CURP'
+		Choose Case as_pai
+			Case 'CL' 
+				ls_ret = 'C.I.'
+			Case 'MEX' 
+				ls_ret = 'CURP'
+			Case 'PER' 
+				ls_ret = 'ID'
+		End Choose
+		
+	Case 'ESTADO'
+		Choose Case as_pai
+			Case 'CL' 
+				ls_ret = 'Región'
+			Case 'MEX' 
+				ls_ret = 'Estado'
+			Case 'PER' 
+				ls_ret = 'Departamento'
+		End Choose
+		
+	Case 'MUNICIPIO'
+		Choose Case as_pai
+			Case 'CL' 
+				ls_ret = 'Ciudad'
+			Case 'MEX' 
+				ls_ret = 'Municipio'
+			Case 'PER' 
+				ls_ret = 'Provincia'
+		End Choose
+		
+	Case 'COLONIA'
+		Choose Case as_pai
+			Case 'CL' 
+				ls_ret = 'Comuna'
+			Case 'MEX' 
+				ls_ret = 'Colonia'
+			Case 'PE' 
+				ls_ret = 'Distrito'
+		End Choose
+						
+End Choose
+
+Return ls_ret
+end function
+

@@ -1,0 +1,35 @@
+﻿global type gf_mes_siguiente from function_object
+end type
+
+forward prototypes
+global function date gf_mes_siguiente (date ad_fecha, integer ai_meses)
+end prototypes
+
+global function date gf_mes_siguiente (date ad_fecha, integer ai_meses);
+long ll_anno, ll_mes, ll_dia
+date ld_fecha, id_e
+
+//ll_dia = Integer(String(ad_fecha, "dd"))
+//ll_mes  = Integer(String(ad_fecha,"mm"))
+//ll_anno = Integer(String(ad_fecha,"yyyy"))
+
+ll_dia = day(ad_fecha)
+ll_mes = month(ad_fecha) + ai_meses
+ll_anno = year(ad_fecha) 
+
+IF ll_mes > 12 then
+	ll_mes = ll_mes - 12
+	ll_anno ++
+END IF
+
+ld_fecha = Date((String(ll_dia) + "/"+ String(ll_mes) + "/"+ String(ll_anno)))
+id_e = Date("30/02/2000")
+do while ld_fecha = id_e
+	ll_dia = ll_dia - 1
+	ld_fecha = Date((String(ll_dia) + "/"+ String(ll_mes) + "/"+ String(ll_anno)))
+loop
+
+ld_fecha = date(ll_anno, ll_mes, ll_dia)
+RETURN ld_fecha
+end function
+

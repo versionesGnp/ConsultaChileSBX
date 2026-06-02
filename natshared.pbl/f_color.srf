@@ -1,0 +1,15 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Compatibilidad de colores~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_color from function_object
+end type
+
+forward prototypes
+global function string f_color (string as_clr)
+end prototypes
+
+global function string f_color (string as_clr);String	ls_clr
+
+ls_clr = String( f_gen_color( as_clr ) )
+
+Return ls_clr
+end function
+

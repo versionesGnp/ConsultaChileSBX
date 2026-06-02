@@ -1,0 +1,265 @@
+﻿global type f_validar_pie_pactado_actualizar from function_object
+end type
+
+forward prototypes
+global subroutine f_validar_pie_pactado_actualizar (string as_tipo_cob, string as_dw, string as_base, string as_serie, long al_numero)
+end prototypes
+
+global subroutine f_validar_pie_pactado_actualizar (string as_tipo_cob, string as_dw, string as_base, string as_serie, long al_numero);Double	ldb_pie,ldb_pie_pagado,ldb_ctas_pactadas_pie,ldb_ctas_pagadas_pie,ll_numero
+String		ls_base,ls_serie,ls_actuaiza_plazo,ls_actuaiza_cta,grabar_ok
+Long		ll_plazo_pie,ll_count_pie_pagado,ll_ctas_pendientes
+
+ls_actuaiza_plazo						= 'N'
+ls_actuaiza_cta							= 'N'
+grabar_ok								= 'N'
+if not isnull(as_dw) and as_dw <> '' then
+	if as_tipo_cob='CI' then
+		if isvalid(w_ingreso2) then
+			if w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.rowcount() > 0 then
+				if as_dw = 'd_datos_cuenta_ci_oferta' then
+					ldb_pie							= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_oferta_pie')
+					ldb_pie_pagado				= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_oferta_pie_pagado')
+					ldb_ctas_pactadas_pie		= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_oferta_ctas_pactadas_pie')
+					ldb_ctas_pagadas_pie		= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_oferta_ctas_pagadas_pie')
+				elseif as_dw = 'd_datos_cuenta_ci_liberador' then
+					ldb_pie							= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_liberador_pie')
+					ldb_pie_pagado				= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_liberador_pie_pagado')
+					ldb_ctas_pactadas_pie		= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_liberador_ctas_pactadas_pie')
+					ldb_ctas_pagadas_pie		= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_liberador_ctas_pagadas_pie')
+				elseif as_dw = 'd_datos_cuenta_ci_aumento_capacidad' then
+					ldb_pie							= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_aumento_pie')
+					ldb_pie_pagado				= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_aumento_pie_pagado')
+					ldb_ctas_pactadas_pie		= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_aumento_ctas_pactadas_pie')
+					ldb_ctas_pagadas_pie		= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'pago_aumento_ctas_pagadas_pie')
+				elseif as_dw = 'd_datos_cuenta_ci_funeraria' then
+					ldb_pie							= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'producto_pago_pie')
+					ldb_pie_pagado				= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'producto_pago_pie_pagado')
+					ldb_ctas_pactadas_pie		= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'producto_pago_ctas_pie_plazo')
+					ldb_ctas_pagadas_pie		= w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.getitemnumber(1,'producto_pago_ctas_pie_pagadas')
+				end if
+			end if
+		elseif isvalid(w_repacta) then
+			if w_repacta.dw_datos_ci.rowcount() > 0 then
+				CHOOSE CASE gs_base
+					CASE "O", "U","M"
+						ldb_pie						= w_repacta.dw_datos_ci.getitemnumber(1,'pago_oferta_pie')
+						ldb_pie_pagado			= w_repacta.dw_datos_ci.getitemnumber(1,'pago_oferta_pie_pagado')
+						ldb_ctas_pactadas_pie	= w_repacta.dw_datos_ci.getitemnumber(1,'pago_oferta_ctas_pactadas_pie')
+						ldb_ctas_pagadas_pie	= w_repacta.dw_datos_ci.getitemnumber(1,'pago_oferta_ctas_pagadas_pie')
+					CASE "L"
+						ldb_pie						= w_repacta.dw_datos_ci.getitemnumber(1,'pago_liberador_pie')
+						ldb_pie_pagado			= w_repacta.dw_datos_ci.getitemnumber(1,'pago_liberador_pie_pagado')
+						ldb_ctas_pactadas_pie	= w_repacta.dw_datos_ci.getitemnumber(1,'pago_liberador_ctas_pactadas_pie')
+						ldb_ctas_pagadas_pie	= w_repacta.dw_datos_ci.getitemnumber(1,'pago_liberador_ctas_pagadas_pie')
+					CASE "P"
+	//					dw_datos_ci.DataObject 	= 'd_datos_cuenta_ci_pagare'
+						ldb_pie						= w_repacta.dw_datos_ci.getitemnumber(1,'pagare_pie')
+						ldb_pie_pagado			= w_repacta.dw_datos_ci.getitemnumber(1,'pagare_pie_pagado')
+						ldb_ctas_pactadas_pie	= 0
+						ldb_ctas_pagadas_pie	= 0
+						
+					CASE "D"
+	//					dw_datos_ci.DataObject 	= 'd_datos_cuenta_ci_derecho'
+						ldb_pie						= w_repacta.dw_datos_ci.getitemnumber(1,'derecho_pie')
+						ldb_pie_pagado			= w_repacta.dw_datos_ci.getitemnumber(1,'derecho_pie_pagado')
+						ldb_ctas_pactadas_pie	= 0
+						ldb_ctas_pagadas_pie	= 0
+					CASE "C"
+	//					dw_datos_ci.DataObject 	= 'd_datos_cuenta_bl_cto_isa'
+						ldb_pie						= w_repacta.dw_datos_ci.getitemnumber(1,'contrato_pie')
+						ldb_pie_pagado			= w_repacta.dw_datos_ci.getitemnumber(1,'contrato_pie_pagado')
+						ldb_ctas_pactadas_pie	= 0
+						ldb_ctas_pagadas_pie	= 0
+					CASE "A"
+	//					dw_datos_ci.DataObject 	= 'd_datos_cuenta_ci_aumento_capacidad'
+						ldb_pie						= w_repacta.dw_datos_ci.getitemnumber(1,'pago_aumento_pie')
+						ldb_pie_pagado			= w_repacta.dw_datos_ci.getitemnumber(1,'pago_aumento_pie_pagado')
+						ldb_ctas_pactadas_pie	= w_repacta.dw_datos_ci.getitemnumber(1,'pago_aumento_ctas_pactadas_pie')
+						ldb_ctas_pagadas_pie	= w_repacta.dw_datos_ci.getitemnumber(1,'pago_aumento_ctas_pagadas_pie')
+					CASE "R"
+	//					dw_datos_ci.DataObject 	= 'dw_repacta_mant_descripcion_traspaso'
+						ldb_pie						= w_repacta.dw_datos_ci.getitemnumber(1,'repacta_mantencion_pie')
+						ldb_pie_pagado			= 0
+						ldb_ctas_pactadas_pie	= 0
+						ldb_ctas_pagadas_pie	= 0
+				END CHOOSE
+			end if
+		elseif isvalid(w_repacta_funeraria) then
+			if w_repacta_funeraria.dw_datos_ci.rowcount() > 0 then
+				CHOOSE CASE gs_base
+					CASE "G","F","V"
+						ldb_pie						= w_repacta_funeraria.dw_datos_ci.getitemnumber(1,'producto_pago_pie')
+						ldb_pie_pagado			= w_repacta_funeraria.dw_datos_ci.getitemnumber(1,'producto_pago_pie_pagado')
+						ldb_ctas_pactadas_pie	= w_repacta_funeraria.dw_datos_ci.getitemnumber(1,'producto_pago_ctas_pie_plazo')
+						ldb_ctas_pagadas_pie	= w_repacta_funeraria.dw_datos_ci.getitemnumber(1,'producto_pago_ctas_pie_pagadas')
+				END CHOOSE
+			end if
+		end if
+	elseif as_tipo_cob='BA' then
+		if isvalid(w_ingreso2) then
+			if w_ingreso2.tab_ingreso.tp_be.dw_datos_be.rowcount() > 0 then
+				if as_dw = 'd_datos_cuenta_ci_oferta' then
+					ldb_pie							= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_oferta_pie')
+					ldb_pie_pagado				= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_oferta_pie_pagado')
+					ldb_ctas_pactadas_pie		= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_oferta_ctas_pactadas_pie')
+					ldb_ctas_pagadas_pie		= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_oferta_ctas_pagadas_pie')
+				elseif as_dw = 'd_datos_cuenta_ci_liberador' then
+					ldb_pie							= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_liberador_pie')
+					ldb_pie_pagado				= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_liberador_pie_pagado')
+					ldb_ctas_pactadas_pie		= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_liberador_ctas_pactadas_pie')
+					ldb_ctas_pagadas_pie		= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_liberador_ctas_pagadas_pie')
+				elseif as_dw = 'd_datos_cuenta_ci_aumento_capacidad' then
+					ldb_pie							= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_aumento_pie')
+					ldb_pie_pagado				= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_aumento_pie_pagado')
+					ldb_ctas_pactadas_pie		= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_aumento_ctas_pactadas_pie')
+					ldb_ctas_pagadas_pie		= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'pago_aumento_ctas_pagadas_pie')
+				elseif as_dw = 'd_datos_cuenta_ci_funeraria' then
+					ldb_pie							= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'producto_pago_pie')
+					ldb_pie_pagado				= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'producto_pago_pie_pagado')
+					ldb_ctas_pactadas_pie		= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'producto_pago_ctas_pie_plazo')
+					ldb_ctas_pagadas_pie		= w_ingreso2.tab_ingreso.tp_be.dw_datos_be.getitemnumber(1,'producto_pago_ctas_pie_pagadas')
+				end if
+			end if
+		end if
+	end if
+	if isnull(ldb_pie) then ldb_pie=0
+	if isnull(ldb_pie_pagado) then ldb_pie_pagado=0
+	if isnull(ldb_ctas_pactadas_pie) then ldb_ctas_pactadas_pie=0
+	if isnull(ldb_ctas_pagadas_pie) then ldb_ctas_pagadas_pie=0
+	if ldb_pie > 0 then
+		SELECT 		"DETALLE_PAGO_PIE"."BASE",   	
+						"DETALLE_PAGO_PIE"."SERIE",   	
+						"DETALLE_PAGO_PIE"."NUMERO",   
+						(SELECT 		COUNT("DETALLE_PAGO_PIE"."BASE") FROM "DETALLE_PAGO_PIE" WHERE "DETALLE_PAGO_PIE"."BASE" = :gs_base AND "DETALLE_PAGO_PIE"."SERIE" = :gs_serie AND "DETALLE_PAGO_PIE"."NUMERO" = :gi_numero AND "DETALLE_PAGO_PIE"."ESTADO" = 'P' ) ,
+						max("DETALLE_PAGO_PIE"."NUMERO_CUOTA" ) as PLAZO_PIE  
+		INTO 			:ls_base,   								
+						:ls_serie,   								
+						:ll_numero,   	
+						:ll_ctas_pendientes,
+						:ll_plazo_pie  
+		FROM 		"DETALLE_PAGO_PIE"  
+		WHERE 		"DETALLE_PAGO_PIE"."BASE" = :gs_base AND  
+						"DETALLE_PAGO_PIE"."SERIE" = :gs_serie AND  
+						"DETALLE_PAGO_PIE"."NUMERO" = :gi_numero   
+		GROUP BY 	"DETALLE_PAGO_PIE"."BASE",   
+						"DETALLE_PAGO_PIE"."SERIE",   
+						"DETALLE_PAGO_PIE"."NUMERO"  
+		USING	sqlca;
+		if ll_plazo_pie > 0 then
+			
+			if ldb_ctas_pactadas_pie <> ll_plazo_pie then
+				ls_actuaiza_plazo				= 'S'
+			end if
+			SELECT 	Count("INGRESO"."TIPO_COB")
+			INTO 		:ll_count_pie_pagado  
+			FROM 	"INGRESO"  
+			WHERE 	( "INGRESO"."BASE" = :ls_base ) AND  
+						( "INGRESO"."SERIE" = :ls_serie ) AND  
+						( "INGRESO"."CONTRATO" = :ll_numero ) AND  
+						( "INGRESO"."TIPO_MOV" = 'A' or  "INGRESO"."TIPO_MOV" = 'Q' ) AND  
+						( "INGRESO"."PAGO_HIST" = 'A' )   ;
+			if ll_count_pie_pagado <> ldb_ctas_pagadas_pie then
+				ls_actuaiza_cta				= 'S'
+			end if
+			if ls_actuaiza_plazo='S' or ls_actuaiza_cta='S' then
+				if ls_base='O' or ls_base='U' or ls_base='M' then	//as_dw = 'd_datos_cuenta_ci_oferta' then
+					UPDATE 	"PAGO_OFERTA"  
+					SET 		"CTAS_PACTADAS_PIE" = :ll_plazo_pie,   
+								"CTAS_PAGADAS_PIE" = :ll_count_pie_pagado  
+					WHERE 	( "PAGO_OFERTA"."SERIE" = :gs_serie ) AND  
+								( "PAGO_OFERTA"."NRO_OFERTA" = :gi_numero ) AND  
+								( "PAGO_OFERTA"."FOLIO" = (SELECT MAX("PAGO_OFERTA"."FOLIO") FROM "PAGO_OFERTA" WHERE ( "PAGO_OFERTA"."SERIE" = :gs_serie ) AND ( "PAGO_OFERTA"."NRO_OFERTA" = :gi_numero ) ) ) 
+					USING	sqlca;
+					if sqlca.sqlcode=0 then
+						commit;
+						grabar_ok			= 'S'
+					else
+						rollback;
+					end if
+		
+				elseif ls_base='L' then	//as_dw = 'd_datos_cuenta_ci_liberador' then
+					UPDATE 	"PAGO_LIBERADOR"  
+					SET 		"CTAS_PACTADAS_PIE" = :ll_plazo_pie,   
+								"CTAS_PAGADAS_PIE" = :ll_count_pie_pagado  
+					WHERE 	( "PAGO_LIBERADOR"."SERIE_M" = :gs_serie ) AND  
+								( "PAGO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero ) AND  
+								( "PAGO_LIBERADOR"."FOLIO" = (SELECT MAX("PAGO_LIBERADOR"."FOLIO") FROM "PAGO_LIBERADOR" WHERE ( "PAGO_LIBERADOR"."SERIE_M" = :gs_serie ) AND ( "PAGO_LIBERADOR"."NRO_LIBERADOR" = :gi_numero ) ) ) 
+					USING	sqlca;
+					if sqlca.sqlcode=0 then
+						commit;
+						grabar_ok			= 'S'
+					else
+						rollback;
+					end if
+					
+				elseif ls_base='A' then	//as_dw = 'd_datos_cuenta_ci_aumento_capacidad' then
+					UPDATE 	"PAGO_AUMENTO"  
+					SET 		"CTAS_PACTADAS_PIE" = :ll_plazo_pie,   
+								"CTAS_PAGADAS_PIE" = :ll_count_pie_pagado  
+					WHERE 	( "PAGO_AUMENTO"."SERIE_M" = :gs_serie ) AND  
+								( "PAGO_AUMENTO"."NRO_AUMENTO" = :gi_numero ) AND  
+								( "PAGO_AUMENTO"."FOLIO" = (SELECT MAX("PAGO_AUMENTO"."FOLIO") FROM "PAGO_LIBERADOR" WHERE ( "PAGO_AUMENTO"."SERIE_M" = :gs_serie ) AND ( "PAGO_AUMENTO"."NRO_AUMENTO" = :gi_numero ) ) ) 
+					USING	sqlca;
+					if sqlca.sqlcode=0 then
+						commit;
+						grabar_ok			= 'S'
+					else
+						rollback;
+					end if
+					
+				elseif ls_base='F' or ls_base='G' or ls_base='V' then	//as_dw = 'd_datos_cuenta_ci_d_datos_cuenta_ci_funerarialiberador' then
+					UPDATE 	"PRODUCTO_PAGO"  
+					SET 		"CTAS_PIE_PLAZO" = :ll_plazo_pie,   
+								"CTAS_PIE_PAGADAS" = :ll_count_pie_pagado  
+					WHERE 	( "PRODUCTO_PAGO"."SERIE" = :gs_serie ) AND  
+								( "PRODUCTO_PAGO"."NUMERO" = :gi_numero ) AND  
+								( "PRODUCTO_PAGO"."BASE" = :gs_base ) AND  
+								( "PRODUCTO_PAGO"."FOLIO" = (SELECT MAX("PRODUCTO_PAGO"."FOLIO") FROM "PRODUCTO_PAGO" WHERE ( "PRODUCTO_PAGO"."BASE" = :gs_base ) AND ( "PRODUCTO_PAGO"."SERIE" = :gs_serie ) AND ( "PRODUCTO_PAGO"."NUMERO" = :gi_numero ) ) ) 
+					USING	sqlca;
+					if sqlca.sqlcode=0 then
+						commit;
+						grabar_ok			= 'S'
+					else
+						rollback;
+					end if
+				end if
+				if grabar_ok='S' then
+					DECLARE sp_cadena_mora_cta_cte PROCEDURE FOR sp_nuevo_cadena_mora(:gs_base,:gs_serie,:gi_numero,'M');
+					EXECUTE sp_cadena_mora_cta_cte;
+					if isvalid(w_ingreso2) then
+						if as_tipo_cob='CI' then
+							w_ingreso2.tab_ingreso.tp_ci.dw_datos_ci.Retrieve(gs_serie,gi_numero)
+						elseif as_tipo_cob='BA' then
+							w_ingreso2.tab_ingreso.tp_be.dw_datos_be.Retrieve(gs_serie,gi_numero)
+						end if
+					elseif isvalid(w_repacta) then
+						w_repacta.dw_datos_ci.Retrieve(gs_serie,gi_numero)
+					elseif isvalid(w_repacta_funeraria) then
+						w_repacta_funeraria.dw_datos_ci.Retrieve(gs_serie,gi_numero)
+					end if
+				end if
+			end if
+			if ll_ctas_pendientes <> (ll_plazo_pie - ll_count_pie_pagado) then
+				UPDATE 	"DETALLE_PAGO_PIE"  
+				SET 		"ESTADO" = 'P',   
+							"TIPO_COB" = null,   
+							"FOLIO" = null,   
+							"CAJA" = null,   
+							"FECHA_PAGO" = null  
+				WHERE 	( "DETALLE_PAGO_PIE"."BASE" = :gs_base ) AND  
+							( "DETALLE_PAGO_PIE"."SERIE" = :gs_serie ) AND  
+							( "DETALLE_PAGO_PIE"."NUMERO" = :gi_numero )  AND
+							( "DETALLE_PAGO_PIE"."NUMERO_CUOTA" > :ll_count_pie_pagado )
+				USING	sqlca;
+				if sqlca.sqlcode=0 then
+					commit;
+				else
+					rollback;
+				end if
+	
+			end if
+		end if
+	end if
+end if
+end subroutine
+

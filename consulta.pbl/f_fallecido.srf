@@ -1,0 +1,27 @@
+﻿global type f_fallecido from function_object
+end type
+
+forward prototypes
+global function double f_fallecido (string serie, double contrato, string base)
+end prototypes
+
+global function double f_fallecido (string serie, double contrato, string base);Double ll_contrato
+
+setNull(ll_contrato)
+
+SELECT COUNT("FALLECIDOS"."CONTRATO")  
+    INTO :ll_contrato  
+    FROM "FALLECIDOS"  
+   WHERE ( "FALLECIDOS"."BASE" =:base  ) AND  
+         ( "FALLECIDOS"."SS" =:serie  ) AND  
+         ( "FALLECIDOS"."CONTRATO" =:contrato ) AND
+		( "FALLECIDOS"."ESTADO_REG" = 'A' ) ;   
+
+
+if IsNull(ll_contrato) then 
+	return 0
+else
+	return ll_contrato
+end if
+end function
+

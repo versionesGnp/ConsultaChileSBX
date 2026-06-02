@@ -1,0 +1,32 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Busca y cuenta chars ~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_countchars from function_object
+end type
+
+forward prototypes
+global function integer f_countchars (string as_source, string as_char)
+end prototypes
+
+global function integer f_countchars (string as_source, string as_char);
+/* f_CountChars( as_source, as_char )
+// Descripción: Cuenta todas las ocurrencias de as_char en  la cadena as_source
+*/
+
+Int li_pos, li_ret
+
+
+li_pos = Pos (as_source, as_char, 1)
+
+Do While li_pos > 0
+
+	li_ret+=1
+	
+	as_source = Left (as_source, li_pos - 1) + &
+					Right (as_source, Len (as_source) - li_pos) 
+	
+	li_pos = Pos (as_source, as_char, 1)
+	
+loop
+
+Return li_ret
+end function
+

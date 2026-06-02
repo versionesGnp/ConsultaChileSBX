@@ -1,0 +1,35 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: recepciona encrypt, la traduce para PWD~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_desencripta from function_object
+end type
+
+forward prototypes
+global function string f_desencripta (ref string as_texto)
+end prototypes
+
+global function string f_desencripta (ref string as_texto);/* f_DesEncripta( as_texto ) 
+   César Vilela. Encripta para SQL Server MD5 y Oracle CryptF */
+
+uo_DataStore	lds_enc
+String			ls_EPW
+
+
+ls_epw = ProfileString (gs_ini, gs_iniProfile, 'EPW', '1')
+If ls_epw = '0' Then Return as_texto
+
+If f_IsOracle( ) Then
+	f_CreateDS( lds_enc, 'd_gen_desencripta_ora', SqlCa )
+Else
+	f_CreateDS( lds_enc, 'd_gen_desencripta', SqlCa )
+End If
+
+If lds_enc.Retrieve( '', as_texto ) > 0 Then
+	as_texto = f_Trim( lds_enc.Object.c_encriptado[ 1] )
+Else
+	as_texto = ''
+End If
+
+Destroy	lds_enc
+
+Return as_texto
+end function
+

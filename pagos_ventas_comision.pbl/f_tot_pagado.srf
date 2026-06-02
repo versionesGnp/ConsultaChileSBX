@@ -1,0 +1,277 @@
+﻿global type f_tot_pagado from function_object
+end type
+
+forward prototypes
+global function long f_tot_pagado (string as_base, string as_serie, double adb_numero, datetime adt_fecha_ini, datetime adt_fecha_fin)
+end prototypes
+
+global function long f_tot_pagado (string as_base, string as_serie, double adb_numero, datetime adt_fecha_ini, datetime adt_fecha_fin);long		ll_folio,ll_monto,ll_derecho_esp,ll_der_esp,ll_tot_pag,ll_suma_monto,ll_folio_rev,ll_ef,ll_suma_ef,ll_ch,ll_suma_ch,ll_tar,ll_suma_tar
+datetime	ldt_fecha_pago,ldt_fecha_venc,ldt_fecha_ini,ldt_fecha_ter,ldt_fecha_inicio,ldt_fecha_termino
+
+SELECT	MIN("INGRESO"."FECHA_PAGO")
+INTO		:ldt_fecha_pago  
+FROM 	"INGRESO"  
+WHERE	"INGRESO"."BASE" = :as_base AND  
+     		"INGRESO"."SERIE" = :as_serie AND  
+      		"INGRESO"."CONTRATO" = :adb_numero AND  
+         	( "INGRESO"."TIPO_COB" = 'CI' or "INGRESO"."TIPO_COB" = 'BE') AND  
+         	("INGRESO"."TIPO_MOV" = 'A' OR "INGRESO"."TIPO_MOV" = 'E')
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ldt_fecha_pago) then
+		SELECT	MIN("INGRESO"."FOLIO")
+		INTO		:ll_folio  
+		FROM 	"INGRESO"  
+		WHERE	"INGRESO"."BASE" = :as_base AND  
+   		   			"INGRESO"."SERIE" = :as_serie AND  
+     		 	   	"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."FECHA_PAGO" = :ldt_fecha_pago AND   
+      				( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'BE') AND  
+      	   			("INGRESO"."TIPO_MOV" = 'A' OR "INGRESO"."TIPO_MOV" = 'E')
+		USING		sqlca;
+		if sqlca.sqlcode=0 then
+			if not isnull(ll_folio) and ll_folio>0 then
+				SELECT	MIN("DOCUMENTOS"."FECHA_VENC")
+				INTO		:ldt_fecha_venc   
+				FROM		"DOCUMENTOS"  
+				WHERE	"DOCUMENTOS"."FOLIO" = :ll_folio AND  
+   			 	   			( "DOCUMENTOS"."TIPO_COB" = 'CI' OR "DOCUMENTOS"."TIPO_COB" = 'BE') AND  
+     		  		 		"DOCUMENTOS"."FECHA_PAGO" = :ldt_fecha_pago
+				USING		sqlca;
+				if sqlca.sqlcode=0 then
+					if not isnull(ldt_fecha_venc) then
+						SELECT DISTINCT	"FECHA_INICIO",	"FECHA_TERMINO"
+						INTO		:ldt_fecha_ini,	:ldt_fecha_ter 
+						FROM		"CIERRE_PAGOS_VENTAS"  
+						WHERE	"CIERRE_PAGOS_VENTAS"."FECHA_INICIO" <= :ldt_fecha_venc AND  
+									"CIERRE_PAGOS_VENTAS"."FECHA_TERMINO" >= :ldt_fecha_venc AND
+									"CIERRE_PAGOS_VENTAS"."TIPO_PREMIO" = 3
+						USING	sqlca;
+						if sqlca.sqlcode=0 then
+							if not isnull(ldt_fecha_ini) and not isnull(ldt_fecha_ter) then
+								ldt_fecha_inicio			= ldt_fecha_ini
+								ldt_fecha_termino		= ldt_fecha_ter
+							end if
+						else
+							ldt_fecha_inicio			= adt_fecha_ini
+							ldt_fecha_termino			= adt_fecha_fin
+						end if
+						DECLARE x1 CURSOR FOR
+						SELECT	"INGRESO"."FOLIO"
+						FROM 	"INGRESO"  
+						WHERE	"INGRESO"."BASE" = :as_base AND  
+									"INGRESO"."SERIE" = :as_serie AND  
+									"INGRESO"."CONTRATO" = :adb_numero AND
+									"INGRESO"."FECHA_PAGO" >= :ldt_fecha_inicio AND 
+									"INGRESO"."FECHA_PAGO" <= :ldt_fecha_termino AND
+									( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'BE') AND  
+									( "INGRESO"."TIPO_MOV" = 'A' OR "INGRESO"."TIPO_MOV" = 'E')
+						USING	sqlca;
+						open x1;
+							if sqlca.sqlcode=0 then
+								DO WHILE sqlca.sqlcode=0
+								fetch x1 INTO	:ll_folio;
+									if not isnull(ll_folio) or ll_folio > 0 then
+										if ll_folio <> ll_folio_rev then
+											SELECT	SUM("INGRESO"."MONTO")  
+											INTO		:ll_der_esp
+											FROM 	"INGRESO"  
+											WHERE	"INGRESO"."BASE" = :as_base AND  
+														"INGRESO"."SERIE" = :as_serie AND  
+														"INGRESO"."CONTRATO" = :adb_numero AND
+														"INGRESO"."FOLIO" = :ll_folio AND
+														"INGRESO"."FECHA_PAGO" >= :ldt_fecha_inicio AND 
+														"INGRESO"."FECHA_PAGO" <= :ldt_fecha_termino AND
+														( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'BE' ) AND  
+														"INGRESO"."TIPO_MOV" = 'M'
+											USING		sqlca;
+											if sqlca.sqlcode=0 then
+												if not isnull(ll_der_esp) and ll_der_esp>0 then
+													ll_derecho_esp		= ll_der_esp
+												end if
+											else
+												ll_derecho_esp		= 0
+											end if
+											//efectivo
+											SELECT	SUM("DOCUMENTOS"."MONTO")
+											INTO		:ll_ef
+											FROM		"DOCUMENTOS"  
+											WHERE	"DOCUMENTOS"."FOLIO" = :ll_folio AND
+														("DOCUMENTOS"."TIPO_COB" = 'CI' OR "DOCUMENTOS"."TIPO_COB" = 'CU' OR "DOCUMENTOS"."TIPO_COB" = 'BE') AND 
+														"DOCUMENTOS"."FECHA_VENC"  >= :ldt_fecha_inicio AND 
+														"DOCUMENTOS"."FECHA_VENC"  <= :ldt_fecha_termino AND 
+														"DOCUMENTOS"."COD_PAGO" = 'EF'
+											USING		sqlca;
+											if sqlca.sqlcode=0 then
+												if not isnull (ll_ef) or ll_ef=0 then
+													ll_suma_ef							= ll_ef
+												else
+													ll_suma_ef							= 0
+												end if
+											end if
+											//tarjeta
+											SELECT	SUM("DOCUMENTOS"."MONTO")
+											INTO		:ll_tar
+											FROM		"DOCUMENTOS"  
+											WHERE		(	"DOCUMENTOS"."FOLIO" = :ll_folio ) AND
+														(	"DOCUMENTOS"."TIPO_COB" = 'CI' OR "DOCUMENTOS"."TIPO_COB" = 'CU' OR "DOCUMENTOS"."TIPO_COB" = 'BE') AND 
+														(	"DOCUMENTOS"."FECHA_VENC"  >= :ldt_fecha_inicio) AND 
+														(	"DOCUMENTOS"."COD_PAGO"= 'TD' OR "DOCUMENTOS"."COD_PAGO"='TC')
+											USING		sqlca;
+											if sqlca.sqlcode=0 then
+												if not isnull (ll_tar) or ll_tar=0 then
+													ll_suma_tar							= ll_tar
+												else
+													ll_suma_tar							= 0
+												end if
+											end if
+											//cheque
+											SELECT	SUM("DOCUMENTOS"."MONTO")
+											INTO		:ll_ch
+											FROM		"DOCUMENTOS"  
+											WHERE		( 	"DOCUMENTOS"."FOLIO" = :ll_folio ) AND
+														(	"DOCUMENTOS"."TIPO_COB" = 'CI' OR "DOCUMENTOS"."TIPO_COB" = 'CU' OR "DOCUMENTOS"."TIPO_COB" = 'BE') AND
+														(	"DOCUMENTOS"."FECHA_VENC"  >= :ldt_fecha_inicio) AND 
+														(	"DOCUMENTOS"."FECHA_VENC"  <= :ldt_fecha_termino) AND 
+														(	"DOCUMENTOS"."COD_PAGO" = 'CH')
+											USING		sqlca;
+											if sqlca.sqlcode=0 then
+												if not isnull (ll_ch) or ll_ch=0 then
+													ll_suma_ch							= ll_ch
+												else
+													ll_suma_ch							= 0
+												end if
+											end if
+											ll_tot_pag								= ll_suma_ef + ll_suma_tar + ll_suma_ch
+											ll_monto									= ll_tot_pag - ll_derecho_esp
+											ll_suma_monto							= ll_suma_monto + ll_monto
+										end if
+									end if
+									ll_folio_rev						= ll_folio
+									setnull(ll_folio)
+								LOOP
+							end if
+						close x1;
+					end if
+				else
+					SELECT DISTINCT	"FECHA_INICIO",	"FECHA_TERMINO"
+					INTO		:ldt_fecha_ini,	:ldt_fecha_ter 
+					FROM		"CIERRE_PAGOS_VENTAS"  
+					WHERE		"CIERRE_PAGOS_VENTAS"."FECHA_INICIO" <= :ldt_fecha_pago AND  
+								"CIERRE_PAGOS_VENTAS"."FECHA_TERMINO" >= :ldt_fecha_pago AND
+								"CIERRE_PAGOS_VENTAS"."TIPO_PREMIO" = 3
+					USING		sqlca;
+					if sqlca.sqlcode=0 then
+						if not isnull(ldt_fecha_ini) and not isnull(ldt_fecha_ter) then
+							ldt_fecha_inicio			= ldt_fecha_ini
+							ldt_fecha_termino			= ldt_fecha_ter
+						end if
+					else
+						ldt_fecha_inicio			= adt_fecha_ini
+						ldt_fecha_termino			= adt_fecha_fin
+					end if
+					DECLARE x2 CURSOR FOR
+					SELECT	"INGRESO"."FOLIO"
+					FROM 		"INGRESO"  
+					WHERE		( "INGRESO"."BASE" = :as_base ) AND  
+								( "INGRESO"."SERIE" = :as_serie ) AND  
+								( "INGRESO"."CONTRATO" = :adb_numero ) AND
+								( "INGRESO"."FECHA_PAGO" >= :ldt_fecha_inicio ) AND 
+								( "INGRESO"."FECHA_PAGO" <= :ldt_fecha_termino ) AND
+								( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'BE') AND  
+								("INGRESO"."TIPO_MOV" = 'A' OR "INGRESO"."TIPO_MOV" = 'E')
+					USING	sqlca;
+					open x2;
+						if sqlca.sqlcode=0 then
+							DO WHILE sqlca.sqlcode=0
+							fetch x2 INTO	:ll_folio;
+								if not isnull(ll_folio) or ll_folio > 0 then
+									if ll_folio <> ll_folio_rev then
+										SELECT	SUM("INGRESO"."MONTO")  
+										INTO		:ll_der_esp
+										FROM 		"INGRESO"  
+										WHERE		( "INGRESO"."BASE" = :as_base ) AND  
+													( "INGRESO"."SERIE" = :as_serie ) AND  
+													( "INGRESO"."CONTRATO" = :adb_numero  ) AND
+													( "INGRESO"."FOLIO" = :ll_folio  ) AND
+													( "INGRESO"."FECHA_PAGO" >= :ldt_fecha_inicio ) AND
+													( "INGRESO"."FECHA_PAGO" <= :ldt_fecha_termino ) AND
+													( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'BE' ) AND  
+													("INGRESO"."TIPO_MOV" = 'M')
+										USING		sqlca;
+										if sqlca.sqlcode=0 then
+											if not isnull(ll_der_esp) and ll_der_esp>0 then
+												ll_derecho_esp		= ll_der_esp
+											end if
+										else
+											ll_derecho_esp		= 0
+										end if
+										//efectivo
+										SELECT	SUM("DOCUMENTOS"."MONTO")
+										INTO		:ll_ef
+										FROM		"DOCUMENTOS"  
+										WHERE		(	"DOCUMENTOS"."FOLIO" = :ll_folio ) AND
+													(	"DOCUMENTOS"."TIPO_COB" = 'CI' OR "DOCUMENTOS"."TIPO_COB" = 'CU' OR "DOCUMENTOS"."TIPO_COB" = 'BE') AND 
+													(	"DOCUMENTOS"."FECHA_VENC"  >= :ldt_fecha_inicio) AND 
+													(	"DOCUMENTOS"."FECHA_VENC"  <= :ldt_fecha_termino) AND 
+													(	"DOCUMENTOS"."COD_PAGO" = 'EF')
+										USING		sqlca;
+										if sqlca.sqlcode=0 then
+											if not isnull (ll_ef) or ll_ef=0 then
+												ll_suma_ef							= ll_ef
+											else
+												ll_suma_ef							= 0
+											end if
+										end if
+										//tarjeta
+										SELECT	SUM("DOCUMENTOS"."MONTO")
+										INTO		:ll_tar
+										FROM		"DOCUMENTOS"  
+										WHERE		(	"DOCUMENTOS"."FOLIO" = :ll_folio ) AND
+													(	"DOCUMENTOS"."TIPO_COB" = 'CI' OR "DOCUMENTOS"."TIPO_COB" = 'CU' OR "DOCUMENTOS"."TIPO_COB" = 'BE') AND 
+													(	"DOCUMENTOS"."FECHA_VENC"  >= :ldt_fecha_inicio) AND 
+													(	"DOCUMENTOS"."COD_PAGO"= 'TD' OR "DOCUMENTOS"."COD_PAGO"='TC')
+										USING		sqlca;
+										if sqlca.sqlcode=0 then
+											if not isnull (ll_tar) or ll_tar=0 then
+												ll_suma_tar							= ll_tar
+											else
+												ll_suma_tar							= 0
+											end if
+										end if
+										//cheque
+										SELECT	SUM("DOCUMENTOS"."MONTO")
+										INTO		:ll_ch
+										FROM		"DOCUMENTOS"  
+										WHERE		( 	"DOCUMENTOS"."FOLIO" = :ll_folio ) AND
+													(	"DOCUMENTOS"."TIPO_COB" = 'CI' OR "DOCUMENTOS"."TIPO_COB" = 'CU' OR "DOCUMENTOS"."TIPO_COB" = 'BE') AND
+													(	"DOCUMENTOS"."FECHA_VENC"  >= :ldt_fecha_inicio) AND 
+													(	"DOCUMENTOS"."FECHA_VENC"  <= :ldt_fecha_termino) AND 
+													(	"DOCUMENTOS"."COD_PAGO" = 'CH')
+										USING		sqlca;
+										if sqlca.sqlcode=0 then
+											if not isnull (ll_ch) or ll_ch=0 then
+												ll_suma_ch							= ll_ch
+											else
+												ll_suma_ch							= 0
+											end if
+										end if
+										ll_tot_pag								= ll_suma_ef + ll_suma_tar + ll_suma_ch
+										ll_monto									= ll_tot_pag - ll_derecho_esp
+										ll_suma_monto							= ll_suma_monto + ll_monto
+									end if
+								end if
+								ll_folio_rev							= ll_folio
+								setnull(ll_folio)
+							LOOP
+						end if
+					close x2;
+				end if
+			end if
+		end if
+	end if
+end if
+if isnull(ll_suma_monto) or ll_suma_monto=0 then ll_suma_monto = 0
+Return ll_suma_monto
+end function
+

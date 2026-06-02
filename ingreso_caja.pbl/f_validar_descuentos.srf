@@ -1,0 +1,331 @@
+﻿global type f_validar_descuentos from function_object
+end type
+
+forward prototypes
+global function string f_validar_descuentos ()
+end prototypes
+
+global function string f_validar_descuentos ();long		ll_tot_reg,ll_fila_reg,ll_count_e,ll_indi,ll_fila_cob,ll_fila_cob_valida,ll_fila
+double 	ll_monto,ll_monto_desc,ll_monto_uf,lbd_uf
+string		ls_cod_descto,ls_glosa_otro,ls_tipo_comp_otro,ls_tipo_cob_ref,ll_pasa_desc,ls_glosa_otro_m,ls_tipo_af_ex
+date		idt_fecha_hoy
+
+idt_fecha_hoy						= date(gdt_fec_sistema)
+ls_cod_descto						= gs_codigo_otro
+//SELECT 	"CUENTA_CONTABLE_OTROS"."DESCRIPCION"  
+//INTO 		:ls_glosa_otro_m
+//FROM 	"CUENTA_CONTABLE_OTROS"  
+//WHERE 	( "CUENTA_CONTABLE_OTROS"."CODIGO_OTROS" = :ls_cod_descto ) AND  
+//			( "CUENTA_CONTABLE_OTROS"."TIPO_COB" = 'S' ) AND  
+//			( "CUENTA_CONTABLE_OTROS"."TIPO_COMPROBANTE" = 'BE' )   ;
+if isvalid(w_ingreso2) then	
+	if w_ingreso2.tab_ingreso.SelectedTab = 1 then // cupon
+	elseif w_ingreso2.tab_ingreso.SelectedTab = 2 then //Comprobante Ingreso
+		w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.accepttext()
+		SELECT 	"CUENTA_CONTABLE_OTROS"."DESCRIPCION"  
+		INTO 		:ls_glosa_otro_m
+		FROM 	"CUENTA_CONTABLE_OTROS"  
+		WHERE 	( "CUENTA_CONTABLE_OTROS"."CODIGO_OTROS" = :ls_cod_descto ) AND  
+					( "CUENTA_CONTABLE_OTROS"."TIPO_COB" = 'S' ) AND  
+					( "CUENTA_CONTABLE_OTROS"."TIPO_COMPROBANTE" = 'CI' )   ;
+		ll_tot_reg					= w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.rowcount()
+		ll_fila							= 1		//w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.getrow()
+		ll_fila_reg 					= w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.Find("tipo_cob_otro = '"+ls_cod_descto+"'",ll_fila, ll_tot_reg)
+		if ll_fila_reg>0 then
+			ll_monto_desc			= w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.getitemnumber(ll_fila_reg,'monto')
+			ll_pasa_desc			= 'S'
+			DECLARE x1 CURSOR FOR  		
+			SELECT	"TIPO_COB_OTRO_VALIDA"."GLOSA_OTRO", 
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE",
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COB_REFERENCIA"
+			FROM 	"TIPO_COB_OTRO_VALIDA"  
+			WHERE 	"TIPO_COB_OTRO_VALIDA"."CODIGO_OTRO" = :ls_cod_descto and
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE" = 'CI'
+			USING	sqlca;
+			open x1;
+			if sqlca.sqlcode=0 then
+				do while sqlca.sqlcode=0
+					fetch x1 into :ls_glosa_otro, :ls_tipo_comp_otro, :ls_tipo_cob_ref;
+					if not isnull(ls_glosa_otro) then
+						if isvalid(w_ingreso2) then
+							if w_ingreso2.tab_ingreso.SelectedTab = 2 then
+								ll_fila_cob 				= w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.Find("tipo_cob ='"+ls_tipo_cob_ref+"'",1, ll_tot_reg)
+							end if	
+						end if	
+					end if
+					setnull(ls_glosa_otro);setnull(ls_tipo_comp_otro);setnull(ls_tipo_cob_ref);
+					if not isnull(ll_fila_cob) and ll_fila_cob > 0 then
+						ll_fila_cob_valida			= ll_fila_cob
+					end if
+				loop
+			end if
+			close x1;		
+			if ll_fila_cob_valida > 0 and ll_monto_desc > 0 then
+				if ls_cod_descto = '102' then
+					ll_monto				= w_ingreso2.tab_ingreso.tp_ci.dw_gastos_ci.getitemnumber(1,'mora_cred')
+				elseif	ls_cod_descto = '118' then
+					ll_monto					= w_ingreso2.tab_ingreso.tp_ci.dw_gastos_ci.getitemnumber(1,'gasto_cred')
+				elseif	ls_cod_descto = '130' then
+					ll_monto					= w_ingreso2.tab_ingreso.tp_ci.dw_gastos_ci.getitemnumber(1,'mora_mant')
+				elseif	ls_cod_descto = '133' then
+					ll_monto					= w_ingreso2.tab_ingreso.tp_ci.dw_gastos_ci.getitemnumber(1,'gasto_mant')
+				else
+					ll_monto					= w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.getitemnumber(ll_fila_cob,'c_total_linea') 
+				end if
+				if ll_monto_desc > ll_monto then
+					w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.setitem(ll_fila_reg,'monto',0)		//ll_fila
+					w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.setitem(ll_fila_reg,'monto_uf',0)
+					w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.setitem(ll_fila_reg,'c_total_linea', 0)
+					w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.accepttext()
+					ll_pasa_desc			= 'N'
+				end if
+				w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.accepttext()
+			else
+				w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.accepttext()
+				ll_pasa_desc				= 'N'
+			end if
+		else
+			ll_pasa_desc					= 'S'	
+		end if
+		w_ingreso2.tab_ingreso.tp_ci.dw_detalle_ci.accepttext()
+	elseif w_ingreso2.tab_ingreso.SelectedTab = 3 then //Boleta
+		w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.accepttext()
+		ll_tot_reg							= w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.rowcount()
+		ll_fila									= 1		//w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.getrow()
+		ll_fila_reg 							= w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.Find("tipo_cob_otro = '"+ls_cod_descto+"'",ll_fila, ll_tot_reg)
+		if ll_fila_reg>0 then
+			ll_monto_desc					= w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.getitemnumber(ll_fila_reg,'monto')
+			ll_pasa_desc					= 'S'
+			if w_ingreso2.tab_ingreso.tp_be.rb_be_afecta.checked = true then
+				ls_tipo_af_ex				= 'BA'
+			elseif w_ingreso2.tab_ingreso.tp_be.rb_be_exenta.checked = true then
+				ls_tipo_af_ex				= 'BE'
+			end if
+			SELECT 	"CUENTA_CONTABLE_OTROS"."DESCRIPCION"  
+			INTO 		:ls_glosa_otro_m
+			FROM 	"CUENTA_CONTABLE_OTROS"  
+			WHERE 	( "CUENTA_CONTABLE_OTROS"."CODIGO_OTROS" = :ls_cod_descto ) AND  
+						( "CUENTA_CONTABLE_OTROS"."TIPO_COB" = 'S' ) AND  
+						( "CUENTA_CONTABLE_OTROS"."TIPO_COMPROBANTE" = :ls_tipo_af_ex )   ;
+						
+			DECLARE x11 CURSOR FOR  		
+			SELECT	"TIPO_COB_OTRO_VALIDA"."GLOSA_OTRO", 
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE",
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COB_REFERENCIA"
+			FROM 	"TIPO_COB_OTRO_VALIDA"  
+			WHERE 	"TIPO_COB_OTRO_VALIDA"."CODIGO_OTRO" = :ls_cod_descto and
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE" = :ls_tipo_af_ex
+			USING	sqlca;
+			open x11;
+			if sqlca.sqlcode=0 then
+				do while sqlca.sqlcode=0
+					fetch x11 into :ls_glosa_otro, :ls_tipo_comp_otro, :ls_tipo_cob_ref;
+					if not isnull(ls_glosa_otro) then
+						if isvalid(w_ingreso2) then
+							if w_ingreso2.tab_ingreso.SelectedTab = 3 then
+								ll_fila_cob 				= w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.Find("tipo_cob ='"+ls_tipo_cob_ref+"'",1, ll_tot_reg)
+							end if	
+						end if	
+					end if
+					setnull(ls_glosa_otro);setnull(ls_tipo_comp_otro);setnull(ls_tipo_cob_ref);
+					if not isnull(ll_fila_cob) and ll_fila_cob > 0 then
+						ll_fila_cob_valida			= ll_fila_cob
+					end if
+				loop
+			end if
+			close x11;		
+			if ll_fila_cob_valida > 0 and ll_monto_desc > 0 then
+				if ls_cod_descto = '102' then
+					ll_monto				= w_ingreso2.tab_ingreso.tp_be.dw_gastos_be.getitemnumber(1,'mora_cred')
+				elseif	ls_cod_descto = '118' then
+					ll_monto				= w_ingreso2.tab_ingreso.tp_be.dw_gastos_be.getitemnumber(1,'gasto_cred')
+				elseif	ls_cod_descto = '130' then
+					ll_monto				= w_ingreso2.tab_ingreso.tp_be.dw_gastos_be.getitemnumber(1,'mora_mant')
+				elseif	ls_cod_descto = '133' then
+					ll_monto				= w_ingreso2.tab_ingreso.tp_be.dw_gastos_be.getitemnumber(1,'gasto_mant')
+				else
+					ll_monto				= w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.getitemnumber(ll_fila_cob,'c_total_linea') 
+				end if
+				if ll_monto_desc > ll_monto then
+					w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.setitem(ll_fila_reg,'monto',0)		//ll_fila
+					w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.setitem(ll_fila_reg,'monto_uf',0)
+					w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.setitem(ll_fila_reg,'c_total_linea',0)
+					w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.accepttext()
+					ll_pasa_desc		= 'N'
+				end if
+				w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.accepttext()
+			else
+				w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.accepttext()
+				ll_pasa_desc			= 'N'
+			end if
+		else
+			ll_pasa_desc				= 'S'	
+		end if
+		w_ingreso2.tab_ingreso.tp_be.dw_detalle_be.accepttext()
+	end if
+	
+elseif isvalid(w_repacta) then
+	w_repacta.dw_detalle_ci.accepttext()
+	SELECT 	"CUENTA_CONTABLE_OTROS"."DESCRIPCION"  
+	INTO 		:ls_glosa_otro_m
+	FROM 	"CUENTA_CONTABLE_OTROS"  
+	WHERE 	( "CUENTA_CONTABLE_OTROS"."CODIGO_OTROS" = :ls_cod_descto ) AND  
+				( "CUENTA_CONTABLE_OTROS"."TIPO_COB" = 'S' ) AND  
+				( "CUENTA_CONTABLE_OTROS"."TIPO_COMPROBANTE" = 'BE' )   ;
+	ls_cod_descto			= gs_codigo_otro
+	ll_tot_reg				= w_repacta.dw_detalle_ci.rowcount()
+	ll_fila						= 1		//w_repacta.dw_detalle_ci.getrow()
+	//for ll_indi = 1 to ll_tot_reg
+		//ll_fila_reg 				= w_repacta.dw_detalle_ci.Find("tipo_cob ='S'",ll_tot_reg, ll_tot_reg)
+		ll_fila_reg 				= w_repacta.dw_detalle_ci.Find("tipo_cob_otro = '"+ls_cod_descto+"'",ll_fila, ll_tot_reg)
+		if ll_fila_reg>0 then
+			ll_monto_desc			= w_repacta.dw_detalle_ci.getitemnumber(ll_fila_reg,'monto')
+			ll_pasa_desc			= 'S'	
+			DECLARE x2 CURSOR FOR  		
+			SELECT	"TIPO_COB_OTRO_VALIDA"."GLOSA_OTRO", 
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE",
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COB_REFERENCIA"
+			FROM 	"TIPO_COB_OTRO_VALIDA"  
+			WHERE 	"TIPO_COB_OTRO_VALIDA"."CODIGO_OTRO" = :ls_cod_descto and
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE" = 'BE'
+			USING	sqlca;
+			open x2;
+			if sqlca.sqlcode=0 then
+				do while sqlca.sqlcode=0
+					fetch x2 into :ls_glosa_otro, :ls_tipo_comp_otro, :ls_tipo_cob_ref;
+					if not isnull(ls_glosa_otro) then
+						ll_fila_cob 				=  w_repacta.dw_detalle_ci.Find("tipo_cob ='"+ls_tipo_cob_ref+"'",1, ll_tot_reg)
+					end if
+					setnull(ls_glosa_otro);setnull(ls_tipo_comp_otro);setnull(ls_tipo_cob_ref);
+					if not isnull(ll_fila_cob) and ll_fila_cob > 0 then
+						ll_fila_cob_valida			= ll_fila_cob
+					end if
+				loop
+			end if
+			close x2;	
+//			SELECT	"TIPO_COB_OTRO_VALIDA"."GLOSA_OTRO", 
+//						"TIPO_COB_OTRO_VALIDA"."TIPO_COB_REFERENCIA"  
+//			INTO  	:ls_glosa_otro, :ls_tipo_cob_ref  
+//			FROM 	"TIPO_COB_OTRO_VALIDA"  
+//			WHERE 	"TIPO_COB_OTRO_VALIDA"."CODIGO_OTRO" = :ls_cod_descto and
+//						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE" = 'BE' 
+//			USING 	sqlca; //ls_tipo_comp_otro
+//			
+//			ll_fila_cob 								= w_repacta.dw_detalle_ci.Find("tipo_cob ='"+ls_tipo_cob_ref+"'",1, ll_tot_reg)		
+//			if ll_fila_cob > 0 and ll_monto_desc > 0 then
+			if ll_fila_cob_valida > 0 and ll_monto_desc > 0 then
+				if ls_cod_descto = '102' then
+					ll_monto							= w_repacta.dw_gastos_ci.getitemnumber(1,'mora_cred')
+				elseif	ls_cod_descto = '118' then
+					ll_monto							= w_repacta.dw_gastos_ci.getitemnumber(1,'gasto_cred')
+				elseif	ls_cod_descto = '130' then
+					ll_monto							= w_repacta.dw_gastos_ci.getitemnumber(1,'mora_mant')
+				elseif	ls_cod_descto = '133' then
+					ll_monto							= w_repacta.dw_gastos_ci.getitemnumber(1,'gasto_mant')
+				else
+					ll_monto							= w_repacta.dw_detalle_ci.getitemnumber(ll_fila_cob,'c_total_linea') 
+				end if	
+				if ll_monto_desc >ll_monto then
+				//	messagebox('Advertencia','Monto Descuento '+ls_glosa_otro+' es Mayor al Monto a Descontar')
+////					messagebox('Advertencia','Descuento '+ls_glosa_otro_m+' NO debe ser Mayor a '+string(ll_monto,'###,###,###,##0'))
+					w_repacta.dw_detalle_ci.setitem(ll_fila_reg,'monto',0)		//ll_fila
+					w_repacta.dw_detalle_ci.setitem(ll_fila_reg,'monto_uf',0)
+					ll_pasa_desc			= 'N'
+				end if
+			else
+				w_repacta.dw_detalle_ci.setitem(ll_fila_reg,'monto',0)			// ll_fila
+				w_repacta.dw_detalle_ci.setitem(ll_fila_reg,'monto_uf',0)
+				ll_pasa_desc			= 'N'
+			end if	
+		else
+			ll_pasa_desc			= 'S'
+		end if
+		if ll_pasa_desc = 'N' then
+			ll_monto = 0
+			ll_monto_uf = 0
+		end if	
+	w_repacta.dw_detalle_ci.accepttext()
+	//next
+elseif isvalid(w_boletas_cuotas) then
+	w_boletas_cuotas.dw_detalle_bl.accepttext()
+	SELECT 	"CUENTA_CONTABLE_OTROS"."DESCRIPCION"  
+	INTO 		:ls_glosa_otro_m
+	FROM 	"CUENTA_CONTABLE_OTROS"  
+	WHERE 	( "CUENTA_CONTABLE_OTROS"."CODIGO_OTROS" = :ls_cod_descto ) AND  
+				( "CUENTA_CONTABLE_OTROS"."TIPO_COB" = 'S' ) AND  
+				( "CUENTA_CONTABLE_OTROS"."TIPO_COMPROBANTE" = 'BE' )   ;
+	ls_cod_descto			= gs_codigo_otro
+	ll_tot_reg				= w_boletas_cuotas.dw_detalle_bl.rowcount()
+	ll_fila						= 1		//w_boletas_cuotas.dw_detalle_bl.getrow()
+	//for ll_indi = 1 to ll_tot_reg
+		//ll_fila_reg 					= w_boletas_cuotas.dw_detalle_bl.Find("tipo_cob ='S'",ll_tot_reg, ll_tot_reg)
+		ll_fila_reg 					= w_boletas_cuotas.dw_detalle_bl.Find("tipo_cob_otro = '"+ls_cod_descto+"'",ll_fila, ll_tot_reg)
+		if ll_fila_reg>0 then
+			ll_monto_desc			= w_boletas_cuotas.dw_detalle_bl.getitemnumber(ll_fila_reg,'monto')
+			ll_pasa_desc			= 'S'
+			DECLARE x3 CURSOR FOR  		
+			SELECT	"TIPO_COB_OTRO_VALIDA"."GLOSA_OTRO", 
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE",
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COB_REFERENCIA"
+			FROM 	"TIPO_COB_OTRO_VALIDA"  
+			WHERE 	"TIPO_COB_OTRO_VALIDA"."CODIGO_OTRO" = :ls_cod_descto and
+						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE" = 'BE'
+			USING	sqlca;
+			open x3;
+			if sqlca.sqlcode=0 then
+				do while sqlca.sqlcode=0
+					fetch x3 into :ls_glosa_otro, :ls_tipo_comp_otro, :ls_tipo_cob_ref;
+					if not isnull(ls_glosa_otro) then
+						ll_fila_cob 				=  w_boletas_cuotas.dw_detalle_bl.Find("tipo_cob ='"+ls_tipo_cob_ref+"'",1, ll_tot_reg)
+					end if
+					setnull(ls_glosa_otro);setnull(ls_tipo_comp_otro);setnull(ls_tipo_cob_ref);
+					if not isnull(ll_fila_cob) and ll_fila_cob > 0 then
+						ll_fila_cob_valida			= ll_fila_cob
+					end if
+				loop
+			end if
+			close x3;				
+//			SELECT	"TIPO_COB_OTRO_VALIDA"."GLOSA_OTRO", 
+//						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE",   
+//						"TIPO_COB_OTRO_VALIDA"."TIPO_COB_REFERENCIA"  
+//			INTO  	:ls_glosa_otro, :ls_tipo_comp_otro, :ls_tipo_cob_ref  
+//			FROM 	"TIPO_COB_OTRO_VALIDA"  
+//			WHERE 	"TIPO_COB_OTRO_VALIDA"."CODIGO_OTRO" = :ls_cod_descto and
+//						"TIPO_COB_OTRO_VALIDA"."TIPO_COMPROBANTE" = 'BE';
+//			
+//			ll_fila_cob 							= w_boletas_cuotas.dw_detalle_bl.Find("tipo_cob ='"+ls_tipo_cob_ref+"'",1, ll_tot_reg)
+//			if ll_fila_cob > 0 and ll_monto_desc > 0 then
+			if ll_fila_cob_valida > 0 and ll_monto_desc > 0 then	
+//				if ls_cod_descto = '102' then
+//					ll_monto						= w_boletas_cuotas.dw_gastos_bl.getitemnumber(1,'mora_cred')
+//				elseif	ls_cod_descto = '118' then
+//					ll_monto						= w_boletas_cuotas.dw_gastos_bl.getitemnumber(1,'gasto_cred')
+				if	ls_cod_descto = '130' then
+					ll_monto						= w_boletas_cuotas.dw_gastos_bl.getitemnumber(1,'mora')
+				elseif	ls_cod_descto = '133' then
+					ll_monto						= w_boletas_cuotas.dw_gastos_bl.getitemnumber(1,'gastos_cob')
+				else
+				//	ll_monto						= w_boletas_cuotas.dw_detalle_bl.getitemnumber(ll_fila_cob,'monto')
+					ll_monto						= w_boletas_cuotas.dw_detalle_bl.getitemnumber(ll_fila_cob,'c_total_linea')
+				end if	
+				if ll_monto_desc >ll_monto then
+				//	messagebox('Advertencia','Monto Descuento '+ls_glosa_otro+' es Mayor al Monto a Descontar')
+////					messagebox('Advertencia','Descuento '+ls_glosa_otro_m+' NO debe ser Mayor a '+string(ll_monto,'###,###,###,##0'))
+					w_boletas_cuotas.dw_detalle_bl.setitem(ll_fila_reg,'monto',0)	//ll_fila
+					w_boletas_cuotas.dw_detalle_bl.setitem(ll_fila_reg,'monto_uf',0)
+					ll_pasa_desc			= 'N'
+				end if
+			else
+				w_boletas_cuotas.dw_detalle_bl.setitem(ll_fila_reg,'monto',0)		//ll_fila
+				w_boletas_cuotas.dw_detalle_bl.setitem(ll_fila_reg,'monto_uf',0)
+				ll_pasa_desc			= 'N'
+			end if	
+		else
+			ll_pasa_desc			= 'S'	
+		end if
+	//next
+	w_boletas_cuotas.dw_detalle_bl.accepttext()
+end if	
+return ll_pasa_desc
+end function
+

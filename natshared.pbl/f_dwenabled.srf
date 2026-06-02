@@ -1,0 +1,28 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Allow column enabled (Class)~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_dwenabled from function_object
+end type
+
+forward prototypes
+global subroutine f_dwenabled (datawindow adw_mod, boolean ab_enabled)
+end prototypes
+
+global subroutine f_dwenabled (datawindow adw_mod, boolean ab_enabled);
+/* f_DWEnabled( adw_mod, ab_enabled ) */
+
+Integer	li_col, li_count
+String	ls_col
+
+li_count = Integer( adw_mod.Object.DataWindow.Column.Count ) 
+
+adw_mod.SetRedraw( False )
+adw_mod.Enabled = ab_enabled
+
+For li_Col = 1 To li_count
+	ls_col = adw_mod.Describe( '#' + String( li_Col ) + '.Name' )
+	f_ColEnabled( adw_mod, ls_col, ab_enabled )
+Next
+
+adw_mod.SetRedraw( True )
+ 
+end subroutine
+

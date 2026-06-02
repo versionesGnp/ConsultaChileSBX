@@ -1,0 +1,92 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Buscador STD en Eclipse~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_genbuscar from function_object
+end type
+
+forward prototypes
+global function string f_genbuscar (string as_cod, string as_col, string as_tabla, datawindow adw_1)
+end prototypes
+
+global function string f_genbuscar (string as_cod, string as_col, string as_tabla, datawindow adw_1);/* f_GenBuscar( as_cod, as_col, as_tabla, adw_1 )
+	Autor: César Vilela Requena
+	el caracter @ como primer valor se usará para búsqueda extendida
+	CVILELA: 17/01/2017 - Recibe '|FILTER:' para Filtros "SetFilter" antes de mostrar los datos
+*/
+s_parm	lstr_parm
+Boolean	lb_ret = False
+Integer	li_pos, i
+String	ls_nom, ls_ext, ls_parm, ls_fil
+
+
+as_cod = f_Trim( as_cod )
+adw_1.AcceptText( )
+adw_1.SetFocus()
+
+li_pos = Pos( Upper( as_cod ), '|FILTER:' )
+
+If li_pos > 0 Then
+	li_pos = li_pos + 8
+	For i = li_pos To Len( as_cod )
+		ls_fil = ls_fil + Mid( as_cod, i, 1 )
+	Next
+End If
+
+ls_ext = Left( as_cod, 1 )
+If ls_ext = '@' Then // <- Búsqueda extendida
+	as_cod = Mid( as_cod, 2 )
+End If
+
+/* Si hará o no RETrieve automático a la tabla consultada */
+li_pos = 0
+li_pos = Pos( Upper( as_tabla ), '|RET' )
+If li_pos > 0 Then 
+	lb_ret = True
+	as_tabla = Left( as_tabla, li_pos - 1 )	
+	If as_cod = '' Then ls_ext = '|' 
+End If
+
+If as_cod = ''   Then
+	OpenWithParm( w_mant_gen_buscar_x_nombre, as_tabla )
+	ls_parm = Message.StringParm	
+	ls_parm = f_Trim( ls_parm )
+	
+	If Not ls_parm = '' Then
+		as_cod = ls_parm
+		If as_tabla = 'CLI' Then as_cod = f_GlobalReplace( f_Trim( as_cod ), '-', '' )
+		adw_1.SetItem( adw_1.GetRow(), as_col, as_cod )
+	End If
+Else
+	If ls_ext = '@' Or Not ls_fil = '' Then
+		If ls_ext = '|' Then
+			as_cod = ''
+		End If
+		ls_nom = ''
+		lstr_parm.s_cad[ 1] = as_tabla
+		lstr_parm.s_cad[ 2] = as_cod
+		lstr_parm.s_cad[ 3] = ls_fil
+		lstr_parm.s_cad[ 4] = ''
+		If lb_ret Then lstr_parm.s_cad[ 4] = 'RET'
+		OpenWithParm( w_mant_gen_buscar_x_nombre, lstr_parm )
+		as_cod = Message.StringParm
+		as_cod = f_Trim( as_cod )
+		If Not as_cod = '' Then
+			If as_tabla = 'CLI' Then as_cod = f_GlobalReplace( f_Trim( as_cod ), '-', '' )
+			adw_1.SetItem( adw_1.GetRow(), as_col, as_cod )
+			ls_nom = ' '
+		End If
+	Else
+		ls_nom = f_GetGenerica( as_cod, as_tabla )
+	End If
+	
+
+	If Not as_cod = '' And ls_nom = '' Then
+		MessageBox( 'Búsqueda', 'Código ingresado no encontrado.', Exclamation! )
+		as_cod = ''
+	End If
+End If
+
+adw_1.AcceptText( )
+If Not as_col = '' Then adw_1.SetColumn( as_col )
+
+Return as_cod
+end function
+

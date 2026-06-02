@@ -1,0 +1,59 @@
+﻿global type f_docto_pend_conv from function_object
+end type
+
+forward prototypes
+global function long f_docto_pend_conv (string as_base, string as_serie, double adb_numero, long al_cod_parque, datetime adt_fec_cierre)
+end prototypes
+
+global function long f_docto_pend_conv (string as_base, string as_serie, double adb_numero, long al_cod_parque, datetime adt_fec_cierre);long	ll_docto_pend
+datetime	ldt_fec_fin
+
+SELECT	"CIERRE_VENTA"."FEC_DOCTO_PENDIENTE"
+INTO		:ldt_fec_fin
+FROM 	"CIERRE_VENTA"  
+WHERE 	"CIERRE_VENTA"."CIERRE_VENTA" = :adt_fec_cierre
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ldt_fec_fin) then
+		ldt_fec_fin								= ldt_fec_fin
+	else
+		ldt_fec_fin								= gdt_fec_sistema
+	end if
+else
+	ldt_fec_fin									= gdt_fec_sistema
+end if
+
+//f_docto_pend(as_base,as_serie,al_numero,al_cod_parque)
+
+SELECT	count("ESTADO_ENTREGA_OPERA")
+INTO		:ll_docto_pend
+FROM		"VISTA_DOCUMENTOS_PENDIENTES"  
+WHERE 	(("VISTA_DOCUMENTOS_PENDIENTES"."CODIGO" =:as_base AND  
+			"VISTA_DOCUMENTOS_PENDIENTES"."SERIE" = :as_serie AND  
+			"VISTA_DOCUMENTOS_PENDIENTES"."NUMERO" = :adb_numero AND
+			"VISTA_DOCUMENTOS_PENDIENTES"."COD_PARQUE" = :al_cod_parque AND
+			"VISTA_DOCUMENTOS_PENDIENTES"."CODIGO_GRUPO_EXCEPCION" = 4 AND
+			"VISTA_DOCUMENTOS_PENDIENTES"."FECHA_RECEPCION_DOC_OPERA" >= :ldt_fec_fin and
+			"VISTA_DOCUMENTOS_PENDIENTES"."ESTADO" = 'V') OR
+			("VISTA_DOCUMENTOS_PENDIENTES"."CODIGO" = :as_base AND  
+			"VISTA_DOCUMENTOS_PENDIENTES"."SERIE" = :as_serie AND  
+			"VISTA_DOCUMENTOS_PENDIENTES"."NUMERO" = :adb_numero AND
+			"VISTA_DOCUMENTOS_PENDIENTES"."COD_PARQUE" = :al_cod_parque AND
+			"VISTA_DOCUMENTOS_PENDIENTES"."CODIGO_GRUPO_EXCEPCION" = 4 AND
+			"VISTA_DOCUMENTOS_PENDIENTES"."ESTADO_ENTREGA_OPERA" ='P' and
+			"VISTA_DOCUMENTOS_PENDIENTES"."ESTADO" = 'V'))
+USING	sqlca;		
+if sqlca.sqlcode=0 then
+	if not isnull(ll_docto_pend) and ll_docto_pend > 0 then
+		ll_docto_pend									= ll_docto_pend
+	else
+		ll_docto_pend									= 0
+	end if
+else
+	ll_docto_pend										= 0
+end if
+if isnull(ll_docto_pend) then ll_docto_pend=0
+return ll_docto_pend
+
+end function
+

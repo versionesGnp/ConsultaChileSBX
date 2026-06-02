@@ -1,0 +1,29 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Color según etiqueta~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_gencoloretiqueta from function_object
+end type
+
+forward prototypes
+global function long f_gencoloretiqueta (string as_ett)
+end prototypes
+
+global function long f_gencoloretiqueta (string as_ett);/* f_GenColorEtiqueta( as_ett ) */
+
+Long	ll_r, ll_g, ll_b, ll_backcolor
+
+
+Select	n_r_ett,
+			n_g_ett,
+			n_b_ett
+Into		:ll_r,
+			:ll_g,
+			:ll_b
+From		genetiqueta
+Where		c_codigo_ett = :as_ett ;
+
+
+ll_backcolor = RGB( ll_r, ll_g, ll_b )
+
+
+Return	ll_backcolor
+end function
+

@@ -1,0 +1,22 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Return Tipo de cambio según moneda~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_gentipocambiomda from function_object
+end type
+
+forward prototypes
+global function decimal f_gentipocambiomda (datetime ad_tc, string as_mda)
+end prototypes
+
+global function decimal f_gentipocambiomda (datetime ad_tc, string as_mda);/* f_GenTipoCambioMda( ad_tc, as_mda ) */
+Decimal	ldc_tc, ldc_uf
+String	ls_pai
+
+
+as_mda = Upper( as_mda )
+
+
+Select f_valor_uf( :ad_tc ) Into :ldc_tc From Dual ;
+ldc_tc = f_Zero( ldc_tc )	
+
+Return ldc_tc
+end function
+

@@ -1,0 +1,30 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Exporta DW a DBF x compatibilidad ERP~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_dwtodbf from function_object
+end type
+
+forward prototypes
+global function integer f_dwtodbf (datawindow adw_export)
+end prototypes
+
+global function integer f_dwtodbf (datawindow adw_export);/* Exporta los datos del DW adw_export a una hoja de cálculo XLS
+	f_DWToDBF( adw_export )
+*/
+Integer	li_rc, li_ret
+String	ls_path, ls_file, ls_dir
+
+// Guardamos ruta actual
+ls_dir = GetCurrentDirectory()
+gs_file = ''
+// Tomamos nombre del archivo a generar
+li_rc = GetFileSaveName( "Guardar Documento como Archivo", ls_path, ls_file, "DBF", "Archivos DBase(*.DBF),*.DBF", "Documentos", 32770 )
+// Verificamos si dimos nombre al archivo a generar
+If li_rc = 1 then
+	ChangeDirectory( ls_dir )
+	li_ret = adw_export.SaveAs( ls_path, DBase3!, True )
+	gs_file = ls_path
+End If
+ChangeDirectory( ls_dir )
+
+Return li_ret
+end function
+

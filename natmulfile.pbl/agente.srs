@@ -1,0 +1,11 @@
+﻿global type agente from structure
+	string		cod_age
+	string		cod_sup
+	string		cod_jef
+	integer		cod_parque
+	string		canal
+	string		dataobject
+	string		tabla
+	string		db
+end type
+

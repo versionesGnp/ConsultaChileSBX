@@ -1,0 +1,56 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Class para configurar tema en dw_list o dw_1~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_setdwcolor from function_object
+end type
+
+forward prototypes
+global subroutine f_setdwcolor (datawindow adw_1)
+end prototypes
+
+global subroutine f_setdwcolor (datawindow adw_1);/* f_SetDWColor( adw_1 )
+	Autor: César Vilela Requena
+	Cambia de color a todos los objetos texto y rectángulos de un DW */
+
+Boolean	lb_loop = True 
+Long		ll_ini, ll_fin, ll_pos, ll_len
+String	ls_sett, ls_type, ls_obj, ls_txtcolor, ls_barcolor, ls_dataobj
+
+// Verificación si es existente un DWObject
+ls_dataobj = f_Trim( adw_1.DataObject )
+If ls_dataobj = '' Then Return 
+
+// Colores del Sistema ya configurados
+ls_txtcolor	= String( f_Gen_Color( 'text1' ) )
+ls_barcolor	= String( f_Gen_Color( 'toolbar' ) )
+
+ls_sett	= adw_1.Object.DataWindow.Objects	// Lista de Objetos de un DW
+ll_len	= Len( ls_sett )
+ll_pos	= 1
+ll_ini	= 1
+
+Do While lb_loop
+	ll_pos	= f_Zero( Pos( ls_sett, '~t', ll_ini ) ) // Buscar la posicion del separador TAB
+	If ll_pos = 0 Then // Cuando no encuentre mas TAB debe indicar el final de la cadena
+		ll_fin = ll_len 
+	Else
+		ll_fin = ll_pos - ll_ini
+	End If
+	
+	ls_obj	= Mid( ls_sett, ll_ini, ll_fin )	// Nombre del Objeto
+	
+	If ll_pos = 0 Then lb_loop = False
+	ll_ini = ll_pos + 1
+	
+	If Left( ls_obj, 2 ) = 'i_' Then Continue
+	
+	ls_type 	= f_Trim( adw_1.Describe( ls_obj + '.Type' ) )	//Tipo de Dato
+	If ls_type = 'text' Then adw_1.Modify( ls_obj + '.Color = ' + ls_txtcolor ) // Seteo de la Propiedad
+	If ls_type = 'column' Then adw_1.Modify( ls_obj + '.Color = ' + ls_txtcolor ) // Seteo de la Propiedad
+	If ls_type = 'rectangle' Then 
+		adw_1.Modify( ls_obj + '.Brush.Color = ' + ls_barcolor )
+		adw_1.Modify( ls_obj + '.Pen.Color = ' + ls_barcolor )
+	End If
+Loop
+
+Return  
+end subroutine
+

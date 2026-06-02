@@ -1,0 +1,1313 @@
+﻿global type f_valida_objeto from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_objeto ()
+end prototypes
+
+global subroutine f_valida_objeto ();string	ls_objeto,ls_tipo
+DECLARE	x1 CURSOR FOR  
+SELECT 	"PERFIL_OBJETO"."NOMBRE",   
+			"PERFIL_OBJETO"."TIPO"  
+FROM 		"PERFIL_OBJETO",   
+			"PERFIL_USUARIO"  
+WHERE  ( "PERFIL_OBJETO"."CORRELARIVO" = "PERFIL_USUARIO"."CORRELATIVO_OBJETO" ) and  
+	  	(( "PERFIL_OBJETO"."VENTANA" = :gs_ventana ) AND  
+		 ( "PERFIL_USUARIO"."USUARIO" = :gs_user ) AND 
+		 ( "PERFIL_OBJETO"."APLICACION" = 1))   
+USING		sqlca;
+open x1;
+if sqlca.sqlcode=0 then
+	DO WHILE sqlca.sqlcode=0
+		fetch x1 into :ls_objeto,:ls_tipo;
+		if not isnull(ls_objeto) then
+			If gs_ventana='w_principal' then
+				f_valida_menu2(ls_tipo,ls_objeto)
+				f_valida_menu3(ls_tipo,ls_objeto)
+				f_valida_menu(ls_tipo,ls_objeto)
+				f_valida_menu4(ls_tipo,ls_objeto)
+				f_valida_menu_caja(ls_tipo,ls_objeto)
+				f_valida_menu_consulta(ls_tipo,ls_objeto)
+				f_valida_menu_planimetria(ls_tipo,ls_objeto)
+				f_valida_menu_adm_venta(ls_tipo,ls_objeto)
+				f_valida_menu_adm_venta2(ls_tipo,ls_objeto)
+				f_valida_menu_operaciones(ls_tipo,ls_objeto)
+				f_valida_menu_gestion_venta(ls_tipo,ls_objeto)
+				f_valida_menu_herramientas(ls_tipo,ls_objeto)
+				f_valida_menu_cuponera(ls_tipo,ls_objeto)
+				f_valida_menu_fallecidos(ls_tipo,ls_objeto)
+				f_valida_menu_indicadores(ls_tipo,ls_objeto)
+				f_valida_menu_revision(ls_tipo,ls_objeto)
+				f_valida_menu_visita_terreno(ls_tipo,ls_objeto)
+				f_valida_menu_licencia(ls_tipo,ls_objeto)
+			end if
+			If gs_ventana='w_cuenta_corriente_contrato_isa' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_5'
+								w_cuenta_corriente_contrato_isa.cb_5.enabled									= false
+								m_menu_cuenta_corriente_isacruz.m_mantenedor.m_cobranza.enabled		= false
+							CASE 'cb_7'
+								w_cuenta_corriente_contrato_isa.cb_7.enabled									= false
+								m_menu_cuenta_corriente_isacruz.m_mantenedor.m_cuotascrédito.enabled	= false
+							CASE 'cb_2'
+								w_cuenta_corriente_contrato_isa.cb_2.enabled									= false
+								m_menu_cuenta_corriente_isacruz.m_consultar.m_cuotascrédito0.enabled	= false
+							CASE 'cb_1'
+								w_cuenta_corriente_contrato_isa.cb_1.enabled									= false
+								m_menu_cuenta_corriente_isacruz.m_consultar.m_pagosengeneral.enabled	= false
+							CASE 'cb_imprimir'
+								w_cuenta_corriente_contrato_isa.cb_imprimir.enabled						= false
+								m_menu_cuenta_corriente_isacruz.m_imprimir0.enabled						= false
+							CASE 'cb_operacion'
+								w_cuenta_corriente_contrato_isa.cb_operacion.enabled						= false
+								m_menu_cuenta_corriente_isacruz.m_mantenedor.m_operaciones.enabled	= false
+							CASE 'cb_3'
+								w_cuenta_corriente_contrato_isa.cb_3.enabled									= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_cuenta_corriente_derecho' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_5'
+								w_cuenta_corriente_derecho.cb_5.enabled										= false
+								m_menu_cuenta_corriente_derecho.m_mantenedor.m_cobranza.enabled		= false
+							CASE 'cb_6'
+								w_cuenta_corriente_derecho.cb_6.enabled										= false
+								m_menu_cuenta_corriente_derecho.m_mantenedor.m_1.enabled					= false
+							CASE 'cb_2'
+								w_cuenta_corriente_derecho.cb_2.enabled										= false
+								m_menu_cuenta_corriente_derecho.m_consultar.m_cuotascrédito0.enabled	= false
+							CASE 'cb_1'
+								w_cuenta_corriente_derecho.cb_1.enabled										= false
+								m_menu_cuenta_corriente_derecho.m_consultar.m_pagosengeneral.enabled	= false
+							CASE 'cb_imprimir'
+								w_cuenta_corriente_derecho.cb_imprimir.enabled								= false
+								m_menu_cuenta_corriente_derecho.m_imprimir0.enabled						= false
+							CASE 'cb_operaciones'
+								w_cuenta_corriente_derecho.cb_operaciones.enabled							= false
+								m_menu_cuenta_corriente_derecho.m_mantenedor.m_operaciones.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_cuenta_corriente_liberador' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_5'
+								w_cuenta_corriente_liberador.cb_5.enabled													= false
+								m_menu_cuenta_corriente_liberador.m_mantenedor.m_cobranza.enabled					= false
+							CASE 'cb_1'
+								w_cuenta_corriente_liberador.cb_1.enabled													= false
+								m_menu_cuenta_corriente_liberador.m_consultar.m_pagosengeneral.enabled			= false
+							CASE 'cb_2'
+								w_cuenta_corriente_liberador.cb_2.enabled													= false
+								m_menu_cuenta_corriente_liberador.m_consultar.m_cuotascrédito0.enabled			= false
+							CASE 'cb_imprimir'
+								w_cuenta_corriente_liberador.cb_imprimir.enabled										= false
+								m_menu_cuenta_corriente_liberador.m_imprimir0.enabled									= false
+							CASE 'cb_agente'
+								w_cuenta_corriente_liberador.cb_agente.enabled											= false
+								m_menu_cuenta_corriente_liberador.m_consultar.m_pagoscomisiónagente.enabled	= false
+							CASE 'cb_operaciones'
+								w_cuenta_corriente_liberador.cb_operaciones.enabled									= false
+								m_menu_cuenta_corriente_liberador.m_mantenedor.m_operaciones.enabled				= false
+							CASE 'cb_rescomi_vta'
+								w_cuenta_corriente_liberador.cb_rescomi_vta.enabled									= false
+								m_menu_cuenta_corriente_liberador.m_consultar.m_pagosventas.enabled				= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_cuenta_corriente_oferta' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_4'
+								w_cuenta_corriente_oferta.cb_4.enabled						= false
+								m_menu_cuenta_corriente_promesa.m_consultar.m_pagaré.enabled				= false
+							CASE 'cb_2'	
+								w_cuenta_corriente_oferta.cb_2.enabled						= false
+								m_menu_cuenta_corriente_promesa.m_consultar.m_pagosengeneral.enabled		= false
+							CASE 'cb_3'
+								w_cuenta_corriente_oferta.cb_3.enabled						= false
+								m_menu_cuenta_corriente_promesa.m_consultar.m_cuotascrédito0.enabled		= false
+							CASE 'cb_1'
+								w_cuenta_corriente_oferta.cb_1.enabled						= false
+								m_menu_cuenta_corriente_promesa.m_consultar.m_cuotasmantención0.enabled	= false
+							CASE 'cb_imprimir'
+								w_cuenta_corriente_oferta.cb_imprimir.enabled			= false
+								m_menu_cuenta_corriente_promesa.m_imprimir0.enabled							= false
+							CASE 'cb_6'
+								w_cuenta_corriente_oferta.cb_6.enabled						= false
+								m_menu_cuenta_corriente_promesa.m_mantenedor.m_cuotascrédito.enabled		= false
+							CASE 'cb_7'
+								w_cuenta_corriente_oferta.cb_7.enabled						= false
+								m_menu_cuenta_corriente_promesa.m_mantenedor.m_cuotasmantención.enabled	= false
+							CASE 'cb_5'
+								w_cuenta_corriente_oferta.cb_5.enabled						= false
+								m_menu_cuenta_corriente_promesa.m_mantenedor.m_cobranza.enabled			= false
+							CASE 'cb_8'
+								w_cuenta_corriente_oferta.cb_8.enabled						= false
+								m_menu_cuenta_corriente_promesa.m_consultar.m_aval.enabled					= false
+							CASE 'cb_9'
+								w_cuenta_corriente_oferta.cb_9.enabled						= false
+								m_menu_cuenta_corriente_promesa.m_consultar.m_funeraria.enabled			= false
+							CASE 'cb_10'
+								w_cuenta_corriente_oferta.cb_10.enabled					= false
+								m_menu_cuenta_corriente_promesa.m_consultar.m_institución.enabled			= false
+							CASE 'cb_agente'
+								w_cuenta_corriente_oferta.cb_agente.enabled				= false
+								m_menu_cuenta_corriente_promesa.m_consultar.m_pagoscomisiónagente.enabled	= false
+							CASE 'cb_operaciones'
+								w_cuenta_corriente_oferta.cb_operaciones.enabled		= false
+								m_menu_cuenta_corriente_promesa.m_mantenedor.m_operaciones.enabled		= false
+							CASE 'cb_rescomi_vta'
+								w_cuenta_corriente_oferta.cb_rescomi_vta.enabled		= false
+								m_menu_cuenta_corriente_promesa.m_consultar.m_pagosventas.enabled			= false
+							CASE 'cb_derecho_especial'
+								w_cuenta_corriente_oferta.cb_derecho_especial.enabled	= false
+								m_menu_cuenta_corriente_promesa.m_mantenedor.m_derechoespecial.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_cuenta_corriente_pagare' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_5'
+								w_cuenta_corriente_pagare.cb_5.enabled					= false
+								m_menu_cuenta_corriente_pagare.m_mantenedor.m_cobranza.enabled			= false
+							CASE 'cb_6'
+								w_cuenta_corriente_pagare.cb_6.enabled					= false
+								m_menu_cuenta_corriente_pagare.m_mantenedor.m_1.enabled					= false
+							CASE 'cb_1'
+								w_cuenta_corriente_pagare.cb_1.enabled					= false
+								m_menu_cuenta_corriente_pagare.m_consultar.m_pagosengeneral.enabled	= false
+							CASE 'cb_2'
+								w_cuenta_corriente_pagare.cb_2.enabled					= false
+								m_menu_cuenta_corriente_pagare.m_consultar.m_cuotascrédito0.enabled	= false
+							CASE 'cb_imprimir'
+								w_cuenta_corriente_pagare.cb_imprimir.enabled		= false
+								m_menu_cuenta_corriente_pagare.m_imprimir0.enabled							= false
+							CASE 'cb_operaciones'
+								w_cuenta_corriente_pagare.cb_operaciones.enabled	= false
+								m_menu_cuenta_corriente_pagare.m_mantenedor.m_operaciones.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_cuenta_corriente_repactar_cta_mant' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_5'
+								w_cuenta_corriente_repactar_cta_mant.cb_5.enabled				= false
+								m_menu_cuenta_corriente_reprog_mant.m_mantenedor.m_cobranza.enabled			= false
+							CASE 'cb_2'
+								w_cuenta_corriente_repactar_cta_mant.cb_2.enabled				= false
+								m_menu_cuenta_corriente_reprog_mant.m_consultar.m_cuotascrédito0.enabled	= false
+							CASE 'cb_1'
+								w_cuenta_corriente_repactar_cta_mant.cb_1.enabled				= false
+								m_menu_cuenta_corriente_reprog_mant.m_consultar.m_pagosengeneral.enabled	= false
+							CASE 'cb_6'
+								w_cuenta_corriente_repactar_cta_mant.cb_6.enabled				= false
+								m_menu_cuenta_corriente_reprog_mant.m_mantenedor.m_1.enabled					= false
+							CASE 'cb_operaciones'
+								w_cuenta_corriente_repactar_cta_mant.cb_operaciones.enabled	= false
+								m_menu_cuenta_corriente_reprog_mant.m_mantenedor.m_operaciones.enabled		= false
+							CASE 'cb_imprimir'
+								w_cuenta_corriente_repactar_cta_mant.cb_imprimir.enabled		= false
+								m_menu_cuenta_corriente_reprog_mant.m_imprimir0.enabled							= false
+							CASE 'cb_3'
+								w_cuenta_corriente_repactar_cta_mant.cb_3.enabled				= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			if gs_ventana='w_validar_promesa_operaciones' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_aceptar'
+								w_validar_promesa_operaciones.cb_aceptar.enabled	= false
+							CASE 'cb_rechazar'
+								w_validar_promesa_operaciones.cb_rechazar.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_listado_comisiones' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_2'
+								w_listado_comisiones.cb_2.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_cobranza_historica' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_estado'
+								w_cobranza_historica.tab_1.tabpage_2.cb_estado.enabled	= false
+							CASE 'cb_1'
+								w_cobranza_historica.cb_1.enabled		= false
+							CASE 'cb_2'
+								w_cobranza_historica.cb_2.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_datos_cliente' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_1'
+								w_datos_cliente.cb_1.enabled	= false
+							CASE 'cb_2'
+								w_datos_cliente.cb_2.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_estadistica' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_2'
+								w_estadistica.cb_2.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_impresion_previa_de_ctta_ctes' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_imprimir'
+								w_impresion_previa_de_ctta_ctes.cb_imprimir.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_listado_contratos' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_ver_cuenta_corriente'
+								w_listado_contratos.cb_ver_cuenta_corriente.enabled	= false
+							CASE 'cb_datos_contrato'
+								w_listado_contratos.cb_datos_contrato.enabled			= false
+							CASE 'cb_datos_repacta'
+								w_listado_contratos.cb_datos_repacta.enabled				= false
+							CASE 'cb_datos_clientes'
+								w_listado_contratos.cb_datos_clientes.enabled			= false
+							CASE 'cb_beneficiarios'
+								w_listado_contratos.cb_beneficiarios.enabled				= false
+							CASE 'cb_fallecidos'
+								w_listado_contratos.cb_fallecidos.enabled					= false
+							CASE 'cb_mod_anteced'
+								w_listado_contratos.cb_mod_anteced.enabled				= false
+							CASE 'cb_4'
+								w_listado_contratos.cb_4.enabled								= false
+							CASE 'cb_asocia_contrato'
+								w_listado_contratos.cb_asocia_contrato.enabled			= false
+							CASE 'cb_5'
+								w_listado_contratos.cb_5.enabled								= false
+							CASE 'cb_6'
+								w_listado_contratos.cb_6.enabled								= false
+							CASE 'cb_7'
+								w_listado_contratos.cb_7.enabled								= false
+							CASE 'cb_mensajes'
+								w_listado_contratos.cb_mensajes.enabled					= false
+							CASE 'cb_1'
+								w_listado_contratos.cb_1.enabled								= false
+							CASE 'cb_2'
+								w_listado_contratos.cb_2.enabled								= false
+							CASE 'cb_3'
+								w_listado_contratos.cb_3.enabled								= false
+							CASE 'cb_imprimir'
+								w_listado_contratos.cb_imprimir.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_listado_contratos_por_todas_las_tablas' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_ver_cuenta_corriente'
+								w_listado_contratos_por_todas_las_tablas.cb_ver_cuenta_corriente.enabled	= false
+							CASE 'cb_datos_contrato'
+								w_listado_contratos_por_todas_las_tablas.cb_datos_contrato.enabled			= false
+							CASE 'cb_datos_repacta'
+								w_listado_contratos_por_todas_las_tablas.cb_datos_repacta.enabled				= false
+							CASE 'cb_datos_clientes'
+								w_listado_contratos_por_todas_las_tablas.cb_datos_clientes.enabled			= false
+							CASE 'cb_beneficiarios'
+								w_listado_contratos_por_todas_las_tablas.cb_beneficiarios.enabled				= false
+							CASE 'cb_fallecidos'
+								w_listado_contratos_por_todas_las_tablas.cb_fallecidos.enabled					= false
+							CASE 'cb_mensajes'
+								w_listado_contratos_por_todas_las_tablas.cb_mensajes.enabled					= false
+							CASE 'cb_5'
+								w_listado_contratos_por_todas_las_tablas.cb_5.enabled								= false
+							CASE 'cb_6'
+								w_listado_contratos_por_todas_las_tablas.cb_6.enabled								= false
+							CASE 'cb_7'
+								w_listado_contratos_por_todas_las_tablas.cb_7.enabled								= false
+							CASE 'cb_1'
+								w_listado_contratos_por_todas_las_tablas.cb_1.enabled								= false
+							CASE 'cb_2'
+								w_listado_contratos_por_todas_las_tablas.cb_2.enabled								= false
+							CASE 'cb_3'
+								w_listado_contratos_por_todas_las_tablas.cb_3.enabled								= false
+							CASE 'cb_imprimir'
+								w_listado_contratos_por_todas_las_tablas.cb_imprimir.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_listado_contratos_rut' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_ver_cuenta_corriente'
+								w_listado_contratos_rut.cb_ver_cuenta_corriente.enabled		= false
+							CASE 'cb_datos_contrato'
+								w_listado_contratos_rut.cb_datos_contrato.enabled				= false
+							CASE 'cb_datos_repacta'
+								w_listado_contratos_rut.cb_datos_repacta.enabled				= false
+							CASE 'cb_datos_clientes'
+								w_listado_contratos_rut.cb_datos_clientes.enabled				= false
+							CASE 'cb_beneficiarios'
+								w_listado_contratos_rut.cb_beneficiarios.enabled				= false
+							CASE 'cb_fallecidos'
+								w_listado_contratos_rut.cb_fallecidos.enabled					= false
+							CASE 'cb_mensajes'
+								w_listado_contratos_rut.cb_mensajes.enabled						= false
+							CASE 'cb_5'
+								w_listado_contratos_rut.cb_5.enabled								= false
+							CASE 'cb_6'
+								w_listado_contratos_rut.cb_6.enabled								= false
+							CASE 'cb_7'
+								w_listado_contratos_rut.cb_7.enabled								= false
+							CASE 'cb_1'
+								w_listado_contratos_rut.cb_1.enabled								= false
+							CASE 'cb_2'
+								w_listado_contratos_rut.cb_2.enabled								= false
+							CASE 'cb_3'
+								w_listado_contratos_rut.cb_3.enabled								= false
+							CASE 'cb_imprimir'
+								w_listado_contratos_rut.cb_imprimir.enabled						= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_listado_datos_copropietarios' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_ver_cuenta_corriente'
+								w_listado_datos_copropietarios.cb_ver_cuenta_corriente.enabled	= false
+							CASE 'cb_datos_contrato'
+								w_listado_datos_copropietarios.cb_datos_contrato.enabled			= false
+							CASE 'cb_datos_repacta'
+								w_listado_datos_copropietarios.cb_datos_repacta.enabled			= false
+							CASE 'cb_datos_clientes'
+								w_listado_datos_copropietarios.cb_datos_clientes.enabled			= false
+							CASE 'cb_beneficiarios'
+								w_listado_datos_copropietarios.cb_beneficiarios.enabled			= false
+							CASE 'cb_fallecidos'
+								w_listado_datos_copropietarios.cb_fallecidos.enabled				= false
+							CASE 'cb_mensajes'
+								w_listado_datos_copropietarios.cb_mensajes.enabled					= false
+							CASE 'cb_5'
+								w_listado_datos_copropietarios.cb_5.enabled							= false
+							CASE 'cb_6'
+								w_listado_datos_copropietarios.cb_6.enabled							= false
+							CASE 'cb_7'
+								w_listado_datos_copropietarios.cb_7.enabled							= false
+							CASE 'cb_1'
+								w_listado_datos_copropietarios.cb_1.enabled							= false
+							CASE 'cb_2'
+								w_listado_datos_copropietarios.cb_2.enabled							= false
+							CASE 'cb_3'
+								w_listado_datos_copropietarios.cb_3.enabled							= false
+							CASE 'cb_4'
+								w_listado_datos_copropietarios.cb_4.enabled							= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_listado_precio' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_2'
+								w_listado_precio.cb_2.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_principal_contrato_isa' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_refrescar'
+								w_principal_contrato_isa.cb_refrescar.enabled		= false
+							CASE 'cb_cta_cte'
+								w_principal_contrato_isa.cb_cta_cte.enabled			= false
+							CASE 'cb_4'
+								w_principal_contrato_isa.cb_4.enabled					= false
+							CASE 'cb_beneficiarios'
+								w_principal_contrato_isa.cb_beneficiarios.enabled	= false
+							CASE 'cb_1'
+								w_principal_contrato_isa.cb_1.enabled					= false
+							CASE 'cb_2'
+								w_principal_contrato_isa.cb_2.enabled					= false
+							CASE 'cb_3'
+								w_principal_contrato_isa.cb_3.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_principal_derecho' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_refrescar'
+								w_principal_derecho.cb_refrescar.enabled	= false
+							CASE 'cb_cta_cte'
+								w_principal_derecho.cb_cta_cte.enabled		= false
+							CASE 'cb_1'
+								w_principal_derecho.cb_1.enabled				= false
+							CASE 'cb_4'
+								w_principal_derecho.cb_4.enabled				= false
+							CASE 'cb_2'
+								w_principal_derecho.cb_2.enabled				= false
+							CASE 'cb_3'
+								w_principal_derecho.cb_3.enabled				= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_principal_liberador' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_refrescar'
+								w_principal_liberador.cb_refrescar.enabled	= false
+							CASE 'cb_cta_cte'
+								w_principal_liberador.cb_cta_cte.enabled		= false
+							CASE 'cb_4'
+								w_principal_liberador.cb_4.enabled				= false
+							CASE 'cb_1'
+								w_principal_liberador.cb_1.enabled				= false
+							CASE 'cb_2'
+								w_principal_liberador.cb_2.enabled				= false
+							CASE 'cb_3'
+								w_principal_liberador.cb_3.enabled				= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_principal_oferta' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_cuenta_cte'
+								w_principal_oferta.cb_cuenta_cte.enabled		= false
+							CASE 'cb_datos_contrato'
+								w_principal_oferta.cb_datos_contrato.enabled	= false
+							CASE 'cb_beneficiarios'
+								w_principal_oferta.cb_beneficiarios.enabled	= false
+							CASE 'cb_5'
+								w_principal_oferta.cb_5.enabled					= false
+							CASE 'cb_datos_repacta'
+								w_principal_oferta.cb_datos_repacta.enabled	= false
+							CASE 'cb_datos_clientes'
+								w_principal_oferta.cb_datos_clientes.enabled	= false
+							CASE 'cb_4'
+								w_principal_oferta.cb_4.enabled					= false
+							CASE 'cb_1'
+								w_principal_oferta.cb_1.enabled					= false
+							CASE 'cb_2'
+								w_principal_oferta.cb_2.enabled					= false
+							CASE 'cb_3'
+								w_principal_oferta.cb_3.enabled					= false
+						END CHOOSE
+				END CHOOSE			
+			end if
+			If gs_ventana='w_principal_pagare' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_refrescar'
+								w_principal_pagare.cb_refrescar.enabled	= false
+							CASE 'cb_cta_cte'
+								w_principal_pagare.cb_cta_cte.enabled		= false
+							CASE 'cb_4'
+								w_principal_pagare.cb_4.enabled				= false
+							CASE 'cb_1'
+								w_principal_pagare.cb_1.enabled				= false
+							CASE 'cb_2'
+								w_principal_pagare.cb_2.enabled				= false
+							CASE 'cb_3'
+								w_principal_pagare.cb_3.enabled				= false
+						END CHOOSE
+				END CHOOSE			
+			end if
+			If gs_ventana='w_principal_repacta_cta_mant' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_cta_cte'
+								w_principal_repacta_cta_mant.cb_cta_cte.enabled		= false
+							CASE 'cb_4'
+								w_principal_repacta_cta_mant.cb_4.enabled				= false
+							CASE 'cb_1'
+								w_principal_repacta_cta_mant.cb_1.enabled				= false
+							CASE 'cb_2'
+								w_principal_repacta_cta_mant.cb_2.enabled				= false
+							CASE 'cb_3'
+								w_principal_repacta_cta_mant.cb_3.enabled				= false
+						END CHOOSE
+				END CHOOSE			
+			end if
+			If gs_ventana='w_proceso_traspaso' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_4'
+								w_proceso_traspaso.cb_4.enabled	= false
+							CASE 'cb_5'
+								w_proceso_traspaso.cb_5.enabled	= false
+							CASE 'cb_6'
+								w_proceso_traspaso.cb_6.enabled	= false
+							CASE 'cb_2'
+								w_proceso_traspaso.cb_2.enabled	= false
+							CASE 'cb_3'
+								w_proceso_traspaso.cb_3.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_rescomi_por_vta' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_2'
+								w_rescomi_por_vta.cb_2.enabled			= false
+							END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_ultimos_procesos_cartas' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_2'
+								w_ultimos_procesos_cartas.cb_2.enabled	= false
+							END CHOOSE
+				END CHOOSE	
+			end if
+			If gs_ventana='w_ver_cheques' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_2'
+								w_ver_cheques.cb_2.enabled					= false
+							END CHOOSE
+				END CHOOSE	
+			end if
+			If gs_ventana='w_boletas_cuotas' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_bl_insertar'
+								w_boletas_cuotas.cb_bl_insertar.enabled		= false
+							CASE 'cb_bl_borrar_item'
+								w_boletas_cuotas.cb_bl_borrar_item.enabled	= false
+							CASE 'cb_bl_borrar'
+								w_boletas_cuotas.cb_bl_borrar.enabled			= false
+							CASE 'cb_repactar'
+								w_boletas_cuotas.cb_repactar.enabled			= false
+						END CHOOSE
+				END CHOOSE	
+			end if
+			If gs_ventana='w_cuotas' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_ver_cuenta'
+								w_cuotas.cb_ver_cuenta.enabled	= false
+							CASE 'cb_3'
+								w_cuotas.cb_3.enabled				= false
+							CASE 'cb_4'
+								w_cuotas.cb_4.enabled				= false
+							CASE 'cb_5'
+								w_cuotas.cb_5.enabled				= false
+							CASE 'cb_6'
+								w_cuotas.cb_6.enabled				= false
+							CASE 'cb_7'
+								w_cuotas.cb_7.enabled				= false
+							CASE 'cb_8'
+								w_cuotas.cb_8.enabled				= false
+							CASE 'cb_2'
+								w_cuotas.cb_2.enabled				= false
+							CASE 'cb_pagare'
+								w_cuotas.cb_pagare.enabled			= false
+						END CHOOSE
+				END CHOOSE	
+			end if
+			If gs_ventana='w_cuotas_derecho' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_ver_cuenta'
+								w_cuotas_derecho.cb_ver_cuenta.enabled	= false
+							CASE 'cb_3'
+								w_cuotas_derecho.cb_3.enabled				= false
+							CASE 'cb_7'
+								w_cuotas_derecho.cb_7.enabled				= false
+							CASE 'cb_2'
+								w_cuotas_derecho.cb_2.enabled				= false
+						END CHOOSE
+				END CHOOSE	
+			end if
+			If gs_ventana='w_cuotas_pagare' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_ver_cuenta'
+								w_cuotas_pagare.cb_ver_cuenta.enabled	= false
+							CASE 'cb_3'
+								w_cuotas_pagare.cb_3.enabled				= false
+							CASE 'cb_7'
+								w_cuotas_pagare.cb_7.enabled				= false
+							CASE 'cb_2'
+								w_cuotas_pagare.cb_2.enabled				= false
+						END CHOOSE
+				END CHOOSE	
+			end if
+			If gs_ventana='w_mantenedor_uf' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_insertar'
+								w_mantenedor_uf.cb_insertar.enabled	= false
+							CASE 'cb_borrar'
+								w_mantenedor_uf.cb_borrar.enabled	= false
+							CASE 'cb_aceptar'
+								w_mantenedor_uf.cb_aceptar.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_prepago' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_pagare'
+								w_prepago.cb_pagare.enabled			= false
+							CASE 'cb_3'
+								w_prepago.cb_3.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_prepago_derecho' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_3'
+								w_prepago_derecho.cb_3.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_prepago_pagare' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_3'
+								w_prepago_pagare.cb_3.enabled			= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_repacta' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_ci_insertar'
+								w_repacta.cb_ci_insertar.enabled		= false
+							CASE 'cb_ci_borrar'
+								w_repacta.cb_ci_borrar.enabled		= false
+							CASE 'cb_ci_borrar_item'
+								w_repacta.cb_ci_borrar_item.enabled	= false
+							CASE 'cb_repacta'
+								w_repacta.cb_repacta.enabled			= false
+							CASE 'cb_1'
+								w_repacta.cb_1.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_actualiza_datos_cliente' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_grabar'
+								w_actualiza_datos_cliente.cb_grabar.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_detalle_repactacion_por_contrato' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_nuevo'
+								w_detalle_repactacion_por_contrato.cb_nuevo.enabled		= false
+							CASE 'cb_eliminar'
+								w_detalle_repactacion_por_contrato.cb_eliminar.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_detalle_solicitudes' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_nuevo'
+								w_detalle_solicitudes.cb_nuevo.enabled						= false
+							CASE 'cb_eliminar'
+								w_detalle_solicitudes.cb_eliminar.enabled					= false
+							CASE 'cb_imprimir'
+								w_detalle_solicitudes.cb_imprimir.enabled					= false
+							CASE 'cb_aceptar_informatica'
+								w_detalle_solicitudes.cb_aceptar_informatica.enabled	= false
+							CASE 'cb_aceptar_operaciones'
+								w_detalle_solicitudes.cb_aceptar_operaciones.enabled	= false
+							CASE 'cb_print_ctto'
+								w_detalle_solicitudes.cb_print_ctto.enabled				= false
+							CASE 'cb_exportar'
+								w_detalle_solicitudes.cb_exportar.enabled					= false
+							CASE 'cb_sort'
+								w_detalle_solicitudes.cb_sort.enabled						= false
+							CASE 'cb_filtrar'
+								w_detalle_solicitudes.cb_filtrar.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_eliminar_solicitud' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_eliminar'
+								w_eliminar_solicitud.cb_eliminar.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_estado_informes' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_aceptar_informatica'
+								w_estado_informes.cb_aceptar_informatica.enabled		= false
+							CASE 'cb_aceptar_operaciones'
+								w_estado_informes.cb_aceptar_operaciones.enabled		= false
+							CASE 'cb_cta_cte'
+								w_estado_informes.cb_cta_cte.enabled						= false
+							CASE 'cb_po_rut'
+								w_estado_informes.cb_po_rut.enabled							= false
+							CASE 'cb_print_ctto'
+								w_estado_informes.cb_print_ctto.enabled					= false
+							CASE 'cb_imprimir'
+								w_estado_informes.cb_imprimir.enabled						= false
+							CASE 'cb_exportar'
+								w_estado_informes.cb_exportar.enabled						= false
+							CASE 'cb_sort'
+								w_estado_informes.cb_sort.enabled							= false
+							CASE 'cb_filtrar'
+								w_estado_informes.cb_filtrar.enabled						= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_grabar_pago_repactacion' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_grabar'
+								w_grabar_pago_repactacion.cb_grabar.enabled				= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_ingreso_atencion_log' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_grabar'
+								w_ingreso_atencion_log.cb_grabar.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_ingreso_nuevo_beneficiario' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_grabar'
+								w_ingreso_nuevo_beneficiario.cb_grabar.enabled			= false
+							CASE 'cb_imprimir'
+								w_ingreso_nuevo_beneficiario.cb_imprimir.enabled		= false
+							CASE 'cb_exportar'
+								w_ingreso_nuevo_beneficiario.cb_exportar.enabled		= false
+							CASE 'cb_ordenar'
+								w_ingreso_nuevo_beneficiario.cb_ordenar.enabled			= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_ingreso_solicitudes' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_aceptar'
+								w_ingreso_solicitudes.cb_aceptar.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_mantencion_fromulario_solicitudes' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_grabar'
+								w_mantencion_fromulario_solicitudes.cb_grabar.enabled				= false
+							CASE 'cb_imprimir'
+								w_mantencion_fromulario_solicitudes.cb_imprimir.enabled			= false
+							CASE 'cb_actualiza_datos'
+								w_mantencion_fromulario_solicitudes.cb_actualiza_datos.enabled	= false
+							CASE 'cb_ver_original'
+								w_mantencion_fromulario_solicitudes.cb_ver_original.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_mantencion_fromulario_solicitudes2' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_imprimir'
+								w_mantencion_fromulario_solicitudes2.cb_imprimir.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_modificar_antecedentes_cliente' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_grabar'
+								w_modificar_antecedentes_cliente.cb_grabar.enabled		= false
+							CASE 'cb_imprimir'
+								w_modificar_antecedentes_cliente.cb_imprimir.enabled	= false
+							CASE 'cb_limpiar'
+								w_modificar_antecedentes_cliente.cb_limpiar.enabled	= false
+							CASE 'cb_copiar'
+								w_modificar_antecedentes_cliente.cb_copiar.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_modificar_beneficiarios' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_grabar'
+								w_modificar_beneficiarios.cb_grabar.enabled		= false
+							CASE 'cb_imprimir'
+								w_modificar_beneficiarios.cb_imprimir.enabled	= false
+							CASE 'cb_ordenar'
+								w_modificar_beneficiarios.cb_ordenar.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_pago_repactacion' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_pago'
+								w_pago_repactacion.cb_pago.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_repacta_mora_mantencion' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_grabar'
+								w_repacta_mora_mantencion.cb_grabar.enabled		= false
+							CASE 'cb_imprimir'
+								w_repacta_mora_mantencion.cb_imprimir.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_perfil_usuario' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_grabar'
+								w_perfil_usuario.cb_grabar.enabled				= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_actualiza_conexion' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_aceptar'
+								w_actualiza_conexion.cb_aceptar.enabled		= false
+							CASE 'cb_actualiza'
+								w_actualiza_conexion.cb_actualiza.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_actuliza_pagos_contrato_isa' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_2'
+								w_actuliza_pagos_contrato_isa.cb_2.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_agente_info' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_agente'
+								w_agente_info.cb_agente.enabled					= false
+							CASE 'cb_sup'
+								w_agente_info.cb_sup.enabled						= false
+							CASE 'cb_3'
+								w_agente_info.cb_3.enabled							= false
+							CASE 'cb_hist_sup'
+								w_agente_info.cb_hist_sup.enabled				= false
+							CASE 'cb_2'
+								w_agente_info.cb_2.enabled							= false
+							CASE 'cb_4'
+								w_agente_info.cb_4.enabled							= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_cambio_clave' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'sle_clave_antigua'
+								w_cambio_clave.sle_clave_antigua.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_perfil_usuario' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_ordenar'
+								w_perfil_usuario.cb_ordenar.enabled				= false
+							CASE 'cb_filtrar'
+								w_perfil_usuario.cb_filtrar.enabled				= false
+							CASE 'cb_exportar'
+								w_perfil_usuario.cb_exportar.enabled			= false
+							CASE 'cb_imprimir'
+								w_perfil_usuario.cb_imprimir.enabled			= false
+							CASE 'cb_grabar'
+								w_perfil_usuario.cb_grabar.enabled				= false
+							CASE 'cb_ordenar2'
+								w_perfil_usuario.cb_ordenar2.enabled			= false
+							CASE 'cb_filtrar2'
+								w_perfil_usuario.cb_filtrar2.enabled			= false
+							CASE 'cb_exportar2'
+								w_perfil_usuario.cb_exportar2.enabled			= false
+							CASE 'cb_imprimir2'
+								w_perfil_usuario.cb_imprimir2.enabled			= false
+							CASE 'st_insertar'
+								w_perfil_usuario.st_insertar.enabled			= false
+							CASE 'st_eliminar'
+								w_perfil_usuario.st_eliminar.enabled			= false
+						END CHOOSE
+				END CHOOSE
+			END IF
+			If gs_ventana='w_libera_sepultura' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_1'
+								w_libera_sepultura.cb_1.enabled					= false
+							CASE 'cb_3'
+								w_libera_sepultura.cb_3.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_sepul_const_m12' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_1'
+								w_sepul_const_m12.cb_1.enabled					= false
+							CASE 'cb_5'
+								w_sepul_const_m12.cb_5.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_listado_reservas' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_1'
+								w_listado_reservas.cb_1.enabled					= false
+							CASE 'cb_4'
+								w_listado_reservas.cb_4.enabled					= false
+							CASE 'cb_5'
+								w_listado_reservas.cb_5.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_listado_beneficiarios' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_modifi'
+								w_listado_beneficiarios.cb_modifi.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_listado_beneficiarios2' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_modif'
+								w_listado_beneficiarios2.cb_modif.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_detalle_sepultura' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_3'
+								w_detalle_sepultura.cb_3.enabled					= false
+							CASE 'cb_4'
+								w_detalle_sepultura.cb_4.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_solicitud_reserva' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_1'
+								w_solicitud_reserva.cb_1.enabled					= false
+							CASE 'cb_6'
+								w_solicitud_reserva.cb_6.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_plano_sector_parque' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'pb_4'
+								w_plano_sector_parque.pb_4.enabled				= false
+							CASE 'pb_5'
+								w_plano_sector_parque.pb_5.enabled				= false
+							CASE 'pb_12'
+								w_plano_sector_parque.pb_12.enabled				= false
+							CASE 'pb_1'
+								w_plano_sector_parque.pb_1.enabled				= false
+							CASE 'pb_11'
+								w_plano_sector_parque.pb_11.enabled				= false
+							CASE 'pb_103'
+								w_plano_sector_parque.pb_103.enabled				= false
+							CASE 'pb_105'
+								w_plano_sector_parque.pb_105.enabled				= false
+							CASE 'ddlb_2'
+								w_plano_sector_parque.ddlb_2.enabled				= false
+							CASE 'ddlb_1'
+								w_plano_sector_parque.ddlb_1.enabled				= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_analisis_cuponera' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_procesar'
+								w_analisis_cuponera.cb_procesar.enabled			= false
+							CASE 'cb_crear_cupones'
+								w_analisis_cuponera.cb_crear_cupones.enabled		= false
+							CASE 'cb_buscar_formula'
+								w_analisis_cuponera.cb_buscar_formula.enabled	= false
+							CASE 'cb_exportar'
+								w_analisis_cuponera.cb_exportar.enabled			= false
+							CASE 'cb_2'
+								w_analisis_cuponera.cb_2.enabled						= false
+							CASE 'cb_3'
+								w_analisis_cuponera.cb_3.enabled						= false
+							CASE 'cb_4'
+								w_analisis_cuponera.cb_4.enabled						= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_cuponeras_nuevas_sin_imprimir' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_exportar'
+								w_cuponeras_nuevas_sin_imprimir.cb_exportar.enabled			= false
+							CASE 'cb_2'
+								w_cuponeras_nuevas_sin_imprimir.cb_2.enabled						= false
+							CASE 'cb_3'
+								w_cuponeras_nuevas_sin_imprimir.cb_3.enabled						= false
+							CASE 'cb_4'
+								w_cuponeras_nuevas_sin_imprimir.cb_4.enabled						= false
+							CASE 'cb_buscar_formula'
+								w_cuponeras_nuevas_sin_imprimir.cb_buscar_formula.enabled	= false
+							CASE 'cb_crear_cupones'
+								w_cuponeras_nuevas_sin_imprimir.cb_crear_cupones.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_detalle_contratos' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_exportar'
+								w_detalle_contratos.cb_exportar.enabled	= false
+							CASE 'cb_2'
+								w_detalle_contratos.cb_2.enabled				= false
+							CASE 'cb_3'
+								w_detalle_contratos.cb_3.enabled				= false
+							CASE 'cb_4'
+								w_detalle_contratos.cb_4.enabled				= false
+							CASE 'cb_ctacte'
+								w_detalle_contratos.cb_ctacte.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_crear_cuponeras' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_carga'
+								w_crear_cuponeras.cb_carga.enabled		= false
+							CASE 'cb_elimina'
+								w_crear_cuponeras.cb_elimina.enabled	= false
+							CASE 'cb_ejecuta'
+								w_crear_cuponeras.cb_ejecuta.enabled	= false
+							CASE 'cb_total'
+								w_crear_cuponeras.cb_total.enabled		= false
+							CASE 'cb_crear'
+								w_crear_cuponeras.cb_crear.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_vista_previa' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_imprimir'
+								w_vista_previa.cb_imprimir.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_imprime_liberadores' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_7'
+								w_imprime_liberadores.cb_7.enabled	= false
+							CASE 'cb_11'
+								w_imprime_liberadores.cb_11.enabled	= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_imprime_pagare' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_7'
+								w_imprime_pagare.cb_7.enabled			= false
+							CASE 'cb_2'
+								w_imprime_pagare.cb_2.enabled			= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_imprime_promesas' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_7'
+								w_imprime_promesas.cb_7.enabled		= false
+							CASE 'cb_2'
+								w_imprime_promesas.cb_2.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_principal_etiqueta' then
+				CHOOSE CASE ls_tipo
+					CASE 'menu'
+						CHOOSE CASE ls_objeto
+							CASE 'mn_principal_etiqueta'
+								mn_principal_etiqueta.enabled													= false
+								mn_principal_etiqueta.m_proceso.enabled									= false
+								mn_principal_etiqueta.m_proceso.m_abonosofertas.enabled				= false
+								mn_principal_etiqueta.m_proceso.m_ofertas_nuevas.enabled				= false
+								mn_principal_etiqueta.m_proceso.m_q.enabled								= false
+								mn_principal_etiqueta.m_proceso.m_imprimieetiquetaspagars.enabled	= false
+								mn_principal_etiqueta.m_proceso.m_c0nfigurarimpresora.enabled		= false
+								mn_principal_etiqueta.m_proceso.m_calculadora.enabled					= false
+							CASE 'mn_principal_etiqueta.m_proceso'
+								mn_principal_etiqueta.m_proceso.enabled									= false
+								mn_principal_etiqueta.m_proceso.m_abonosofertas.enabled				= false
+								mn_principal_etiqueta.m_proceso.m_ofertas_nuevas.enabled				= false
+								mn_principal_etiqueta.m_proceso.m_q.enabled								= false
+								mn_principal_etiqueta.m_proceso.m_imprimieetiquetaspagars.enabled	= false
+								mn_principal_etiqueta.m_proceso.m_c0nfigurarimpresora.enabled		= false
+								mn_principal_etiqueta.m_proceso.m_calculadora.enabled					= false
+							CASE 'mn_principal_etiqueta.m_proceso.m_abonosofertas'
+								mn_principal_etiqueta.m_proceso.m_abonosofertas.enabled				= false
+							CASE 'mn_principal_etiqueta.m_proceso.m_ofertas_nuevas'
+								mn_principal_etiqueta.m_proceso.m_ofertas_nuevas.enabled				= false
+							CASE 'mn_principal_etiqueta.m_proceso.m_q'
+								mn_principal_etiqueta.m_proceso.m_q.enabled								= false
+							CASE 'mn_principal_etiqueta.m_proceso.m_imprimieetiquetaspagars'
+								mn_principal_etiqueta.m_proceso.m_imprimieetiquetaspagars.enabled	= false
+							CASE 'mn_principal_etiqueta.m_proceso.m_c0nfigurarimpresora'
+								mn_principal_etiqueta.m_proceso.m_c0nfigurarimpresora.enabled		= false
+							CASE 'mn_principal_etiqueta.m_proceso.m_calculadora'
+								mn_principal_etiqueta.m_proceso.m_calculadora.enabled					= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			If gs_ventana='w_promesas_lib' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'cb_elimina'
+								w_promesas_lib.cb_elimina.enabled	= false
+							CASE 'cb_busca'
+								w_promesas_lib.cb_busca.enabled		= false
+							CASE 'cb_graba'
+								w_promesas_lib.cb_graba.enabled		= false
+						END CHOOSE
+				END CHOOSE
+			end if
+			if gs_ventana = 'w_ingreso_fallecimiento' then
+				CHOOSE CASE ls_tipo
+					CASE 'objeto'
+						CHOOSE CASE ls_objeto
+							CASE 'w_ingreso_fallecimiento.dw_fallecido'
+								w_ingreso_fallecimiento.dw_fallecido.enabled		= false
+							CASE 'w_ingreso_fallecimiento.cb_nuevo'
+								w_ingreso_fallecimiento.cb_nuevo.enabled			= false
+							CASE 'w_ingreso_fallecimiento.cb_aceptar'
+								w_ingreso_fallecimiento.cb_aceptar.enabled		= false
+							CASE 'w_ingreso_fallecimiento.cb_ver_cuenta'
+								w_ingreso_fallecimiento.cb_ver_cuenta.enabled	= false
+							CASE 'w_ingreso_fallecimiento.cb_print'
+								w_ingreso_fallecimiento.cb_print.enabled			= false
+							CASE 'w_ingreso_fallecimiento.cb_limpiar'
+								w_ingreso_fallecimiento.cb_limpiar.enabled		= false
+							CASE 'w_ingreso_fallecimiento.cb_eliminar'
+								w_ingreso_fallecimiento.cb_eliminar.enabled		= false
+							CASE 'w_ingreso_fallecimiento.cb_cancelar'
+								w_ingreso_fallecimiento.cb_cancelar.enabled		= false
+								
+						END CHOOSE
+				END CHOOSE
+			end if
+		end if
+	LOOP
+end if
+close x1;
+end subroutine
+

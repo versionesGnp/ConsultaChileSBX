@@ -1,0 +1,322 @@
+﻿global type f_crear_cupones_mantencion from function_object
+end type
+
+forward prototypes
+global subroutine f_crear_cupones_mantencion (long al_cantidad)
+end prototypes
+
+global subroutine f_crear_cupones_mantencion (long al_cantidad);Long		ll_count,ll_mora_mant,ll_estado_mora_mant,ll_ctas_pag_m,ll_cod_parque,ll_plazo,ll_cantidad,ll_res,ll_indi,ll_cant_meses,ll_nro_cuota,ll_cuponera,ll_ctas_pag_s,&
+			ll_contar_cup_vig,ll_res2,ll_max_cuota
+Double	ll_rut,ldb_valor_cuota_m,ll_cupon,ldb_valor_cuota_c
+String		ls_estado_cuponera,ls_estado_ctto,ls_dv,ls_moneda,ls_paso='N'
+date		ldt_fecha_venc_mant,ldt_fecha_prox,ldt_fecha_vencimiento,ldt_max_venc,ldt_fecha_prim,ldt_fecha_m
+
+if gs_base='O' or gs_base='C' or gs_base='U' or gs_base='M' then
+	ll_cantidad		= al_cantidad
+	if ll_cantidad > 0 then
+		SELECT 	"CUPONERAS"."ESTADO_CUPONERA" ,	"CUPONERAS"."NRO_CUPONERA"
+		INTO 		:ls_estado_cuponera  ,						:ll_cuponera
+		FROM 	"CUPONERAS"  
+		WHERE 	( "CUPONERAS"."BASE" = :gs_base ) AND  
+					( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+					( "CUPONERAS"."NUMERO" = :gi_numero ) AND
+					( "CUPONERAS"."NRO_CUPONERA" =  (	SELECT 	MAX("CUPONERAS"."NRO_CUPONERA")
+																		FROM 	"CUPONERAS"  
+																		WHERE 	( "CUPONERAS"."BASE" = :gs_base ) AND  
+																					( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+																					( "CUPONERAS"."NUMERO" = :gi_numero ) ) )
+		USING	sqlca;
+					
+		SELECT 	count("CUPONERAS"."BASE")
+		INTO 		:ll_count
+		FROM 	"CUPONERAS"  
+		WHERE 	( "CUPONERAS"."BASE" = :gs_base ) AND  
+					( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+					( "CUPONERAS"."NUMERO" = :gi_numero )
+		USING	sqlca;
+		if isnull(ls_estado_cuponera) or ls_estado_cuponera='' then ll_count=0
+		SELECT 	   "ESTADO_MORA_MANTENCION"."CANTIDAD_MESES",		"PAGO_OFERTA"."NRO_CUOTAS",	"PAGO_OFERTA"."MONEDA",	"CADENA"."COD_PARQUE",	"CADENA"."ESTADO",  	"CADENA"."RUT",   	"CLIENTE"."DV",   	"OFERTA_V"."VALOR_CUOTA_M",   	"CADENA_MORA"."MORA_MANT",   	"CADENA_MORA"."FECHA_VENC_MANT",   	"CADENA"."ESTADO_MORA_MANTENCION",   	"OFERTA_V"."CTA_PAG_M",   	"OFERTA_V"."CTA_PAG_S",		"PAGO_OFERTA"."VALOR_CUOTA" ,	"PAGO_OFERTA"."FECHA_PRIM",	"OFERTA_V"."FECHA_M"
+		INTO 		  :ll_cant_meses,														:ll_plazo,									:ls_moneda,							:ll_cod_parque,					:ls_estado_ctto,   			:ll_rut,   					:ls_dv,   				:ldb_valor_cuota_m,   					:ll_mora_mant,   							:ldt_fecha_venc_mant,   							:ll_estado_mora_mant,   							:ll_ctas_pag_m  ,					:ll_ctas_pag_s,						:ldb_valor_cuota_c,						:ldt_fecha_prim,						:ldt_fecha_m
+		FROM 	  "CADENA",   "OFERTA_V",   "PAGO_OFERTA",   "CLIENTE",   "CADENA_MORA" ,	"ESTADO_MORA_MANTENCION" 
+		WHERE 	( "CADENA"."RUT" = "CLIENTE"."RUT" ) and  
+					( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+					( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+					( "CADENA"."ESTADO_MORA_MANTENCION" = "ESTADO_MORA_MANTENCION"."ESTADO_MORA_MANTENCION" ) AND
+					( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+					( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+					( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+					( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+					( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+					( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+					( "CADENA"."CODIGO" = :gs_base ) AND  
+					( "CADENA"."SERIE" = :gs_serie ) AND  
+					( "CADENA"."NUMERO" = :gi_numero ) 
+		UNION   
+		SELECT 	  "ESTADO_MORA_MANTENCION"."CANTIDAD_MESES",		"CONTRATO"."PLAZO",	"CONTRATO"."MONEDA","CADENA"."COD_PARQUE",	"CADENA"."ESTADO",   	"CADENA"."RUT",   	"CLIENTE"."DV",   	"CONTRATO"."VALOR_CUOTA_M",   	"CADENA_MORA"."MORA_MANT",   	"CADENA_MORA"."FECHA_VENC_MANT",   	"CADENA"."ESTADO_MORA_MANTENCION",   	"CONTRATO"."CTA_PAG_M"  ,	0, 0, null, null
+		FROM 	  "CADENA",   "CADENA_MORA",   "CLIENTE",   "CONTRATO",	"ESTADO_MORA_MANTENCION"
+		WHERE 	( "CADENA"."SERIE" = "CONTRATO"."SERIE_C" ) and  
+					( "CADENA"."NUMERO" = "CONTRATO"."NRO_CONTRATO" ) and  
+					( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+					( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+					( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+					( "CADENA"."ESTADO_MORA_MANTENCION" = "ESTADO_MORA_MANTENCION"."ESTADO_MORA_MANTENCION" ) AND
+					( "CADENA"."RUT" = "CLIENTE"."RUT" ) and  
+					( "CADENA"."CODIGO" = :gs_base ) AND  
+					( "CADENA"."SERIE" = :gs_serie ) AND  
+					( "CADENA"."NUMERO" = :gi_numero )    ;
+		if ls_estado_ctto='V' or ls_estado_ctto='C' then
+			if ll_count >= 0 then
+				ll_res 		= 1
+//				if ll_cantidad > ( ll_mora_mant + 8 ) then
+//					ll_res	= messagebox("Advertencia","Está Seguro de Crear "+string(ll_cantidad) +" Cupones de Mantención",Exclamation!,YesNo!,2)
+//				else
+//					ll_res	= messagebox("Advertencia","Está Seguro de Crear Cupones de Mantención",Exclamation!,YesNo!,2)
+//				end if
+			end if
+			if ll_res = 1 then
+				SELECT 	MAX("CUPONERAS_DETALLE"."NRO_CUPON")  
+				INTO 		:ll_cupon  
+				FROM 	"CUPONERAS_DETALLE"  ;
+				ll_cupon ++
+				if ll_count = 0 then
+					ll_cuponera	= ll_count + 1
+					INSERT INTO "CUPONERAS"  
+									( "BASE",   	"SERIE",  	"NUMERO",   	"NRO_CUPONERA",   	"FECHA_CREA",   	"USUARIO_CREADOR",   	"CUPON_INICIAL",   	"CUPON_FINAL",   	"ESTADO_CUPONERA",   	"COD_PARQUE",   	"MONEDA_CTTO",   	"PLAZO",   	"CANT_PRINT",   	"ULT_FECHA_VENC_CRED_PRINT" )  
+					VALUES 		( :gs_base,	:gs_serie,   :gi_numero,   	:ll_cuponera,   			:gdt_fec_sistema,	:gs_user,   					1,   						2,   					'V',   								:ll_cod_parque,   	:ls_moneda,   			:ll_plazo,   	0,   					null )  
+					USING	sqlca;
+					if sqlca.sqlcode=0 then
+						commit;
+						ls_paso		= 'S'
+					else
+						rollback;
+					end if
+					
+				elseif ll_count = 1 then
+					if (gs_base='O' or gs_base='U' ) and ll_ctas_pag_s < ll_plazo then
+						SELECT 	Count("CUPONERAS_DETALLE"."BASE" ) 
+						INTO 		:ll_contar_cup_vig  
+						FROM 	"CUPONERAS_DETALLE"  
+						WHERE ( "CUPONERAS_DETALLE"."BASE" = :gs_base ) AND  
+								  ( "CUPONERAS_DETALLE"."SERIE" = :gs_serie ) AND  
+								  ( "CUPONERAS_DETALLE"."NUMERO" = :gi_numero ) AND  
+								  ( "CUPONERAS_DETALLE"."NRO_CUPONERA" = :ll_cuponera ) AND  
+								  ( "CUPONERAS_DETALLE"."ESTADO_PAGO_CUPON" = 'V' )   ;
+						if ll_contar_cup_vig = 0 then
+//							messagebox("Advertencia","Contrato Tiene Saldo Cuota Crédito, debe tener Cuponera Vigente antes de Crear Cupones de Mantención")
+							
+							DECLARE sp_proc_genera_cuponera PROCEDURE FOR SP_GENERAR_CUPONERA( :gs_base, :gs_serie, :gi_numero, :ll_plazo, :gs_user, :ll_rut, :ldb_valor_cuota_c, :ldb_valor_cuota_m, :ls_dv, :ll_cod_parque, :ldt_fecha_prim, :ldt_fecha_m, :ls_moneda);
+							EXECUTE sp_proc_genera_cuponera;
+							if ls_estado_cuponera = 'A' then
+								UPDATE	"CUPONERAS"  
+								SET 		"ESTADO_CUPONERA" = 'R'  
+								WHERE  ( "CUPONERAS"."BASE" = :gs_base ) AND  
+										 ( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+										 ( "CUPONERAS"."NUMERO" = :gi_numero ) AND  
+										 ( "CUPONERAS"."ESTADO_CUPONERA" = :ls_estado_cuponera ) AND  
+										 ( "CUPONERAS"."NRO_CUPONERA" = :ll_cuponera )   
+								USING		sqlca;
+								if sqlca.sqlcode=0 then
+									commit;
+								else
+									rollback;
+								end if
+								SELECT 	"CUPONERAS"."ESTADO_CUPONERA" ,	"CUPONERAS"."NRO_CUPONERA"
+								INTO 		:ls_estado_cuponera  ,						:ll_cuponera
+								FROM 	"CUPONERAS"  
+								WHERE 	( "CUPONERAS"."BASE" = :gs_base ) AND  
+											( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+											( "CUPONERAS"."NUMERO" = :gi_numero ) AND
+											( "CUPONERAS"."NRO_CUPONERA" =  (	SELECT 	MAX("CUPONERAS"."NRO_CUPONERA")
+																								FROM 	"CUPONERAS"  
+																								WHERE 	( "CUPONERAS"."BASE" = :gs_base ) AND  
+																											( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+																											( "CUPONERAS"."NUMERO" = :gi_numero ) ) )
+								USING	sqlca;
+											
+								SELECT 	count("CUPONERAS"."BASE")
+								INTO 		:ll_count
+								FROM 	"CUPONERAS"  
+								WHERE 	( "CUPONERAS"."BASE" = :gs_base ) AND  
+											( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+											( "CUPONERAS"."NUMERO" = :gi_numero )
+								USING	sqlca;
+							end if
+							ll_res2 = 1
+						else
+							ll_res2 = 1
+						end if
+					else
+						ll_res2 	= 1
+					end if
+					
+					if ll_res2 = 1 then
+						if ls_estado_cuponera <> 'V' and ls_estado_cuponera <> 'C' then
+							UPDATE 	"CUPONERAS"  
+							SET 		"ESTADO_CUPONERA" = 'V'  
+							WHERE ( "CUPONERAS"."BASE" = :gs_base ) AND  
+									  ( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+									  ( "CUPONERAS"."NUMERO" = :gi_numero )  AND
+									  ( "CUPONERAS"."NRO_CUPONERA" = :ll_cuponera )
+							USING	sqlca;
+							if sqlca.sqlcode=0 then
+								commit;
+							else
+								rollback;
+							end if
+						end if
+						
+						ls_paso	= 'S'
+					else
+						ls_paso	= 'N'
+					end if
+				elseif ll_count > 1 then
+					if (gs_base='O' or gs_base='U' ) and ll_ctas_pag_s < ll_plazo then
+						SELECT 	Count("CUPONERAS_DETALLE"."BASE" ) 
+						INTO 		:ll_contar_cup_vig  
+						FROM 	"CUPONERAS_DETALLE"  
+						WHERE ( "CUPONERAS_DETALLE"."BASE" = :gs_base ) AND  
+								  ( "CUPONERAS_DETALLE"."SERIE" = :gs_serie ) AND  
+								  ( "CUPONERAS_DETALLE"."NUMERO" = :gi_numero ) AND  
+								  ( "CUPONERAS_DETALLE"."NRO_CUPONERA" = :ll_cuponera ) AND  
+								  ( "CUPONERAS_DETALLE"."ESTADO_PAGO_CUPON" = 'V' )   ;
+						if ll_contar_cup_vig = 0 then
+//							messagebox("Advertencia","Contrato Tiene Saldo Cuota Crédito, debe tener Cuponera Vigente antes de Crear Cupones de Mantención")
+							
+							DECLARE sp_proc_genera_cup2 PROCEDURE FOR SP_GENERAR_CUPONERA( :gs_base, :gs_serie, :gi_numero, :ll_plazo, :gs_user, :ll_rut, :ldb_valor_cuota_c, :ldb_valor_cuota_m, :ls_dv, :ll_cod_parque, :ldt_fecha_prim, :ldt_fecha_m, :ls_moneda);
+							EXECUTE sp_proc_genera_cup2;
+							if ls_estado_cuponera = 'A' then
+								UPDATE	"CUPONERAS"  
+								SET 		"ESTADO_CUPONERA" = 'R'  
+								WHERE  ( "CUPONERAS"."BASE" = :gs_base ) AND  
+										 ( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+										 ( "CUPONERAS"."NUMERO" = :gi_numero ) AND  
+										 ( "CUPONERAS"."ESTADO_CUPONERA" = :ls_estado_cuponera ) AND  
+										 ( "CUPONERAS"."NRO_CUPONERA" = :ll_cuponera )   
+								USING		sqlca;
+								if sqlca.sqlcode=0 then
+									commit;
+								else
+									rollback;
+								end if
+								SELECT 	"CUPONERAS"."ESTADO_CUPONERA" ,	"CUPONERAS"."NRO_CUPONERA"
+								INTO 		:ls_estado_cuponera  ,						:ll_cuponera
+								FROM 	"CUPONERAS"  
+								WHERE 	( "CUPONERAS"."BASE" = :gs_base ) AND  
+											( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+											( "CUPONERAS"."NUMERO" = :gi_numero ) AND
+											( "CUPONERAS"."NRO_CUPONERA" =  (	SELECT 	MAX("CUPONERAS"."NRO_CUPONERA")
+																								FROM 	"CUPONERAS"  
+																								WHERE 	( "CUPONERAS"."BASE" = :gs_base ) AND  
+																											( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+																											( "CUPONERAS"."NUMERO" = :gi_numero ) ) )
+								USING	sqlca;
+											
+								SELECT 	count("CUPONERAS"."BASE")
+								INTO 		:ll_count
+								FROM 	"CUPONERAS"  
+								WHERE 	( "CUPONERAS"."BASE" = :gs_base ) AND  
+											( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+											( "CUPONERAS"."NUMERO" = :gi_numero )
+								USING	sqlca;
+							end if
+							ll_res2 = 1
+						else
+							ll_res2 = 1
+						end if
+					else
+						ll_res2 	= 1
+					end if
+					if ll_res2 = 1 then
+						UPDATE 	"CUPONERAS"  
+						SET 		"ESTADO_CUPONERA" = 'V'  
+						WHERE ( "CUPONERAS"."BASE" = :gs_base ) AND  
+								  ( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+								  ( "CUPONERAS"."NUMERO" = :gi_numero )  AND
+								  ( "CUPONERAS"."NRO_CUPONERA" = :ll_cuponera )
+						USING	sqlca;
+						if sqlca.sqlcode=0 then
+							commit;
+							UPDATE 	"CUPONERAS"  
+							SET 		"ESTADO_CUPONERA" = 'A'  
+							WHERE ( "CUPONERAS"."BASE" = :gs_base ) AND  
+									  ( "CUPONERAS"."SERIE" = :gs_serie ) AND  
+									  ( "CUPONERAS"."NUMERO" = :gi_numero )  AND
+									  ( "CUPONERAS"."NRO_CUPONERA" < :ll_cuponera )
+							USING	sqlca;
+							if sqlca.sqlcode=0 then
+								commit;
+								ls_paso	= 'S'
+							else
+								rollback;
+							end if
+						else
+							rollback;
+						end if
+						
+					end if
+				end if
+				if ls_paso = 'S' then
+					SELECT 	MAX("CUPONERAS_DETALLE"."FECHA_VENC" ) 
+					INTO 		:ldt_max_venc  
+					FROM 	"CUPONERAS_DETALLE"  
+					WHERE ( "CUPONERAS_DETALLE"."BASE" = :gs_base ) AND  
+							  ( "CUPONERAS_DETALLE"."SERIE" = :gs_serie ) AND  
+							  ( "CUPONERAS_DETALLE"."NUMERO" = :gi_numero ) AND  
+							  ( "CUPONERAS_DETALLE"."NRO_CUPONERA" = :ll_cuponera ) AND  
+							  ( "CUPONERAS_DETALLE"."ESTADO_PAGO_CUPON" = 'V' ) AND  
+							  ( "CUPONERAS_DETALLE"."TIPO_MOV" = 'F' )   ;
+					if not isnull(ldt_max_venc) then
+						ldt_fecha_venc_mant	= ldt_max_venc
+						SELECT 	add_months( :ldt_fecha_venc_mant, :ll_cant_meses) 
+						INTO		:ldt_fecha_prox
+						FROM		dual;
+						ldt_fecha_venc_mant	= ldt_fecha_prox
+					end if
+					
+					SELECT 	count("CUPONERAS_DETALLE"."NRO_CUOTA" ) 
+					INTO 		:ll_max_cuota  
+					FROM 	"CUPONERAS_DETALLE"  
+					WHERE ( "CUPONERAS_DETALLE"."BASE" = :gs_base ) AND  
+							  ( "CUPONERAS_DETALLE"."SERIE" = :gs_serie ) AND  
+							  ( "CUPONERAS_DETALLE"."NUMERO" = :gi_numero ) AND  
+							  ( "CUPONERAS_DETALLE"."NRO_CUPONERA" = :ll_cuponera ) AND  
+							  ( "CUPONERAS_DETALLE"."ESTADO_PAGO_CUPON" = 'V' ) AND  
+							  ( "CUPONERAS_DETALLE"."TIPO_MOV" = 'F' )   ;
+					if isnull(ll_max_cuota) or ll_max_cuota=0 then
+						ll_max_cuota	= 0
+					end if
+					ldt_fecha_prox		= ldt_fecha_venc_mant
+					for ll_indi = 1 to ll_cantidad
+						ll_nro_cuota = ll_max_cuota + ll_ctas_pag_m + ll_indi
+						if not isnull(ldt_fecha_prox) then
+							INSERT INTO "CUPONERAS_DETALLE"  
+										( "BASE",  	"SERIE",  	"NUMERO",	"NRO_CUPON",  	"RUT",   	"NRO_CUOTA",   	"FECHA_VENC",   	"ESTADO_PAGO_CUPON",   	"TIPO_MOV",   	"TIPO_COB_PAGO",   	"FOLIO_PAGO",   	"FECHA_PAGO",   	"MONTO_CUOTA_CONTRATO",   	"MONTO_CUOTA_PESO",   	"MONTO_INTERES_MORA",   	"MONTO_GASTO_COBRANZA",   	"NRO_CUPONERA",   	"DV",   	"IP_PRINT",   	"USUARIO_PRINT",   	"NUMERO_GRUPO_AVISO",   	"BASE_ASOC",   	"SERIE_ASOC",   	"NUMERO_ASOC",   	"MONTO_OTROS_COBROS",   	"USUARIO_ACTUALIZA_REG",   	"FECHA_ACTUALIZA_REG",   	"CUPON_WEB",   	"SW_GRAN_CUPON" )  
+							VALUES 	( :gs_base,	:gs_serie,   :gi_numero,	:ll_cupon,   			:ll_rut,   :ll_nro_cuota,   		:ldt_fecha_prox,   	'V',   								'F',   				null,   					null,   				null,   				:ldb_valor_cuota_m,   				0,   								0,   									0,											:ll_count,   				:ls_dv,   	null,   			null,   					null,   								null,   				null,   				null,   					null,   								:gs_user,   								:gdt_fec_sistema,   				0,   					1 )  
+							USING	sqlca;
+							if sqlca.sqlcode=0 then
+								commit;
+								ldt_fecha_venc_mant = ldt_fecha_prox;
+								ll_cupon ++
+							else
+								rollback;
+								messagebox("Error Grabar","Error al Grabar Cupon SQL: "+sqlca.sqlerrtext)
+							end if
+		
+						end if
+						SELECT 	add_months( :ldt_fecha_venc_mant, :ll_cant_meses) 
+						INTO		:ldt_fecha_prox
+						FROM		dual;
+					next
+//					w_ver_cupones.triggerevent(open!)
+				end if
+			end if
+		else
+//			messagebox("Advertencia","Recuerde solo puede crear Cupones a Contratos en Estado VIGENTE o PAGADO")
+		end if
+
+	end if
+else
+//	messagebox("Advertencia","Solo se puede Crear Cupones de Mantención a O-PROMESAS y C-CONTRATOS ISA")
+end if
+end subroutine
+

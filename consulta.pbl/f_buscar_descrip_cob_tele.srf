@@ -1,0 +1,17 @@
+﻿global type f_buscar_descrip_cob_tele from function_object
+end type
+
+forward prototypes
+global function string f_buscar_descrip_cob_tele (long al_codigo)
+end prototypes
+
+global function string f_buscar_descrip_cob_tele (long al_codigo);String	ls_descrip
+
+SELECT	"ESTADO_COBRANZA"."GLOSA_ESTADO"  
+INTO 		:ls_descrip  
+FROM 		"ESTADO_COBRANZA"  
+WHERE 	"ESTADO_COBRANZA"."COD_ESATDO" = :al_codigo   ;
+ls_descrip	= trim(ls_descrip)
+return ls_descrip
+end function
+

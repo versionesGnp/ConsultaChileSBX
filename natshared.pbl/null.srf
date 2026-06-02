@@ -1,0 +1,78 @@
+﻿global type null from function_object
+end type
+
+forward prototypes
+global function any null (any anyisnull)
+end prototypes
+
+global function any null (any anyisnull);
+// Null( anyIsNull )
+
+String	ls_var
+
+ls_var = ClassName( anyIsNull )
+
+Choose Case ls_var
+	Case 'string'
+		String	ls_ret
+		
+		ls_ret = anyIsNull
+		If IsNull( ls_ret ) Then
+			Return ls_ret
+		End If
+		If f_Trim( ls_ret ) = '' Then
+			SetNull( ls_ret )
+		End If
+		Return ls_ret
+		
+	Case 'char'
+		Char	lc_ret
+		
+		lc_ret = anyIsNull
+		If IsNull( lc_ret ) Then
+			Return lc_ret
+		End If
+		If f_Trim( lc_ret ) = '' Then
+			SetNull( lc_ret )
+		End If
+		Return lc_ret
+		
+	Case 'long', 'int', 'integer'
+		Long	ll_ret
+		
+		ll_ret = anyIsNull
+		If IsNull( ll_ret ) Then
+			Return ll_ret
+		End If
+		If f_Zero( ll_ret ) = 0 Then
+			SetNull( ll_ret )
+		End If
+		Return ll_ret
+		
+	Case 'decimal'
+		Decimal	ldc_ret
+		
+		ldc_ret = anyIsNull
+		If IsNull( ldc_ret ) Then
+			Return ldc_ret
+		End If
+		If f_Zero( ldc_ret ) = 0 Then
+			SetNull( ldc_ret )
+		End If
+		Return ldc_ret
+		
+	Case 'datetime'
+		DateTime	ldt_ret
+		
+		ldt_ret = anyIsNull
+		If IsNull( ldt_ret ) Then
+			Return ldt_ret
+		End If
+		If Not f_IsDate( ldt_ret ) Then
+			SetNull( ldt_ret )
+		End If
+		Return ldt_ret
+		
+End Choose
+end function
+

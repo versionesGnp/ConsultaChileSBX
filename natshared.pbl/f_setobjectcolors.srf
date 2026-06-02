@@ -1,0 +1,28 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Cambio estético a un objeto BLScript Class~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_setobjectcolors from function_object
+end type
+
+forward prototypes
+global function string f_setobjectcolors (datawindow adw_soc, string as_col, string as_con, string as_clr[])
+end prototypes
+
+global function string f_setobjectcolors (datawindow adw_soc, string as_col, string as_con, string as_clr[]);//
+//  Color x Status o Condición
+// f_SetObjectColorS( adw_soc, as_col, as_con, {'', ''})
+// Autor: César Vilela R.
+
+String	ls_ret, ls_ena, ls_dis, ls_col, ls_mod
+
+
+ls_ena = String( f_Gen_Color( as_clr[ 1] ) )
+ls_dis = String( f_Gen_Color( as_clr[ 2] ) )
+as_con = f_GlobalReplace( as_con, '"', "'" )
+
+ls_col = "If ( " + as_con + ", " + ls_ena + ", " + ls_dis + " )"
+
+ls_mod = as_col + '.Color = "0~t' + ls_col + '"'
+ls_ret = adw_soc.Modify( ls_mod )
+
+Return ls_ret
+end function
+

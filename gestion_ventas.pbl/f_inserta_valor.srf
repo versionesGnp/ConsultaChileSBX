@@ -1,0 +1,46 @@
+﻿global type f_inserta_valor from function_object
+end type
+
+forward prototypes
+global function double f_inserta_valor (double precio, string moneda, double uf, string canal)
+end prototypes
+
+global function double f_inserta_valor (double precio, string moneda, double uf, string canal);long resultado
+integer i,min,max,a
+string sql
+double unidades
+
+if moneda='1' then
+	resultado = precio/uf
+else
+	resultado = precio
+end if
+sql=  'SELECT  RANGO_MIN_UF, '+&
+		'RANGO_MAX_UF,         '+&
+		'UNIDADES              '+&
+		'FROM UNIDADES         '+& 
+		'WHERE TIPO_CANAL =    '+"'"+canal+"'" 
+PREPARE sqlsa FROM :sql;
+DECLARE dyn_cursor DYNAMIC CURSOR FOR sqlsa;
+OPEN DYNAMIC dyn_cursor;  
+IF sqlca.sqlcode < 0 THEN
+	MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_inserta_valor()")
+	Return -1
+END IF
+Do While sqlca.sqlcode = 0
+	Fetch dyn_cursor into :min,:max,:unidades;
+	If sqlca.sqlcode = 0 Then
+		if resultado >= min and resultado <= max then 
+			Close dyn_cursor;
+//			n++
+//			w_premios_ofertas.st_4.text = string(n)
+			return unidades
+		end if
+	Else
+		Exit
+	End If
+Loop
+Close dyn_cursor;
+return 0
+end function
+

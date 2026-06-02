@@ -1,0 +1,362 @@
+﻿global type f_valida_menu_operaciones from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_operaciones (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_operaciones (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_operaciones0'
+				m_menu_principal.m_operaciones0.visible																							= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.visible															= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.visible												= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_asignacióncobranzatelefónica.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_gruposgeneradosdeasignación.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_importararchivocobranzaexterna.visible= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_ingresar_individual_cobranza.visible					= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.visible														= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_3.visible												= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_reprogramacióndemantención.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_comisionesvigentesnopagadas.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_contratosni.visible									= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_derechoespecialde1a3cuotas.visible				= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_cobranzaexterna.visible							= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_pagaréde1a3cuotasenmora.visible				= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_promesasconingresosmenoral8%.visible		= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.visible											= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_rangofecha.visible							= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_estadisticaporfechayestadocobranza.visible= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_cobranxacomisionesvigentes.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_gestióncobranzatelefónica.visible		= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_cobranza8%.visible						= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_convenios.visible											= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_calculocomisiones.visible									= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_cargarcobranzaexterna.visible							= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.visible																= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generarcartas.visible										= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_confeccionarcarta.visible									= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generarcartas.visible										= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generararchivoamecanizado.visible					= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_imprimiretiquetesbaseexterna.visible					= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_ingresarrechazosegurodesgravamen.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_actualizarestadocarta.visible								= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.visible											= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_rangofechaenviocarta.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_rangofechaenviocartavsingresocaja.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_4.visible										= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_cobranzacomisionesvigentes.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_gestiónenviocarta.visible				= false
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.visible														= false
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.m_fechacierreventa.visible								= false
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.m_fechadigitación.visible								= false
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.visible												= false
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.m_fechacierreventa0.visible						= false
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.m_fechadigitación0.visible						= false
+				m_menu_principal.m_operaciones0.m_postventa.m_informe.visible															= false
+				m_menu_principal.m_operaciones0.m_postventa.m_informe.m_estadisticaporfechaypost-venta.visible				= false
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.visible											= false
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_reprogramacióndemantención0.visible	= false
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_promesas7.visible						= false
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_anexoliberadores.visible				= false
+				m_menu_principal.m_operaciones0.m_resolvercontratos.visible																= false
+				m_menu_principal.m_operaciones0.m_anularcontrato.visible																	= false
+				m_menu_principal.m_operaciones0.m_seguros.visible																			= false
+				m_menu_principal.m_operaciones0.m_seguros.m_desgravamen.visible														= false
+				m_menu_principal.m_operaciones0.m_seguros.m_rentaydeceso.visible														= false
+				m_menu_principal.m_operaciones0.m_seguros.m_accidente.visible															= false
+				m_menu_principal.m_operaciones0.m_seguros.m_sugundoasegurado.visible												= false
+				m_menu_principal.m_operaciones0.m_modificacióntelefonocliente.visible													= false
+				m_menu_principal.m_operaciones0.m_cuentapat.visible																			= false
+				m_menu_principal.m_operaciones0.m_gestiónemail.visible																		= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.visible												= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.visible									= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_asignarcarteraugn.visible		= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_gruposgenerados0.visible	= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_ventasugn.visible				= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.visible								= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4.visible				= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4.m_gestión0.visible				= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_informes17.visible							= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_informes17.m_estadogestión.visible	= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_informes17.m_poragente0.visible		= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.visible														= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.visible										= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_cliente0.visible						= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_gestión1.visible						= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.visible									= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_estadogestión0.visible			= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_poragente1.visible				= false
+				
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_fichaimplementación0.visible		= false
+				
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.visible														= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.visible											= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_asignacióncobranzatelefónica.visible= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_gruposgeneradosdeasignación.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_importararchivocobranzaexterna.visible= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_ingresar_individual_cobranza.visible				= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.visible													= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_3.visible											= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_reprogramacióndemantención.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_comisionesvigentesnopagadas.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_contratosni.visible								= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_derechoespecialde1a3cuotas.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_cobranzaexterna.visible							= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_pagaréde1a3cuotasenmora.visible				= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.visible										= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_rangofecha.visible						= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_estadisticaporfechayestadocobranza.visible= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_cobranxacomisionesvigentes.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_gestióncobranzatelefónica.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_convenios.visible										= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_calculocomisiones.visible							= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.visible											= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_asignacióncobranzatelefónica.visible= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_gruposgeneradosdeasignación.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_importararchivocobranzaexterna.visible= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_asignacióncobranzatelefónica'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_asignacióncobranzatelefónica.visible= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_gruposgeneradosdeasignación'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_gruposgeneradosdeasignación.visible	= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_importararchivocobranzaexterna'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_gestión.m_importararchivocobranzaexterna.visible= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_ingresar_individual_cobranza'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_ingresar_individual_cobranza.visible				= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.visible													= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_3.visible											= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_reprogramacióndemantención.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_comisionesvigentesnopagadas.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_contratosni.visible								= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_derechoespecialde1a3cuotas.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_cobranzaexterna.visible							= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_pagaréde1a3cuotasenmora.visible				= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_promesasconingresosmenoral8%.visible		= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_3'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_3.visible											= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_reprogramacióndemantención'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_reprogramacióndemantención.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_comisionesvigentesnopagadas'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_comisionesvigentesnopagadas.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_contratosni'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_contratosni.visible								= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_derechoespecialde1a3cuotas'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_derechoespecialde1a3cuotas.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_cobranzaexterna'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_cobranzaexterna.visible							= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_pagaréde1a3cuotasenmora'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_pagaréde1a3cuotasenmora.visible				= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_promesasconingresosmenoral8%'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_2.m_promesasconingresosmenoral8%.visible		= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.visible										= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_rangofecha.visible						= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_estadisticaporfechayestadocobranza.visible= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_cobranxacomisionesvigentes.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_gestióncobranzatelefónica.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_cobranza8%.visible						= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_rangofecha'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_rangofecha.visible						= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_estadisticaporfechayestadocobranza'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_estadisticaporfechayestadocobranza.visible= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_cobranxacomisionesvigentes'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_cobranxacomisionesvigentes.visible	= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_gestióncobranzatelefónica'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_gestióncobranzatelefónica.visible	= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_cobranza8%'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_informes.m_cobranza8%.visible						= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_convenios'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_convenios.visible										= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_calculocomisiones'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_calculocomisiones.visible							= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_cargarcobranzaexterna'
+				m_menu_principal.m_operaciones0.m_cobranzatelefónica0.m_cargarcobranzaexterna.visible					= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generarcartas.visible									= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_confeccionarcarta.visible								= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generarcartas.visible									= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generararchivoamecanizado.visible					= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_imprimiretiquetesbaseexterna.visible				= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_ingresarrechazosegurodesgravamen.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_actualizarestadocarta.visible						= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.visible										= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_rangofechaenviocarta.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_rangofechaenviocartavsingresocaja.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_4.visible									= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_cobranzacomisionesvigentes.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_gestiónenviocarta.visible				= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generarcartas'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generarcartas.visible									= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_confeccionarcarta'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_confeccionarcarta.visible								= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generarcartas'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generarcartas.visible									= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generararchivoamecanizado'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_generararchivoamecanizado.visible					= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_imprimiretiquetesbaseexterna'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_imprimiretiquetesbaseexterna.visible				= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_ingresarrechazosegurodesgravamen'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_ingresarrechazosegurodesgravamen.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_actualizarestadocarta'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_actualizarestadocarta.visible						= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.visible										= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_rangofechaenviocarta.visible			= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_rangofechaenviocartavsingresocaja.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_4.visible									= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_cobranzacomisionesvigentes.visible	= false
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_gestiónenviocarta.visible				= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_rangofechaenviocarta'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_rangofechaenviocarta.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_rangofechaenviocartavsingresocaja'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_rangofechaenviocartavsingresocaja.visible	= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_4'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_4.visible									= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_cobranzacomisionesvigentes'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_cobranzacomisionesvigentes.visible	= false
+			CASE 'm_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_gestiónenviocarta'
+				m_menu_principal.m_operaciones0.m_cobranzaenviocarta.m_informes0.m_gestiónenviocarta.visible				= false
+			CASE 'm_menu_principal.m_operaciones0.m_postventa'
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.visible														= false
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.m_fechacierreventa.visible							= false
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.m_fechadigitación.visible								= false
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.visible											= false
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.m_fechacierreventa0.visible					= false
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.m_fechadigitación0.visible					= false
+				m_menu_principal.m_operaciones0.m_postventa.m_informe.visible														= false
+				m_menu_principal.m_operaciones0.m_postventa.m_informe.m_estadisticaporfechaypost-venta.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_postventa.m_promesa0'
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.visible														= false
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.m_fechacierreventa.visible							= false
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.m_fechadigitación.visible								= false
+			CASE 'm_menu_principal.m_operaciones0.m_postventa.m_promesa0.m_fechacierreventa'
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.m_fechacierreventa.visible							= false
+			CASE 'm_menu_principal.m_operaciones0.m_postventa.m_promesa0.m_fechadigitación'
+				m_menu_principal.m_operaciones0.m_postventa.m_promesa0.m_fechadigitación.visible								= false
+			CASE 'm_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1'
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.visible											= false
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.m_fechacierreventa0.visible					= false
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.m_fechadigitación0.visible					= false
+			CASE 'm_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.m_fechacierreventa0'
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.m_fechacierreventa0.visible					= false
+			CASE 'm_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.m_fechadigitación0'
+				m_menu_principal.m_operaciones0.m_postventa.m_anexoliberador1.m_fechadigitación0.visible					= false
+			CASE 'm_menu_principal.m_operaciones0.m_postventa.m_informe'
+				m_menu_principal.m_operaciones0.m_postventa.m_informe.visible														= false
+				m_menu_principal.m_operaciones0.m_postventa.m_informe.m_estadisticaporfechaypost-venta.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_postventa.m_informe.m_estadisticaporfechaypost-venta'
+				m_menu_principal.m_operaciones0.m_postventa.m_informe.m_estadisticaporfechaypost-venta.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado'
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.visible									= false
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_reprogramacióndemantención0.visible	= false
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_promesas7.visible					= false
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_anexoliberadores.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_reprogramacióndemantención0'
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_reprogramacióndemantención0.visible	= false
+			CASE 'm_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_promesas7'
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_promesas7.visible					= false
+			CASE 'm_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_anexoliberadores'
+				m_menu_principal.m_operaciones0.m_actualizarcontratoestadocancelado.m_anexoliberadores.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_resolvercontratos'
+				m_menu_principal.m_operaciones0.m_resolvercontratos.visible															= false
+				
+			CASE 'm_menu_principal.m_operaciones0.m_anularcontrato'
+				m_menu_principal.m_operaciones0.m_anularcontrato.visible																= false
+			CASE 'm_menu_principal.m_operaciones0.m_seguros'
+				m_menu_principal.m_operaciones0.m_seguros.visible																		= false
+				m_menu_principal.m_operaciones0.m_seguros.m_desgravamen.visible													= false
+				m_menu_principal.m_operaciones0.m_seguros.m_rentaydeceso.visible													= false
+				m_menu_principal.m_operaciones0.m_seguros.m_accidente.visible														= false
+				m_menu_principal.m_operaciones0.m_seguros.m_sugundoasegurado.visible												= false
+			CASE 'm_menu_principal.m_operaciones0.m_seguros.m_desgravamen'
+				m_menu_principal.m_operaciones0.m_seguros.m_desgravamen.visible													= false
+			CASE 'm_menu_principal.m_operaciones0.m_seguros.m_rentaydeceso'
+				m_menu_principal.m_operaciones0.m_seguros.m_rentaydeceso.visible													= false
+			CASE 'm_menu_principal.m_operaciones0.m_seguros.m_accidente'
+				m_menu_principal.m_operaciones0.m_seguros.m_accidente.visible														= false
+			CASE 'm_menu_principal.m_operaciones0.m_seguros.m_sugundoasegurado'
+				m_menu_principal.m_operaciones0.m_seguros.m_sugundoasegurado.visible												= false
+			CASE 'm_menu_principal.m_operaciones0.m_modificacióntelefonocliente'
+				m_menu_principal.m_operaciones0.m_modificacióntelefonocliente.visible											= false
+			CASE 'm_menu_principal.m_operaciones0.m_cuentapat'
+				m_menu_principal.m_operaciones0.m_cuentapat.visible																	= false
+			CASE 'm_menu_principal.m_operaciones0.m_gestiónemail'
+				m_menu_principal.m_operaciones0.m_gestiónemail.visible																= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios'
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.visible																= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.visible												= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_asignarcarteraugn.visible					= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_gruposgenerados0.visible						= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.visible											= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4.visible							= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4.m_gestión0.visible				= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_informes17.visible							= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_informes17.m_estadogestión.visible	= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_informes17.m_poragente0.visible		= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.visible													= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.visible										= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_cliente0.visible						= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_gestión1.visible						= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.visible									= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_estadogestión0.visible			= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_poragente1.visible					= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2'
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.visible												= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_asignarcarteraugn.visible					= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_gruposgenerados0.visible						= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_ventasugn.visible								= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_asignarcarteraugn'
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_asignarcarteraugn.visible					= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_gruposgenerados0'
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_gruposgenerados0.visible						= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_ventasugn'	
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_gestión2.m_ventasugn.visible								= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4'	
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.visible											= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4.visible							= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4.m_gestión0.visible				= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_informes17.visible							= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_informes17.m_estadogestión.visible	= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_informes17.m_poragente0.visible		= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4'
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4.visible							= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4.m_gestión0.visible				= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4.m_gestión0'
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_supervisor4.m_ingreso4.m_gestión0.visible				= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0'	
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.visible													= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.visible										= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_cliente0.visible						= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_gestión1.visible						= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.visible									= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_estadogestión0.visible			= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_poragente1.visible					= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5'		
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.visible										= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_cliente0.visible						= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_gestión1.visible						= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_cliente0'		
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_cliente0.visible						= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_gestión1'			
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_gestión1.visible						= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18'	
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.visible									= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_estadogestión0.visible			= false
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_poragente1.visible					= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_estadogestión0'	
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_estadogestión0.visible			= false
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_poragente1'	
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_informes18.m_poragente1.visible					= false
+				
+			CASE 'm_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_fichaimplementación0'
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_fichaimplementación0.visible		= false
+				m_menu_principal.m_fallecidos0.m_fichaimplementación.visible																				= false
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

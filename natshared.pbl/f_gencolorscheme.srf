@@ -1,0 +1,65 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Configura el scheme de Eclipse~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_gencolorscheme from function_object
+end type
+
+forward prototypes
+global subroutine f_gencolorscheme (string as_tema, boolean ab_update)
+end prototypes
+
+global subroutine f_gencolorscheme (string as_tema, boolean ab_update);/* f_GenColorScheme( as_tema, ab_update )
+	Autor: César Vilela R.
+	*/
+String	ls_ctheader, ls_ctlogo, ls_cttoolbar, ls_cttextbar, ls_ctmenubar, ls_cttext, ls_ctoption, ls_ctgroup, ls_cttitwin, &
+			ls_ctbutton, ls_ctbuttonalt, ls_ctbuttonx
+
+If ab_update Then
+	f_SetRegistry( 'ColorScheme', gs_tma )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctHeader' , String( gl_ctheader  ) )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctLogo', String( gl_ctlogo  ) )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctToolBar', String( gl_cttoolbar  ) )	 
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctTextBar', String( gl_cttextbar  ) )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctMenuBar', String( gl_ctmenubar  ) )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctText', String( gl_cttext  ) )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctOption', String( gl_ctoption  ) )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctGroup', String( gl_ctgroup  ) )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctTitWin', String( gl_cttitwin  ) )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctButton', String( gl_ctbutton  ) )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctButtonAlternative', String( gl_ctbuttonalt  ) )
+	f_SetRegistry( 'ColorScheme\' + gs_tma + '\ctButtonX', String( gl_ctbuttonx  ) )
+Else
+	f_GetRegistry( 'ColorScheme', gs_tma )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctHeader' , ls_ctheader )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctLogo', ls_ctlogo  )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctToolBar', ls_cttoolbar )	 
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctTextBar', ls_cttextbar )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctMenuBar', ls_ctmenubar )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctText', ls_cttext )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctOption', ls_ctoption )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctGroup', ls_ctgroup )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctTitWin', ls_cttitwin )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctButton', ls_ctbutton )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctButtonAlternative', ls_ctbuttonalt )
+	f_GetRegistry( 'ColorScheme\' + gs_tma + '\ctButtonX', ls_ctbuttonx )
+	gl_ctheader = Long( ls_ctheader )
+	gl_ctlogo = Long( ls_ctlogo )
+	gl_cttoolbar = Long( ls_cttoolbar )
+	gl_cttextbar = Long( ls_cttextbar )
+	gl_ctmenubar = Long( ls_ctmenubar )
+	gl_cttext = Long( ls_cttext )
+	gl_ctoption = Long( ls_ctoption ) 
+	gl_ctgroup = Long( ls_ctgroup )
+	gl_cttitwin = Long( ls_cttitwin )
+	gl_ctbutton = Long( ls_ctbutton )
+	gl_ctbuttonalt = Long( ls_ctbuttonalt ) 
+	gl_ctbuttonx = Long( ls_ctbuttonx )
+
+End If
+
+Return
+
+
+
+
+
+end subroutine
+

@@ -1,0 +1,43 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Show Menu-Popup con array, aplica con Btns y RightClick, usado en clases Document y LIST~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genmenupopup from function_object
+end type
+
+forward prototypes
+global function integer f_genmenupopup (string as_title, string as_menu[])
+end prototypes
+
+global function integer f_genmenupopup (string as_title, string as_menu[]);/* f_GenMenuPopup( as_title, as_menu[] ) 
+	Autor: César Vilela R. */
+
+Integer	i
+m_popup	lm_pop
+
+
+/* La ejecución del contextual cargará la variable */
+lm_pop = Create m_popup
+
+lm_pop.m_opcion.MenuTitleText = as_title
+
+For i = 1 To UpperBound( as_menu[] )
+	lm_pop.m_opcion.Item[ i].Visible = True
+	lm_pop.m_opcion.Item[ i].Enabled = True
+	lm_pop.m_opcion.Item[ i].Text = as_menu[ i]
+Next
+
+gi_popopc= 0
+lm_pop.m_opcion.PopMenu( gw_frame.PointerX( ), gw_frame.PointerY( ) )
+		
+If Not gi_popopc > 0 Then Return 0
+
+Return gi_popopc
+
+/* Esta estructura se debe seguir para evaluar el menú popup
+Choose Case gi_popopc
+	Case 1
+	Case 2
+	Case 3
+	Case 4
+End Choose
+*/
+end function
+

@@ -1,0 +1,20 @@
+﻿global type f_forma_pago from function_object
+end type
+
+forward prototypes
+global function string f_forma_pago (datetime adt_fecha_pago, long al_folio, string as_tipo_cob, string as_caja)
+end prototypes
+
+global function string f_forma_pago (datetime adt_fecha_pago, long al_folio, string as_tipo_cob, string as_caja);LONG	ls_forma_pago
+SELECT	"DOCUMENTOS"."MONTO"  
+INTO 		:ls_forma_pago  
+FROM 		"DOCUMENTOS"  
+WHERE  ( "DOCUMENTOS"."FOLIO" = :al_folio ) AND  
+		 ( "DOCUMENTOS"."TIPO_COB" = :as_tipo_cob ) AND  
+		 ( "DOCUMENTOS"."FECHA_PAGO" = :adt_fecha_pago ) AND  
+		 ( "DOCUMENTOS"."COD_CAJA" = :as_caja ) 
+using		sqlca;
+
+return STRING(ls_forma_pago)
+end function
+

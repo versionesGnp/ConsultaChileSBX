@@ -1,0 +1,65 @@
+﻿global type f_cta_promesa_desde_cierre from function_object
+end type
+
+forward prototypes
+global function long f_cta_promesa_desde_cierre (string as_cod_age, datetime adt_fecha)
+end prototypes
+
+global function long f_cta_promesa_desde_cierre (string as_cod_age, datetime adt_fecha);long		ll_cuenta_cierre,ll_cta_promesa,ll_cta_contrato
+datetime	ldt_fecha_fact
+
+SELECT	max("CADENA"."FECHA_PRIM_FACTURA")
+INTO		:ldt_fecha_fact  
+FROM		"CADENA"  
+WHERE		"CADENA"."FECHA_PRIM_FACTURA" <= :adt_fecha
+USING		sqlca;
+
+SELECT	COUNT("PAGO_OFERTA"."PRECIO")  
+INTO		:ll_cta_promesa
+FROM		"OFERTA_V",	"PAGO_OFERTA"  
+WHERE		( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+			( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+			( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+			( ( "OFERTA_V"."COD_AGE" = :as_cod_age ) AND  
+			( "OFERTA_V"."CIERRE_VENTA" >= :adt_fecha ) )
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ll_cta_promesa) and ll_cta_promesa > 0 then
+		ll_cta_promesa							= ll_cta_promesa
+	else
+		ll_cta_promesa							= 0
+	end if
+else
+	ll_cta_promesa								= 0
+end if 
+
+
+SELECT	COUNT("CONTRATO"."NRO_PAGARE")
+INTO		:ll_cta_contrato
+FROM		"CONTRATO",	"PAGARE",	"CADENA"  
+WHERE		( "CONTRATO"."SERIE" = "PAGARE"."SERIE_P" ) and  
+         ( "CONTRATO"."NRO_PAGARE" = "PAGARE"."NRO_PAGARE" ) and  
+         ( "PAGARE"."SERIE_P" = "CADENA"."SERIE" ) and  
+         ( "PAGARE"."NRO_PAGARE" = "CADENA"."NUMERO" ) and  
+         ( ( "CADENA"."CODIGO" = 'P' ) AND  
+         ( "CADENA"."COD_PARQUE" = 103 ) AND  
+         ( "CONTRATO"."AGENTE" = :as_cod_age ) AND  
+         ( "CADENA"."FECHA_PRIM_FACTURA" >= :ldt_fecha_fact ) )
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ll_cta_contrato) and ll_cta_contrato > 0 then
+		ll_cta_contrato							= ll_cta_contrato
+	else
+		ll_cta_contrato							= 0
+	end if
+else
+	ll_cta_contrato								= 0
+end if 
+
+ll_cuenta_cierre 								= ll_cta_promesa + ll_cta_contrato
+			
+if isnull(ll_cuenta_cierre) then ll_cuenta_cierre=0
+Return ll_cuenta_cierre
+
+end function
+

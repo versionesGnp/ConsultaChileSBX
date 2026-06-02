@@ -1,0 +1,115 @@
+﻿forward
+global type m_gestiones_popup from menu
+end type
+type m_popup from menu within m_gestiones_popup
+end type
+type m_ingresargestiontelefonica from menu within m_popup
+end type
+type m_ingresarenviocarta from menu within m_popup
+end type
+type m_ingresargestionatencionpublico from menu within m_popup
+end type
+type m_popup from menu within m_gestiones_popup
+m_ingresargestiontelefonica m_ingresargestiontelefonica
+m_ingresarenviocarta m_ingresarenviocarta
+m_ingresargestionatencionpublico m_ingresargestionatencionpublico
+end type
+global type m_gestiones_popup from menu
+m_popup m_popup
+end type
+end forward
+
+global type m_gestiones_popup from menu
+m_popup m_popup
+end type
+global m_gestiones_popup m_gestiones_popup
+
+type variables
+datawindow dw_paso
+end variables
+
+on m_gestiones_popup.create
+m_gestiones_popup=this
+call super::create
+this.text = "m_gestiones_popup"
+this.m_popup=create m_popup
+this.Item[UpperBound(this.Item)+1]=this.m_popup
+end on
+
+on m_gestiones_popup.destroy
+call super::destroy
+destroy(this.m_popup)
+end on
+
+type m_popup from menu within m_gestiones_popup
+m_ingresargestiontelefonica m_ingresargestiontelefonica
+m_ingresarenviocarta m_ingresarenviocarta
+m_ingresargestionatencionpublico m_ingresargestionatencionpublico
+end type
+
+on m_popup.create
+call super::create
+this.text = "Popup"
+this.m_ingresargestiontelefonica=create m_ingresargestiontelefonica
+this.m_ingresarenviocarta=create m_ingresarenviocarta
+this.m_ingresargestionatencionpublico=create m_ingresargestionatencionpublico
+this.Item[UpperBound(this.Item)+1]=this.m_ingresargestiontelefonica
+this.Item[UpperBound(this.Item)+1]=this.m_ingresarenviocarta
+this.Item[UpperBound(this.Item)+1]=this.m_ingresargestionatencionpublico
+end on
+
+on m_popup.destroy
+call super::destroy
+destroy(this.m_ingresargestiontelefonica)
+destroy(this.m_ingresarenviocarta)
+destroy(this.m_ingresargestionatencionpublico)
+end on
+
+type m_ingresargestiontelefonica from menu within m_popup
+end type
+
+on m_ingresargestiontelefonica.create
+call super::create
+this.text = "Gestión Telefónica"
+end on
+
+on m_ingresargestiontelefonica.destroy
+call super::destroy
+end on
+
+event clicked;gl_opcion_gestion=1
+open(w_ingresar_gestion_telefonica)
+end event
+
+type m_ingresarenviocarta from menu within m_popup
+end type
+
+on m_ingresarenviocarta.create
+call super::create
+this.text = "Gestión Envio Carta"
+end on
+
+on m_ingresarenviocarta.destroy
+call super::destroy
+end on
+
+event clicked;gl_opcion_gestion=2
+open(w_ingresar_gestion_telefonica)
+end event
+
+type m_ingresargestionatencionpublico from menu within m_popup
+end type
+
+on m_ingresargestionatencionpublico.create
+call super::create
+this.text = "Gestión Atención Público"
+end on
+
+on m_ingresargestionatencionpublico.destroy
+call super::destroy
+end on
+
+event clicked;gl_opcion_gestion=3
+open(w_ingresar_gestion_telefonica)
+end event
+

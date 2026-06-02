@@ -1,0 +1,19 @@
+﻿global type f_cta_mant_posic from function_object
+end type
+
+forward prototypes
+global function double f_cta_mant_posic (double adb_valor_mant, long al_posic, long al_periodo)
+end prototypes
+
+global function double f_cta_mant_posic (double adb_valor_mant, long al_posic, long al_periodo);double ldb_new_mant
+
+//f_cta_mant_posic(adb_valor_mant,al_posic,al_periodo)
+if int (al_posic / al_periodo) = (al_posic / al_periodo) then
+	ldb_new_mant  	= round(adb_valor_mant - round(( round((adb_valor_mant / al_periodo),3) * (al_periodo - 1)),3),3)
+ else
+	 ldb_new_mant		= round(adb_valor_mant / al_periodo,3)
+ end if
+ if isnull(ldb_new_mant) then ldb_new_mant=0
+ RETURN ldb_new_mant;
+end function
+

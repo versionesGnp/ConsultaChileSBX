@@ -1,0 +1,135 @@
+﻿global type f_nom_adjuntardoc from function_object
+end type
+
+forward prototypes
+global function boolean f_nom_adjuntardoc (string as_opcion, string as_tipo, string as_codigo, string as_file, string as_categoria, long al_tipo_doc, long al_rut, long al_folio, string as_sector, string as_sepultura, long al_parque)
+end prototypes
+
+global function boolean f_nom_adjuntardoc (string as_opcion, string as_tipo, string as_codigo, string as_file, string as_categoria, long al_tipo_doc, long al_rut, long al_folio, string as_sector, string as_sepultura, long al_parque);/* f_nom_ajuntar( as_opcion, as_tipo, as_codigo, as_file ) */
+Blob  		lbl_picture
+Int   		li_file, li_conn
+String		ls_xdoc, ls_xfile, ls_defext, ls_filter
+Long		ll_count
+//s_parm	lstr_parm
+
+
+/* Marco A. Ortiz
+	2021-11-05 */
+
+//lstr_parm.s_cad[ 1] = as_opcion
+//lstr_parm.s_cad[ 2] = as_tipo
+//lstr_parm.s_cad[ 3] = as_codigo
+//lstr_parm.s_cad[ 4] = as_file
+
+Choose Case as_opcion
+	Case 'ADJUNTAR'
+		ls_defext = "JPG"
+		ls_filter = "JPG Files (*.jpg), *.jpg"
+		
+		li_file = GetFileOpenName("Seleccionar Imagen del Documento", as_file, ls_xfile, ls_defext, ls_filter)
+		
+		If Not li_file = 1 Then 
+			Return False 
+		End If
+		
+		li_file = f_FileOpenToBlob( as_file, lbl_picture )
+		If li_file = -1 Then Return False 
+		
+		as_file = f_Trim_2( as_file )		
+		Return True
+		
+	Case 'GUARDAR'
+		li_file = f_FileOpenToBlob( as_file, lbl_picture )
+		If li_file = -1 Then Return False 
+	
+		Choose Case as_tipo
+			    Case 'FICHA'
+					SELECT 	Count("FC_ARCHIVO_IMAGEN"."CATEGORIA")  
+					INTO 		:ll_count  
+					FROM 	"FC_ARCHIVO_IMAGEN"  
+					WHERE 	( "FC_ARCHIVO_IMAGEN"."CATEGORIA" = :as_categoria ) AND  
+								( "FC_ARCHIVO_IMAGEN"."CODIGO_DOCUMENTO" = :al_tipo_doc ) AND  
+								( "FC_ARCHIVO_IMAGEN"."FOLIO_CREMACION" = :al_folio ) AND  
+								( "FC_ARCHIVO_IMAGEN"."RUT" = :al_rut )   ;
+					if ll_count > 0 then
+						UPDATE 	"FC_ARCHIVO_IMAGEN"  
+						SET 		"IMAGEN" = :lbl_picture
+						WHERE 	( "FC_ARCHIVO_IMAGEN"."CATEGORIA" = :as_categoria ) AND  
+									( "FC_ARCHIVO_IMAGEN"."CODIGO_DOCUMENTO" = :al_tipo_doc ) AND  
+									( "FC_ARCHIVO_IMAGEN"."FOLIO_CREMACION" = :al_folio ) AND  
+									( "FC_ARCHIVO_IMAGEN"."RUT" = :al_rut ) 
+						USING	sqlca;
+						if sqlca.sqlcode=0 then
+							commit;
+							messagebox("Grabar","Actualización Exitosa QR")
+						else
+							rollback;
+							messagebox("Error Grabar","Error al Grabar QR SQL: "+sqlca.sqlerrtext)
+						end if
+					else
+						if al_parque >= 0 then
+							INSERT INTO "FC_ARCHIVO_IMAGEN"  
+										( "CATEGORIA",  	"CODIGO_DOCUMENTO",  	"FOLIO_CREMACION",  	"RUT",  	"IMAGEN", "SECTOR",		"SEPULTURA",	"COD_PARQUE" )  
+							VALUES 	( :as_categoria,   	:al_tipo_doc,   					:al_folio,   					:al_rut,  	:lbl_picture,	:as_sector,	:as_sepultura,	:al_parque ) 
+							USING	sqlca;
+							if sqlca.sqlcode=0 then
+								commit;
+							//	messagebox("Grabar","Grabación Exitosa QR")
+							else
+								rollback;
+							//	messagebox("Error Grabar","Error al Grabar QR SQL: "+sqlca.sqlerrtext)
+							end if
+						end if
+					end if
+			End Choose
+									
+//			MessageBox( 'Adjuntar', 'Documento guardado correctamente' , Information! )
+
+			Return True
+			
+		
+	Case 'VER'
+		Choose Case as_tipo
+			    Case 'FICHA'
+						SelectBlob 	v_credelector_tra
+						Into       		:lbl_picture
+						From       	nomtrabajador
+						Where      	c_codigo_tra = :as_codigo
+						Using 			SqlCa;
+						
+//						If f_SqlError( SqlCa, 'No se actualizar la credencial de elector ' ) = -1 Then
+//							RollBack Using SqlCa;
+//							Return False
+//						End If
+						
+			End Choose
+		
+		
+		as_file = 'C:\mod_cp\consulta\'
+		
+		If Not DirectoryExists ( as_file ) Then
+			CreateDirectory ( as_file )
+		End If
+	
+		as_file = as_file + 'Temp.jpg'
+		
+//		f_blobaarchivo( lbl_picture, as_file ) 
+//		lstr_parm.s_cad[ 1] = 'VERTRA'
+//		lstr_parm.s_cad[ 4] = as_file
+
+		//w_arch_gen_visor_doc lw_visor
+		//OpenWithParm( lw_visor, lstr_parm )
+//		lstr_parm = Message.PowerObjectParm
+//		If IsValid( lstr_parm ) Then
+//			as_opcion = lstr_parm.s_cad[ 1]
+//			as_tipo   = lstr_parm.s_cad[ 2]
+//			as_codigo = lstr_parm.s_cad[ 3]
+//			as_file   = lstr_parm.s_cad[ 4]
+//		End If
+
+End Choose 
+
+Return True
+
+end function
+

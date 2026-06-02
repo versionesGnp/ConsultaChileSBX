@@ -1,0 +1,63 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Genera Formato para código de proveedor~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_genformatprv from function_object
+end type
+
+forward prototypes
+global function string f_genformatprv (string as_emp, string as_cod)
+end prototypes
+
+global function string f_genformatprv (string as_emp, string as_cod);/*
+f_GenFormatPrv( as_emp, as_cod )
+*/
+
+Integer	li_limit = 4
+Long		ll_cod
+String	ls_emp, ls_cod, ls_frm, ls_new
+
+
+ls_emp = as_emp
+
+Select	c_formatocodprv_cfg 
+Into		:ls_frm
+From		comconfigura
+Where		c_codigo_emp = :ls_emp ;
+
+If f_SqlError( SqlCa, 'No se pudo obtener información de Formato para Proveedor.' ) =-1 Then
+	Return '@ERROR'
+End If
+	
+			
+ls_frm = Upper( f_Trim( ls_frm ) )
+
+Choose Case ls_frm
+	Case 'FRMSTD', 'FRMSIX'
+		
+		If ls_frm = 'FRMSIX' Then li_limit = 6
+		
+		ls_cod = f_Trim( as_cod )
+		ll_cod = Long( ls_cod )
+		ls_cod = String( ll_cod, Fill( '0', li_limit) ) 
+		
+	Case 'EMPPRV'
+		ls_cod = f_Trim( as_cod )
+		
+		If Len( ls_cod ) <= 4 Then
+			ll_cod = Long( ls_cod )			
+			ls_cod = ls_emp + String( ll_cod, '0000' )
+		Else
+			ls_cod = as_cod
+		End If
+		
+	Case 'FLIBRE'
+		ls_cod = as_cod
+	
+	Case Else
+		
+		MessageBox( ClassName(), 'Es necesario configurar el formato de código', Exclamation! )
+		Return '@ERROR'
+		
+End Choose
+
+Return ls_cod
+end function
+

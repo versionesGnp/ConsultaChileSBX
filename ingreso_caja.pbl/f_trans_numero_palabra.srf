@@ -1,0 +1,101 @@
+﻿global type f_trans_numero_palabra from function_object
+end type
+
+forward prototypes
+global function string f_trans_numero_palabra (long numero_a_convertir)
+end prototypes
+
+global function string f_trans_numero_palabra (long numero_a_convertir);int i, sw_dieces_veintes, inicio_tercia
+Long	ll_nro
+string numero_convertido, numero_a_cadena, tercia_de_numeros, texto_moneda, tipo_moneda
+string unidad[], decimall[], centimo[], decimo[], vigesimo[]
+unidad 	= {'UN ', 'DOS ', 'TRES ', 'CUATRO ', 'CINCO ', 'SEIS ', 'SIETE ', 'OCHO ', 'NUEVE '}
+decimall	= {'DIEZ ', 'VEINTE ', 'TREINTA ', 'CUARENTA ', 'CINCUENTA ', 'SESENTA ', 'SETENTA ', 'OCHENTA ', 'NOVENTA '}
+centimo 	= {'CIEN ', 'DOSCIENTOS ', 'TRESCIENTOS ', 'CUATROCIENTOS ', 'QUINIENTOS ', 'SEISCIENTOS ', 'SETECIENTOS ', 'OCHOCIENTOS ', 'NOVECIENTOS '}
+decimo 	= {'ONCE ', 'DOCE ', 'TRECE ', 'CATORCE ', 'QUINCE ', 'DIECISEIS ', 'DIECISIETE ', 'DIECIOCHO ', 'DIECINUEVE '}
+vigesimo = {'VEINTIUN ', 'VEINTIDOS ', 'VEINTITRES ', 'VEINTICUATRO ', 'VEINTICINCO ', 'VEINTISEIS ', 'VEINTISIETE ', 'VEINTIOCHO ', 'VEINTINUEVE '}
+// Convierte el numero a cadena de caracteres //
+numero_a_cadena 					= string(numero_a_convertir, '000000000000.00')
+numero_convertido 				= ''
+inicio_tercia 						= 1
+// Loop para procesar la variable numero_a_cadena en cuatro tercias de numeros //
+// Cuando inicio_tercia es 1=miles de millon,4=millones,7=miles,10=centenas //
+FOR i = 1 TO 4
+	sw_dieces_veintes 			= 0
+	tercia_de_numeros 			= mid(numero_a_cadena,inicio_tercia,3)
+	// convierte a letra las centenas //
+	if long(mid(tercia_de_numeros,1,3)) > 0 then
+		if long(mid(tercia_de_numeros,1,1)) = 1 and long(mid(tercia_de_numeros,2,2)) > 0 then
+			numero_convertido 	= numero_convertido+'CIENTO '
+//		else
+//			numero_convertido = numero_convertido+centimo[long(mid(tercia_de_numeros,1,1))]+vigesimo[long(mid(tercia_de_numeros,2,1))]+unidad[long(mid(tercia_de_numeros,3,1))]
+		elseif long(mid(tercia_de_numeros,2,2)) > 10 and long(mid(tercia_de_numeros,2,2)) < 20 then
+			numero_convertido 	= numero_convertido+decimo[long(mid(tercia_de_numeros,2,2))]
+		elseif long(mid(tercia_de_numeros,2,2)) > 20 and long(mid(tercia_de_numeros,2,2)) < 30 then
+			ll_nro	= long(mid(tercia_de_numeros,2,2))
+			messagebox("",string(ll_nro))
+			numero_convertido 	= numero_convertido + vigesimo[long(mid(tercia_de_numeros,3,1))]
+//			numero_convertido 	= numero_convertido+centimo[long(mid(tercia_de_numeros,1,1))]+vigesimo[long(mid(tercia_de_numeros,2,1))]+decimall[long(mid(tercia_de_numeros,3,1))]
+//			numero_convertido 	= numero_convertido+vigesimo[long(mid(tercia_de_numeros,1,1))]+decimall[long(mid(tercia_de_numeros,2,1))]
+		end if
+	end if
+	// convierte a letra las decenas //
+	if long(mid(tercia_de_numeros,2,1)) > 0 then
+		sw_dieces_veintes 		= 1
+		if long(mid(tercia_de_numeros,2,2)) > 10 or long(mid(tercia_de_numeros,2,2)) > 20 or long(mid(tercia_de_numeros,2,2)) > 0 then
+			if sw_dieces_veintes = 1 then
+				numero_convertido = numero_convertido+'Y '
+			end if
+			if (i = 1 or i = 3) and long(tercia_de_numeros) = 1 then
+				numero_convertido = numero_convertido + 'MIL '
+			else
+				numero_convertido = numero_convertido+unidad[long(mid(tercia_de_numeros,3,1))]
+			end if
+			if i = 2 and long(tercia_de_numeros) = 1 and long(mid(numero_a_cadena,1,3)) = 0 then
+				numero_convertido = numero_convertido + 'MILLON '
+			end if
+		end if
+	else
+		if long(mid(tercia_de_numeros,2,2)) > 10 or long(mid(tercia_de_numeros,2,2)) > 20 or long(mid(tercia_de_numeros,2,2)) > 0 then
+			if sw_dieces_veintes = 1 then
+				numero_convertido = numero_convertido+'Y '
+			end if
+			if (i = 1 or i = 3) and long(tercia_de_numeros) = 1 then
+				numero_convertido = numero_convertido + 'MIL '
+			else
+				numero_convertido = numero_convertido+unidad[long(mid(tercia_de_numeros,3,1))]
+			end if
+			if i = 2 and long(tercia_de_numeros) = 1 and long(mid(numero_a_cadena,1,3)) = 0 then
+				numero_convertido = numero_convertido + 'MILLON '
+			end if
+		end if
+	end if
+	// terminacion de miles y millones //
+	if (i = 1 or i = 3) and long(tercia_de_numeros) > 1 then
+		numero_convertido 		= numero_convertido + 'MIL '
+	elseif i = 2 and long(tercia_de_numeros) > 1 then
+		numero_convertido 		= numero_convertido + 'MILLONES '
+	elseif i = 2 and long(mid(numero_a_cadena,1,3)) > 0 then
+		numero_convertido 		= numero_convertido + 'MILLONES '
+	end if
+	inicio_tercia 					= inicio_tercia + 3
+NEXT
+// texto final de numero_convertido //
+if numero_a_convertir=1 or numero_a_convertir=0 then
+	texto_moneda 					= "PESO."
+else
+	texto_moneda 					= "PESOS."
+end if
+if dec(mid(numero_a_cadena,1,6)) > 0 and dec(mid(numero_a_cadena,7,6)) = 0 then
+	numero_convertido 			= numero_convertido+'DE '+texto_moneda
+elseif dec(mid(numero_a_cadena,1,12)) > 0 then
+	numero_convertido 			= numero_convertido+texto_moneda
+else
+	numero_convertido 			= 'CERO '+texto_moneda
+end if
+numero_convertido 				= numero_convertido
+return numero_convertido 
+
+
+end function
+

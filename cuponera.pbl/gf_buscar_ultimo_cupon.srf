@@ -1,0 +1,19 @@
+﻿global type gf_buscar_ultimo_cupon from function_object
+end type
+
+forward prototypes
+global function integer gf_buscar_ultimo_cupon (ref long al_n_cupon)
+end prototypes
+
+global function integer gf_buscar_ultimo_cupon (ref long al_n_cupon);long bloquea_folio, cupon_folio
+
+SELECT	MAX("CUPONERAS_DETALLE"."NRO_CUPON")  
+INTO 		:cupon_folio
+FROM 		"CUPONERAS_DETALLE"  
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	al_n_cupon = cupon_folio
+end if
+RETURN 0
+end function
+

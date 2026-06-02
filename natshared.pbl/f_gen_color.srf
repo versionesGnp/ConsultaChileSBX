@@ -1,0 +1,223 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Configuración de colores y temas de Eclipse, opera en DWs, Scripts de Windows, reduce el tamano de la app e incrementa la velocidad de pintado.~r~n    Recomendación: NO MODIFICAR - AFECTA TODO EL SISTEMA~r~n*/
+global type f_gen_color from function_object
+end type
+
+forward prototypes
+global function long f_gen_color (string as_color)
+end prototypes
+
+global function long f_gen_color (string as_color);/* f_Gen_Color
+	-----------------
+	
+	Objetivo: Obtener el valor RGB de un color as_color.
+	Autor:  César Vilela R.
+	Fecha: 16/11/1999
+	Argumentos:	as_color		String
+	Retorna:		rgbColor		{Long}
+*/
+
+as_color = Lower(as_color)
+
+If Not gs_tma = '' Then
+	/* Tema/colores RGB */	
+	Choose Case as_color
+		Case 'h', 'header', 'tt'
+			Return gl_ctheader
+		Case 'logo'
+			Return gl_ctlogo
+		Case 'tb', 'toolbar'
+			Return gl_cttoolbar
+		Case 'textbar'
+			Return gl_cttextbar
+		Case 'm', 'menu' 
+			Return gl_ctmenubar
+		Case 't', 'text1'
+			Return gl_cttext			
+		Case 'option', 'o'
+			Return gl_ctoption
+		Case 'st', 'group'
+			Return gl_ctgroup
+		Case 'titwin'
+			Return gl_cttitwin
+		Case 'b', 'button' 
+			Return gl_ctbutton
+		Case 'ba', 'buttonalt'  // <- botón alternativo
+			Return gl_ctbuttonalt
+		Case 'bx', 'buttonx' 
+			Return gl_ctbuttonx
+		Case 'backenabled'
+			Return 1090519039
+		Case 'backdisabled'
+			Return RGB(248,248,248) //79416533		
+		/*Case 'azul6' , 'tt', 'title'
+			REturn RGB( 34, 76, 144 )
+			
+		Case 'azul13',  'l' 
+			REturn RGB( 241, 	244,	247 )*/
+			
+	End Choose
+End If
+Choose Case as_color
+	Case 'black', 'negro', '0'
+		Return RGB(0, 0, 0)
+	Case 'white', 'blanco', '1', 'textbar'
+		Return RGB(255, 255, 255)
+	Case 'light gray', 'plata', '2'
+		Return RGB(	192, 192, 192)
+	Case 'dark gray', 'plomo', 'gris', '3'
+		Return RGB(	128, 128, 128)
+	Case 'red', 'rojo', '4'
+		Return RGB(255, 0, 0)
+	Case 'dark red', 'rojo oscuro', '5'
+		Return RGB(128, 0, 0)
+	Case 'green', 'verde', '6'
+		Return RGB(0, 255, 0)
+	Case 'dark green', 'verde oscuro', '7'
+		Return RGB(0, 128, 0)
+	Case 'blue', 'azul', '8'
+		Return RGB(0, 0, 255)
+	Case 'dark blue', 'azul oscuro', '9'
+		Return RGB(0, 0, 128)
+	Case 'magenta', 'fucsia', '10'
+		Return RGB(255, 0, 255)
+	Case 'dark magenta', 'purpura', '11'
+		Return RGB(128, 0,128)
+	Case 'cyan', 'celeste', '12'
+		Return RGB(0, 255, 255)
+	Case 'dark cyan', 'celeste oscuro', '13'
+		Return RGB(0, 128, 28)
+	Case 'yellow', 'amarillo', '14'
+		Return RGB(255, 255, 0)
+	Case 'brown', 'marron', '15'
+		Return RGB(128, 128, 0)
+	Case 'wndtextback', 'wind', '16'
+		Return 1090519039
+	Case 'text', 'wndtext', 'texto', '17'
+		Return 33554432
+	Case 'buttonface', 'boton', '18'
+		Return 79416533
+	Case 'cromado', '19'
+		Return RGB(216, 216, 216)
+	Case 'cromado2', '20', 'titwin'
+		Return RGB(235, 235, 235)
+	Case 'ipbase1', 'hx'
+		Return RGB( 14, 32, 80 )
+	Case 'ipbase2', 'mx'
+		Return RGB(223, 220, 171)
+	Case 'ipbase3', 'tx'
+		Return 21053761 //RGB(176, 177, 180)
+	Case 'cream', 'crema'
+		Return 15793151
+	Case 'beige'
+		Return RGB( 245, 245, 220 )
+	Case 'espectro1', 'eazul'
+		Return RGB( 47, 88, 139 )
+	Case 'espectro2', 'everde', 'ba' // <- botón alternativo
+		Return RGB( 93, 149, 72 )
+	Case 'espectro3', 'eamarillo'
+		Return RGB( 231, 161, 60 )
+	Case 'espectro4', 'erojo', 'bx'
+		Return RGB( 188, 45, 8 )
+	Case 'espectro5', 'epurpura'
+		Return RGB( 111, 61, 121 )
+	Case 'espectro6', 'egris'
+		Return RGB( 125, 128, 127 )
+	Case 'espectro7', 'enaranja'
+		Return RGB( 255, 111, 15 )
+	Case 'espectro8', 'emorado'
+		Return RGB( 150, 111, 150 )
+	Case 'espectro9', 'eturqueza'
+		Return RGB( 0, 162, 232 )
+	Case 'alegria1', 'salmon'
+		Return RGB( 255, 128, 128 )
+	Case 'alegria2', 'chicle'
+		Return RGB( 255, 128, 255 )
+	Case 'alegria3', 'aluminio'
+		Return RGB( 176, 177, 180 )
+	Case 'alegria4', 'bosque'
+		Return RGB( 84, 167, 167 )
+	Case 'alegria5', 'champiñon'
+		Return RGB( 223, 220, 171 )
+	Case 'alegria6', 'trebol'
+		Return RGB( 34, 177, 76 )
+	Case 'alegria7', 'lavanda'
+		Return RGB( 198, 198, 255 )
+	Case 'alegria8', 'rosa'
+		Return RGB( 255, 174, 201 )
+	Case 'alegria9', 'estrella'
+		Return RGB( 255, 248, 102 )
+	Case 'alegria10', ''
+		Return RGB( 0, 162, 232 )
+	Case 'azul1'
+		Return RGB( 74, 114, 169 )
+	Case 'azul2'
+		Return RGB( 147, 185, 217 )
+	Case 'azul3' , 'h', 'header'
+		//Return gl_cheader
+		Return RGB( 19, 44, 100 )
+	Case 'azul4' ,  'o', 'option'
+		//Return gl_coption
+		Return RGB( 91, 154, 210 )
+	Case 'azul5'
+		Return RGB( 0 , 7, 14 )
+	Case 'azul6' , 'tt', 'title'
+		REturn RGB( 34, 76, 144 )
+	Case 'azul7' 
+		REturn RGB( 182, 213, 236 )
+	Case 'azul8' 
+		REturn RGB( 153, 195, 223 )
+	Case 'azul9' 
+		REturn RGB( 129, 179, 212 )
+	Case 'azul10', 'b', 'button' 
+		REturn RGB( 54, 162, 234 )
+	Case 'azul11' , 'tb', 'toolbar'
+		//Return gl_ctoolbar
+		REturn RGB( 37, 164, 207 )
+	Case 'azul12',  'm', 'menu' 
+		//Return gl_cmenu
+		REturn RGB( 223, 238, 247 )
+		
+	Case 'azul13',  'l' 
+		REturn RGB( 241, 	244,	247 )
+		
+	Case 'azul14', 's', 'selected'
+		REturn RGB( 139,	167,	201 )
+		
+	Case 't', 'text1'
+		Return RGB( 112, 112, 112 )
+		
+	Case 'n', 'text2'
+		Return RGB( 127, 127, 127 )
+
+	Case 'st', 'group'
+		Return RGB( 255, 111, 15 )
+	Case 'grid'
+		Return RGB(242, 242, 242)
+	/*Case 'h', 'header'
+	Case 'm', 'menu'
+		
+	Case 's', 'selected'
+		Return 0//gl_cselected
+	Case 'st', 'subtitle'
+		Return 0//gl_csubtitle
+	Case 'tt', 'title'
+		Return 0//gl_ctitle
+	Case 'software'
+		Return 0//gl_csoftware
+	Case 'o', 'option'
+		
+	Case 'tb', 'toolbar'*/
+	Case 'backenabled'
+		Return 1090519039
+	Case 'backdisabled'
+		Return 79416533	
+	Case 'transparent', 'trans'
+		Return 536870912
+	Case Else
+		Return RGB(0, 0, 0)
+End Choose
+
+Return RGB(0, 0, 0)
+
+end function
+

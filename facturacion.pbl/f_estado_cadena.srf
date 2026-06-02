@@ -1,0 +1,19 @@
+﻿global type f_estado_cadena from function_object
+end type
+
+forward prototypes
+global function string f_estado_cadena (string base, string serie, long numero)
+end prototypes
+
+global function string f_estado_cadena (string base, string serie, long numero);string estado
+
+SELECT "CADENA"."ESTADO"  into :estado
+FROM "CADENA"  
+WHERE ( "CADENA"."CODIGO" = :base ) AND  
+( "CADENA"."SERIE" = :serie ) AND  
+( "CADENA"."NUMERO" = :numero )  ;
+
+
+return estado
+end function
+

@@ -1,0 +1,71 @@
+﻿global type f_tasa from function_object
+end type
+
+forward prototypes
+global function double f_tasa (double ald_plazo, double ald_valor_cuota, double ald_saldo_financiar)
+end prototypes
+
+global function double f_tasa (double ald_plazo, double ald_valor_cuota, double ald_saldo_financiar);Double		ldt_tasa
+oleobject 	ole_object
+boolean 		lb_booleanval
+any 			anyval
+string 		ls_holdtype,ls_holdtext
+double 		ls_doubleval
+datetime 	datetimeval
+setpointer(hourglass!)
+//crea un objeto ole local
+Ole_object = create oleobject
+//conecta el objeto ole a excel
+If ole_object.ConnectToNewObject("excel.application") <> 0 Then
+	Messagebox("No es Posible","Lo siento, no se puede realizar operación")
+//	Return 
+End If
+//inserta una nueva hoja de cálculo en excel
+ole_object.workbooks.add()
+//ubica en la primera celda nuestra variable string para corregir
+//ole_object.activesheet.cells(1,1).value = as_texto //puede venir de un multiple line edit
+ole_object.activesheet.cells(1,1).value = ald_plazo
+ole_object.activesheet.cells(2,1).value = ald_valor_cuota
+ole_object.activesheet.cells(3,1).value = ald_saldo_financiar
+//inserta la formula a la plnilla excel
+ole_object.activesheet.cells(4,1).value = '=TASA(A1;-A2;A3) * 100'
+//devuelve el valor
+anyval = ole_object.activesheet.cells(4,1).value
+//identifica el tipo de dato retornado. pueden ser string, numeric, o date
+//encuetra a cual fue asignado y lo asigna un string
+ls_holdtype = classname(anyval)
+choose case ls_holdtype
+    case "boolean"
+      lb_booleanval = anyval
+      if lb_booleanval then
+        ls_holdtext = "TRUE"
+      else
+        ls_holdtext = "FALSE"
+      end if
+      
+      case "integer", "long", "float", "double", "decimal", "time"
+      ls_doubleval   =  anyval
+      ls_holdtext = string(ls_doubleval)
+
+      case "string"
+      ls_holdtext = anyval
+
+      case "date", "datetime"
+      datetimeval = anyval
+      ls_holdtext = string(datetimeval)
+end choose
+//ubica a la hoja de excel como guardada para que no pregunte si guardamos o no
+ole_object.activeworkbook.saved=true
+//cierra excel
+ole_object.application.quit()
+//desconecta el objeto
+ole_object.disconnectobject()
+
+//devuelve el string con el texto ya corregido
+//este resultado podemos utilizarlo en un multiple line edit
+ldt_tasa = double(ls_holdtext)
+//destruimos el objeto ole
+destroy ole_object
+return(ldt_tasa)
+end function
+

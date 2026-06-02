@@ -1,0 +1,226 @@
+﻿release 12.5;
+datawindow(units=0 timer_interval=0 color=80269524 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )
+header(height=172 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=84 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=char(15) updatewhereclause=yes name=codigo_ejecutivo dbname="ficha_sepultacion.codigo_ejecutivo" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=hora dbname="ficha_sepultacion.hora" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=minutos dbname="ficha_sepultacion.minutos" )
+ column=(type=decimal(4) updatewhereclause=yes key=yes name=correlativo_interno dbname="ficha_sepultacion.correlativo_interno" )
+ column=(type=char(45) updatewhereclause=yes name=nombre_fallecido dbname="ficha_sepultacion.nombre_fallecido" )
+ column=(type=char(20) updatewhereclause=yes name=ap_paterno_fall dbname="ficha_sepultacion.ap_paterno_fall" )
+ column=(type=char(20) updatewhereclause=yes name=ap_materno_fall dbname="ficha_sepultacion.ap_materno_fall" )
+ column=(type=datetime updatewhereclause=yes key=yes name=fecha_sepultacion dbname="ficha_sepultacion.fecha_sepultacion" )
+ column=(type=decimal(4) updatewhereclause=yes name=codigo_funeraria dbname="ficha_sepultacion.codigo_funeraria" )
+ column=(type=char(60) updatewhereclause=yes name=direccion_fall dbname="ficha_sepultacion.direccion_fall" )
+ column=(type=char(15) updatewhereclause=yes name=numero_direccion_fall dbname="ficha_sepultacion.numero_direccion_fall" )
+ column=(type=char(15) updatewhereclause=yes name=depto_direccion_fall dbname="ficha_sepultacion.depto_direccion_fall" )
+ column=(type=char(15) updatewhereclause=yes name=block_direccion_fall dbname="ficha_sepultacion.block_direccion_fall" )
+ column=(type=char(60) updatewhereclause=yes name=poblacion_villa_fall dbname="ficha_sepultacion.poblacion_villa_fall" )
+ column=(type=char(60) updatewhereclause=yes name=sector_fall dbname="ficha_sepultacion.sector_fall" )
+ column=(type=char(10) updatewhereclause=yes name=codigo_comuna_fall dbname="ficha_sepultacion.codigo_comuna_fall" )
+ column=(type=char(10) updatewhereclause=yes name=codigo_ciudad_fall dbname="ficha_sepultacion.codigo_ciudad_fall" )
+ column=(type=datetime updatewhereclause=yes name=fecha_defuncion dbname="ficha_sepultacion.fecha_defuncion" )
+ column=(type=char(1) updatewhereclause=yes name=estado_responso dbname="ficha_sepultacion.estado_responso" )
+ column=(type=decimal(4) updatewhereclause=yes name=rut_diacono dbname="ficha_sepultacion.rut_diacono" )
+ column=(type=char(1) updatewhereclause=yes name=dv_diacono dbname="ficha_sepultacion.dv_diacono" )
+ column=(type=datetime updatewhereclause=yes name=fecha_nacimiento_fall dbname="ficha_sepultacion.fecha_nacimiento_fall" )
+ column=(type=decimal(4) updatewhereclause=yes name=rut_fallecido dbname="ficha_sepultacion.rut_fallecido" )
+ column=(type=char(1) updatewhereclause=yes name=dv_fallecido dbname="ficha_sepultacion.dv_fallecido" )
+ column=(type=char(2) updatewhereclause=yes name=cod_estado_fall dbname="ficha_sepultacion.cod_estado_fall" )
+ column=(type=decimal(4) updatewhereclause=yes name=cod_parque_desde dbname="ficha_sepultacion.cod_parque_desde" )
+ column=(type=decimal(4) updatewhereclause=yes name=cod_parque_hacia dbname="ficha_sepultacion.cod_parque_hacia" )
+ column=(type=char(1000) updatewhereclause=yes name=pase_sepultacion dbname="ficha_sepultacion.pase_sepultacion" )
+ column=(type=char(1000) updatewhereclause=yes name=causa_fallecimiento dbname="ficha_sepultacion.causa_fallecimiento" )
+ column=(type=char(1000) updatewhereclause=yes name=capilla_velatoria dbname="ficha_sepultacion.capilla_velatoria" )
+ column=(type=char(1000) updatewhereclause=yes name=direccion_capilla dbname="ficha_sepultacion.direccion_capilla" )
+ column=(type=decimal(4) updatewhereclause=yes name=valor_derecho_sepultacion_uf dbname="ficha_sepultacion.valor_derecho_sepultacion_uf" )
+ column=(type=char(2) updatewhereclause=yes name=codigo_parentesco dbname="ficha_sepultacion.codigo_parentesco" )
+ column=(type=decimal(4) updatewhereclause=yes name=monto_cancelar dbname="ficha_sepultacion.monto_cancelar" )
+ column=(type=decimal(4) updatewhereclause=yes name=folio_comprobante dbname="ficha_sepultacion.folio_comprobante" )
+ column=(type=char(1000) updatewhereclause=yes name=observacion dbname="ficha_sepultacion.observacion" )
+ column=(type=char(1) updatewhereclause=yes name=base dbname="ficha_sepultacion.base" )
+ column=(type=char(1) updatewhereclause=yes name=serie dbname="ficha_sepultacion.serie" )
+ column=(type=decimal(4) updatewhereclause=yes name=numero dbname="ficha_sepultacion.numero" )
+ column=(type=datetime updatewhereclause=yes name=fecha_contrato dbname="ficha_sepultacion.fecha_contrato" )
+ column=(type=char(10) updatewhereclause=yes key=yes name=sector dbname="ficha_sepultacion.sector" )
+ column=(type=char(10) updatewhereclause=yes key=yes name=sepultura dbname="ficha_sepultacion.sepultura" )
+ column=(type=char(15) updatewhereclause=yes name=numero_tecnico dbname="ficha_sepultacion.numero_tecnico" )
+ column=(type=decimal(4) updatewhereclause=yes name=capacidad dbname="ficha_sepultacion.capacidad" )
+ column=(type=char(10) updatewhereclause=yes name=nivel dbname="ficha_sepultacion.nivel" )
+ column=(type=decimal(4) updatewhereclause=yes key=yes name=cod_parque dbname="ficha_sepultacion.cod_parque" )
+ column=(type=char(40) updatewhereclause=yes name=nombre_titular dbname="ficha_sepultacion.nombre_titular" )
+ column=(type=char(40) updatewhereclause=yes name=ap_paterno_titular dbname="ficha_sepultacion.ap_paterno_titular" )
+ column=(type=char(40) updatewhereclause=yes name=ap_materno_titular dbname="ficha_sepultacion.ap_materno_titular" )
+ column=(type=char(60) updatewhereclause=yes name=direccion_titular dbname="ficha_sepultacion.direccion_titular" )
+ column=(type=char(15) updatewhereclause=yes name=num_direccion_titular dbname="ficha_sepultacion.num_direccion_titular" )
+ column=(type=char(15) updatewhereclause=yes name=depto_direccion_titular dbname="ficha_sepultacion.depto_direccion_titular" )
+ column=(type=char(15) updatewhereclause=yes name=block_direccion_titular dbname="ficha_sepultacion.block_direccion_titular" )
+ column=(type=char(60) updatewhereclause=yes name=poblacion_villa_titular dbname="ficha_sepultacion.poblacion_villa_titular" )
+ column=(type=char(60) updatewhereclause=yes name=sector_titular dbname="ficha_sepultacion.sector_titular" )
+ column=(type=char(10) updatewhereclause=yes name=codigo_comuna_titular dbname="ficha_sepultacion.codigo_comuna_titular" )
+ column=(type=char(10) updatewhereclause=yes name=codigo_ciudad_titular dbname="ficha_sepultacion.codigo_ciudad_titular" )
+ column=(type=char(25) updatewhereclause=yes name=fono_titular dbname="ficha_sepultacion.fono_titular" )
+ column=(type=decimal(4) updatewhereclause=yes name=cantidad_sepultados dbname="ficha_sepultacion.cantidad_sepultados" )
+ column=(type=char(1) updatewhereclause=yes name=estado_sepultura_completa dbname="ficha_sepultacion.estado_sepultura_completa" )
+ column=(type=decimal(4) updatewhereclause=yes name=capacidad_libre_sepultura dbname="ficha_sepultacion.capacidad_libre_sepultura" )
+ column=(type=char(1000) update=yes updatewhereclause=yes name=observacion_sepultura_completa dbname="ficha_sepultacion.observacion_sepultura_completa" )
+ column=(type=decimal(4) updatewhereclause=yes name=estado_credito dbname="ficha_sepultacion.estado_credito" )
+ column=(type=char(1000) updatewhereclause=yes name=observacion_credito dbname="ficha_sepultacion.observacion_credito" )
+ column=(type=decimal(4) updatewhereclause=yes name=estado_mantencion dbname="ficha_sepultacion.estado_mantencion" )
+ column=(type=char(1000) updatewhereclause=yes name=observacion_mantencion dbname="ficha_sepultacion.observacion_mantencion" )
+ column=(type=datetime updatewhereclause=yes name=fecha_recepcion dbname="ficha_sepultacion.fecha_recepcion" )
+ column=(type=decimal(4) updatewhereclause=yes name=hora_recepcion dbname="ficha_sepultacion.hora_recepcion" )
+ column=(type=decimal(4) updatewhereclause=yes name=minuto_recepcion dbname="ficha_sepultacion.minuto_recepcion" )
+ column=(type=decimal(4) updatewhereclause=yes name=hora_llegada_efectiva dbname="ficha_sepultacion.hora_llegada_efectiva" )
+ column=(type=decimal(4) updatewhereclause=yes name=minuto_llegada_efectiva dbname="ficha_sepultacion.minuto_llegada_efectiva" )
+ column=(type=char(15) updatewhereclause=yes name=vb_estadistico dbname="ficha_sepultacion.vb_estadistico" )
+ column=(type=char(25) updatewhereclause=yes name=fono_funeraria dbname="ficha_sepultacion.fono_funeraria" )
+ column=(type=char(1) updatewhereclause=yes name=cod_estado_contrato dbname="ficha_sepultacion.cod_estado_contrato" )
+ column=(type=decimal(4) updatewhereclause=yes name=rut_titular dbname="ficha_sepultacion.rut_titular" )
+ column=(type=char(1) updatewhereclause=yes name=dv_titular dbname="ficha_sepultacion.dv_titular" )
+ column=(type=decimal(4) updatewhereclause=yes name=valor_mov_sarcofago dbname="ficha_sepultacion.valor_mov_sarcofago" )
+ column=(type=decimal(4) updatewhereclause=yes name=valor_cambio_de_ubicacion dbname="ficha_sepultacion.valor_cambio_de_ubicacion" )
+ column=(type=decimal(4) updatewhereclause=yes name=valor_reduccion dbname="ficha_sepultacion.valor_reduccion" )
+ column=(type=decimal(4) updatewhereclause=yes name=valor_certificado_defuncion dbname="ficha_sepultacion.valor_certificado_defuncion" )
+ column=(type=decimal(4) updatewhereclause=yes name=uf_dia dbname="ficha_sepultacion.uf_dia" )
+ column=(type=decimal(4) updatewhereclause=yes name=edad_fallecido dbname="ficha_sepultacion.edad_fallecido" )
+ column=(type=char(1) updatewhereclause=yes name=sexo_fallecido dbname="ficha_sepultacion.sexo_fallecido" )
+ column=(type=char(5) updatewhereclause=yes name=tipo_via_fallecido dbname="ficha_sepultacion.tipo_via_fallecido" )
+ column=(type=char(5) updatewhereclause=yes name=tipo_via_titular dbname="ficha_sepultacion.tipo_via_titular" )
+ column=(type=decimal(4) updatewhereclause=yes name=correlativo_mensual dbname="ficha_sepultacion.correlativo_mensual" )
+ column=(type=decimal(4) updatewhereclause=yes name=correlativo_anual dbname="ficha_sepultacion.correlativo_anual" )
+ column=(type=char(1) updatewhereclause=yes key=yes name=estado_reg dbname="ficha_sepultacion.estado_reg" )
+ column=(type=char(10) updatewhereclause=yes name=cod_registro_pase dbname="ficha_sepultacion.cod_registro_pase" )
+ column=(type=char(20) updatewhereclause=yes name=inscripcion_pase dbname="ficha_sepultacion.inscripcion_pase" )
+ column=(type=char(20) updatewhereclause=yes name=registro_pase dbname="ficha_sepultacion.registro_pase" )
+ column=(type=decimal(4) updatewhereclause=yes name=anno_pase dbname="ficha_sepultacion.anno_pase" )
+ column=(type=datetime updatewhereclause=yes name=fecha_pase dbname="ficha_sepultacion.fecha_pase" )
+ column=(type=datetime updatewhereclause=yes name=fecha_sistema dbname="ficha_sepultacion.fecha_sistema" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=hora_def dbname="ficha_sepultacion.hora_def" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=minuto_def dbname="ficha_sepultacion.minuto_def" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=modif_adm dbname="ficha_sepultacion.modif_adm" )
+ retrieve="SELECT  ~"FICHA_SEPULTACION~".~"CODIGO_EJECUTIVO~" ,
+           ~"FICHA_SEPULTACION~".~"HORA~" ,
+           ~"FICHA_SEPULTACION~".~"MINUTOS~" ,
+           ~"FICHA_SEPULTACION~".~"CORRELATIVO_INTERNO~" ,
+           ~"FICHA_SEPULTACION~".~"NOMBRE_FALLECIDO~" ,
+           ~"FICHA_SEPULTACION~".~"AP_PATERNO_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"AP_MATERNO_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"FECHA_SEPULTACION~" ,
+           ~"FICHA_SEPULTACION~".~"CODIGO_FUNERARIA~" ,
+           ~"FICHA_SEPULTACION~".~"DIRECCION_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"NUMERO_DIRECCION_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"DEPTO_DIRECCION_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"BLOCK_DIRECCION_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"POBLACION_VILLA_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"SECTOR_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"CODIGO_COMUNA_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"CODIGO_CIUDAD_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"FECHA_DEFUNCION~" ,
+           ~"FICHA_SEPULTACION~".~"ESTADO_RESPONSO~" ,
+           ~"FICHA_SEPULTACION~".~"RUT_DIACONO~" ,
+           ~"FICHA_SEPULTACION~".~"DV_DIACONO~" ,
+           ~"FICHA_SEPULTACION~".~"FECHA_NACIMIENTO_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"RUT_FALLECIDO~" ,
+           ~"FICHA_SEPULTACION~".~"DV_FALLECIDO~" ,
+           ~"FICHA_SEPULTACION~".~"COD_ESTADO_FALL~" ,
+           ~"FICHA_SEPULTACION~".~"COD_PARQUE_DESDE~" ,
+           ~"FICHA_SEPULTACION~".~"COD_PARQUE_HACIA~" ,
+           ~"FICHA_SEPULTACION~".~"PASE_SEPULTACION~" ,
+           ~"FICHA_SEPULTACION~".~"CAUSA_FALLECIMIENTO~" ,
+           ~"FICHA_SEPULTACION~".~"CAPILLA_VELATORIA~" ,
+           ~"FICHA_SEPULTACION~".~"DIRECCION_CAPILLA~" ,
+           ~"FICHA_SEPULTACION~".~"VALOR_DERECHO_SEPULTACION_UF~" ,
+           ~"FICHA_SEPULTACION~".~"CODIGO_PARENTESCO~" ,
+           ~"FICHA_SEPULTACION~".~"MONTO_CANCELAR~" ,
+           ~"FICHA_SEPULTACION~".~"FOLIO_COMPROBANTE~" ,
+           ~"FICHA_SEPULTACION~".~"OBSERVACION~" ,
+           ~"FICHA_SEPULTACION~".~"BASE~" ,
+           ~"FICHA_SEPULTACION~".~"SERIE~" ,
+           ~"FICHA_SEPULTACION~".~"NUMERO~" ,
+           ~"FICHA_SEPULTACION~".~"FECHA_CONTRATO~" ,
+           ~"FICHA_SEPULTACION~".~"SECTOR~" ,
+           ~"FICHA_SEPULTACION~".~"SEPULTURA~" ,
+           ~"FICHA_SEPULTACION~".~"NUMERO_TECNICO~" ,
+           ~"FICHA_SEPULTACION~".~"CAPACIDAD~" ,
+           ~"FICHA_SEPULTACION~".~"NIVEL~" ,
+           ~"FICHA_SEPULTACION~".~"COD_PARQUE~" ,
+           ~"FICHA_SEPULTACION~".~"NOMBRE_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"AP_PATERNO_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"AP_MATERNO_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"DIRECCION_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"NUM_DIRECCION_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"DEPTO_DIRECCION_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"BLOCK_DIRECCION_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"POBLACION_VILLA_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"SECTOR_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"CODIGO_COMUNA_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"CODIGO_CIUDAD_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"FONO_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"CANTIDAD_SEPULTADOS~" ,
+           ~"FICHA_SEPULTACION~".~"ESTADO_SEPULTURA_COMPLETA~" ,
+           ~"FICHA_SEPULTACION~".~"CAPACIDAD_LIBRE_SEPULTURA~" ,
+           ~"FICHA_SEPULTACION~".~"OBSERVACION_SEPULTURA_COMPLETA~" ,
+           ~"FICHA_SEPULTACION~".~"ESTADO_CREDITO~" ,
+           ~"FICHA_SEPULTACION~".~"OBSERVACION_CREDITO~" ,
+           ~"FICHA_SEPULTACION~".~"ESTADO_MANTENCION~" ,
+           ~"FICHA_SEPULTACION~".~"OBSERVACION_MANTENCION~" ,
+           ~"FICHA_SEPULTACION~".~"FECHA_RECEPCION~" ,
+           ~"FICHA_SEPULTACION~".~"HORA_RECEPCION~" ,
+           ~"FICHA_SEPULTACION~".~"MINUTO_RECEPCION~" ,
+           ~"FICHA_SEPULTACION~".~"HORA_LLEGADA_EFECTIVA~" ,
+           ~"FICHA_SEPULTACION~".~"MINUTO_LLEGADA_EFECTIVA~" ,
+           ~"FICHA_SEPULTACION~".~"VB_ESTADISTICO~" ,
+           ~"FICHA_SEPULTACION~".~"FONO_FUNERARIA~" ,
+           ~"FICHA_SEPULTACION~".~"COD_ESTADO_CONTRATO~" ,
+           ~"FICHA_SEPULTACION~".~"RUT_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"DV_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"VALOR_MOV_SARCOFAGO~" ,
+           ~"FICHA_SEPULTACION~".~"VALOR_CAMBIO_DE_UBICACION~" ,
+           ~"FICHA_SEPULTACION~".~"VALOR_REDUCCION~" ,
+           ~"FICHA_SEPULTACION~".~"VALOR_CERTIFICADO_DEFUNCION~" ,
+           ~"FICHA_SEPULTACION~".~"UF_DIA~" ,
+           ~"FICHA_SEPULTACION~".~"EDAD_FALLECIDO~" ,
+           ~"FICHA_SEPULTACION~".~"SEXO_FALLECIDO~" ,
+           ~"FICHA_SEPULTACION~".~"TIPO_VIA_FALLECIDO~" ,
+           ~"FICHA_SEPULTACION~".~"TIPO_VIA_TITULAR~" ,
+           ~"FICHA_SEPULTACION~".~"CORRELATIVO_MENSUAL~" ,
+           ~"FICHA_SEPULTACION~".~"CORRELATIVO_ANUAL~" ,
+           ~"FICHA_SEPULTACION~".~"ESTADO_REG~" ,
+           ~"FICHA_SEPULTACION~".~"COD_REGISTRO_PASE~" ,
+           ~"FICHA_SEPULTACION~".~"INSCRIPCION_PASE~" ,
+           ~"FICHA_SEPULTACION~".~"REGISTRO_PASE~" ,
+           ~"FICHA_SEPULTACION~".~"ANNO_PASE~" ,
+           ~"FICHA_SEPULTACION~".~"FECHA_PASE~" ,
+           ~"FICHA_SEPULTACION~".~"FECHA_SISTEMA~" ,
+           ~"FICHA_SEPULTACION~".~"HORA_DEF~" ,
+           ~"FICHA_SEPULTACION~".~"MINUTO_DEF~" ,
+           ~"FICHA_SEPULTACION~".~"MODIF_ADM~"     
+        FROM ~"FICHA_SEPULTACION~"      
+        WHERE ( ~"FICHA_SEPULTACION~".~"FECHA_SEPULTACION~" = :ldt_fecha ) And          ( ~"FICHA_SEPULTACION~".~"COD_PARQUE~" = :cod_parque ) And          ( ~"FICHA_SEPULTACION~".~"SECTOR~" = :sector ) And          ( ~"FICHA_SEPULTACION~".~"SEPULTURA~" = :sepultura )   " update="FICHA_SEPULTACION" updatewhere=0 updatekeyinplace=yes arguments=(("ldt_fecha", datetime),("cod_parque", number),("sector", string),("sepultura", string))  sort="correlativo_interno A " )
+text(band=header alignment="2" text="Nº" border="6" color="0" x="9" y="104" height="60" width="160" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=header alignment="2" expression="'Detalle Ficha Contrato Nº '+ base +'-'+ serie +'-'+string( numero ,'###,###,###,###,##0')"border="0" color="0" x="146" y="12" height="60" width="2112" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Hora" border="6" color="0" x="187" y="104" height="60" width="229" html.valueishtml="0"  name=hora_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Minutos" border="6" color="0" x="434" y="104" height="60" width="229" html.valueishtml="0"  name=minutos_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Observación" border="6" color="0" x="681" y="104" height="60" width="1129" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Nombre Fallecido" border="6" color="0" x="1829" y="104" height="60" width="891" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Estado Ficha" border="6" color="0" x="2738" y="104" height="60" width="334" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="5" color="0" x="9" y="4" height="72" width="160" format="###,###,###,###" html.valueishtml="0"  name=correlativo_interno visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=2 alignment="2" tabsequence=10 border="5" color="0" x="192" y="4" height="72" width="229" format="[general]" html.valueishtml="0" protect="0~tif (estado_reg<>'P' and estado_reg<>'G',1,0)"  name=hora visible="1" editmask.readonly=yes editmask.spin=yes editmask.mask="00" editmask.spinrange="0~~23" editmask.spinincr=1 editmask.focusrectangle=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=3 alignment="2" tabsequence=20 border="5" color="0" x="434" y="4" height="72" width="229" format="[general]" html.valueishtml="0" protect="0~tif (estado_reg<>'P' and estado_reg<>'G',1,0)"  name=minutos visible="1" editmask.readonly=yes editmask.spin=yes editmask.mask="00" editmask.spinrange="0~~59" editmask.spinincr=0 editmask.focusrectangle=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=62 alignment="0" tabsequence=30 border="5" color="0" x="681" y="4" height="72" width="1129" format="[general]" html.valueishtml="0" protect="0~tif (estado_reg<>'P' and estado_reg<>'G',1,0)"  name=observacion_sepultura_completa visible="1" edit.limit=1000 edit.case=upper edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="0" expression=" ap_paterno_fall +' '+ ap_paterno_fall +' '+ ap_materno_fall "border="5" color="0" x="1829" y="4" height="72" width="891" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=88 alignment="0" tabsequence=32766 border="5" color="0" x="2738" y="4" height="72" width="334" format="[general]" html.valueishtml="0"  name=estado_reg visible="1" dddw.name=ddw_lista_ficha_estado dddw.displaycolumn=descripcion dddw.datacolumn=estado dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,25 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Show indicator Box~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_createcolumnindicator from function_object
+end type
+
+forward prototypes
+global function integer f_createcolumnindicator (datawindow adw_1, string as_name)
+end prototypes
+
+global function integer f_createcolumnindicator (datawindow adw_1, string as_name);
+/* f_CreateColumnIndicator( adw_1, as_name ) */
+
+Integer	li_ret
+String	ls_err
+
+as_name = Lower( f_Trim( as_name ) )
+If as_name = '' Then as_name = 'r_ind'
+
+ls_err = adw_1.Modify( 'Create rectangle(band=detail x="151" y="332" height="76" width="343"  name=' + as_name + ' ' + &
+								'visible="1~tIf ( getRow() = CurrentRow(), 1, 0 )" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="5" pen.color="15780518"  background.mode="1" ' + &
+								'background.color="536870912" background.transparency="0" )' )
+								
+Return li_ret
+
+end function
+

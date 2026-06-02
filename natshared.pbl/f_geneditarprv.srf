@@ -1,0 +1,35 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función:Si es que permite editar o no el nombre de proveedor~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_geneditarprv from function_object
+end type
+
+forward prototypes
+global function boolean f_geneditarprv (string as_emp, string as_cod)
+end prototypes
+
+global function boolean f_geneditarprv (string as_emp, string as_cod);/*
+f_GenEditarPrv( as_emp, as_cod )
+*/
+
+Long		ll_cod
+String	ls_emp, ls_prv, ls_edi
+
+
+ls_emp = as_emp
+ls_prv = as_cod
+
+Select	c_editarnombre_prv 
+Into		:ls_edi
+From		comproveedor
+Where		c_codigo_emp = :ls_emp 
+And		c_codigo_prv = :ls_prv
+Using		SqlCa ;
+
+If f_SqlError( SqlCa, 'No se pudo obtener información de Edición de nombre para Proveedor.' ) =-1 Then
+	Return False
+End If
+	
+ls_edi = f_Trim( ls_edi ) 
+
+Return ( ls_edi = '1' )
+end function
+

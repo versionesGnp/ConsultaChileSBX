@@ -1,0 +1,26 @@
+﻿global type gf_existe_boleta from function_object
+end type
+
+forward prototypes
+global function boolean gf_existe_boleta (long al_num_boleta, string as_tipo_cob)
+end prototypes
+
+global function boolean gf_existe_boleta (long al_num_boleta, string as_tipo_cob);long il_num_boleta
+if as_tipo_cob='FE' or as_tipo_cob='FA' then
+	SELECT DISTINCT "INGRESO"."FOLIO"  
+	INTO 		:il_num_boleta
+	FROM 	"INGRESO"  
+	WHERE  ( "INGRESO"."FOLIO" = :al_num_boleta ) AND  
+			 ( "INGRESO"."TIPO_COB" = :as_tipo_cob ) AND 
+			 ( "INGRESO"."COD_PARQUE" = :gl_cod_parque );
+else
+	SELECT DISTINCT "INGRESO"."FOLIO"  
+	INTO 		:il_num_boleta
+	FROM 	"INGRESO"  
+	WHERE  ( "INGRESO"."FOLIO" = :al_num_boleta ) AND  
+			 ( "INGRESO"."TIPO_COB" = :as_tipo_cob ) ;
+end if
+RETURN (al_num_boleta = il_num_boleta )
+
+end function
+

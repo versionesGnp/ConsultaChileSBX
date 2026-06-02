@@ -1,0 +1,28 @@
+﻿global type gf_cantidad_cupones from function_object
+end type
+
+forward prototypes
+global subroutine gf_cantidad_cupones (integer cant_cupones, ref integer cup_mant, ref integer cup_tot)
+end prototypes
+
+global subroutine gf_cantidad_cupones (integer cant_cupones, ref integer cup_mant, ref integer cup_tot);
+
+CHOOSE CASE cant_cupones
+	CASE 12
+		cup_mant = 1
+		cup_tot  = 13
+	CASE 26
+		cup_mant = 2
+		cup_tot  = 26
+	CASE 36
+		cup_mant = 3
+		cup_tot  = 39
+	CASE 48
+		cup_mant = 4
+		cup_tot  = 52
+	CASE 60
+		cup_mant = 5
+		cup_tot  = 65
+END CHOOSE
+end subroutine
+

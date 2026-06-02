@@ -1,0 +1,37 @@
+﻿global type f_retorna_ctas_pag_m from function_object
+end type
+
+forward prototypes
+global function long f_retorna_ctas_pag_m (string as_base, string as_serie, long al_numero)
+end prototypes
+
+global function long f_retorna_ctas_pag_m (string as_base, string as_serie, long al_numero);Long		ll_cuotas_pag_m
+
+if as_base='O' then
+	SELECT	"OFERTA_V"."CTA_PAG_M"  
+	INTO 		:ll_cuotas_pag_m  
+	FROM 	"OFERTA_V",   "PAGO_OFERTA",   "CADENA"  
+	WHERE 	( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+				( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+				( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+				( "OFERTA_V"."SERIE" = "CADENA"."SERIE" ) and  
+				( "OFERTA_V"."NRO_OFERTA" = "CADENA"."NUMERO" ) and  
+				( ( "CADENA"."CODIGO" = to_char(:as_base) ) AND  
+				( "OFERTA_V"."SERIE" =  to_char(:as_serie) ) AND  
+				( "OFERTA_V"."NRO_OFERTA" = :al_numero ) )   ;
+
+elseif as_base='C' then
+	SELECT 	"CONTRATO"."CTA_PAG_M"  
+	INTO 		:ll_cuotas_pag_m  
+	FROM 	"CADENA",   "CONTRATO"  
+	WHERE 	( "CADENA"."SERIE" = "CONTRATO"."SERIE_C" ) and  
+				( "CADENA"."NUMERO" = "CONTRATO"."NRO_CONTRATO" ) and  
+				( ( "CADENA"."CODIGO" =  to_char(:as_base) ) AND  
+				( "CADENA"."SERIE" =  to_char(:as_serie) ) AND  
+				( "CADENA"."NUMERO" = :al_numero ) )   ;
+
+end if
+if isnull(ll_cuotas_pag_m) or ll_cuotas_pag_m=0 then ll_cuotas_pag_m=0
+return ll_cuotas_pag_m
+end function
+

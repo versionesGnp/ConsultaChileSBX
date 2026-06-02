@@ -1,0 +1,57 @@
+﻿global type f_demanda_cliente_cartera from function_object
+end type
+
+forward prototypes
+global function long f_demanda_cliente_cartera (string as_base, string as_serie, double al_numero, string as_usuario)
+end prototypes
+
+global function long f_demanda_cliente_cartera (string as_base, string as_serie, double al_numero, string as_usuario);string	ls_obs,ls_tipo_cob
+long	ll_graba=0,ll_grupo
+
+//f_demanda_cliente_cartera(as_base,as_serie,al_numero,as_usuario)
+
+ls_tipo_cob					= 'J'
+SELECT	MAX("CODIGO_GRUPO")  
+INTO 		:ll_grupo  
+FROM 	"AT_LISTA_GESTION" 
+USING	sqlca;
+if isnull(ll_grupo) then ll_grupo=0
+if ll_grupo>0 then
+	ll_grupo++
+end if
+
+UPDATE	"AT_GESTION"  
+SET 		"FECHA_CREA" = :gdt_fec_sistema,   
+         	"CODIGO_GRUPO" = :ll_grupo,   
+         	"ESTADO_GESTION" = 'P',   
+         	"USUARIO_ASIGNADO" = :as_usuario,   
+         	"FECHA_ANULA_COMIS" = '',   
+         	"USUARIO_ANULA_COMIS" = '',
+			"TIPO_GESTION" = 4,
+         	"ESTADO_COMI" = 'N',   
+         	"TIPO_COBRANZA" = :ls_tipo_cob
+WHERE	( "AT_GESTION"."BASE" = :as_base ) AND  
+      		( "AT_GESTION"."SERIE" = :as_serie ) AND  
+         	( "AT_GESTION"."NUMERO" = :al_numero ) AND
+			( "AT_GESTION"."TIPO_COBRANZA" <> 'N' ) 	
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	commit using sqlca;
+	INSERT INTO "AT_LISTA_GESTION"  
+         		( "CODIGO_GRUPO",	"FECHA_CREA",	"OBERVACION",	"USUARIO_CREADOR",	"ESTADO_GESTION_LISTA",	"USUARIO_ASIGNADO",	"TIPO_COBRANZA",	"FECHA_TERMINO" )  
+  	VALUES	( :ll_grupo,				:gdt_fec_sistema,	:ls_obs,				:gs_user,					'P',										:as_usuario,					:ls_tipo_cob, 			null )
+	USING	sqlca;
+	if sqlca.sqlcode=0 then
+		commit using sqlca;
+		ll_graba++		
+	else
+		rollback using sqlca;
+	end if
+else
+	rollback using sqlca;
+end if
+
+if isnull(ll_graba) then ll_graba=0
+return	 ll_graba
+end function
+

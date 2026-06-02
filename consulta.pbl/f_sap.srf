@@ -1,0 +1,10 @@
+﻿global type f_sap from function_object
+end type
+
+forward prototypes
+global subroutine f_sap (string as_opc)
+end prototypes
+
+global subroutine f_sap (string as_opc);return
+end subroutine
+

@@ -1,0 +1,87 @@
+﻿//objectcomments /* Autor: Marco Ortiz~r~n    Función: Barras~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_strto128c from function_object
+end type
+
+forward prototypes
+global function string f_strto128c (string as_text)
+end prototypes
+
+global function string f_strto128c (string as_text);//FUNCTION f_BarCode128C( as_text )
+/* Creacion Marco A. Ortiz 31/05/2010 */
+
+String	ls_start, ls_stop, ls_ret, ls_check, ls_char
+Long		ll_Long, i , ll_checksum, ll_asc, ll_sum
+
+ll_sum   = 105
+ls_start = Char(125)
+ls_stop  = Char(126)
+
+ls_ret = ls_start
+
+If Mod( Len(as_text), 2 )  <> 0 Then
+	as_text = '0' + as_text
+End If
+
+
+FOR i = 1 TO LEN( as_text ) Step 2
+	
+	ls_char = Mid( as_text ,i ,2)
+	ll_asc  = ASC( ls_char ) 
+
+	  
+/*
+  FOR m.co = 1 TO LEN(m.cadena) STEP 2
+    m.letra = SUBSTR(m.cadena, m.co, 2)
+    m.valorreal = VAL(m.letra)
+    
+	 m.valorascii = m.valorreal + IIF(m.valorreal < 90, 33, 71)
+    m.suma = m.suma + (m.valorreal * CEILING(m.co/2))
+    m.vuelta = m.vuelta + CHR(m.valorascii)
+  NEXT m.co
+  m.checksum = MAX(MOD(m.suma, 103), 0)
+  m.checksum = m.checksum + IIF(m.checksum < 90, 33, 71)
+  m.checksum = CHR(m.checksum)
+  *-- Reemplazo CheckSum
+  m.checksum = CHRTRAN(m.checksum, ;
+    CHR(171)+CHR(172)+CHR(173), CHR(176)+CHR(177)+CHR(178))
+  m.vuelta = m.vuelta + m.checksum + m.caracterfinal
+  RETURN m.vuelta
+ENDFUNC
+*/	  
+	If	ll_asc < 123 Then
+		ll_asc = ll_asc - 32
+	Else
+		ll_asc = ll_asc - 70	
+	End IF
+	
+	ll_sum = ll_sum + ( ll_asc * i )
+	
+	If ls_char = '' Then
+		ls_ret = ls_ret + Char(174)
+	Else
+		ls_ret = ls_ret + ls_char
+	End If
+	
+Next
+
+ll_checksum = Max( MOD( ll_sum, 103 ), 0 )
+
+If ll_checksum > 90 Then
+	ll_checksum = ll_checksum + 70
+ElseIf ll_checksum = 0 Then
+	ll_checksum = ll_checksum + 174
+Else
+	ll_checksum = ll_checksum + 32
+End If
+
+ls_check = Char( ll_checksum )
+
+ls_ret	= ls_ret + 	ls_check + ls_stop
+
+Return ls_ret
+
+
+
+
+end function
+

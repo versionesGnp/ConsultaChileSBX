@@ -1,0 +1,225 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Export to Excel PowerBuilder~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_dwtoexcelcss from function_object
+end type
+
+forward prototypes
+global function integer f_dwtoexcelcss (datawindow adw_export)
+end prototypes
+
+global function integer f_dwtoexcelcss (datawindow adw_export);/* Exporta los datos del DW adw_export a una hoja de cálculo XLS
+	f_DWToExcelCSS( adw_export )
+	BL - 2022
+*/
+Integer	li_rc, li_ret
+String	ls_path, ls_file, ls_dir
+
+// Guardamos ruta actual
+ls_dir = GetCurrentDirectory()
+gs_file = ''
+
+
+ls_file = adw_export.Describe( 'DataWindow.Print.DocumentName' )
+
+If ls_file = '' Then 
+	ls_file = 'Documento'
+End If
+
+ls_file = gs_aplicacion + ' - ' + ls_file + '.xls'
+
+// Tomamos nombre del archivo a generar
+li_rc = GetFileSaveName( "Exportar Archivo", ls_path, ls_file, "xls", "Archivos Excel(*.xlsx),*.xlsx", "Documentos", 32770 )
+
+String	ls_xpath
+
+ls_xpath = ls_path
+ls_path = GetCurrentDirectory() + '\'
+ls_path = ls_path + 'T_' + ls_file
+ls_path = Left( ls_path, Len( ls_path ) - 1 ) 
+
+Boolean	lb_Actualizar, lb_Bucle
+Long		i, ll_TRow, ll_Pos, ll_PosIni, ll_PosFin, ll_Row, ll_Temp
+String	ls_GenerateCSS, ls_Border, ls_NoWrap, ls_Fila, ls_Valor, ls_Temp, &
+			ls_HeaderHTML, ls_PieHTML, ls_NumToStr
+
+ls_HeaderHTML = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">'
+ls_PieHTML = '</html>'
+ls_NumToStr = 'x:str'
+
+
+// Guardar formato CSS actual del datawindow
+ls_GenerateCSS = adw_export.Describe("DataWindow.HTMLTable.GenerateCSS")
+ls_Border = adw_export.Describe("DataWindow.HTMLTable.border")
+ls_NoWrap = adw_export.Describe("DataWindow.HTMLTable.nowrap")
+
+// Aplicar fomato CSS al datawindow
+adw_export.SetRedraw( False )
+adw_export.Modify("DataWindow.HTMLTable.GenerateCSS='1'")
+adw_export.Modify("DataWindow.HTMLTable.border='0'")
+adw_export.Modify("DataWindow.HTMLTable.nowrap='1'")
+
+// Grabar el fichero .xls
+adw_export.SaveAs( ls_path, HTMLTable!, True )
+adw_export.SetRedraw( True )
+
+// Importar el fichero .xls al d_FilaFichero
+uo_Datastore dsHTML
+f_CreateDS( dsHTML, 'd_gen_fila', SqlCa )
+
+dsHTML.ImportFile( Text!, ls_path )
+
+
+dsHTML.InsertRow( 1 )
+dsHTML.Object.fila[ 1] = ls_HeaderHTML 
+
+dsHTML.InsertRow(0)
+ll_TRow = dsHTML.RowCount()
+dsHTML.Object.fila[ ll_TRow] = ls_PieHTML 
+
+For i = 1 to ll_TRow
+	//gw_frame.SetMicroHelp( 'Procesando ' + String( Integer( ll_TRow/ i ) - 1 ) + '%')
+	lb_Actualizar = False
+	ls_Fila = dsHTML.getItemString( i, 'fila' )
+	
+	// Activación del CSS que está desactivado por defecto
+	If Pos( ls_Fila, '{;' ) > 0 Then
+		ls_Fila = f_GlobalReplace( ls_Fila, '{;', '{' )
+		lb_Actualizar = True
+	End If
+	
+	// Visibilidad
+	If Pos( ls_Fila, 'visibility:hidden' ) > 0 or Pos( ls_Fila, 'visibility: hidden' ) > 0 Then
+		ll_PosIni = Pos( ls_Fila, '>' )
+		ll_PosFin = Pos( ls_Fila, '</' )
+		If ll_PosIni > 0 and ll_PosFin > 0 Then
+			ls_Valor = Mid( ls_Fila, ll_PosIni + 1, (ll_PosFin - ll_PosIni) - 1 )
+			If Len( Trim( ls_Valor ) ) > 0 Then
+				ls_Fila = f_GlobalReplace( ls_Fila, ls_Valor, Space( Len( ls_Valor ) ) )
+				lb_Actualizar = True
+			End If
+		End If
+	End If
+	
+	// Autodimensionar columnas que generan problemas en distintas resoluciones de monitores
+	// Buscar:         <TD NOWRAP WIDTH=22>
+	// Reemplazar con: <TD NOWRAP MAX-WIDTH=22 width:auto>
+	lb_Bucle = True
+	Do While lb_Bucle
+		If Pos( ls_Fila, '<TD NOWRAP WIDTH' ) > 0 Then
+			ll_PosIni = Pos( ls_Fila, '<TD NOWRAP WIDTH' )
+			ll_PosFin = Pos( ls_Fila, '>', ll_PosIni )
+			If ll_PosIni > 0 and ll_PosFin > 0 Then
+				ls_Valor = Mid( ls_Fila, ll_PosIni + 17, (ll_PosFin - ll_PosIni) - 17 )
+				If isNumber( ls_Valor ) Then
+					ls_Fila = f_GlobalReplace( ls_Fila, '<TD NOWRAP WIDTH=' + ls_Valor + '>', '<TD NOWRAP MAX-WIDTH=' + ls_Valor + ' width:auto>' )
+					lb_Actualizar = True
+				End If
+			End If
+		Else
+			lb_Bucle = False
+		End If
+	Loop
+
+	
+	// Solución de número entre paréntesis, excel lo convierte a número negativo.
+	ll_PosIni = Pos( ls_Fila, '>(' )
+	ll_PosFin = Pos( ls_Fila, ')</' )
+	If ll_PosIni > 0 and ll_PosFin > 0 Then
+		ls_Valor = Mid( ls_Fila, ll_PosIni + 2, (ll_PosFin - ll_PosIni) - 2 )
+		If isNumber( ls_Valor ) Then
+			ls_Fila = f_GlobalReplace( ls_Fila, ">(", ">&nbsp;(" )
+			lb_Actualizar = True
+		End If
+	End If
+	
+	// Aplicar formato para matener ceros a la izquierda
+	ll_PosIni = Pos( ls_Fila, '>0' )
+	ll_PosFin = Pos( ls_Fila, '</' )
+	If ll_PosIni > 0 and ll_PosFin > 0 Then
+		ls_Valor = Mid( ls_Fila, ll_PosIni + 1, (ll_PosFin - ll_PosIni) - 1 )
+		If isNumber( ls_Valor ) Then
+			If Dec( ls_Valor ) > 0 Then
+				ls_Fila = f_GlobalReplace( ls_Fila, ">0", " " + ls_NumToStr + ">0" )
+				lb_Actualizar = True
+			End If
+		End If
+	End If
+	
+	// Quitar referencia a imágenes que no se incluyen:
+	ll_PosIni = Pos( ls_Fila, '<IMG SRC=""' )
+	ll_PosFin = Pos( ls_Fila, '</' )
+	If ll_PosIni > 0 and ll_PosFin > 0 Then
+		ls_Valor = Mid( ls_Fila, ll_PosIni, (ll_PosFin - ll_PosIni) )
+		If Len( Trim( ls_Valor ) ) > 0 Then
+			ls_Fila = f_GlobalReplace( ls_Fila, ls_Valor, "" )
+			lb_Actualizar = True
+		End If
+	End If
+	
+	//Evitar que texto con / lo convierta a fecha
+	ll_PosIni = Pos( ls_Fila, '>' )
+	ll_PosFin = Pos( ls_Fila, '</' )
+	If ll_PosIni > 0 and ll_PosFin > 0 Then
+		ls_Valor = Mid( ls_Fila, ll_PosIni + 1, (ll_PosFin - ll_PosIni) - 1 )
+		
+		If f_CountChars( ls_Valor, '/' ) = 1 Then
+			ls_Fila = f_GlobalReplace( ls_Fila, ">"+ls_Valor, " " + ls_NumToStr + ">"+ls_Valor )
+			lb_Actualizar = True
+		End If
+	End If
+	
+	// Poner el texto blanco en color negro:
+	If Pos( ls_Fila, '{COLOR:#ffffff;' ) > 0 Then
+		ls_Fila = f_GlobalReplace( ls_Fila, '{COLOR:#ffffff;', '{COLOR:#000000;' )
+		lb_Actualizar = True
+	End If
+	
+	If lb_Actualizar Then
+		dsHTML.Object.fila[ i] = ls_Fila 
+	End If
+Next
+
+dsHTML.AcceptText( )
+
+dsHTML.SaveAs( ls_path, Text!, False )
+ChangeDirectory( ls_dir )
+gs_file = ls_path
+
+// Restaurar el formato CSS original del datawindow
+adw_export.Modify("DataWindow.HTMLTable.GenerateCSS='" + ls_GenerateCSS + "'")
+adw_export.Modify("DataWindow.HTMLTable.border='" + ls_Border + "'")
+adw_export.Modify("DataWindow.HTMLTable.nowrap='" + ls_NoWrap + "'")
+
+Destroy dsHTML
+
+
+gw_frame.SetMicroHelp( 'Generando Archivo...' )
+SetPointer( HourGlass! )
+
+OLEObject ole_object
+ole_object = Create OLEObject
+
+li_ret = ole_object.ConnectToNewObject( 'Excel.Application' )
+If Not li_ret = 0 Then
+	gw_frame.SetMicroHelp( 'Listo (con error)' )
+	SetPointer( Arrow! )
+	Return li_ret
+End If
+
+String	ls_n
+
+SetNull( ls_n )
+ole_object.WorkBooks.Open( ls_path )//, ls_n, ls_n, False, False, 1, 2, True ) //, TextCodepage, TextVisualLayout, Local )
+ole_object.Application.Visible = False
+ole_object.Application.WorkBooks(1).SaveAs( ls_xpath, 51 )
+ole_object.WorkBooks(1).Close( False )
+ole_object.Application.Quit
+ole_object.DisConnectObject( )
+Destroy ole_object
+
+FileDelete( ls_path )
+SetPointer( Arrow! )
+gw_frame.SetMicroHelp( 'Listo' )
+
+Return li_ret
+end function
+

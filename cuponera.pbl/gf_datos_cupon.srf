@@ -1,0 +1,325 @@
+﻿global type gf_datos_cupon from function_object
+end type
+
+forward prototypes
+global function integer gf_datos_cupon (string as_base, string as_serie, double al_numero, ref string as_nombre, ref long al_rut, ref string as_dv, ref double al_valor_cuota, ref integer ai_n_cuotas, ref integer ai_cuotas_pagadas, ref string as_moneda, ref datetime ai_dia_pago, ref double al_valor_cuota_m, ref datetime ai_dia_pago_m, ref integer cta_pag_m)
+end prototypes
+
+global function integer gf_datos_cupon (string as_base, string as_serie, double al_numero, ref string as_nombre, ref long al_rut, ref string as_dv, ref double al_valor_cuota, ref integer ai_n_cuotas, ref integer ai_cuotas_pagadas, ref string as_moneda, ref datetime ai_dia_pago, ref double al_valor_cuota_m, ref datetime ai_dia_pago_m, ref integer cta_pag_m);string		is_nombre, is_apaterno, is_amaterno
+datetime id_fecha_pago,fecha_sys
+long 		cta_pag_la, cta_pag_isa
+
+if gs_cuponera_aviso = '0' THEN//CUPONERA
+	CHOOSE CASE as_base
+		CASE "O" //OFERTA
+			  SELECT "CLIENTE"."NOMBRE",   
+						"CLIENTE"."A_PATERNO",   
+						"CLIENTE"."A_MATERNO",   
+						"CLIENTE"."RUT",   
+						"CLIENTE"."DV",   
+						"PAGO_OFERTA"."VALOR_CUOTA",   
+						"PAGO_OFERTA"."NRO_CUOTAS",   
+						"OFERTA_V"."CTA_PAG_S",
+						"PAGO_OFERTA"."MONEDA",
+						"PAGO_OFERTA"."FECHA_PRIM",
+						"OFERTA_V"."VALOR_CUOTA_M", 
+						"OFERTA_V"."FECHA_M"+ (365*"OFERTA_V"."CTA_PAG_M"),
+						"OFERTA_V"."CTA_PAG_M",
+						SYSDATE - 30
+				 INTO :is_nombre,   
+						:is_apaterno,   
+						:is_amaterno,   
+						:al_rut,   
+						:as_dv,   
+						:al_valor_cuota,   
+						:ai_n_cuotas,   
+						:ai_cuotas_pagadas,
+						:as_moneda,
+						:ai_dia_pago,
+						:al_valor_cuota_m,   
+						:ai_dia_pago_m,
+						:cta_pag_m,
+						:fecha_sys 
+				 FROM "CADENA",   
+						"CLIENTE",   
+						"OFERTA_V",   
+						"PAGO_OFERTA"  
+				WHERE ( cadena.rut = cliente.rut (+)) and  
+						( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+						( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+						( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+						( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+						( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) ) ;   
+			if ai_dia_pago_m < fecha_sys then cta_pag_m = 99
+				as_nombre = is_nombre + " " + is_apaterno + " " + is_amaterno
+	
+	CASE "L" //LIBERADOR
+			  SELECT "CLIENTE"."NOMBRE",   
+						"CLIENTE"."A_PATERNO",   
+						"CLIENTE"."A_MATERNO",   
+						"CLIENTE"."RUT",   
+						"CLIENTE"."DV",   
+						"PAGO_LIBERADOR"."VALOR_CUOTA",   
+						"PAGO_LIBERADOR"."NRO_CUOTAS",   
+						"ANEXO_LIBERADOR"."CTA_PAG_M",
+						"PAGO_LIBERADOR"."MONEDA",
+						"PAGO_LIBERADOR"."FECHA_PRIM"
+				 INTO :is_nombre,   
+						:is_apaterno,   
+						:is_amaterno,   
+						:al_rut,   
+						:as_dv,   
+						:al_valor_cuota,   
+						:ai_n_cuotas,   
+						:ai_cuotas_pagadas,
+						:as_moneda,
+						:ai_dia_pago
+				 FROM "CADENA",   
+						"CLIENTE",   
+						"ANEXO_LIBERADOR",   
+						"PAGO_LIBERADOR"  
+				WHERE ( cadena.rut = cliente.rut (+)) and  
+						( "CADENA"."SERIE" = "ANEXO_LIBERADOR"."SERIE_M" ) and  
+						( "CADENA"."NUMERO" = "ANEXO_LIBERADOR"."NRO_LIBERADOR" ) and  
+						( "ANEXO_LIBERADOR"."SERIE_M" = "PAGO_LIBERADOR"."SERIE_M" ) and  
+						( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "PAGO_LIBERADOR"."NRO_LIBERADOR" ) and  
+						( "ANEXO_LIBERADOR"."ULT_FOLIO" = "PAGO_LIBERADOR"."FOLIO" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) ) ;   
+			
+				as_nombre = is_nombre + " " + is_apaterno + " " + is_amaterno
+	
+	CASE "A" //AUMENTO CAPACIDAD
+			  SELECT "CLIENTE"."NOMBRE",   
+						"CLIENTE"."A_PATERNO",   
+						"CLIENTE"."A_MATERNO",   
+						"CLIENTE"."RUT",   
+						"CLIENTE"."DV",   
+						"PAGO_AUMENTO"."VALOR_CUOTA",   
+						"PAGO_AUMENTO"."NRO_CUOTAS",   
+						"ANEXO_AUMENTO"."CTA_PAG_M",
+						"PAGO_AUMENTO"."MONEDA",
+						"PAGO_AUMENTO"."FECHA_PRIM"
+				 INTO :is_nombre,   
+						:is_apaterno,   
+						:is_amaterno,   
+						:al_rut,   
+						:as_dv,   
+						:al_valor_cuota,   
+						:ai_n_cuotas,   
+						:ai_cuotas_pagadas,
+						:as_moneda,
+						:ai_dia_pago
+				 FROM "CADENA",   
+						"CLIENTE",   
+						"ANEXO_AUMENTO",   
+						"PAGO_AUMENTO"  
+				WHERE ( cadena.rut = cliente.rut (+)) and  
+						( "CADENA"."SERIE" = "ANEXO_AUMENTO"."SERIE_M" ) and  
+						( "CADENA"."NUMERO" = "ANEXO_AUMENTO"."NRO_AUMENTO" ) and  
+						( "ANEXO_AUMENTO"."SERIE_M" = "PAGO_AUMENTO"."SERIE_M" ) and  
+						( "ANEXO_AUMENTO"."NRO_AUMENTO" = "PAGO_AUMENTO"."NRO_AUMENTO" ) and  
+						( "ANEXO_AUMENTO"."ULT_FOLIO" = "PAGO_AUMENTO"."FOLIO" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) ) ;   
+			
+				as_nombre = is_nombre + " " + is_apaterno + " " + is_amaterno
+				
+	CASE "P" //PAGARE
+			  SELECT "CLIENTE"."NOMBRE",   
+						"CLIENTE"."A_PATERNO",   
+						"CLIENTE"."A_MATERNO",   
+						"CLIENTE"."RUT",   
+						"CLIENTE"."DV",   
+						"PAGARE"."VALOR_CUO",   
+						"PAGARE"."PLAZO",   
+						"PAGARE"."CTA_PAG_LA",
+						"PAGARE"."CTA_PAG_ISA",
+						"PAGARE"."MONEDA",
+						"PAGARE"."FECHA_PRIM"
+				 INTO :is_nombre,   
+						:is_apaterno,   
+						:is_amaterno,   
+						:al_rut,   
+						:as_dv,   
+						:al_valor_cuota,   
+						:ai_n_cuotas,   
+						:cta_pag_la,
+						:cta_pag_isa,
+						:as_moneda,
+						:ai_dia_pago
+				 FROM "CADENA",   
+						"CLIENTE",   
+						"PAGARE"   
+				WHERE ( cadena.rut = cliente.rut (+)) and  
+						( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+						( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) ) ;   
+				ai_cuotas_pagadas = cta_pag_la + cta_pag_isa		
+				as_nombre = is_nombre + " " + is_apaterno + " " + is_amaterno
+	
+	CASE "D" //DERECHO
+			  SELECT "CLIENTE"."NOMBRE",   
+						"CLIENTE"."A_PATERNO",   
+						"CLIENTE"."A_MATERNO",   
+						"CLIENTE"."RUT",   
+						"CLIENTE"."DV",   
+						"DERECHO"."VALOR_CUO",   
+						"DERECHO"."PLAZO",   
+						"DERECHO"."CTA_PAG_LA",
+						"DERECHO"."CTA_PAG_ISA",
+						"DERECHO"."MONEDA",
+						"DERECHO"."FECHA_PRIM"
+				 INTO :is_nombre,   
+						:is_apaterno,   
+						:is_amaterno,   
+						:al_rut,   
+						:as_dv,   
+						:al_valor_cuota,   
+						:ai_n_cuotas,   
+						:cta_pag_la,
+						:cta_pag_isa,
+						:as_moneda,
+						:ai_dia_pago
+				 FROM "CADENA",   
+						"CLIENTE",   
+						"DERECHO"   
+				WHERE ( cadena.rut = cliente.rut (+)) and  
+						( "CADENA"."SERIE" = "DERECHO"."SERIE_P" ) and  
+						( "CADENA"."NUMERO" = "DERECHO"."NRO_PAGARE" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) ) ;   
+				ai_cuotas_pagadas = cta_pag_la + cta_pag_isa		
+				as_nombre = is_nombre + " " + is_apaterno + " " + is_amaterno
+	CASE "R" //REPROGRAMACION DE MANTENCION
+				SELECT "CLIENTE"."NOMBRE",   
+						"CLIENTE"."A_PATERNO",   
+						"CLIENTE"."A_MATERNO",   
+						"CLIENTE"."RUT",   
+						"CLIENTE"."DV",   
+						"REPACTA_MANTENCION"."VALOR_CUOTA_UF",   
+						"REPACTA_MANTENCION"."CUOTAS_PACTADAS",   
+						"REPACTA_MANTENCION"."CTAS_PAGADAS",   
+						"REPACTA_MANTENCION"."TIPO_MONEDA",   
+						"REPACTA_MANTENCION"."FECHA_PRIMERA_CTA"  
+				 INTO :is_nombre,   
+						:is_apaterno,   
+						:is_amaterno,   
+						:al_rut,   
+						:as_dv,   
+						:al_valor_cuota,   
+						:ai_n_cuotas,   
+						:ai_cuotas_pagadas,
+						:as_moneda,
+						:ai_dia_pago
+				FROM "CADENA",   
+						"CLIENTE",   
+						"REPACTA_MANTENCION"  
+				WHERE ( "REPACTA_MANTENCION"."BASE" = "CADENA"."CODIGO" ) and  
+						( "REPACTA_MANTENCION"."SERIE" = "CADENA"."SERIE" ) and  
+						( "REPACTA_MANTENCION"."NUMERO" = "CADENA"."NUMERO" ) and  
+						( "CLIENTE"."RUT" = "CADENA"."RUT" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )   ;
+				as_nombre = is_nombre + " " + is_apaterno + " " + is_amaterno
+	
+	END CHOOSE
+ELSE// AVISO MANTENCION
+	CHOOSE CASE as_base
+		CASE "O" //OFERTA
+			  SELECT "CLIENTE"."NOMBRE",   
+						"CLIENTE"."A_PATERNO",   
+						"CLIENTE"."A_MATERNO",   
+						"CLIENTE"."RUT",   
+						"CLIENTE"."DV",   
+						"PAGO_OFERTA"."VALOR_CUOTA",   
+						"PAGO_OFERTA"."NRO_CUOTAS",   
+						"OFERTA_V"."CTA_PAG_S",
+						"PAGO_OFERTA"."MONEDA",
+						"PAGO_OFERTA"."FECHA_PRIM",
+						"OFERTA_V"."VALOR_CUOTA_M", 
+						"OFERTA_V"."FECHA_M"+ (365*"OFERTA_V"."CTA_PAG_M"),
+						"OFERTA_V"."CTA_PAG_M",
+						SYSDATE - 30
+				 INTO :is_nombre,   
+						:is_apaterno,   
+						:is_amaterno,   
+						:al_rut,   
+						:as_dv,   
+						:al_valor_cuota,   
+						:ai_n_cuotas,   
+						:ai_cuotas_pagadas,
+						:as_moneda,
+						:ai_dia_pago,
+						:al_valor_cuota_m,   
+						:ai_dia_pago_m,
+						:cta_pag_m,
+						:fecha_sys 
+				 FROM "CADENA",   
+						"CLIENTE",   
+						"OFERTA_V",   
+						"PAGO_OFERTA"  
+				WHERE ( cadena.rut = cliente.rut (+)) and  
+						( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+						( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+						( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+						( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+						( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) ) ;   
+			if ai_dia_pago_m < fecha_sys then cta_pag_m = 99
+				as_nombre = is_nombre + " " + is_apaterno + " " + is_amaterno	
+		CASE "C" //CONTRATO ISACRUZ
+			 SELECT "CLIENTE"."NOMBRE",   
+						"CLIENTE"."A_PATERNO",   
+						"CLIENTE"."A_MATERNO",   
+						"CLIENTE"."RUT",   
+						"CLIENTE"."DV",   
+						0,   
+						0,   
+						0,   
+						"CONTRATO"."MONEDA",   
+						"CONTRATO"."FECHA_PRIM",   
+						"CONTRATO"."VALOR_CUOTA_M",   
+						"CONTRATO"."FECHA_M"+(365*"CONTRATO"."CTA_PAG_M"),   
+						"CONTRATO"."CTA_PAG_M"  ,
+						SYSDATE -30
+				 INTO :is_nombre,   
+						:is_apaterno,   
+						:is_amaterno,   
+						:al_rut,   
+						:as_dv,   
+						:al_valor_cuota,   
+						:ai_n_cuotas,   
+						:ai_cuotas_pagadas,
+						:as_moneda,
+						:ai_dia_pago,
+						:al_valor_cuota_m,   
+						:ai_dia_pago_m,
+						:cta_pag_m,
+						:fecha_sys 
+				 FROM "CADENA",   
+						"CONTRATO",   
+						"CLIENTE"  
+				WHERE ( "CADENA"."SERIE" = "CONTRATO"."SERIE_C" ) and  
+						( "CADENA"."NUMERO" = "CONTRATO"."NRO_CONTRATO" ) and  
+						( "CADENA"."RUT" = "CLIENTE"."RUT" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )   ;
+
+	END CHOOSE
+END IF
+RETURN 0
+end function
+

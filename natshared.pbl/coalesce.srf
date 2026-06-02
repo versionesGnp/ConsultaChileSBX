@@ -1,0 +1,32 @@
+﻿global type coalesce from function_object
+end type
+
+forward prototypes
+global function string coalesce (any adata, any anew)
+end prototypes
+
+global function string coalesce (any adata, any anew);/* Versión '22
+   Puede Aceptar números
+	Limpia de espacios o null a un dato tipo string 
+	coalesce( aData, aNew )
+
+*/
+
+aData = Trim( String( aData ) )
+If IsNull( aData ) Then aData = ''
+
+If aData = '' Then
+	aData = aNew
+End If
+
+Choose Case ClassName( adata )
+	Case 'datetime'
+		Return String( aData )
+		
+	Case 'string', 'char'
+		Return String( aData )
+End Choose
+
+Return aData
+end function
+

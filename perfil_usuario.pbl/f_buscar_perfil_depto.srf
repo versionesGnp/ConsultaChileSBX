@@ -1,0 +1,27 @@
+﻿global type f_buscar_perfil_depto from function_object
+end type
+
+forward prototypes
+global function string f_buscar_perfil_depto (long al_cod_depto)
+end prototypes
+
+global function string f_buscar_perfil_depto (long al_cod_depto);string	ls_resp
+Long		ll_sum_reg
+
+SELECT	COUNT("PERFIL_OBJETO_DEPTO"."CODIGO_DEPTO")  
+INTO 		:ll_sum_reg  
+FROM 		"PERFIL_OBJETO",   
+			"PERFIL_OBJETO_DEPTO"  
+WHERE  ( "PERFIL_OBJETO"."CORRELARIVO" = "PERFIL_OBJETO_DEPTO"."CORRELATIVO_OBJETO" ) and  
+		 ( "PERFIL_OBJETO"."APLICACION" = 1 ) AND
+		 (("PERFIL_OBJETO_DEPTO"."CODIGO_DEPTO" = :al_cod_depto ) )  
+USING		sqlca	;
+if ll_sum_reg>0 then
+	ls_resp	= 'S'
+else
+	ls_resp	= 'N'
+end if
+if isnull(ll_sum_reg) then ls_resp='N'
+return(ls_resp)
+end function
+

@@ -1,0 +1,44 @@
+﻿global type funcion_venc from function_object
+end type
+
+forward prototypes
+global function date funcion_venc (datetime fecha, double pag)
+end prototypes
+
+global function date funcion_venc (datetime fecha, double pag);date 		fecha_fecha
+datetime fecha_ref
+string 	fecha_car,fecha_sig
+double 	v1,v2,v3,v4
+long  	vdia,vmes,vano
+
+fecha_ref	= fecha
+vdia			= (day(date(fecha_ref)))
+vmes			= (month(date(fecha_ref))-1)
+vano			= (year(date(fecha_ref)))
+v1				= vmes + pag + 1
+if v1>12 then
+	v2			= truncate(v1 / 12,0)
+ELSE
+	v2			= 0
+end if
+v3				= v2 * 12
+v4				= v1 - v3
+if v4=0 then
+	vmes		= 12
+	vano		= v2 + vano -1
+else
+	vmes		= v4
+	vano		= v2 + vano
+end if
+if vmes=2 and vdia>28 then
+	vdia		= 28
+end if
+if vdia=31 and (vmes=4 or vmes=6 or vmes= 9 or vmes=11 ) then
+	vdia		= 1
+	vmes		= vmes + 1
+end if
+fecha_sig	= string(vdia,"00") + "/" + string(vmes,"00") + "/" + string(vano,"0000")
+fecha_fecha	= date(fecha_sig)
+return(fecha_fecha)
+end function
+

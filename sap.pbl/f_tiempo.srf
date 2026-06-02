@@ -1,0 +1,64 @@
+﻿global type f_tiempo from function_object
+end type
+
+forward prototypes
+global function long f_tiempo (string as_tipo_carga, string as_tipo_deuda)
+end prototypes
+
+global function long f_tiempo (string as_tipo_carga, string as_tipo_deuda);long		ll_cta=0
+string		ls_ok
+datetime	ldt_fec_tiempo,ldt_fec_actual
+
+//f_tiempo(as_tipo_carga,as_tipo_deuda)
+if as_tipo_carga='CLI' then
+	SELECT	SYSDATE,			SYSDATE+1/86400
+	INTO 		:ldt_fec_actual,		:ldt_fec_tiempo
+	FROM		"TASA"  
+	WHERE	"TASA"."LOOK" = 1   
+	USING	sqlca;
+elseif as_tipo_carga='CTTO' then
+	SELECT	SYSDATE,			SYSDATE+10/86400
+	INTO 		:ldt_fec_actual,		:ldt_fec_tiempo
+	FROM		"TASA"  
+	WHERE	"TASA"."LOOK" = 1   
+	USING	sqlca;
+elseif as_tipo_carga='POSIC' then
+	if as_tipo_deuda='M' then
+		SELECT	SYSDATE,			SYSDATE+3/1440
+		INTO 		:ldt_fec_actual,		:ldt_fec_tiempo
+		FROM		"TASA"  
+		WHERE	"TASA"."LOOK" = 1   
+		USING	sqlca;
+	else
+		SELECT	SYSDATE,			SYSDATE+1/86400
+		INTO 		:ldt_fec_actual,		:ldt_fec_tiempo
+		FROM		"TASA"  
+		WHERE	"TASA"."LOOK" = 1   
+		USING	sqlca;
+	end if
+end if
+
+if ldt_fec_actual<ldt_fec_tiempo then
+	ls_ok					= 'N'
+	ll_cta++					
+	do while ls_ok='N' 
+		SELECT	SYSDATE
+		INTO 		:ldt_fec_actual
+		FROM		"TASA"  
+		WHERE	"TASA"."LOOK" = 1   
+		USING	sqlca;
+		if ldt_fec_actual<ldt_fec_tiempo then
+			 ls_ok='N'
+			 ll_cta++	
+		else
+			 ls_ok='S'
+		end if
+	loop
+end if
+
+if isnull(ll_cta) then ll_cta=0
+gdt_fec_sistema				= ldt_fec_actual
+return		ll_cta
+
+end function
+

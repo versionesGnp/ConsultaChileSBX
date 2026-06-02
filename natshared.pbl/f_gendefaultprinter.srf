@@ -1,0 +1,30 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Impresora default con kernel y atributo en DW~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_GenDefaultPrinter from function_object
+end type
+
+forward prototypes
+global function string f_gendefaultprinter (datawindow adw_1, string as_printer)
+end prototypes
+
+global function string f_gendefaultprinter (datawindow adw_1, string as_printer);/* f_GenDefaultPrinter( adw_1, as_printer ) */
+String	ls_printer, ls_cba, ls_mod, ls_err, ls_printerdw, ls_prntrs
+Integer	li_err
+
+
+ls_printerdw = adw_1.Describe( 'DataWindow.Printer' )
+ls_prntrs = PrintGetPrinters ( )
+
+
+ls_printer = f_Trim( as_printer )
+
+If Not ls_printer = '' Then
+	adw_1.Object.DataWindow.Printer=ls_printer
+	ls_printerdw = adw_1.Describe( 'DataWindow.print.printername' )
+	//li_err = PrintSetPrinter( ls_printer )
+End If
+
+ls_printer = adw_1.Describe( 'DataWindow.Printer' )
+
+Return ls_printer
+end function
+

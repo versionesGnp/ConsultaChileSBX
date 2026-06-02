@@ -1,0 +1,22 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Mask para columns en DW~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_genformateditmask from function_object
+end type
+
+forward prototypes
+global function string f_genformateditmask (datawindow adw_1, string as_col[], string as_emp, string as_pai, string as_for)
+end prototypes
+
+global function string f_genformateditmask (datawindow adw_1, string as_col[], string as_emp, string as_pai, string as_for);
+/* f_GenFormatEditMask( adw_1, as_col[], as_emp, as_pai, as_for ) */
+
+Integer	i
+String	ls_ret
+
+For i = 1 To UpperBound( as_col[] )
+	ls_ret = f_genFormat( adw_1, as_col[ i], as_emp, as_for )
+	ls_ret = f_genEditMask( adw_1, as_col[ i], as_pai, as_for )
+Next
+
+Return ls_ret
+end function
+

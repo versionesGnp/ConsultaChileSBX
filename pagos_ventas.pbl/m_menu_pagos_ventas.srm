@@ -1,0 +1,863 @@
+﻿forward
+global type m_menu_pagos_ventas from menu
+end type
+type m_comisiones from menu within m_menu_pagos_ventas
+end type
+type m_procesocomsionesareaventas from menu within m_comisiones
+end type
+type m_impresióncomisiones from menu within m_procesocomsionesareaventas
+end type
+type m_resumencomisionesporempresa from menu within m_procesocomsionesareaventas
+end type
+type m_exportaarchivocomisionesventas from menu within m_procesocomsionesareaventas
+end type
+type m_exportaarchivocomisionesejecterreno from menu within m_procesocomsionesareaventas
+end type
+type m_procesocomsionesareaventas from menu within m_comisiones
+m_impresióncomisiones m_impresióncomisiones
+m_resumencomisionesporempresa m_resumencomisionesporempresa
+m_exportaarchivocomisionesventas m_exportaarchivocomisionesventas
+m_exportaarchivocomisionesejecterreno m_exportaarchivocomisionesejecterreno
+end type
+type m_comisiones from menu within m_menu_pagos_ventas
+m_procesocomsionesareaventas m_procesocomsionesareaventas
+end type
+type m_2 from menu within m_menu_pagos_ventas
+end type
+type m_premios from menu within m_menu_pagos_ventas
+end type
+type m_agentesventas from menu within m_premios
+end type
+type m_ingresocajasemanalagentes from menu within m_agentesventas
+end type
+type m_producciónmensualindividual from menu within m_agentesventas
+end type
+type m_mejoresagentes from menu within m_agentesventas
+end type
+type m_calidaddecartera from menu within m_agentesventas
+end type
+type m_agentesventas from menu within m_premios
+m_ingresocajasemanalagentes m_ingresocajasemanalagentes
+m_producciónmensualindividual m_producciónmensualindividual
+m_mejoresagentes m_mejoresagentes
+m_calidaddecartera m_calidaddecartera
+end type
+type m_1 from menu within m_premios
+end type
+type m_producciónmensualindividual0 from menu within m_1
+end type
+type m_mejoressupervisores from menu within m_1
+end type
+type m_calidaddecartera0 from menu within m_1
+end type
+type m_ingresocajamensual from menu within m_1
+end type
+type m_premiosincero from menu within m_1
+end type
+type m_1 from menu within m_premios
+m_producciónmensualindividual0 m_producciónmensualindividual0
+m_mejoressupervisores m_mejoressupervisores
+m_calidaddecartera0 m_calidaddecartera0
+m_ingresocajamensual m_ingresocajamensual
+m_premiosincero m_premiosincero
+end type
+type m_jefesventas from menu within m_premios
+end type
+type m_producciónmensualindividual1 from menu within m_jefesventas
+end type
+type m_0 from menu within m_jefesventas
+end type
+type m_jefesventas from menu within m_premios
+m_producciónmensualindividual1 m_producciónmensualindividual1
+m_0 m_0
+end type
+type m_premios from menu within m_menu_pagos_ventas
+m_agentesventas m_agentesventas
+m_1 m_1
+m_jefesventas m_jefesventas
+end type
+global type m_menu_pagos_ventas from menu
+m_comisiones m_comisiones
+m_2 m_2
+m_premios m_premios
+end type
+end forward
+
+global type m_menu_pagos_ventas from menu
+m_comisiones m_comisiones
+m_2 m_2
+m_premios m_premios
+end type
+global m_menu_pagos_ventas m_menu_pagos_ventas
+
+on m_menu_pagos_ventas.create
+m_menu_pagos_ventas=this
+call super::create
+this.text = "m_menu_pagos_ventas"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_comisiones=create m_comisiones
+this.m_2=create m_2
+this.m_premios=create m_premios
+this.Item[UpperBound(this.Item)+1]=this.m_comisiones
+this.Item[UpperBound(this.Item)+1]=this.m_2
+this.Item[UpperBound(this.Item)+1]=this.m_premios
+end on
+
+on m_menu_pagos_ventas.destroy
+call super::destroy
+destroy(this.m_comisiones)
+destroy(this.m_2)
+destroy(this.m_premios)
+end on
+
+type m_comisiones from menu within m_menu_pagos_ventas
+m_procesocomsionesareaventas m_procesocomsionesareaventas
+end type
+
+on m_comisiones.create
+call super::create
+this.text = "Comisiones"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_procesocomsionesareaventas=create m_procesocomsionesareaventas
+this.Item[UpperBound(this.Item)+1]=this.m_procesocomsionesareaventas
+end on
+
+on m_comisiones.destroy
+call super::destroy
+destroy(this.m_procesocomsionesareaventas)
+end on
+
+event clicked;if gs_depto='R' or gs_depto='B' or gs_depto='X' or gs_depto='M' or gs_depto='K' then	
+	m_comisiones.m_procesocomsionesareaventas.visible															= true
+	m_comisiones.m_procesocomsionesareaventas.m_exportaarchivocomisionesventas.visible				= false
+	m_comisiones.m_procesocomsionesareaventas.m_exportaarchivocomisionesejecterreno.visible		= false
+	m_comisiones.m_procesocomsionesareaventas.m_resumencomisionesporempresa.visible				= false
+else
+	m_comisiones.m_procesocomsionesareaventas.visible															= true
+	m_comisiones.m_procesocomsionesareaventas.m_exportaarchivocomisionesventas.visible				= true
+	m_comisiones.m_procesocomsionesareaventas.m_exportaarchivocomisionesejecterreno.visible		= true
+	m_comisiones.m_procesocomsionesareaventas.m_resumencomisionesporempresa.visible				= true
+end if
+end event
+
+type m_procesocomsionesareaventas from menu within m_comisiones
+m_impresióncomisiones m_impresióncomisiones
+m_resumencomisionesporempresa m_resumencomisionesporempresa
+m_exportaarchivocomisionesventas m_exportaarchivocomisionesventas
+m_exportaarchivocomisionesejecterreno m_exportaarchivocomisionesejecterreno
+end type
+
+on m_procesocomsionesareaventas.create
+call super::create
+this.text = "Proceso Comisiones Area Ventas"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_impresióncomisiones=create m_impresióncomisiones
+this.m_resumencomisionesporempresa=create m_resumencomisionesporempresa
+this.m_exportaarchivocomisionesventas=create m_exportaarchivocomisionesventas
+this.m_exportaarchivocomisionesejecterreno=create m_exportaarchivocomisionesejecterreno
+this.Item[UpperBound(this.Item)+1]=this.m_impresióncomisiones
+this.Item[UpperBound(this.Item)+1]=this.m_resumencomisionesporempresa
+this.Item[UpperBound(this.Item)+1]=this.m_exportaarchivocomisionesventas
+this.Item[UpperBound(this.Item)+1]=this.m_exportaarchivocomisionesejecterreno
+end on
+
+on m_procesocomsionesareaventas.destroy
+call super::destroy
+destroy(this.m_impresióncomisiones)
+destroy(this.m_resumencomisionesporempresa)
+destroy(this.m_exportaarchivocomisionesventas)
+destroy(this.m_exportaarchivocomisionesejecterreno)
+end on
+
+type m_impresióncomisiones from menu within m_procesocomsionesareaventas
+end type
+
+event clicked;if gl_proceso<=3 then
+	if isvalid(w_comision_pagadas) then close(w_comision_pagadas)
+		open(w_comision_pagadas)
+elseif gl_proceso>=4 then
+	if isvalid(w_comision_area_ventas) then close(w_comision_area_ventas)
+		open(w_comision_area_ventas)
+end if
+end event
+
+on m_impresióncomisiones.create
+call super::create
+this.text = "Impresión Comisiones"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_impresióncomisiones.destroy
+call super::destroy
+end on
+
+type m_resumencomisionesporempresa from menu within m_procesocomsionesareaventas
+end type
+
+event clicked;if isvalid(w_resumen_comisiones_por_empresa) then close(w_resumen_comisiones_por_empresa)
+	open(w_resumen_comisiones_por_empresa)
+end event
+
+on m_resumencomisionesporempresa.create
+call super::create
+this.text = "Resumen Comisiones por Empresa"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_resumencomisionesporempresa.destroy
+call super::destroy
+end on
+
+type m_exportaarchivocomisionesventas from menu within m_procesocomsionesareaventas
+end type
+
+event clicked;if isvalid(w_sap_traspaso_arch_pagos) then close(w_sap_traspaso_arch_pagos)
+	open(w_sap_traspaso_arch_pagos)
+end event
+
+on m_exportaarchivocomisionesventas.create
+call super::create
+this.text = "Exporta Archivo SAP Comisión y Premios"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_exportaarchivocomisionesventas.destroy
+call super::destroy
+end on
+
+type m_exportaarchivocomisionesejecterreno from menu within m_procesocomsionesareaventas
+end type
+
+event clicked;if isvalid(w_traspaso_comi_at) then close(w_traspaso_comi_at)
+	open(w_traspaso_comi_at)
+end event
+
+on m_exportaarchivocomisionesejecterreno.create
+call super::create
+this.text = "Exporta Archivo Comisiones Ejec. Terreno "
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_exportaarchivocomisionesejecterreno.destroy
+call super::destroy
+end on
+
+type m_2 from menu within m_menu_pagos_ventas
+end type
+
+on m_2.create
+call super::create
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_2.destroy
+call super::destroy
+end on
+
+type m_premios from menu within m_menu_pagos_ventas
+m_agentesventas m_agentesventas
+m_1 m_1
+m_jefesventas m_jefesventas
+end type
+
+on m_premios.create
+call super::create
+this.text = "Premios"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_agentesventas=create m_agentesventas
+this.m_1=create m_1
+this.m_jefesventas=create m_jefesventas
+this.Item[UpperBound(this.Item)+1]=this.m_agentesventas
+this.Item[UpperBound(this.Item)+1]=this.m_1
+this.Item[UpperBound(this.Item)+1]=this.m_jefesventas
+end on
+
+on m_premios.destroy
+call super::destroy
+destroy(this.m_agentesventas)
+destroy(this.m_1)
+destroy(this.m_jefesventas)
+end on
+
+event clicked;if gs_depto='R' then
+	m_premios.m_jefesventas.visible		= false
+end if
+end event
+
+type m_agentesventas from menu within m_premios
+m_ingresocajasemanalagentes m_ingresocajasemanalagentes
+m_producciónmensualindividual m_producciónmensualindividual
+m_mejoresagentes m_mejoresagentes
+m_calidaddecartera m_calidaddecartera
+end type
+
+on m_agentesventas.create
+call super::create
+this.text = "Agentes Ventas"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_ingresocajasemanalagentes=create m_ingresocajasemanalagentes
+this.m_producciónmensualindividual=create m_producciónmensualindividual
+this.m_mejoresagentes=create m_mejoresagentes
+this.m_calidaddecartera=create m_calidaddecartera
+this.Item[UpperBound(this.Item)+1]=this.m_ingresocajasemanalagentes
+this.Item[UpperBound(this.Item)+1]=this.m_producciónmensualindividual
+this.Item[UpperBound(this.Item)+1]=this.m_mejoresagentes
+this.Item[UpperBound(this.Item)+1]=this.m_calidaddecartera
+end on
+
+on m_agentesventas.destroy
+call super::destroy
+destroy(this.m_ingresocajasemanalagentes)
+destroy(this.m_producciónmensualindividual)
+destroy(this.m_mejoresagentes)
+destroy(this.m_calidaddecartera)
+end on
+
+type m_ingresocajasemanalagentes from menu within m_agentesventas
+end type
+
+on m_ingresocajasemanalagentes.create
+call super::create
+this.text = "Ingreso Caja Semanal (Agentes)"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ingresocajasemanalagentes.destroy
+call super::destroy
+end on
+
+event clicked;if isvalid(w_premios_semanal) then close(w_premios_semanal)
+open(w_premios_semanal)
+end event
+
+type m_producciónmensualindividual from menu within m_agentesventas
+end type
+
+on m_producciónmensualindividual.create
+call super::create
+this.text = "Producción Mensual Individual"
+this.enabled = false
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_producciónmensualindividual.destroy
+call super::destroy
+end on
+
+type m_mejoresagentes from menu within m_agentesventas
+end type
+
+on m_mejoresagentes.create
+call super::create
+this.text = "Mejores Agentes"
+this.enabled = false
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_mejoresagentes.destroy
+call super::destroy
+end on
+
+type m_calidaddecartera from menu within m_agentesventas
+end type
+
+on m_calidaddecartera.create
+call super::create
+this.text = "Calidad de Cartera"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_calidaddecartera.destroy
+call super::destroy
+end on
+
+event clicked;if isvalid(w_premios_calidad_cartera_agte) then close(w_premios_calidad_cartera_agte)
+	open(w_premios_calidad_cartera_agte)
+end event
+
+type m_1 from menu within m_premios
+m_producciónmensualindividual0 m_producciónmensualindividual0
+m_mejoressupervisores m_mejoressupervisores
+m_calidaddecartera0 m_calidaddecartera0
+m_ingresocajamensual m_ingresocajamensual
+m_premiosincero m_premiosincero
+end type
+
+on m_1.create
+call super::create
+this.text = "Supervisor Ventas"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_producciónmensualindividual0=create m_producciónmensualindividual0
+this.m_mejoressupervisores=create m_mejoressupervisores
+this.m_calidaddecartera0=create m_calidaddecartera0
+this.m_ingresocajamensual=create m_ingresocajamensual
+this.m_premiosincero=create m_premiosincero
+this.Item[UpperBound(this.Item)+1]=this.m_producciónmensualindividual0
+this.Item[UpperBound(this.Item)+1]=this.m_mejoressupervisores
+this.Item[UpperBound(this.Item)+1]=this.m_calidaddecartera0
+this.Item[UpperBound(this.Item)+1]=this.m_ingresocajamensual
+this.Item[UpperBound(this.Item)+1]=this.m_premiosincero
+end on
+
+on m_1.destroy
+call super::destroy
+destroy(this.m_producciónmensualindividual0)
+destroy(this.m_mejoressupervisores)
+destroy(this.m_calidaddecartera0)
+destroy(this.m_ingresocajamensual)
+destroy(this.m_premiosincero)
+end on
+
+type m_producciónmensualindividual0 from menu within m_1
+end type
+
+on m_producciónmensualindividual0.create
+call super::create
+this.text = "Producción Mensual Individual"
+this.enabled = false
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_producciónmensualindividual0.destroy
+call super::destroy
+end on
+
+type m_mejoressupervisores from menu within m_1
+end type
+
+on m_mejoressupervisores.create
+call super::create
+this.text = "Mejores Supervisores"
+this.enabled = false
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_mejoressupervisores.destroy
+call super::destroy
+end on
+
+type m_calidaddecartera0 from menu within m_1
+end type
+
+event clicked;if isvalid(w_premios_calidad_cartera_sup) then close(w_premios_calidad_cartera_sup)
+	open(w_premios_calidad_cartera_sup)
+end event
+
+on m_calidaddecartera0.create
+call super::create
+this.text = "Calidad de Cartera"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_calidaddecartera0.destroy
+call super::destroy
+end on
+
+type m_ingresocajamensual from menu within m_1
+end type
+
+on m_ingresocajamensual.create
+call super::create
+this.text = "Ingreso Caja Mensual"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ingresocajamensual.destroy
+call super::destroy
+end on
+
+event clicked;if isvalid(w_premios_sup_uno_x_cien_pagos) then close(w_premios_sup_uno_x_cien_pagos)
+	open(w_premios_sup_uno_x_cien_pagos)
+end event
+
+type m_premiosincero from menu within m_1
+end type
+
+on m_premiosincero.create
+call super::create
+this.text = "Premio Sin Cero"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_premiosincero.destroy
+call super::destroy
+end on
+
+event clicked;if isvalid(w_premio_sin_0) then close(w_premio_sin_0)
+	open(w_premio_sin_0)
+end event
+
+type m_jefesventas from menu within m_premios
+m_producciónmensualindividual1 m_producciónmensualindividual1
+m_0 m_0
+end type
+
+on m_jefesventas.create
+call super::create
+this.text = "Jefes Ventas"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_producciónmensualindividual1=create m_producciónmensualindividual1
+this.m_0=create m_0
+this.Item[UpperBound(this.Item)+1]=this.m_producciónmensualindividual1
+this.Item[UpperBound(this.Item)+1]=this.m_0
+end on
+
+on m_jefesventas.destroy
+call super::destroy
+destroy(this.m_producciónmensualindividual1)
+destroy(this.m_0)
+end on
+
+type m_producciónmensualindividual1 from menu within m_jefesventas
+end type
+
+on m_producciónmensualindividual1.create
+call super::create
+this.text = "Producción Mensual Individual"
+this.enabled = false
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_producciónmensualindividual1.destroy
+call super::destroy
+end on
+
+type m_0 from menu within m_jefesventas
+end type
+
+on m_0.create
+call super::create
+this.text = "Incremento Comisión Jefe Ventas"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+event clicked;if isvalid(w_premio_incremento_comi_jefe) then close(w_premio_incremento_comi_jefe)
+open(w_premio_incremento_comi_jefe)
+end event
+

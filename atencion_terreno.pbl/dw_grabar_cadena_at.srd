@@ -1,0 +1,126 @@
+﻿release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(10) updatewhereclause=yes name=cadena_barra dbname="cadena.barra" )
+ column=(type=decimal(4) updatewhereclause=yes name=cadena_rut dbname="cadena.rut" )
+ column=(type=char(1) updatewhereclause=yes key=yes name=cadena_codigo dbname="cadena.codigo" )
+ column=(type=char(1) updatewhereclause=yes key=yes name=cadena_serie dbname="cadena.serie" )
+ column=(type=decimal(4) updatewhereclause=yes key=yes name=cadena_numero dbname="cadena.numero" )
+ column=(type=char(1) updatewhereclause=yes name=cadena_estado dbname="cadena.estado" )
+ column=(type=char(1) updatewhereclause=yes name=cadena_print dbname="cadena.print" )
+ column=(type=decimal(4) updatewhereclause=yes name=cadena_est_cup dbname="cadena.est_cup" )
+ column=(type=char(2) updatewhereclause=yes name=cadena_nro_carta dbname="cadena.nro_carta" )
+ column=(type=datetime updatewhereclause=yes name=cadena_fecha_carta dbname="cadena.fecha_carta" )
+ column=(type=decimal(4) updatewhereclause=yes name=cadena_estado_carta dbname="cadena.estado_carta" )
+ column=(type=datetime updatewhereclause=yes name=cadena_fecha_act_estado dbname="cadena.fecha_act_estado" )
+ column=(type=decimal(4) updatewhereclause=yes name=cadena_cuota_cupon dbname="cadena.cuota_cupon" )
+ column=(type=datetime updatewhereclause=yes name=cadena_fecha_res dbname="cadena.fecha_res" )
+ column=(type=char(1) updatewhereclause=yes name=cadena_a_demandar dbname="cadena.a_demandar" )
+ column=(type=char(1) updatewhereclause=yes name=cadena_estado_contable dbname="cadena.estado_contable" )
+ column=(type=char(1) updatewhereclause=yes name=cadena_estado_titulo dbname="cadena.estado_titulo" )
+ column=(type=datetime updatewhereclause=yes name=cadena_fecha_titulo dbname="cadena.fecha_titulo" )
+ column=(type=char(2) updatewhereclause=yes name=cadena_nro_carta_m dbname="cadena.nro_carta_m" )
+ column=(type=datetime updatewhereclause=yes name=cadena_fecha_carta_m dbname="cadena.fecha_carta_m" )
+ column=(type=decimal(4) updatewhereclause=yes name=cadena_estado_carta_m dbname="cadena.estado_carta_m" )
+ column=(type=datetime updatewhereclause=yes name=cadena_fecha_act_estado_m dbname="cadena.fecha_act_estado_m" )
+ column=(type=char(3) updatewhereclause=yes name=cadena_cobran_c dbname="cadena.cobran_c" )
+ column=(type=decimal(4) updatewhereclause=yes name=cadena_mora_credito dbname="cadena.mora_credito" )
+ column=(type=decimal(4) updatewhereclause=yes name=cadena_mora_mant dbname="cadena.mora_mant" )
+ column=(type=decimal(4) updatewhereclause=yes name=cadena_fallecido dbname="cadena.fallecido" )
+ column=(type=decimal(4) updatewhereclause=yes name=cadena_cod_parque dbname="cadena.cod_parque" )
+ column=(type=decimal(4) updatewhereclause=yes name=cadena_premio_ing_caja dbname="cadena.premio_ing_caja" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=cadena_asignacion_at dbname="cadena.asignacion_at" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"at_gestion~" )  TABLE(NAME=~"cadena~" ) COLUMN(NAME=~"cadena.barra~") COLUMN(NAME=~"cadena.rut~") COLUMN(NAME=~"cadena.codigo~") COLUMN(NAME=~"cadena.serie~") COLUMN(NAME=~"cadena.numero~") COLUMN(NAME=~"cadena.estado~") COLUMN(NAME=~"cadena.print~") COLUMN(NAME=~"cadena.est_cup~") COLUMN(NAME=~"cadena.nro_carta~") COLUMN(NAME=~"cadena.fecha_carta~") COLUMN(NAME=~"cadena.estado_carta~") COLUMN(NAME=~"cadena.fecha_act_estado~") COLUMN(NAME=~"cadena.cuota_cupon~") COLUMN(NAME=~"cadena.fecha_res~") COLUMN(NAME=~"cadena.a_demandar~") COLUMN(NAME=~"cadena.estado_contable~") COLUMN(NAME=~"cadena.estado_titulo~") COLUMN(NAME=~"cadena.fecha_titulo~") COLUMN(NAME=~"cadena.nro_carta_m~") COLUMN(NAME=~"cadena.fecha_carta_m~") COLUMN(NAME=~"cadena.estado_carta_m~") COLUMN(NAME=~"cadena.fecha_act_estado_m~") COLUMN(NAME=~"cadena.cobran_c~") COLUMN(NAME=~"cadena.mora_credito~") COLUMN(NAME=~"cadena.mora_mant~") COLUMN(NAME=~"cadena.fallecido~") COLUMN(NAME=~"cadena.cod_parque~") COLUMN(NAME=~"cadena.premio_ing_caja~") COLUMN(NAME=~"cadena.asignacion_at~")    JOIN (LEFT=~"at_gestion.base~"    OP =~"=~"RIGHT=~"cadena.codigo~" )    JOIN (LEFT=~"at_gestion.serie~"    OP =~"=~"RIGHT=~"cadena.serie~" )    JOIN (LEFT=~"at_gestion.numero~"    OP =~"=~"RIGHT=~"cadena.numero~" )) " update="CADENA" updatewhere=0 updatekeyinplace=yes )
+text(band=header alignment="2" text="Cadena
+Barra" border="0" color="0" x="5" y="4" height="128" width="302"  name=cadena_barra_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Rut" border="0" color="0" x="311" y="4" height="128" width="329"  name=cadena_rut_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Codigo" border="0" color="0" x="645" y="4" height="128" width="201"  name=cadena_codigo_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Serie" border="0" color="0" x="850" y="4" height="128" width="201"  name=cadena_serie_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Numero" border="0" color="0" x="1056" y="4" height="128" width="329"  name=cadena_numero_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Estado" border="0" color="0" x="1394" y="4" height="128" width="197"  name=cadena_estado_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Print" border="0" color="0" x="1600" y="4" height="128" width="201"  name=cadena_print_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Est Cup" border="0" color="0" x="1806" y="4" height="128" width="329"  name=cadena_est_cup_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Nro Carta" border="0" color="0" x="2139" y="4" height="128" width="251"  name=cadena_nro_carta_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Fecha Carta" border="0" color="0" x="2395" y="4" height="128" width="603"  name=cadena_fecha_carta_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Estado Carta" border="0" color="0" x="3003" y="4" height="128" width="347"  name=cadena_estado_carta_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Fecha Act Estado" border="0" color="0" x="3355" y="4" height="128" width="603"  name=cadena_fecha_act_estado_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Cuota Cupon" border="0" color="0" x="3963" y="4" height="128" width="343"  name=cadena_cuota_cupon_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Fecha Res" border="0" color="0" x="4311" y="4" height="128" width="603"  name=cadena_fecha_res_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+A Demandar" border="0" color="0" x="4919" y="4" height="128" width="329"  name=cadena_a_demandar_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Estado Contable" border="0" color="0" x="5253" y="4" height="128" width="439"  name=cadena_estado_contable_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Estado Titulo" border="0" color="0" x="5696" y="4" height="128" width="347"  name=cadena_estado_titulo_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Fecha Titulo" border="0" color="0" x="6048" y="4" height="128" width="603"  name=cadena_fecha_titulo_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Nro Carta M" border="0" color="0" x="6656" y="4" height="128" width="320"  name=cadena_nro_carta_m_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Fecha Carta M" border="0" color="0" x="6981" y="4" height="128" width="603"  name=cadena_fecha_carta_m_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Estado Carta M" border="0" color="0" x="7589" y="4" height="128" width="416"  name=cadena_estado_carta_m_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Fecha Act Estado M" border="0" color="0" x="8009" y="4" height="128" width="603"  name=cadena_fecha_act_estado_m_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Cobran C" border="0" color="0" x="8617" y="4" height="128" width="247"  name=cadena_cobran_c_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Mora Credito" border="0" color="0" x="8869" y="4" height="128" width="384"  name=cadena_mora_credito_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Mora Mant" border="0" color="0" x="9257" y="4" height="128" width="384"  name=cadena_mora_mant_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Fallecido" border="0" color="0" x="9650" y="4" height="128" width="384"  name=cadena_fallecido_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Cod Parque" border="0" color="0" x="10039" y="4" height="128" width="384"  name=cadena_cod_parque_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Premio Ing Caja" border="0" color="0" x="10427" y="4" height="128" width="421"  name=cadena_premio_ing_caja_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Asignacion At" border="0" color="0" x="10853" y="4" height="128" width="370"  name=cadena_asignacion_at_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="302" format="[general]"  name=cadena_barra edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="311" y="4" height="76" width="329" format="[general]"  name=cadena_rut edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="645" y="4" height="76" width="55" format="[general]"  name=cadena_codigo edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="850" y="4" height="76" width="55" format="[general]"  name=cadena_serie edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="1056" y="4" height="76" width="329" format="[general]"  name=cadena_numero edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="1394" y="4" height="76" width="55" format="[general]"  name=cadena_estado edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="1600" y="4" height="76" width="55" format="[general]"  name=cadena_print edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="0" x="1806" y="4" height="76" width="329" format="[general]"  name=cadena_est_cup edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="2139" y="4" height="76" width="82" format="[general]"  name=cadena_nro_carta edit.limit=2 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="2395" y="4" height="76" width="603" format="[shortdate] [time]"  name=cadena_fecha_carta edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="0" x="3003" y="4" height="76" width="329" format="[general]"  name=cadena_estado_carta edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="0" x="3355" y="4" height="76" width="603" format="[shortdate] [time]"  name=cadena_fecha_act_estado edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="0" color="0" x="3963" y="4" height="76" width="329" format="[general]"  name=cadena_cuota_cupon edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="0" color="0" x="4311" y="4" height="76" width="603" format="[shortdate] [time]"  name=cadena_fecha_res edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="0" x="4919" y="4" height="76" width="55" format="[general]"  name=cadena_a_demandar edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="0" x="5253" y="4" height="76" width="55" format="[general]"  name=cadena_estado_contable edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="0" x="5696" y="4" height="76" width="55" format="[general]"  name=cadena_estado_titulo edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="0" tabsequence=32766 border="0" color="0" x="6048" y="4" height="76" width="603" format="[shortdate] [time]"  name=cadena_fecha_titulo edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="0" x="6656" y="4" height="76" width="82" format="[general]"  name=cadena_nro_carta_m edit.limit=2 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="0" tabsequence=32766 border="0" color="0" x="6981" y="4" height="76" width="603" format="[shortdate] [time]"  name=cadena_fecha_carta_m edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="1" tabsequence=32766 border="0" color="0" x="7589" y="4" height="76" width="329" format="[general]"  name=cadena_estado_carta_m edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=22 alignment="0" tabsequence=32766 border="0" color="0" x="8009" y="4" height="76" width="603" format="[shortdate] [time]"  name=cadena_fecha_act_estado_m edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="0" tabsequence=32766 border="0" color="0" x="8617" y="4" height="76" width="110" format="[general]"  name=cadena_cobran_c edit.limit=3 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=24 alignment="1" tabsequence=32766 border="0" color="0" x="8869" y="4" height="64" width="384" format="[general]"  name=cadena_mora_credito edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="1" tabsequence=32766 border="0" color="0" x="9257" y="4" height="64" width="384" format="[general]"  name=cadena_mora_mant edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=26 alignment="1" tabsequence=32766 border="0" color="0" x="9650" y="4" height="64" width="384" format="[general]"  name=cadena_fallecido edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=27 alignment="1" tabsequence=32766 border="0" color="0" x="10039" y="4" height="64" width="384" format="[general]"  name=cadena_cod_parque edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=28 alignment="1" tabsequence=32766 border="0" color="0" x="10427" y="4" height="64" width="384" format="[general]"  name=cadena_premio_ing_caja edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=29 alignment="0" tabsequence=10 border="0" color="0" x="10853" y="4" height="64" width="69" format="[general]"  name=cadena_asignacion_at edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
+  

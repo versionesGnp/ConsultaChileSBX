@@ -1,0 +1,22 @@
+﻿global type f_res_comi_consul from function_object
+end type
+
+forward prototypes
+global function long f_res_comi_consul (string as_cod_age_sup, string as_cod_contab, datetime adt_fecha_com)
+end prototypes
+
+global function long f_res_comi_consul (string as_cod_age_sup, string as_cod_contab, datetime adt_fecha_com);long	ll_tot_pago
+
+//f_res_comi_consul(as_cod_age_sup,as_cod_contab,adt_fecha_com)
+SELECT	SUM("RES_COMI"."TOTAL_PAGO")
+INTO		:ll_tot_pago
+FROM		"RES_COMI"  
+WHERE 	( "RES_COMI"."COD_AGE_SUP" = :as_cod_age_sup ) AND  
+         	( "RES_COMI"."COD_CONTABLE" = :as_cod_contab ) AND
+			//( "RES_COMI"."BASE" = :as_base ) AND  
+         	( "RES_COMI"."FECHA" = :adt_fecha_com ) ;
+if isnull(ll_tot_pago) then ll_tot_pago=0
+Return ll_tot_pago
+
+end function
+

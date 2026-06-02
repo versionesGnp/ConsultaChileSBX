@@ -1,0 +1,30 @@
+﻿global type f_edad from function_object
+end type
+
+forward prototypes
+global function long f_edad (date ad_fec_ctto, date ad_fec_nac)
+end prototypes
+
+global function long f_edad (date ad_fec_ctto, date ad_fec_nac);long	ll_ano_ctto,ll_mes_ctto,ll_dia_ctto,ll_ano_nac,ll_mes_nac,ll_dia_nac,ll_edad
+
+//f_edad(ad_fec_ctto,ad_fec_nac)
+if ad_fec_ctto > ad_fec_nac and not isnull(ad_fec_ctto) and not isnull(ad_fec_nac) then
+	ll_ano_ctto							= year(ad_fec_ctto)
+	ll_mes_ctto							= month(ad_fec_ctto)
+	ll_dia_ctto							= day(ad_fec_ctto)
+	ll_ano_nac							= year(ad_fec_nac)
+	ll_mes_nac							= month(ad_fec_nac)
+	ll_dia_nac							= day(ad_fec_nac)
+	ll_edad								= ll_ano_ctto - ll_ano_nac
+	if ll_mes_nac > ll_mes_ctto and ll_ano_ctto = (ll_ano_nac + ll_edad) then
+		ll_edad 							= ll_edad - 1
+	elseif ll_mes_nac = ll_mes_ctto and ll_ano_ctto = (ll_ano_nac + ll_edad) then
+		if ll_dia_nac > ll_dia_ctto then
+			ll_edad						= ll_edad - 1
+		end if
+	end if
+end if
+if isnull(ll_edad) then ll_edad=0
+Return ll_edad
+end function
+

@@ -1,0 +1,30 @@
+﻿global type funcion_mora_importar from function_object
+end type
+
+forward prototypes
+global function double funcion_mora_importar (datetime primer, double pag, double cuotas, datetime fecha_tope)
+end prototypes
+
+global function double funcion_mora_importar (datetime primer, double pag, double cuotas, datetime fecha_tope);double vmes,vano,vcuo_venc,vmora, ll_valor
+vano=year(date(fecha_tope))-year(DATE(primer))
+vano=vano*12	 
+vmes=month(date(fecha_tope))-month(DATE(primer))
+vcuo_venc= vano+vmes
+if (day(date(fecha_tope))> day(DATE(Primer))) then
+	vcuo_venc=vcuo_venc+1
+end if
+if vcuo_venc <0 then
+	vcuo_venc=0
+end if
+if vcuo_venc> cuotas then
+	vcuo_venc=cuotas
+end if
+vmora=  vcuo_venc - pag
+
+IF vmora <= 0 then 
+	vmora=0
+end if
+
+return(vmora)
+end function
+

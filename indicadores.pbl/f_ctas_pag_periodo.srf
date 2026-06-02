@@ -1,0 +1,22 @@
+﻿global type f_ctas_pag_periodo from function_object
+end type
+
+forward prototypes
+global function integer f_ctas_pag_periodo (datetime fecha, string base, string serie, double numero)
+end prototypes
+
+global function integer f_ctas_pag_periodo (datetime fecha, string base, string serie, double numero);long ctas_pag
+
+SELECT SUM("INGRESO"."CUOTAS_PAG")  
+INTO :ctas_pag  
+FROM "INGRESO"  
+WHERE ( "INGRESO"."FECHA_PAGO" >= :fecha ) AND  
+	( "INGRESO"."TIPO_MOV" = 'E' ) AND  
+	( "INGRESO"."BASE" = :base ) AND  
+	( "INGRESO"."SERIE" = :serie ) AND  
+	( "INGRESO"."CONTRATO" = :numero )   ;
+
+IF ISNULL(ctas_pag) THEN ctas_pag = 0
+return ctas_pag  
+end function
+

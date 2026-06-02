@@ -1,0 +1,19 @@
+﻿global type gf_existe_boleta from function_object
+end type
+
+forward prototypes
+global function boolean gf_existe_boleta (long al_num_boleta)
+end prototypes
+
+global function boolean gf_existe_boleta (long al_num_boleta);long il_num_boleta
+
+SELECT "INGRESO"."FOLIO"  
+    INTO :il_num_boleta
+    FROM "INGRESO"  
+   WHERE ( "INGRESO"."FOLIO" = :al_num_boleta ) AND  
+         ( "INGRESO"."TIPO_COB" = 'BL' OR "INGRESO"."TIPO_COB" = 'B0');
+			
+RETURN (al_num_boleta = il_num_boleta )
+
+end function
+

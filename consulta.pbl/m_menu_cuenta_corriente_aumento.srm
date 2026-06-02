@@ -1,0 +1,1390 @@
+﻿forward
+global type m_menu_cuenta_corriente_aumento from menu
+end type
+type m_mantenedor from menu within m_menu_cuenta_corriente_aumento
+end type
+type m_cuotascrédito from menu within m_mantenedor
+end type
+type m_operaciones from menu within m_mantenedor
+end type
+type m_cobranza from menu within m_mantenedor
+end type
+type m_-2 from menu within m_mantenedor
+end type
+type m_actualizarmora from menu within m_mantenedor
+end type
+type m_1 from menu within m_mantenedor
+end type
+type m_beterminadadepagar from menu within m_mantenedor
+end type
+type m_mantenedor from menu within m_menu_cuenta_corriente_aumento
+m_cuotascrédito m_cuotascrédito
+m_operaciones m_operaciones
+m_cobranza m_cobranza
+m_-2 m_-2
+m_actualizarmora m_actualizarmora
+m_1 m_1
+m_beterminadadepagar m_beterminadadepagar
+end type
+type m_consultar from menu within m_menu_cuenta_corriente_aumento
+end type
+type m_aval from menu within m_consultar
+end type
+type m_pagosengeneral from menu within m_consultar
+end type
+type m_cuotascrédito0 from menu within m_consultar
+end type
+type m_-0 from menu within m_consultar
+end type
+type m_pagoscomisiónagente from menu within m_consultar
+end type
+type m_pagosventas from menu within m_consultar
+end type
+type m_-1 from menu within m_consultar
+end type
+type m_cuponeras from menu within m_consultar
+end type
+type m_-3 from menu within m_consultar
+end type
+type m_datosdelcontrato from menu within m_consultar
+end type
+type m_datosdelcliente from menu within m_consultar
+end type
+type m_controldocumentario from menu within m_consultar
+end type
+type m_-4 from menu within m_consultar
+end type
+type m_estadocheques from menu within m_consultar
+end type
+type m_conveniopagocheuqe from menu within m_consultar
+end type
+type m_- from menu within m_consultar
+end type
+type m_geo-referenciación from menu within m_consultar
+end type
+type m_planimetria from menu within m_consultar
+end type
+type m_documentación from menu within m_consultar
+end type
+type m_0 from menu within m_consultar
+end type
+type m_clasificaciónventa from menu within m_consultar
+end type
+type m_clientemodificaciónantecedentes from menu within m_consultar
+end type
+type m_consultar from menu within m_menu_cuenta_corriente_aumento
+m_aval m_aval
+m_pagosengeneral m_pagosengeneral
+m_cuotascrédito0 m_cuotascrédito0
+m_-0 m_-0
+m_pagoscomisiónagente m_pagoscomisiónagente
+m_pagosventas m_pagosventas
+m_-1 m_-1
+m_cuponeras m_cuponeras
+m_-3 m_-3
+m_datosdelcontrato m_datosdelcontrato
+m_datosdelcliente m_datosdelcliente
+m_controldocumentario m_controldocumentario
+m_-4 m_-4
+m_estadocheques m_estadocheques
+m_conveniopagocheuqe m_conveniopagocheuqe
+m_- m_-
+m_geo-referenciación m_geo-referenciación
+m_planimetria m_planimetria
+m_documentación m_documentación
+m_0 m_0
+m_clasificaciónventa m_clasificaciónventa
+m_clientemodificaciónantecedentes m_clientemodificaciónantecedentes
+end type
+type m_imprimir0 from menu within m_menu_cuenta_corriente_aumento
+end type
+type m_imprimircuponera from menu within m_menu_cuenta_corriente_aumento
+end type
+type m_salir from menu within m_menu_cuenta_corriente_aumento
+end type
+global type m_menu_cuenta_corriente_aumento from menu
+m_mantenedor m_mantenedor
+m_consultar m_consultar
+m_imprimir0 m_imprimir0
+m_imprimircuponera m_imprimircuponera
+m_salir m_salir
+end type
+end forward
+
+global type m_menu_cuenta_corriente_aumento from menu
+m_mantenedor m_mantenedor
+m_consultar m_consultar
+m_imprimir0 m_imprimir0
+m_imprimircuponera m_imprimircuponera
+m_salir m_salir
+end type
+global m_menu_cuenta_corriente_aumento m_menu_cuenta_corriente_aumento
+
+on m_menu_cuenta_corriente_aumento.create
+m_menu_cuenta_corriente_aumento=this
+call super::create
+this.text = "m_menu_cuenta_corriente_aumento"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_mantenedor=create m_mantenedor
+this.m_consultar=create m_consultar
+this.m_imprimir0=create m_imprimir0
+this.m_imprimircuponera=create m_imprimircuponera
+this.m_salir=create m_salir
+this.Item[UpperBound(this.Item)+1]=this.m_mantenedor
+this.Item[UpperBound(this.Item)+1]=this.m_consultar
+this.Item[UpperBound(this.Item)+1]=this.m_imprimir0
+this.Item[UpperBound(this.Item)+1]=this.m_imprimircuponera
+this.Item[UpperBound(this.Item)+1]=this.m_salir
+end on
+
+on m_menu_cuenta_corriente_aumento.destroy
+call super::destroy
+destroy(this.m_mantenedor)
+destroy(this.m_consultar)
+destroy(this.m_imprimir0)
+destroy(this.m_imprimircuponera)
+destroy(this.m_salir)
+end on
+
+type m_mantenedor from menu within m_menu_cuenta_corriente_aumento
+m_cuotascrédito m_cuotascrédito
+m_operaciones m_operaciones
+m_cobranza m_cobranza
+m_-2 m_-2
+m_actualizarmora m_actualizarmora
+m_1 m_1
+m_beterminadadepagar m_beterminadadepagar
+end type
+
+on m_mantenedor.create
+call super::create
+this.text = "&Mantenedor"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_cuotascrédito=create m_cuotascrédito
+this.m_operaciones=create m_operaciones
+this.m_cobranza=create m_cobranza
+this.m_-2=create m_-2
+this.m_actualizarmora=create m_actualizarmora
+this.m_1=create m_1
+this.m_beterminadadepagar=create m_beterminadadepagar
+this.Item[UpperBound(this.Item)+1]=this.m_cuotascrédito
+this.Item[UpperBound(this.Item)+1]=this.m_operaciones
+this.Item[UpperBound(this.Item)+1]=this.m_cobranza
+this.Item[UpperBound(this.Item)+1]=this.m_-2
+this.Item[UpperBound(this.Item)+1]=this.m_actualizarmora
+this.Item[UpperBound(this.Item)+1]=this.m_1
+this.Item[UpperBound(this.Item)+1]=this.m_beterminadadepagar
+end on
+
+on m_mantenedor.destroy
+call super::destroy
+destroy(this.m_cuotascrédito)
+destroy(this.m_operaciones)
+destroy(this.m_cobranza)
+destroy(this.m_-2)
+destroy(this.m_actualizarmora)
+destroy(this.m_1)
+destroy(this.m_beterminadadepagar)
+end on
+
+type m_cuotascrédito from menu within m_mantenedor
+end type
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_ctas_cred.triggerevent(clicked!)
+end event
+
+on m_cuotascrédito.create
+call super::create
+this.text = "&Cuotas Crédito"
+this.microhelp = "Consultar y Realizar Gestión por Cuotas Crédito en Mora"
+this.toolbaritemname = "englishedit!"
+this.toolbaritemtext = "Mantenedor Cuotas Crédito"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_cuotascrédito.destroy
+call super::destroy
+end on
+
+type m_operaciones from menu within m_mantenedor
+end type
+
+on m_operaciones.create
+call super::create
+this.text = "&Operaciones"
+this.microhelp = "Generar Solicitudes"
+this.toolbaritemname = "compute5!"
+this.toolbaritemtext = "Solicitudes Operaciones"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_operaciones.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_operaciones.triggerevent(clicked!)
+end event
+
+type m_cobranza from menu within m_mantenedor
+end type
+
+on m_cobranza.create
+call super::create
+this.text = "Co&branza"
+this.microhelp = "Permite Ingresar Notas por Atención Cliente y Cobranza en General"
+this.toolbaritemname = "custom084!"
+this.toolbaritemtext = "Cobranza"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_cobranza.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_5.triggerevent(clicked!)
+end event
+
+type m_-2 from menu within m_mantenedor
+end type
+
+on m_-2.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-2.destroy
+call super::destroy
+end on
+
+type m_actualizarmora from menu within m_mantenedor
+end type
+
+event clicked;Long		ll_res
+Double	ll_num_aux
+
+gs_base 		= 'A'
+gs_serie 		= w_cuenta_corriente_aumento_capacidad.dw_encabezado_cuenta_cte.GetItemString(1, "anexo_aumento_serie_m")
+gi_numero 	= w_cuenta_corriente_aumento_capacidad.dw_encabezado_cuenta_cte.GetItemNumber(1, "anexo_aumento_nro_aumento")
+if gi_numero > 0 then
+	ll_res	= messagebox("Advertencia","Está seguro Actualizar CADENA MORA Contrato Nº "+gs_base+'-'+gs_serie+'-'+string(gi_numero,'###,###,###,###,###'),Exclamation!,YesNo!,2)
+	if ll_res=1 then
+		SELECT	"CADENA"."NUMERO"  
+		INTO 		:ll_num_aux  
+		FROM 		"CADENA"  
+		WHERE  ( "CADENA"."CODIGO" = :gs_base ) AND  
+				 ( "CADENA"."SERIE" = :gs_serie ) AND  
+				 ( "CADENA"."NUMERO" = :gi_numero )   
+		USING		sqlca;
+		if sqlca.sqlcode=0 then
+			DECLARE sp_nuevo_cadena_mora1 PROCEDURE FOR sp_nuevo_cadena_mora(:gs_base,:gs_serie,:gi_numero,'M');
+			EXECUTE sp_nuevo_cadena_mora1;
+			
+			DECLARE sp_actualizar_cuponeras_1 PROCEDURE FOR sp_actualizar_cuponeras_1(:gs_base,:gs_serie,:gi_numero);
+			EXECUTE sp_actualizar_cuponeras_1;
+			
+			w_cuenta_corriente_aumento_capacidad.triggerevent(open!)
+			messagebox("Grabar","Actualización Exitosa")
+		else
+			messagebox("Error","Error al Buscar Contrato Nº "+gs_base+'-'+gs_serie+'-'+string(gi_numero,'###,###,###,###,###')+ " SQL: "+sqlca.sqlerrtext)
+		end if
+	end if
+end if
+end event
+
+on m_actualizarmora.create
+call super::create
+this.text = "&Actualizar Mora"
+this.toolbaritemname = "checkstatus!"
+this.toolbaritemdownname = "CheckStatus5!"
+this.toolbaritemtext = "Actualizar Mora"
+this.toolbaritemspace = 2
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_actualizarmora.destroy
+call super::destroy
+end on
+
+type m_1 from menu within m_mantenedor
+end type
+
+on m_1.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_1.destroy
+call super::destroy
+end on
+
+type m_beterminadadepagar from menu within m_mantenedor
+end type
+
+event clicked;if isvalid(w_listado_be_terminadas_de_pagar) then 
+	if w_listado_be_terminadas_de_pagar.dw_lista.dataobject	= 'dw_listado_terminadas_de_pagar_be' then
+		messagebox("Advertencia","No es posible Ver Individualmente BE Terminada de Pagar, por tener habilitada Ventana BE Masiva")
+		
+	elseif w_listado_be_terminadas_de_pagar.dw_lista.dataobject	= 'dw_terminadas_de_pagar_be_por_ctto' then
+		close(w_listado_be_terminadas_de_pagar)
+		OpenWithParm(w_listado_be_terminadas_de_pagar, 'I')
+	end if
+else
+	OpenWithParm(w_listado_be_terminadas_de_pagar, 'I')
+end if
+end event
+
+on m_beterminadadepagar.create
+call super::create
+this.text = "BE Terminada de Pagar"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_beterminadadepagar.destroy
+call super::destroy
+end on
+
+type m_consultar from menu within m_menu_cuenta_corriente_aumento
+m_aval m_aval
+m_pagosengeneral m_pagosengeneral
+m_cuotascrédito0 m_cuotascrédito0
+m_-0 m_-0
+m_pagoscomisiónagente m_pagoscomisiónagente
+m_pagosventas m_pagosventas
+m_-1 m_-1
+m_cuponeras m_cuponeras
+m_-3 m_-3
+m_datosdelcontrato m_datosdelcontrato
+m_datosdelcliente m_datosdelcliente
+m_controldocumentario m_controldocumentario
+m_-4 m_-4
+m_estadocheques m_estadocheques
+m_conveniopagocheuqe m_conveniopagocheuqe
+m_- m_-
+m_geo-referenciación m_geo-referenciación
+m_planimetria m_planimetria
+m_documentación m_documentación
+m_0 m_0
+m_clasificaciónventa m_clasificaciónventa
+m_clientemodificaciónantecedentes m_clientemodificaciónantecedentes
+end type
+
+on m_consultar.create
+call super::create
+this.text = "&Consultar"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_aval=create m_aval
+this.m_pagosengeneral=create m_pagosengeneral
+this.m_cuotascrédito0=create m_cuotascrédito0
+this.m_-0=create m_-0
+this.m_pagoscomisiónagente=create m_pagoscomisiónagente
+this.m_pagosventas=create m_pagosventas
+this.m_-1=create m_-1
+this.m_cuponeras=create m_cuponeras
+this.m_-3=create m_-3
+this.m_datosdelcontrato=create m_datosdelcontrato
+this.m_datosdelcliente=create m_datosdelcliente
+this.m_controldocumentario=create m_controldocumentario
+this.m_-4=create m_-4
+this.m_estadocheques=create m_estadocheques
+this.m_conveniopagocheuqe=create m_conveniopagocheuqe
+this.m_-=create m_-
+this.m_geo-referenciación=create m_geo-referenciación
+this.m_planimetria=create m_planimetria
+this.m_documentación=create m_documentación
+this.m_0=create m_0
+this.m_clasificaciónventa=create m_clasificaciónventa
+this.m_clientemodificaciónantecedentes=create m_clientemodificaciónantecedentes
+this.Item[UpperBound(this.Item)+1]=this.m_aval
+this.Item[UpperBound(this.Item)+1]=this.m_pagosengeneral
+this.Item[UpperBound(this.Item)+1]=this.m_cuotascrédito0
+this.Item[UpperBound(this.Item)+1]=this.m_-0
+this.Item[UpperBound(this.Item)+1]=this.m_pagoscomisiónagente
+this.Item[UpperBound(this.Item)+1]=this.m_pagosventas
+this.Item[UpperBound(this.Item)+1]=this.m_-1
+this.Item[UpperBound(this.Item)+1]=this.m_cuponeras
+this.Item[UpperBound(this.Item)+1]=this.m_-3
+this.Item[UpperBound(this.Item)+1]=this.m_datosdelcontrato
+this.Item[UpperBound(this.Item)+1]=this.m_datosdelcliente
+this.Item[UpperBound(this.Item)+1]=this.m_controldocumentario
+this.Item[UpperBound(this.Item)+1]=this.m_-4
+this.Item[UpperBound(this.Item)+1]=this.m_estadocheques
+this.Item[UpperBound(this.Item)+1]=this.m_conveniopagocheuqe
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_geo-referenciación
+this.Item[UpperBound(this.Item)+1]=this.m_planimetria
+this.Item[UpperBound(this.Item)+1]=this.m_documentación
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_clasificaciónventa
+this.Item[UpperBound(this.Item)+1]=this.m_clientemodificaciónantecedentes
+end on
+
+on m_consultar.destroy
+call super::destroy
+destroy(this.m_aval)
+destroy(this.m_pagosengeneral)
+destroy(this.m_cuotascrédito0)
+destroy(this.m_-0)
+destroy(this.m_pagoscomisiónagente)
+destroy(this.m_pagosventas)
+destroy(this.m_-1)
+destroy(this.m_cuponeras)
+destroy(this.m_-3)
+destroy(this.m_datosdelcontrato)
+destroy(this.m_datosdelcliente)
+destroy(this.m_controldocumentario)
+destroy(this.m_-4)
+destroy(this.m_estadocheques)
+destroy(this.m_conveniopagocheuqe)
+destroy(this.m_-)
+destroy(this.m_geo-referenciación)
+destroy(this.m_planimetria)
+destroy(this.m_documentación)
+destroy(this.m_0)
+destroy(this.m_clasificaciónventa)
+destroy(this.m_clientemodificaciónantecedentes)
+end on
+
+type m_aval from menu within m_consultar
+end type
+
+on m_aval.create
+call super::create
+this.text = "&Aval"
+this.toolbaritemname = "custom076!"
+this.toolbaritemtext = "Ver Aval"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_aval.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_aval.triggerevent(clicked!)
+end event
+
+type m_pagosengeneral from menu within m_consultar
+event clicked ( )
+end type
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_1.triggerevent(clicked!)
+end event
+
+on m_pagosengeneral.create
+call super::create
+this.text = "Ver &Total Pagos"
+this.microhelp = "Ver Todos los Pagos Asociado al Contrato"
+this.toolbaritemname = "custom048!"
+this.toolbaritemtext = "Ver Total Pagos"
+this.toolbaritemspace = 2
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_pagosengeneral.destroy
+call super::destroy
+end on
+
+type m_cuotascrédito0 from menu within m_consultar
+end type
+
+on m_cuotascrédito0.create
+call super::create
+this.text = "Ver Pagos Cuotas Cr&édito"
+this.microhelp = "Ver Sólo Pagos Cuotas de Crédito (Tipo Mov. E)"
+this.toolbaritemname = "englishquery!"
+this.toolbaritemtext = "Ver Pagos Cuotas Crédito"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_cuotascrédito0.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_2.triggerevent(clicked!)
+end event
+
+type m_-0 from menu within m_consultar
+end type
+
+on m_-0.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_pagoscomisiónagente from menu within m_consultar
+end type
+
+on m_pagoscomisiónagente.create
+call super::create
+this.text = "&Datos Agente"
+this.microhelp = "Muestra Datos y Clasificación Histórica del Agente"
+this.toolbaritemname = "run!"
+this.toolbaritemtext = "Datos Agente"
+this.toolbaritemspace = 2
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_pagoscomisiónagente.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_agente.triggerevent(clicked!)
+end event
+
+type m_pagosventas from menu within m_consultar
+end type
+
+on m_pagosventas.create
+call super::create
+this.text = "Pagos &Ventas"
+this.microhelp = "Muestra Pagos de Comisiones realizadas al Agente de Venta"
+this.toolbaritemname = "formatdollar!"
+this.toolbaritemtext = "Pagos Ventas"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_pagosventas.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_rescomi_vta.triggerevent(clicked!)
+end event
+
+type m_-1 from menu within m_consultar
+end type
+
+on m_-1.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-1.destroy
+call super::destroy
+end on
+
+type m_cuponeras from menu within m_consultar
+end type
+
+on m_cuponeras.create
+call super::create
+this.text = "Cupo&neras"
+this.microhelp = "Muestra Cupones Asociado al Contrato"
+this.toolbaritemname = "cuponeras.bmp"
+this.toolbaritemtext = "Cuponeras"
+this.toolbaritemspace = 2
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_cuponeras.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_cupones.triggerevent(clicked!)
+end event
+
+type m_-3 from menu within m_consultar
+end type
+
+on m_-3.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-3.destroy
+call super::destroy
+end on
+
+type m_datosdelcontrato from menu within m_consultar
+end type
+
+on m_datosdelcontrato.create
+call super::create
+this.text = "Datos del C&ontrato"
+this.microhelp = "Muestra Datos del Contrato"
+this.toolbaritemname = "custom092!"
+this.toolbaritemtext = "Datos del Contrato"
+this.toolbaritemspace = 2
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_datosdelcontrato.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_11.triggerevent(clicked!)
+end event
+
+type m_datosdelcliente from menu within m_consultar
+end type
+
+event clicked;w_cuenta_corriente_aumento_capacidad.pb_datos_cliente.triggerevent(clicked!)
+end event
+
+on m_datosdelcliente.create
+call super::create
+this.text = "Datos del &Cliente"
+this.microhelp = "Muestra Datos del Cliente"
+this.toolbaritemname = "move!"
+this.toolbaritemtext = "Datos del Cliente"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_datosdelcliente.destroy
+call super::destroy
+end on
+
+type m_controldocumentario from menu within m_consultar
+end type
+
+on m_controldocumentario.create
+call super::create
+this.text = "Control &Documentario"
+this.microhelp = "Muestra Gestión Realizadas por Control Documentario"
+this.toolbaritemname = "continue!"
+this.toolbaritemtext = "Control Documentario"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_controldocumentario.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_detalle.triggerevent(clicked!)
+end event
+
+type m_-4 from menu within m_consultar
+end type
+
+on m_-4.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-4.destroy
+call super::destroy
+end on
+
+type m_estadocheques from menu within m_consultar
+end type
+
+on m_estadocheques.create
+call super::create
+this.text = "&Estado Cheques"
+this.microhelp = "Muestra Pagos Realizados con Cheques y su Estado"
+this.toolbaritemname = "editdatafreeform!"
+this.toolbaritemtext = "Estado Cheques"
+this.toolbaritemspace = 2
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_estadocheques.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_est_cheque.triggerevent(clicked!)
+end event
+
+type m_conveniopagocheuqe from menu within m_consultar
+end type
+
+on m_conveniopagocheuqe.create
+call super::create
+this.text = "Con&venio Pago Cheque"
+this.microhelp = "Muestra en Caso de Cheques Protestado o Casticados si Existe Convenio de Pago"
+this.toolbaritemname = "custom050!"
+this.toolbaritemtext = "Convenio Pago Cheque"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_conveniopagocheuqe.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_convenio.triggerevent(clicked!)
+end event
+
+type m_- from menu within m_consultar
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_geo-referenciación from menu within m_consultar
+end type
+
+on m_geo-referenciación.create
+call super::create
+this.text = "Geo-Referenciación"
+this.microhelp = "Muestra Ubicación de Dirección Particular ~"Geo-Referenciación~""
+this.toolbaritemname = "custom042!"
+this.toolbaritemtext = "Geo-Referenciación"
+this.toolbaritemspace = 2
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_geo-referenciación.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.pb_ubicacion.triggerevent(clicked!)
+end event
+
+type m_planimetria from menu within m_consultar
+end type
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_planimetria.triggerevent(clicked!)
+end event
+
+on m_planimetria.create
+call super::create
+this.text = "Planimetria"
+this.microhelp = "Muestra Planimetria asociado al Contrato"
+this.toolbaritemname = "premio_ag_anual.bmp"
+this.toolbaritemdownname = "premio_ag_anual_no.bmp"
+this.toolbaritemtext = "Planimetria"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_planimetria.destroy
+call super::destroy
+end on
+
+type m_documentación from menu within m_consultar
+end type
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_documento.triggerevent(clicked!)
+end event
+
+on m_documentación.create
+call super::create
+this.text = "Documentación"
+this.microhelp = "Muestra Documentación asociado al Contrato"
+this.toolbaritemname = "buscar.bmp"
+this.toolbaritemdownname = "Buscar_no.BMP"
+this.toolbaritemtext = "Documentación"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_documentación.destroy
+call super::destroy
+end on
+
+type m_0 from menu within m_consultar
+end type
+
+on m_0.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_clasificaciónventa from menu within m_consultar
+end type
+
+event clicked;w_cuenta_corriente_aumento_capacidad.pb_clasif_aumento.triggerevent(clicked!)
+end event
+
+on m_clasificaciónventa.create
+call super::create
+this.text = "Clasificación Venta"
+this.toolbaritemname = "desembosos (o).bmp"
+this.toolbaritemtext = "Clasificación Venta"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_clasificaciónventa.destroy
+call super::destroy
+end on
+
+type m_clientemodificaciónantecedentes from menu within m_consultar
+end type
+
+event clicked;if isvalid(w_lista_clientes_mod_web) then close(w_lista_clientes_mod_web)
+open(w_lista_clientes_mod_web)
+
+end event
+
+on m_clientemodificaciónantecedentes.create
+call super::create
+this.text = "Cliente Modificación Antecedentes"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_clientemodificaciónantecedentes.destroy
+call super::destroy
+end on
+
+type m_imprimir0 from menu within m_menu_cuenta_corriente_aumento
+end type
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_imprimir.triggerevent(clicked!)
+end event
+
+on m_imprimir0.create
+call super::create
+this.text = "&Imprimir"
+this.microhelp = "Imprimir Contrato"
+this.toolbaritemname = "print!"
+this.toolbaritemtext = "Imprimir"
+this.toolbaritemspace = 2
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_imprimir0.destroy
+call super::destroy
+end on
+
+type m_imprimircuponera from menu within m_menu_cuenta_corriente_aumento
+end type
+
+event clicked;gs_cuponera_aviso	= '0'
+f_dejar_nulo_print_usuario(gs_tcp_ip,gs_user)
+open(w_print_vista_cupones)
+end event
+
+on m_imprimircuponera.create
+call super::create
+this.text = "Imprimir Cu&ponera"
+this.microhelp = "Imprimir Cuponera"
+this.toolbaritemname = "custom004!"
+this.toolbaritemdownname = "print_cuponera_no.bmp"
+this.toolbaritemtext = "Imprimir Cuponera"
+this.toolbaritemspace = 2
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_imprimircuponera.destroy
+call super::destroy
+end on
+
+type m_salir from menu within m_menu_cuenta_corriente_aumento
+end type
+
+on m_salir.create
+call super::create
+this.text = "&Cerrar"
+this.microhelp = "Cerrar Ventana Cuenta Corriente ANEXO LIBERADOR"
+this.toolbaritemname = "exit!"
+this.toolbaritemtext = "Cerrar"
+this.toolbaritemorder = 99
+this.toolbaritemspace = 2
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_salir.destroy
+call super::destroy
+end on
+
+event clicked;w_cuenta_corriente_aumento_capacidad.cb_cerrar.triggerevent(clicked!)
+end event
+

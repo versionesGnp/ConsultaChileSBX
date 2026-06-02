@@ -1,0 +1,25 @@
+﻿global type f_tipo_cliente from function_object
+end type
+
+forward prototypes
+global function long f_tipo_cliente (string as_grupo_cta, string as_sociedad, string as_tipo_vta, string as_uso, string as_origen_vta, double adb_rut)
+end prototypes
+
+global function long f_tipo_cliente (string as_grupo_cta, string as_sociedad, string as_tipo_vta, string as_uso, string as_origen_vta, double adb_rut);long	ll_cta
+
+//f_tipo_cliente(as_grupo_cta,as_sociedad,as_tipo_vta,as_uso,as_origen_vta,adb_rut)
+SELECT	count("SAP_AMPLIACION_CLIENTE"."TIPO_CLIENTE")
+INTO		:ll_cta
+FROM		"SAP_AMPLIACION_CLIENTE"
+WHERE	"SAP_AMPLIACION_CLIENTE"."RUT" = :adb_rut AND  
+			"SAP_AMPLIACION_CLIENTE"."MANDT" = :gs_mandatario AND  
+			"SAP_AMPLIACION_CLIENTE"."GRUPO_CUENTA" = :as_grupo_cta AND  
+			"SAP_AMPLIACION_CLIENTE"."SOCIEDAD" = :as_sociedad AND  
+			"SAP_AMPLIACION_CLIENTE"."ORGANIZACION" = :as_tipo_vta AND  
+			"SAP_AMPLIACION_CLIENTE"."ORIGEN_VENTA" = :as_origen_vta AND  
+			"SAP_AMPLIACION_CLIENTE"."USO" = :as_uso 
+USING	sqlca;
+if isnull(ll_cta) then ll_cta=0
+return		ll_cta
+end function
+

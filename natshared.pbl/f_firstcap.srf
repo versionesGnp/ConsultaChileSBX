@@ -1,0 +1,19 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Convierte primera letra en Upper x cada palabra encontrada~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_firstcap from function_object
+end type
+
+forward prototypes
+global function string f_firstcap (string as_word)
+end prototypes
+
+global function string f_firstcap (string as_word);/* f_FirstCap( as_word ) */
+
+as_word = Lower( f_Trim( as_word ) )
+
+as_word = Upper( Left( as_word, 1 ) ) + Mid( as_word, 2 )
+
+Return as_word
+
+
+end function
+

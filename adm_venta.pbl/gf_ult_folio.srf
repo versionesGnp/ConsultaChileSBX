@@ -1,0 +1,16 @@
+﻿global type gf_ult_folio from function_object
+end type
+
+forward prototypes
+global function long gf_ult_folio ()
+end prototypes
+
+global function long gf_ult_folio ();long ll_folio
+
+SELECT Max("CADENA"."NUMERO")
+	INTO :ll_folio
+FROM "CADENA"  ;
+
+RETURN ll_folio
+end function
+

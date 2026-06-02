@@ -1,0 +1,16 @@
+﻿global type gf_borrar_cuponera from function_object
+end type
+
+forward prototypes
+global function integer gf_borrar_cuponera ()
+end prototypes
+
+global function integer gf_borrar_cuponera ();DELETE FROM "TEM_CUPON" where "TEM_CUPON"."USUARIO" = :gs_user Using sqlca;
+if sqlca.sqlcode = 0 then
+	commit;
+else
+	rollback;
+end if
+RETURN 0
+end function
+

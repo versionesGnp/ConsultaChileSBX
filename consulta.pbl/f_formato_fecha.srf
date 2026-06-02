@@ -1,0 +1,41 @@
+﻿//objectcomments Obtiene el formato de fecha con el que trabaja windows
+global type f_formato_fecha from function_object
+end type
+
+forward prototypes
+global function string f_formato_fecha ()
+end prototypes
+
+global function string f_formato_fecha ();STRING ls_fecha
+INT li_d,li_m,li_y
+
+ls_fecha = ProfileString("win.ini","INTL","sShortDate","")
+
+li_d = POS(ls_fecha, "D")
+IF li_d = 0 THEN
+	li_d = POS(ls_fecha, "d")
+END IF
+
+li_m = POS(ls_fecha, "M")
+IF li_m = 0 THEN
+	li_m = POS(ls_fecha, "m")
+END IF
+
+li_y = POS(ls_fecha, "Y")
+IF li_y = 0 THEN
+	li_y = POS(ls_fecha, "y")
+END IF
+
+
+IF li_y < li_m THEN
+	ls_fecha = "yyyy/mm/dd"
+ELSEIF li_m < li_d THEN
+	ls_fecha = "mm/dd/yyyy"
+ELSE
+	ls_fecha = "dd/mm/yyyy"
+END IF
+
+Return ls_fecha
+
+end function
+

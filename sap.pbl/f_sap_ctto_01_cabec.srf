@@ -1,0 +1,111 @@
+﻿global type f_sap_ctto_01_cabec from function_object
+end type
+
+forward prototypes
+global function long f_sap_ctto_01_cabec (string as_base, string as_serie, double adb_numero, string as_tipo_deuda, long al_folio, datetime adt_fecha_pago)
+end prototypes
+
+global function long f_sap_ctto_01_cabec (string as_base, string as_serie, double adb_numero, string as_tipo_deuda, long al_folio, datetime adt_fecha_pago);string		ls_base,ls_serie,ls_tipo_deuda,ls_tipo_ctto,ls_organ,ls_origen,ls_uso,ls_cliente_sap,ls_folio_consul,ls_fecha,ls_moneda,&
+			ls_forma_pago,ls_clasif,ls_cod_jef,ls_cod_sup,ls_cod_age,ls_area,ls_grupo_imput,ls_nro_ctto_sap,ls_ctto_asoc,ls_falle,ls_folio_consulta
+long		ll_estado,ll_fallec,ll_capac,ll_posic_recon
+double	ldb_numero
+
+DECLARE x01 CURSOR FOR
+SELECT	"BASE",
+			"SERIE",
+			"NUMERO",
+			"TIPO_DEUDA",
+			"TIPO_CONTRATO",
+			"ORGANIZACION",
+			"TIPO_VENTA",
+			"USO",
+			"NRO_CLIENTE_SAP",
+			"FECHA",	"MONEDA",
+			"FORMA_PAGO",
+			"CLASIFICA_VENTA",
+			"FALLECIDOS",
+			"COD_JEF",
+			"COD_SUP",
+			"COD_AGE",
+			"AREA",
+			"CAPACIDAD",
+			"GRUPO_IMPUTACION",
+			"NRO_CTTO_SAP",
+			"CTTO_ASOCIADO",
+			"MORA_MANT_RECON",
+			''
+FROM    "SAP_CADENA"
+WHERE	"SAP_CADENA"."ESTADO" = 'V' AND
+      		"SAP_CADENA"."TIPO_DEUDA" <> 'S' AND 
+        		"SAP_CADENA"."BASE" = :as_base and
+			"SAP_CADENA"."SERIE" = :as_serie and
+			"SAP_CADENA"."NUMERO" = :adb_numero and
+			"SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda	  
+UNION
+SELECT  DISTINCT "BASE",
+			"SERIE",
+			"NUMERO",
+			"TIPO_DEUDA",
+			"TIPO_CONTRATO",
+			"ORGANIZACION",
+			"TIPO_VENTA",
+			"USO",
+			"NRO_CLIENTE_SAP",
+			"FECHA",
+			"MONEDA",
+			"FORMA_PAGO",
+			'',
+			0,
+			'',
+			'',
+			'',
+			'',
+			0,
+			"GRUPO_IMPUTACION",
+			'',
+			'',
+			0,
+			"FOLIO_CONSULTA"
+FROM		"SAP_CADENA_SERVICIO"
+WHERE   "SAP_CADENA_SERVICIO"."ESTADO" = 'V' AND
+			"SAP_CADENA_SERVICIO"."TIPO_DEUDA" = 'S' AND 
+			"SAP_CADENA_SERVICIO"."FECHA_PAGO_COMPROBANTE" = :adt_fecha_pago and
+			"SAP_CADENA_SERVICIO"."FOLIO_COMPROBANTE" = :al_folio and
+			"SAP_CADENA_SERVICIO"."ESTADO_SAP" = 2
+USING	sqlca;
+open x01;
+if sqlca.sqlcode=0 then
+	DO WHILE sqlca.sqlcode=0
+	fetch x01 INTO	:ls_base,:ls_serie,:ldb_numero,:ls_tipo_deuda,	:ls_tipo_ctto,	:ls_organ,	:ls_origen,			:ls_uso,	:ls_cliente_sap,					:ls_fecha,	:ls_moneda,	:ls_forma_pago,	:ls_clasif,				:ll_fallec,			:ls_cod_jef,	:ls_cod_sup,	:ls_cod_age,	:ls_area,	:ll_capac,		:ls_grupo_imput,			:ls_nro_ctto_sap,		:ls_ctto_asoc,			:ll_posic_recon,  :ls_folio_consulta;
+		if not isnull(ls_base) and ls_base<>'' and not isnull(ls_serie) and ls_serie<>'' and  not isnull(ldb_numero) and ldb_numero>0 and not isnull(ls_tipo_deuda) and ls_tipo_deuda<>'' then
+			if ls_tipo_deuda = 'S' then
+				ls_folio_consul		= ls_folio_consulta
+			else
+				ls_folio_consul		= trim(ls_base+ls_serie+string(ldb_numero))
+			end if
+			if ll_fallec=0 then 
+				ls_falle			= '0'
+			else
+				ls_falle			= '1'
+			end if
+			
+			INSERT INTO "SAP_CTTO_01_CABEC"  
+         				( "BASE",		"SERIE",	"NUMERO",		"TIPO_DEUDA",	"TIPO_CTTO",	"ORGANIZ",	"ORIGEN_VENTA",	"USO",	"NRO_CLIENTE_SAP",	"FOLIO_CONSULTA",	"FECHA",		"MONEDA",	"FORMA_PAGO",	"CLASIFICA_VENTA",	"FALLECIDOS",	"COD_JEF",	"COD_SUP",		"COD_AGE",		"AREA",	"CAPACIDAD",	"GRUPO_IMPUTACION",	"NRO_CTTO_SAP",	"CTTO_ASOCIADO",	"POSIC_RECONOC",	"FOLIO")  
+  			VALUES	( :ls_base,	:ls_serie,	:ldb_numero,	:ls_tipo_deuda,	:ls_tipo_ctto,	:ls_organ,	:ls_origen,			:ls_uso,	:ls_cliente_sap,			:ls_folio_consul,		:ls_fecha,	:ls_moneda,	:ls_forma_pago,	:ls_clasif,				:ls_falle,			:ls_cod_jef,	:ls_cod_sup,	:ls_cod_age,	:ls_area,	:ll_capac,		:ls_grupo_imput,			:ls_nro_ctto_sap,		:ls_ctto_asoc,			:ll_posic_recon,		:al_folio )
+			USING	Trans_1;
+			if Trans_1.sqlcode = 0 then
+				commit using Trans_1;
+				ll_estado					= 1
+			else
+				rollback using Trans_1;
+				ll_estado 				= 0
+			end if
+		end if
+		setnull(ls_base);setnull(ls_serie);setnull(ldb_numero);setnull(ls_tipo_deuda);setnull(ls_tipo_ctto);setnull(ls_organ);setnull(ls_origen);setnull(ls_uso);setnull(ls_cliente_sap);setnull(ls_fecha);setnull(ls_moneda);setnull(ls_forma_pago);setnull(ls_clasif);setnull(ll_fallec);setnull(ls_cod_jef);setnull(ls_cod_sup);setnull(ls_cod_age);setnull(ls_area);setnull(ll_capac);setnull(ls_grupo_imput);setnull(ls_nro_ctto_sap);setnull(ls_ctto_asoc);setnull(ll_posic_recon)
+	LOOP
+end if
+disconnect using Trans_1;
+close x01;
+return ll_estado
+end function
+

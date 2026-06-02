@@ -1,0 +1,17 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Get a Date del Server ~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_serverdate from function_object
+end type
+
+forward prototypes
+global function datetime f_serverdate ()
+end prototypes
+
+global function datetime f_serverdate ();
+DateTime	ld_Hoy 
+
+
+Select to_Date( to_Char( Sysdate, 'dd-mm-yyyy' ), 'dd-mm-yyyy' ) Into :ld_Hoy From Dual ;
+
+Return ld_Hoy
+end function
+

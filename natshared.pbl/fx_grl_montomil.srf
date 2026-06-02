@@ -1,0 +1,26 @@
+﻿//objectcomments /* Autor: PBResource~r~n    Función: ~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type fx_grl_montomil from function_object
+end type
+
+forward prototypes
+global function string fx_grl_montomil (decimal num)
+end prototypes
+
+global function string fx_grl_montomil (decimal num);STRING KLO,KLU
+STRING MSG
+STRING MILLAR
+
+ IF NUM >= 1000.00   THEN
+	KLO = fx_grl_montoesc(INT(NUM/1000)) + "mil " + fx_grl_montoesc(MOD(NUM,1000))
+   MILLAR=(LEFT(TRIM(KLO),3)) 
+ELSE
+   KLO = fx_grl_montoesc(NUM)
+END IF
+ 
+IF MILLAR = "uno" then
+  KLO ="un mil " + fx_grl_montoesc(MOD(NUM,1000.00))
+END IF
+
+RETURN KLO
+end function
+

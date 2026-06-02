@@ -1,0 +1,19 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Muestra texto línea de estado - compatilidad ERP~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_setmhstatus from function_object
+end type
+
+forward prototypes
+global function integer f_setmhstatus (integer ai_block, string as_text)
+end prototypes
+
+global function integer f_setmhstatus (integer ai_block, string as_text);/* f_SetMHStatus( ai_block, as_text ) */
+
+If Not IsValid(gw_frame) Then
+	Return -1
+End If
+gw_frame.SetMicroHelp( as_text )
+
+
+Return 1
+end function
+

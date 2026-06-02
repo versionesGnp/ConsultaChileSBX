@@ -1,0 +1,40 @@
+﻿//objectcomments /* Autor: PBResource~r~n    Función: Aplica para conversión de números~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type fx_grl_montomill from function_object
+end type
+
+forward prototypes
+global function string fx_grl_montomill (decimal num)
+end prototypes
+
+global function string fx_grl_montomill (decimal num);STRING KLO , MILL
+STRING MSG
+INTEGER MILLON
+Long		ll_resto
+
+MILLON=(INT(NUM/1000000))
+
+  IF NUM >999999.99  THEN
+    IF MILLON = 1    THEN 
+     MSG  = " millón "
+      END IF
+   IF MILLON > 1     THEN
+      MSG  = " millones "
+      END IF
+      KLO = fx_grl_montomil(INT(NUM/1000000)) + MSG + & 
+      fx_grl_montomil(MOD(NUM,1000000.00))
+		MILL=(LEFT(TRIM(KLO),3))
+ELSE
+    KLO=fx_grl_montomil(NUM)
+         END IF
+	
+IF MILL = "uno" then
+  KLO ="un millón " + fx_grl_montomil(MOD(NUM,1000000.00))
+END IF
+
+ll_resto = Truncate(num, 0)
+KLO = KLO + 'y '+string((num - ll_resto)*100,'00')+'/100'
+
+
+RETURN KLO
+end function
+

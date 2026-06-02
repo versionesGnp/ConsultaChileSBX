@@ -1,0 +1,105 @@
+﻿global type f_valida_posic from function_object
+end type
+
+forward prototypes
+global function long f_valida_posic (string as_nro_ctto_sap, string as_tipo_deuda)
+end prototypes
+
+global function long f_valida_posic (string as_nro_ctto_sap, string as_tipo_deuda);string	ls_observ,ls_folio_consul,ls_tipo_ctto,ls_organiz,ls_origen_vta,ls_uso,ls_nro_ctto_sap,&
+		ls_obsev_tot,ls_obsev,ls_posic_ora,ls_posic_sap
+long	ll_cta_ubs,ll_cta_pie,ll_cta_cta,ll_posic_ora,ll_posic,ll_posic_sap,ll_cta_posic,ll_paso=0,ll_estado=1
+
+SELECT	"BASE"||''||"SERIE"||''||"NUMERO",	"TIPO_CTTO",	"ORGANIZ", "ORIGEN_VENTA",	"USO"
+INTO		:ls_folio_consul,							:ls_tipo_ctto,	:ls_organiz,	:ls_origen_vta,		:ls_uso
+FROM 	"VISTA_SAP_CTTO_01_CABEC"
+USING	sqlca;
+
+SELECT	count("BASE")  
+INTO		:ll_cta_ubs
+FROM 	"VISTA_SAP_CTTO_03_UBS"
+USING	sqlca;
+if isnull(ll_cta_ubs) then ll_cta_ubs=0
+							
+SELECT	count("BASE")
+INTO		:ll_cta_pie
+FROM		"VISTA_SAP_CTTO_04_PIE"
+USING	sqlca;
+if isnull(ll_cta_pie) then ll_cta_pie=0
+					
+SELECT	count("BASE")
+INTO		:ll_cta_cta
+FROM		"VISTA_SAP_CTTO_05_CUOTA"
+USING	sqlca;
+if isnull(ll_cta_cta) then ll_cta_cta=0
+ll_cta_posic						= ll_cta_ubs + ll_cta_pie + ll_cta_cta
+if not isnull(as_nro_ctto_sap) then
+	if as_tipo_deuda<>'S' then
+		DECLARE x1 CURSOR FOR
+		SELECT	( NRO_CUOTA * 10 )
+		FROM    	"SAP_CADENA",
+					( SELECT LEVEL NRO_CUOTA FROM DUAL CONNECT BY LEVEL<=:ll_cta_posic)
+		WHERE	"SAP_CADENA"."ESTADO" = 'V' AND
+					"SAP_CADENA"."ESTADO_SAP" = 2
+		USING	Trans_2;
+	elseif as_tipo_deuda='S' then
+		DECLARE x2 CURSOR FOR
+		SELECT	( NRO_CUOTA * 10 )
+		FROM    	"SAP_CADENA_SERVICIO",
+					( SELECT LEVEL NRO_CUOTA FROM DUAL CONNECT BY LEVEL<=:ll_cta_posic)
+		WHERE	"SAP_CADENA_SERVICIO"."ESTADO" = 'V' AND
+					"SAP_CADENA_SERVICIO"."ESTADO_SAP" = 2
+		USING	Trans_2;
+	end if
+	if as_tipo_deuda<>'S' then
+		open x1;
+	elseif as_tipo_deuda='S' then
+		open x2;
+	end if
+	if Trans_2.sqlcode=0 then
+		DO WHILE Trans_2.sqlcode=0
+		if as_tipo_deuda<>'S' then
+			fetch x1 INTO	:ll_posic_ora;
+		elseif as_tipo_deuda='S' then 
+			fetch x2 INTO	:ll_posic_ora;
+		end if
+		if not isnull(ll_posic_ora) and ll_posic_ora>0 then
+			f_tiempo('POSIC',as_tipo_deuda)
+			SELECT DISTINCT 	"SAPABAP1"."ZV_CONTRATOS2"."NRO_POSICION"
+			INTO		:ll_posic_sap
+			FROM 	"SAPABAP1"."ZV_CONTRATOS2"
+			WHERE	"SAPABAP1"."ZV_CONTRATOS2"."NUM_CONTRATO" = :as_nro_ctto_sap and
+						TO_NUMBER("SAPABAP1"."ZV_CONTRATOS2"."NRO_POSICION") = :ll_posic_ora
+			USING	Trans_hana;
+			if Trans_hana.sqlcode<>0 then
+				if ll_posic_ora<>ll_posic_sap then
+					ll_estado						= 3
+					ll_paso++
+					if ll_paso=1 then
+						ls_obsev					= 'Error Posición '+string(ll_posic_ora)
+						ls_obsev_tot				= ls_obsev
+					else
+						ls_obsev					= ';'+string(ll_posic_ora)
+						ls_obsev_tot				= ls_obsev_tot+ls_obsev
+					end if
+				end if
+			else
+				if ll_posic_ora=ll_posic_sap then
+					ls_posic_ora					= string(ll_posic_ora)
+					ls_posic_sap				= string(ll_posic_sap)
+					ls_obsev_tot					= 'Posiciones Enviadas: '+string(ls_posic_ora)+', Posiciones Cargadas en SAP: '+string(ls_posic_sap)		
+				end if
+			end if
+		end if
+		setnull(ll_posic_ora)
+		LOOP
+	end if
+	if as_tipo_deuda<>'S' then
+		close x1;
+	elseif as_tipo_deuda='S' then
+		close x2;
+	end if
+	
+end if
+return	 ll_estado
+end function
+

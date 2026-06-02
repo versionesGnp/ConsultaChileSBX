@@ -1,0 +1,33 @@
+﻿global type f_comision_compartida from function_object
+end type
+
+forward prototypes
+global function string f_comision_compartida (string as_base, string as_serie, double adb_numero)
+end prototypes
+
+global function string f_comision_compartida (string as_base, string as_serie, double adb_numero);string		ls_comis_comp
+double	ldb_numero
+ 
+//f_comision_compartida(as_base,as_serie,al_numero)
+SELECT	"COMISION_COMPARTIDA"."NUMERO" 
+INTO		:ldb_numero
+FROM		"COMISION_COMPARTIDA"  
+WHERE	( "COMISION_COMPARTIDA"."BASE" = :as_base ) AND  
+         	( "COMISION_COMPARTIDA"."SERIE" = :as_serie ) AND  
+         	( "COMISION_COMPARTIDA"."NUMERO" = :adb_numero ) AND  
+         	( "COMISION_COMPARTIDA"."ESTADO" = 'V' ) AND
+			( "COMISION_COMPARTIDA"."TIPO_CONDOLENCIA" >=2 )	
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ldb_numero) and ldb_numero>0 then
+		ls_comis_comp								= 'Compartida'
+	else
+		ls_comis_comp								= ''
+	end if
+else
+	ls_comis_comp									= ''
+end if
+if isnull(ls_comis_comp) or ls_comis_comp='' then ls_comis_comp = ''
+Return ls_comis_comp
+end function
+

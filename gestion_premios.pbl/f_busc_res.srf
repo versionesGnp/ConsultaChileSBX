@@ -1,0 +1,24 @@
+﻿global type f_busc_res from function_object
+end type
+
+forward prototypes
+global function double f_busc_res (string as_codigo, string as_serie, double al_numero)
+end prototypes
+
+global function double f_busc_res (string as_codigo, string as_serie, double al_numero);Double	ll_count_porc=0
+String		ls_contab='037'
+
+SELECT sum("RES_COMI"."PORC_VENTA")
+INTO :ll_count_porc
+FROM "RES_COMI"  
+WHERE ( "RES_COMI"."COD_AGE_SUP" = :as_codigo ) AND  
+		( "RES_COMI"."SERIE" = :as_serie ) AND  
+		( "RES_COMI"."CONTRATO" = :al_numero )  AND
+		( "RES_COMI"."COD_CONTABLE" = :ls_contab )
+Using	sqlca;
+if ll_count_porc <=0 or isnull(ll_count_porc) then ll_count_porc=0
+return(ll_count_porc)
+		
+
+end function
+

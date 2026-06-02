@@ -1,0 +1,30 @@
+﻿//objectcomments Esta funcion sirve para leer un dato binario de la base de datos.
+global type f_blobaarchivo from function_object
+end type
+
+forward prototypes
+global function boolean f_blobaarchivo (blob ablb_archivo, string as_dirarchivo)
+end prototypes
+
+global function boolean f_blobaarchivo (blob ablb_archivo, string as_dirarchivo);/* f_blobaarchivo( ablb_archivo, as_dirarchivo ) */
+
+
+Long		ll_TamanoArchivo //Almacena el tamaño del archivo
+Long		ll_Escrito		  //Almacena la cantidad de bytes escritos en el archivo
+Integer	li_FileNum			//Almacena el numero del archivo abierto
+
+li_FileNum = FileOpen( as_dirarchivo, StreamMode!, Write!, Shared!, Replace!)
+
+ll_TamanoArchivo = f_zero( Len( ablb_archivo ) )
+
+If ll_TamanoArchivo <= 0 Then
+	Return False
+End IF
+
+FileWriteEx(li_FileNum,ablb_archivo)
+
+FileClose(li_FileNum)
+
+Return True
+end function
+

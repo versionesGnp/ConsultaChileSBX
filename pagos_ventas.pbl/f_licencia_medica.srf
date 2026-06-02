@@ -1,0 +1,29 @@
+﻿global type f_licencia_medica from function_object
+end type
+
+forward prototypes
+global function long f_licencia_medica (string as_cod, datetime adt_fec_ini, datetime adt_fec_fin)
+end prototypes
+
+global function long f_licencia_medica (string as_cod, datetime adt_fec_ini, datetime adt_fec_fin);long	ll_dias
+
+//f_licencia_medica(as_cod,adt_fec_ini,adt_fec_fin)
+SELECT	SUM("LICENCIAS"."NRO_DIAS")
+INTO		:ll_dias
+FROM		"AGENTES",	"LICENCIAS"  
+WHERE	"AGENTES"."RUT" = "LICENCIAS"."RUT_EMPLEADO" and  
+			"AGENTES"."COD_AGE" = "LICENCIAS"."CODIGO_EMPLEADO" and  
+			"AGENTES"."COD_AGE" = :as_cod AND  
+			"LICENCIAS"."FECHA_INICIO_LICENCIA" >= :adt_fec_ini AND
+			"LICENCIAS"."FECHA_INICIO_LICENCIA" <= :adt_fec_fin
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	if ll_dias>0 then
+		ll_dias			= ll_dias
+	end if
+end if
+if isnull(ll_dias) or ll_dias=0 then ll_dias=0
+Return ll_dias
+
+end function
+

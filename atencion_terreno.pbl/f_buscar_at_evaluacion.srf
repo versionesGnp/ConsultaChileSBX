@@ -1,0 +1,20 @@
+﻿global type f_buscar_at_evaluacion from function_object
+end type
+
+forward prototypes
+global function string f_buscar_at_evaluacion (double adb_suma)
+end prototypes
+
+global function string f_buscar_at_evaluacion (double adb_suma);String	ls_eval
+SELECT	"AT_RESUMEN_EVALUACION"."RESULTADO"  
+INTO 		:ls_eval  
+FROM 		"AT_RESUMEN_EVALUACION"  
+WHERE  ( :adb_suma >= "AT_RESUMEN_EVALUACION"."RANGO_INICIAL" ) AND  
+		 ( :adb_suma <= "AT_RESUMEN_EVALUACION"."RANGO_FINAL" )   
+USING		sqlca;
+if sqlca.sqlcode<>0 then
+	ls_eval	= 'XXX'
+end if
+return(ls_eval)
+end function
+

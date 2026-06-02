@@ -1,0 +1,52 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Busca un valor en un array de posibilidades, reduce scripts a gran escala, sustituye PBScript por BLScript~r~n    Recomendación: NO MODIFICAR - NIVEL EXPERTO~r~n*/
+global type f_in from function_object
+end type
+
+forward prototypes
+global function boolean f_in (any any_cond, any any_val[])
+end prototypes
+
+global function boolean f_in (any any_cond, any any_val[]);/* CVILELA: 21/Feb/2022 */
+
+Boolean	lb_ret = False
+Integer	i
+
+
+For i = 1 To UpperBound( any_Val[] )
+		
+	Choose Case Lower( ClassName( any_cond ) )
+		Case 'string'
+			If String( any_cond ) = String( any_Val[ i] ) Then Return True
+			
+		Case 'datetime'
+			If DateTime( any_cond ) = DateTime( any_Val[ i] ) Then Return True
+			
+		Case 'integer'
+			If Integer( any_cond ) = Integer( any_Val[ i] ) Then Return True
+			
+		Case 'decimal', 'dec'
+			If Dec( any_cond ) = Dec( any_Val[ i] ) Then Return True
+			
+		Case 'long'
+			If Long( any_cond ) = Long( any_Val[ i] ) Then Return True
+			
+		Case 'time'
+			If Time( any_cond ) = Time( any_Val[ i] ) Then Return True
+			
+		Case 'boolean'
+			If ( any_cond ) = ( any_Val[ i] ) Then Return True
+			
+		Case Else
+			If IsNumber( any_cond ) Then
+				If Dec( any_cond ) = Dec( any_Val[ i] ) Then Return True
+			Else
+				If String( any_cond ) = String( any_Val[ i] ) Then Return True
+			End If
+	End Choose
+
+Next
+
+Return lb_ret
+
+end function
+

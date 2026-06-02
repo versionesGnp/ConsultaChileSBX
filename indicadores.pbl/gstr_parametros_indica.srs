@@ -1,0 +1,11 @@
+﻿global type gstr_parametros_indica from structure
+	string		gs_serie
+	double		gi_numero
+	long		gi_rut
+	string		gs_cod_sup
+	datawindow		dw_paso
+	string		fecha_1
+	string		fecha_2
+	string		tipo
+end type
+

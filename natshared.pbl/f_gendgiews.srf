@@ -1,0 +1,138 @@
+﻿//objectcomments Autor: César Vilela~r~nTipo de Cambio Banxico
+global type f_gendgiews from function_object
+end type
+
+forward prototypes
+global function string f_gendgiews ()
+end prototypes
+
+global function string f_gendgiews ();/* f_GenDgieWS( )*/
+
+HttpClient   lhc_Client
+ExtractorObject lnv_extractor
+String	ls_Url, ls_id, ls_Method, ls_Body, ls_Respose, &
+			ls_https, ls_serie, ls_datos, ls_token
+Long		ll_rtn
+Blob		lb_body, lb_Extr
+Boolean	ib_comp
+
+Goto Test
+return ''
+
+lnv_extractor = Create ExtractorObject
+lhc_Client = Create HttpClient
+
+ls_https = 'https://www.banxico.org.mx/SieAPIRest/service/v1/series/'
+ls_serie = 'SF60653,SF43718,SF46410,SF60632,SF46406,SF46407'
+ls_datos = '/datos/oportuno?token='
+ls_token = '762d21568a10a69c5cf69768bd49e26a112a62085bd908f90c945633204bfc84'
+ls_Url = ls_https + ls_serie + ls_datos + ls_token
+ls_Method = "GET"
+lhc_Client.timeout = 10
+lhc_Client.SetRequestHeader ( "Content-Type", "text/xml" )
+lhc_Client.SetRequestHeader("Content-Length", "length")
+//lhc_Client.SetRequestHeader ( "Content-Type", "application/json" )
+//lhc_Client.SetRequestHeader("Accept-Encoding", "gzip")
+
+ll_rtn = lhc_Client.SendRequest( ls_Method, ls_Url )
+If ll_rtn = 1 Then
+  ls_Respose = lhc_Client.GetResponseHeaders( )
+  If Pos (ls_Respose, "Content-Encoding: gzip"  ) > 0 Or Pos ( ls_Respose, "gzip" ) > 0 Then
+    ib_comp = true
+  End If
+  If ib_comp Then
+    // Extract the package
+    ll_rtn = lhc_Client.GetResponseBody(lb_Body)
+    If ll_rtn = 1 Then
+      ll_rtn = lnv_extractor.Extract(lb_body, lb_Extr, ArchiveFormatGZip!)
+      If ll_rtn = 1 Then
+        ls_Body = String ( lb_Extr, EncodingUTF8! ) 
+        MessageBox ( "Extract  Success", ls_Body )
+      Else
+        MessageBox ( "Extract Failed", "return:" + String (ll_rtn) )
+      End If
+    Else
+      MessageBox ( "GetResponsebody Failed", "return:" + String (ll_rtn) )
+    End If
+  else
+    // Extraction did not happen
+    ll_rtn = lhc_Client.GetResponsebody( ls_Body,EncodingUTF8!)
+    MessageBox ( "No Extract", ls_Body )
+  End IF
+Else
+  MessageBox ( "SendRequest Failed", "Return:" + String ( ll_rtn ) )
+End If
+
+If IsValid (lnv_extractor) Then Destroy ( lnv_extractor )
+
+If IsValid (lhc_Client) Then Destroy ( lhc_Client )
+
+
+
+
+String ls_Json, ls_Name
+Long ll_ChildCount, ll_Index
+Datetime ldt_mov
+JsonParser lnv_JsonParser
+Long ll_ObjectItem 
+Long ll_ArrayItem, ll_ATC, ll_RootObject  
+
+lnv_JsonParser = Create JsonParser
+
+ls_Json = ls_body
+
+// Loads a JSON string
+lnv_JsonParser.LoadString(ls_Json)
+ll_RootObject = lnv_JsonParser.GetRootItem() // Root item is JsonArrayItem!
+ll_ChildCount = lnv_JsonParser.GetChildCount(ll_RootObject)
+ll_ArrayItem = lnv_JsonParser.GetItemArray(ll_RootObject, "bmx")
+ll_ArrayItem = lnv_JsonParser.GetItemArray(ll_RootObject, "series")
+
+// Get array item in a loop
+for ll_Index = 1 to ll_ChildCount
+ // Get array item
+ ll_ObjectItem = lnv_JsonParser.GetChildItem(ll_RootObject, ll_Index)
+
+ // Array item is JsonObjectItem!
+ if lnv_JsonParser.GetItemType(ll_ObjectItem) = JsonObjectItem! then
+  ls_Id = lnv_JsonParser.GetItemString(ll_ObjectItem, "idSerie")
+  ls_Name = lnv_JsonParser.GetItemString(ll_ObjectItem, "titulo")
+  ls_Name = lnv_JsonParser.GetItemString(ll_ObjectItem, "bmx")
+  ls_Name = lnv_JsonParser.GetItemString(ll_ObjectItem, "series")
+  //ldt_Birthday = lnv_JsonParser.GetItemDateTime(ll_ObjectItem, "birthday")
+ end if
+ 
+next
+
+
+Return ls_Body
+
+Test:
+String	ls_ret
+/*currencyServer conn_dgi
+SoapConnection conn
+Long		ll_ret
+
+conn = Create SoapConnection
+ll_ret = conn.SetOptions("SoapLog=~"C:\mySoapLog.log~"")
+ll_ret = conn.CreateInstance( conn_dgi, 'currencyServer', 'http://fx.currencysystem.com/webservices/CurrencyServer4.asmx' )
+ls_ret = conn_dgi.currencies( '' )
+//MessageBox( 'WEB Service Weather', ls_ret )  
+*/
+Return ls_ret
+
+/*
+DGIeWSPort conn_dgi
+SoapConnection conn
+Long		ll_ret
+String	ls_ret
+
+conn = Create SoapConnection
+//ll_ret = conn.CreateInstance( conn_dgi, 'DGIeWSPort', 'http://www.banxico.org.mx/DgieWSWeb/DgieWS?WSDL' )
+ll_ret = conn.CreateInstance( conn_dgi, 'DGIeWSPort', 'http://www.banxico.org.mx/DgieWSWeb/DgieWS?WSDL' )
+ls_ret = conn_dgi.TiposdeCambioBanxico( )
+                 // tiposdecambiobanxico( )
+//MessageBox( 'WEB Service Weather', ls_ret )  
+Return ls_ret*/
+end function
+

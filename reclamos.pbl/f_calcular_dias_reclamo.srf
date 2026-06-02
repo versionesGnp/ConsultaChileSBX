@@ -1,0 +1,21 @@
+﻿global type f_calcular_dias_reclamo from function_object
+end type
+
+forward prototypes
+global function datetime f_calcular_dias_reclamo (long al_nro_reclamo)
+end prototypes
+
+global function datetime f_calcular_dias_reclamo (long al_nro_reclamo);Long			ll_dias
+Datetime		ldt_fecha_comp
+
+SELECT		MAX("RECLAMO_SOLICITUD_DETALLE"."FECHA_COMPROMISO")
+INTO			:ldt_fecha_comp  
+FROM			"RECLAMO_SOLICITUD_DETALLE"  
+WHERE		"RECLAMO_SOLICITUD_DETALLE"."NUMERO_RECLAMO" = :al_nro_reclamo   
+USING		sqlca;
+if isnull(ldt_fecha_comp) then
+	ldt_fecha_comp		= datetime(date('01/01/1901'),time('00:00:00'))
+end if
+return ldt_fecha_comp
+end function
+

@@ -1,0 +1,23 @@
+﻿global type f_buscar_ultimo_control_documentario from function_object
+end type
+
+forward prototypes
+global function string f_buscar_ultimo_control_documentario (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function string f_buscar_ultimo_control_documentario (string as_base, string as_serie, double al_numero);String	ls_descrip
+Long		ll_estado
+SELECT	"CD_ESTADO"."DESCRIPCION",
+			"CD_ESTADO"."CODIGO"
+INTO 		:ls_descrip,
+			:ll_estado
+FROM 		"CD_FOLIO",   
+			"CD_ESTADO"  
+WHERE  ( "CD_FOLIO"."ULT_ESTADO" = "CD_ESTADO"."CODIGO" ) and  
+		 (("CD_FOLIO"."BASE" = :as_base ) AND  
+		 ( "CD_FOLIO"."SERIE" = :as_serie ) AND  
+		 ( "CD_FOLIO"."NUMERO" = :al_numero ) )   
+Using		sqlca ;
+return(STRING(ll_estado)+' - '+ls_descrip)
+end function
+

@@ -1,0 +1,1126 @@
+﻿global type f_valida_menu from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu2 (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu2 (string ls_tipo, string ls_objeto);//CHOOSE CASE ls_tipo
+//	CASE 'menu'
+//		CHOOSE CASE ls_objeto
+//			CASE 'm_menu_principal'
+//				m_menu_principal.enabled																			= false
+//				m_menu_principal.m_consultas.enabled															= false
+//				m_menu_principal.m_consultas.m_5.m_buscarcontrato.enabled								= false
+//				m_menu_principal.m_consultas.m_5.m_buscarporfallecido.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_buscarporsector.enabled								= false
+//				m_menu_principal.m_consultas.m_5.m_buscarporubicacin.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_listapagarepromesas.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.m_todos.enabled				= false
+//				m_menu_principal.m_consultas.m_5.m_estadistica.enabled									= false
+//				m_menu_principal.m_consultas.m_general.enabled												= false
+//				m_menu_principal.m_consultas.m_general.m_ofertas.enabled									= false
+//				m_menu_principal.m_consultas.m_general.m_contratoisa.enabled							= false
+//				m_menu_principal.m_consultas.m_general.m_pagar.enabled									= false
+//				m_menu_principal.m_consultas.m_general.m_derechosespeciales.enabled					= false
+//				m_menu_principal.m_consultas.m_general.m_contratos_isa.enabled							= false
+//				m_menu_principal.m_consultas.m_general.m_reprogramaciónctasmantención.enabled		= false
+//				m_menu_principal.m_consultas.m_general.m_rezagos.enabled									= false
+//				m_menu_principal.m_consultas.m_parametros.enabled											= false
+//				m_menu_principal.m_consultas.m_parametros.m_basecomisiones.enabled					= false
+//				m_menu_principal.m_consultas.m_parametros.m_listaprecios.enabled						= false
+//				m_menu_principal.m_consultas.m_estadosolicitudes.enabled									= false
+//				m_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes.enabled				= false
+//				m_menu_principal.m_herramienta.enabled															= false
+//				m_menu_principal.m_herramienta.m_cambiaconexion.enabled									= false
+//				m_menu_principal.m_herramienta.m_cambiopassword.enabled									= false
+//				m_menu_principal.m_herramienta.m_perfilusuario.visible									= false
+//				m_menu_principal.m_herramienta.m_mantenedortablas.visible								= false
+//				m_menu_principal.m_planimetria.enabled															= false
+//				m_menu_principal.m_planimetria.m_planoparque.enabled										= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.visible								= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresooferta.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_anexoliberador.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_derechoespecial.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_pagaré.visible					= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresocontratoisa.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.visible							= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactaroferta.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos1.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarliberadores.visible= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_traspasoderezago.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_resciliación.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_actualizaci.visible		= false
+//				m_menu_principal.m_admventa.m_mantenedor.visible											= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_agente.visible								= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_supervisor.visible							= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_jefeventa.visible							= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_cambiarestado.visible						= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.visible							= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_agente1.visible				= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_supervisor1.visible		= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_jefeventas.visible			= false
+//				m_menu_principal.m_admventa.m_mantenedor.visible											= false
+//				m_menu_principal.m_gestionventa.enabled														= false
+//				m_menu_principal.m_gestionventa.m_promesas.enabled											= false
+//				m_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo.enabled				= false
+//				m_menu_principal.m_gestionventa.m_promesas.m_calculohistorico.enabled				= false
+//				m_menu_principal.m_gestionventa.m_liberadores.enabled										= false
+//				m_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0.enabled			= false
+//				m_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0.enabled			= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.enabled							= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_8.enabled					= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_9.enabled					= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente.enabled			= false
+//				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10.enabled				= false
+//				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11.enabled				= false
+//				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12.enabled				= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.enabled								= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_13.enabled						= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_14.enabled						= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_15.enabled						= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.enabled									= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_16.enabled								= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_17.enabled								= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor.enabled	= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_18.enabled								= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.enabled								= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_19.enabled						= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_20.enabled						= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_21.enabled						= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_22.enabled						= false
+//				m_menu_principal.m_gestionventa.m_consultas0.enabled										= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.enabled				= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.enabled									= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_36.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_37.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_38.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_39.enabled							= false
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.enabled								= false
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo.enabled			= false
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor.enabled	= false
+//				m_menu_principal.m_caja0.visible																	= false
+//				m_menu_principal.m_caja0.m_ingreso.visible													= false
+//				m_menu_principal.m_caja0.m_ingreso.m_7.visible												= false
+//				m_menu_principal.m_caja0.m_ingreso.m_40.visible												= false
+//				m_menu_principal.m_caja0.m_procesos.visible													= false
+//				m_menu_principal.m_caja0.m_procesos.m_cuadraturacaja.visible							= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.visible									= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_deingresos.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_defolios.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.visible						= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0.visible= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadébito.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informecierrecajafechahora0.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.visible= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.visible								= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_promesas0.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_contratoisa0.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_reprogramaciones.visible		= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_librodeventasboletas.visible= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.visible								= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_promesas1.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_liberadores0.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_pagares.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_derecho.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_rezagos0.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_centralización.visible							= false
+//				m_menu_principal.m_caja0.m_consultas1.visible												= false
+//				m_menu_principal.m_caja0.m_consultas1.m_comprobantedeingreso0.visible				= false
+//				m_menu_principal.m_caja0.m_mantenedores.visible												= false
+//				m_menu_principal.m_caja0.m_mantenedores.m_manteneruf.visible							= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_boletas.m_ingreso1.visible				= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_boletas.m_informe1.visible				= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_ci.m_ingreso2.visible					= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_ci.m_informe2.visible					= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.visible											= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.visible							= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_administradoranb.visible	= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_inmobiliarianc.visible		= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.visible							= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porcontrato.visible		= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porfolio.visible			= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_pornotadecrédito.visible= false
+//				m_menu_principal.m_cuponera.m_cupones.visible												= false
+//				m_menu_principal.m_cuponera.m_cupones.m_crearcuponeras.visible							= false
+//				m_menu_principal.m_cuponera.m_analisisdecuponeras.visible								= false
+//				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_promesas2.visible				= false
+//				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_pagaré0.visible					= false
+//				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_liberadores1.visible			= false
+//				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_derechoespecial0.visible		= false
+//				m_menu_principal.m_cuponera.m_etiquetas.visible												= false
+//				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetas.visible						= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuevas.visible										= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_promesas3.visible						= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_liberadores2.visible					= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_pagaré1.visible						= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.visible							= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_promesas4.visible			= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_liberadores3.visible		= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_pagaré2.visible				= false
+//				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.visible								= false
+//				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_promesas5.visible				= false
+//				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_liberadores4.visible			= false
+//				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_pagaré3.visible				= false
+//				m_menu_principal.m_cuponera.visible																= false
+//				m_menu_principal.m_fallecidos0.visible															= false
+//				m_menu_principal.m_indicadores.visible															= false
+//				
+//			CASE 'm_menu_principal.m_consultas'
+//				m_menu_principal.m_consultas.enabled															= false
+//				m_menu_principal.m_consultas.m_5.m_buscarcontrato.enabled								= false
+//				m_menu_principal.m_consultas.m_5.m_buscarporfallecido.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_buscarporsector.enabled								= false
+//				m_menu_principal.m_consultas.m_5.m_buscarporubicacin.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_listapagarepromesas.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.m_todos.enabled				= false
+//				m_menu_principal.m_consultas.m_5.m_estadistica.enabled									= false
+//				m_menu_principal.m_consultas.m_general.enabled												= false
+//				m_menu_principal.m_consultas.m_general.m_ofertas.enabled									= false
+//				m_menu_principal.m_consultas.m_general.m_contratoisa.enabled							= false
+//				m_menu_principal.m_consultas.m_general.m_pagar.enabled									= false
+//				m_menu_principal.m_consultas.m_general.m_derechosespeciales.enabled					= false
+//				m_menu_principal.m_consultas.m_general.m_contratos_isa.enabled							= false
+//				m_menu_principal.m_consultas.m_general.m_reprogramaciónctasmantención.enabled		= false
+//				m_menu_principal.m_consultas.m_general.m_rezagos.enabled									= false
+//				m_menu_principal.m_consultas.m_parametros.enabled											= false
+//				m_menu_principal.m_consultas.m_parametros.m_basecomisiones.enabled					= false
+//				m_menu_principal.m_consultas.m_parametros.m_listaprecios.enabled						= false
+//				m_menu_principal.m_consultas.m_estadosolicitudes.enabled									= false
+//				m_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes.enabled				= false
+//			CASE 'm_menu_principal.m_consultas.m_5'
+//				m_menu_principal.m_consultas.m_5.m_buscarcontrato.enabled								= false
+//				m_menu_principal.m_consultas.m_5.m_buscarporfallecido.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_buscarporsector.enabled								= false
+//				m_menu_principal.m_consultas.m_5.m_buscarporubicacin.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_listapagarepromesas.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.enabled							= false
+//				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.m_todos.enabled				= false
+//				m_menu_principal.m_consultas.m_5.m_estadistica.enabled									= false
+//			CASE 'm_menu_principal.m_consultas.m_5.m_buscarcontrato'
+//				m_menu_principal.m_consultas.m_5.m_buscarcontrato.enabled								= false
+//			CASE 'm_menu_principal.m_consultas.m_5.m_buscarporfallecido'
+//				m_menu_principal.m_consultas.m_5.m_buscarporfallecido.enabled							= false
+//			CASE 'm_menu_principal.m_consultas.m_5.m_buscarporsector'
+//				m_menu_principal.m_consultas.m_5.m_buscarporsector.enabled								= false
+//			CASE 'm_menu_principal.m_consultas.m_5.m_buscarporubicacin'
+//				m_menu_principal.m_consultas.m_5.m_buscarporubicacin.enabled							= false
+//			CASE 'm_menu_principal.m_consultas.m_5.m_listapagarepromesas'
+//				m_menu_principal.m_consultas.m_5.m_listapagarepromesas.enabled							= false
+//			CASE 'm_menu_principal.m_consultas.m_5.m_buscarcopropietario'
+//				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.enabled							= false
+//			CASE 'm_menu_principal.m_consultas.m_5.m_buscarcopropietario.m_todos'
+//				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.m_todos.enabled				= false
+//			CASE 'm_menu_principal.m_consultas.m_5.m_estadistica'
+//				m_menu_principal.m_consultas.m_5.m_estadistica.enabled									= false
+//				
+//			CASE 'm_menu_principal.m_consultas.m_general'
+//				m_menu_principal.m_consultas.m_general.enabled												= false
+//				m_menu_principal.m_consultas.m_general.m_ofertas.enabled									= false
+//				m_menu_principal.m_consultas.m_general.m_contratoisa.enabled							= false
+//				m_menu_principal.m_consultas.m_general.m_pagar.enabled									= false
+//				m_menu_principal.m_consultas.m_general.m_derechosespeciales.enabled					= false
+//				m_menu_principal.m_consultas.m_general.m_contratos_isa.enabled							= false
+//				m_menu_principal.m_consultas.m_general.m_reprogramaciónctasmantención.enabled		= false
+//				m_menu_principal.m_consultas.m_general.m_rezagos.enabled									= false
+//			CASE 'm_menu_principal.m_consultas.m_general.m_ofertas'
+//				m_menu_principal.m_consultas.m_general.m_ofertas.enabled									= false
+//			CASE 'm_menu_principal.m_consultas.m_general.m_contratoisa'
+//				m_menu_principal.m_consultas.m_general.m_contratoisa.enabled							= false
+//			CASE 'm_menu_principal.m_consultas.m_general.m_pagar'
+//				m_menu_principal.m_consultas.m_general.m_pagar.enabled									= false
+//			CASE 'm_menu_principal.m_consultas.m_general.m_derechosespeciales'
+//				m_menu_principal.m_consultas.m_general.m_derechosespeciales.enabled					= false
+//			CASE 'm_menu_principal.m_consultas.m_general.m_contratos_isa'
+//				m_menu_principal.m_consultas.m_general.m_contratos_isa.enabled							= false
+//			CASE 'm_menu_principal.m_consultas.m_general.m_reprogramaciónctasmantención'
+//				m_menu_principal.m_consultas.m_general.m_reprogramaciónctasmantención.enabled		= false
+//			CASE 'm_menu_principal.m_consultas.m_general.m_rezagos'
+//				m_menu_principal.m_consultas.m_general.m_rezagos.enabled									= false
+//				
+//			CASE 'm_menu_principal.m_consultas.m_parametros'
+//				m_menu_principal.m_consultas.m_parametros.enabled											= false
+//				m_menu_principal.m_consultas.m_parametros.m_basecomisiones.enabled					= false
+//				m_menu_principal.m_consultas.m_parametros.m_listaprecios.enabled						= false
+//				
+//			CASE 'm_menu_principal.m_consultas.m_parametros.m_basecomisiones'
+//				m_menu_principal.m_consultas.m_parametros.m_basecomisiones.enabled					= false
+//			CASE 'm_menu_principal.m_consultas.m_parametros.m_listaprecios'
+//				m_menu_principal.m_consultas.m_parametros.m_listaprecios.enabled						= false
+//
+//			CASE 'm_menu_principal.m_consultas.m_estadosolicitudes'
+//				m_menu_principal.m_consultas.m_estadosolicitudes.enabled									= false
+//				m_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes.enabled				= false
+//			CASE 'm_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes'
+//				m_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes.enabled				= false
+//			CASE 'm_menu_principal.m_herramienta'
+//				m_menu_principal.m_herramienta.enabled															= false
+//				m_menu_principal.m_herramienta.m_cambiaconexion.enabled									= false
+//				m_menu_principal.m_herramienta.m_cambiopassword.enabled									= false
+//				m_menu_principal.m_herramienta.m_perfilusuario.visible									= false
+//				m_menu_principal.m_herramienta.m_mantenedortablas.visible								= false
+//			CASE 'm_menu_principal.m_herramienta.m_cambiaconexion'
+//				m_menu_principal.m_herramienta.m_cambiaconexion.enabled									= false
+//			CASE 'm_menu_principal.m_herramienta.m_cambiopassword'
+//				m_menu_principal.m_herramienta.m_cambiopassword.enabled									= false
+//			CASE 'm_menu_principal.m_herramienta.m_perfilusuario'
+//				m_menu_principal.m_herramienta.m_perfilusuario.visible									= false
+//			CASE 'm_menu_principal.m_herramienta.m_mantenedortablas'
+//				m_menu_principal.m_herramienta.m_mantenedortablas.visible								= false
+//			CASE 'm_menu_principal.m_planimetria'
+//				m_menu_principal.m_planimetria.enabled															= false
+//				m_menu_principal.m_planimetria.m_planoparque.enabled										= false
+//			CASE 'm_menu_principal.m_planimetria.m_planoparque'
+//				m_menu_principal.m_planimetria.m_planoparque.enabled										= false
+//
+//			CASE 'm_menu_principal.m_admventa'
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.visible								= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresooferta.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_anexoliberador.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_derechoespecial.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_pagaré.visible					= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresocontratoisa.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.visible							= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactaroferta.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos1.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarliberadores.visible= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_traspasoderezago.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_resciliación.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_actualizaci.visible		= false
+//				m_menu_principal.m_admventa.m_mantenedor.visible											= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_agente.visible								= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_supervisor.visible							= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_jefeventa.visible							= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_cambiarestado.visible						= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.visible							= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_agente1.visible				= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_supervisor1.visible		= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_jefeventas.visible			= false
+//				m_menu_principal.m_admventa.m_mantenedor.visible											= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación'
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.visible								= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresooferta.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_anexoliberador.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_derechoespecial.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_pagaré.visible					= false
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresocontratoisa.visible	= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresooferta'
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresooferta.visible		= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_anexoliberador'
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_anexoliberador.visible		= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_derechoespecial'
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_derechoespecial.visible		= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_pagaré'
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_pagaré.visible					= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresocontratoisa'
+//				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresocontratoisa.visible	= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones'
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.visible							= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactaroferta.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos1.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarliberadores.visible= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_traspasoderezago.visible	= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_resciliación.visible		= false
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_actualizaci.visible		= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactaroferta'
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactaroferta.visible	= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos1'
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos1.visible	= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarliberadores'
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarliberadores.visible= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos'
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos.visible	= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_traspasoderezago'
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_traspasoderezago.visible	= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_resciliación'
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_resciliación.visible		= false
+//			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_actualizaci'
+//				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_actualizaci.visible		= false
+//			CASE 'm_menu_principal.m_admventa.m_mantenedor'
+//				m_menu_principal.m_admventa.m_mantenedor.visible											= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_agente.visible								= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_supervisor.visible							= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_jefeventa.visible							= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_cambiarestado.visible						= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.visible							= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_agente1.visible				= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_supervisor1.visible		= false
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_jefeventas.visible			= false
+//			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_agente'
+//				m_menu_principal.m_admventa.m_mantenedor.m_agente.visible								= false
+//			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_supervisor'
+//				m_menu_principal.m_admventa.m_mantenedor.m_supervisor.visible							= false
+//			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_jefeventa'
+//				m_menu_principal.m_admventa.m_mantenedor.m_jefeventa.visible							= false
+//			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_cambiarestado'
+//				m_menu_principal.m_admventa.m_mantenedor.m_cambiarestado.visible						= false
+//			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_listadores'
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.visible							= false
+//			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_listadores.m_agente1'
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_agente1.visible				= false
+//			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_listadores.m_supervisor1'
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_supervisor1.visible		= false
+//			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_listadores.m_jefeventas'
+//				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_jefeventas.visible			= false
+//				
+//			CASE 'm_menu_principal.m_gestionventa'
+//				m_menu_principal.m_gestionventa.enabled														= false
+//				m_menu_principal.m_gestionventa.m_promesas.enabled											= false
+//				m_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo.enabled				= false
+//				m_menu_principal.m_gestionventa.m_promesas.m_calculohistorico.enabled				= false
+//				m_menu_principal.m_gestionventa.m_liberadores.enabled										= false
+//				m_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0.enabled			= false
+//				m_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0.enabled			= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.enabled							= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_8.enabled					= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_9.enabled					= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente.enabled			= false
+//				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10.enabled				= false
+//				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11.enabled				= false
+//				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12.enabled				= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.enabled								= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_13.enabled						= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_14.enabled						= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_15.enabled						= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.enabled									= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_16.enabled								= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_17.enabled								= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor.enabled	= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_18.enabled								= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.enabled								= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_19.enabled						= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_20.enabled						= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_21.enabled						= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_22.enabled						= false
+//				m_menu_principal.m_gestionventa.m_consultas0.enabled										= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.enabled				= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.enabled									= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_36.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_37.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_38.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_39.enabled							= false
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.enabled								= false
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo.enabled			= false
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor.enabled	= false
+//				
+//			CASE 'm_menu_principal.m_gestionventa.m_promesas'
+//				m_menu_principal.m_gestionventa.m_promesas.enabled											= false
+//				m_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo.enabled				= false
+//				m_menu_principal.m_gestionventa.m_promesas.m_calculohistorico.enabled				= false
+//			CASE 'm_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo'
+//				m_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo.enabled				= false
+//			CASE 'm_menu_principal.m_gestionventa.m_promesas.m_calculohistorico'
+//				m_menu_principal.m_gestionventa.m_promesas.m_calculohistorico.enabled				= false
+//				
+//			CASE 'm_menu_principal.m_gestionventa.m_liberadores'
+//				m_menu_principal.m_gestionventa.m_liberadores.enabled										= false
+//				m_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0.enabled			= false
+//				m_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0.enabled			= false
+//			CASE 'm_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0'
+//				m_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0.enabled			= false
+//			CASE 'm_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0'
+//				m_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0.enabled			= false
+//			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual'
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.enabled							= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_8.enabled					= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_9.enabled					= false
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente.enabled			= false
+//			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual.m_8'
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_8.enabled					= false
+//			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual.m_9'
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_9.enabled					= false
+//			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente'
+//				m_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente.enabled			= false
+//			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10'
+//				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10.enabled				= false
+//			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11'
+//				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11.enabled				= false
+//			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12'
+//				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12.enabled				= false
+//				
+//			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa'
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.enabled								= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_13.enabled						= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_14.enabled						= false
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_15.enabled						= false
+//			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa.m_13'
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_13.enabled						= false
+//			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa.m_14'
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_14.enabled						= false
+//			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa.m_15'
+//				m_menu_principal.m_gestionventa.m_estructuradeventa.m_15.enabled						= false
+//			CASE 'm_menu_principal.m_gestionventa.m_cierreventas'
+//				m_menu_principal.m_gestionventa.m_cierreventas.enabled									= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_16.enabled								= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_17.enabled								= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor.enabled	= false
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_18.enabled								= false
+//			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_16'
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_16.enabled								= false
+//			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_17'
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_17.enabled								= false
+//			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor'
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor.enabled	= false
+//			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_18'
+//				m_menu_principal.m_gestionventa.m_cierreventas.m_18.enabled								= false
+//				
+//			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas'
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.enabled								= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_19.enabled						= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_20.enabled						= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_21.enabled						= false
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_22.enabled						= false
+//			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_19'
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_19.enabled						= false
+//			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_20'
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_20.enabled						= false
+//			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_21'
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_21.enabled						= false
+//			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_22'
+//				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_22.enabled						= false
+//
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0'
+//				m_menu_principal.m_gestionventa.m_consultas0.enabled										= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.enabled				= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_24'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_25'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_26'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_27'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.enabled							= false
+//				
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.enabled				= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_29'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_30'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.enabled				= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_32'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.enabled							= false
+//				
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_33'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.enabled								= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.enabled							= false
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_33.m_34'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_33.m_35'
+//				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_estadocartera'				
+//				m_menu_principal.m_gestionventa.m_estadocartera.enabled									= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_36.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_37.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_38.enabled							= false
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_39.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_36'
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_36.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_37'
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_37.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_38'
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_38.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_39'
+//				m_menu_principal.m_gestionventa.m_estadocartera.m_39.enabled							= false
+//			CASE 'm_menu_principal.m_gestionventa.m_promesasperiodo'
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.enabled								= false
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo.enabled			= false
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor.enabled	= false
+//			CASE 'm_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo'
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo.enabled			= false
+//			CASE 'm_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor'
+//				m_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor.enabled	= false
+//			CASE 'm_menu_principal.m_caja0'
+//				m_menu_principal.m_caja0.visible																	= false
+//				m_menu_principal.m_caja0.m_ingreso.visible													= false
+//				m_menu_principal.m_caja0.m_ingreso.m_7.visible												= false
+//				m_menu_principal.m_caja0.m_ingreso.m_40.visible												= false
+//				m_menu_principal.m_caja0.m_procesos.visible													= false
+//				m_menu_principal.m_caja0.m_procesos.m_cuadraturacaja.visible							= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.visible									= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_deingresos.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_defolios.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.visible						= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0.visible= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadébito.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informecierrecajafechahora0.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.visible= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.visible								= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_promesas0.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_contratoisa0.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_reprogramaciones.visible		= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_librodeventasboletas.visible= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.visible								= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_promesas1.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_liberadores0.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_pagares.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_derecho.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_rezagos0.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_centralización.visible							= false
+//				m_menu_principal.m_caja0.m_consultas1.visible												= false
+//				m_menu_principal.m_caja0.m_consultas1.m_comprobantedeingreso0.visible				= false
+//				m_menu_principal.m_caja0.m_mantenedores.visible												= false
+//				m_menu_principal.m_caja0.m_mantenedores.m_manteneruf.visible							= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_boletas.m_ingreso1.visible				= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_boletas.m_informe1.visible				= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_ci.m_ingreso2.visible					= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_ci.m_informe2.visible					= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.visible											= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.visible							= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_administradoranb.visible	= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_inmobiliarianc.visible		= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.visible							= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porcontrato.visible		= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porfolio.visible			= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_pornotadecrédito.visible= false
+//			CASE 'm_menu_principal.m_caja0.m_ingreso'
+//				m_menu_principal.m_caja0.m_ingreso.visible													= false
+//				m_menu_principal.m_caja0.m_ingreso.m_7.visible												= false
+//				m_menu_principal.m_caja0.m_ingreso.m_40.visible												= false
+//			CASE 'm_menu_principal.m_caja0.m_ingreso.m_7'
+//				m_menu_principal.m_caja0.m_ingreso.m_7.visible												= false
+//			CASE 'm_menu_principal.m_caja0.m_ingreso.m_40'
+//				m_menu_principal.m_caja0.m_ingreso.m_40.visible												= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos'
+//				m_menu_principal.m_caja0.m_procesos.visible													= false
+//				m_menu_principal.m_caja0.m_procesos.m_cuadraturacaja.visible							= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_cuadraturacaja'
+//				m_menu_principal.m_caja0.m_procesos.m_cuadraturacaja.visible							= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.visible									= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_deingresos.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_defolios.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.visible						= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0.visible= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadébito.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informecierrecajafechahora0.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.visible= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora.visible	= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_deingresos'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_deingresos.visible					= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_defolios'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_defolios.visible					= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.visible						= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha.visible			= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía.visible			= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha.visible			= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0.visible= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0.visible	= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0.visible= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadébito'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadébito.visible				= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_informecierrecajafechahora0'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informecierrecajafechahora0.visible	= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.visible= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria.visible	= false
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora.visible	= false				
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria.visible	= false
+//			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora'
+//				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora.visible	= false				
+//				
+//				
+//			CASE ''
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.visible								= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_promesas0.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_contratoisa0.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_reprogramaciones.visible		= false
+//				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_librodeventasboletas.visible= false
+//			CASE ''
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.visible								= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_promesas1.visible				= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_liberadores0.visible			= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_pagares.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_derecho.visible					= false
+//				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_rezagos0.visible				= false
+//			CASE ''
+//				m_menu_principal.m_caja0.m_procesos.m_centralización.visible							= false
+//			CASE ''
+//				m_menu_principal.m_caja0.m_consultas1.visible												= false
+//				m_menu_principal.m_caja0.m_consultas1.m_comprobantedeingreso0.visible				= false
+//			CASE ''
+//				m_menu_principal.m_caja0.m_mantenedores.visible												= false
+//				m_menu_principal.m_caja0.m_mantenedores.m_manteneruf.visible							= false
+//			CASE ''
+//				m_menu_principal.m_caja0.m_documentosnulos.m_boletas.m_ingreso1.visible				= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_boletas.m_informe1.visible				= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_ci.m_ingreso2.visible					= false
+//				m_menu_principal.m_caja0.m_documentosnulos.m_ci.m_informe2.visible					= false
+//			CASE ''
+//				m_menu_principal.m_caja0.m_notasdecrédito.visible											= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.visible							= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_administradoranb.visible	= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_inmobiliarianc.visible		= false
+//			CASE ''
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.visible							= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porcontrato.visible		= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porfolio.visible			= false
+//				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_pornotadecrédito.visible= false
+//				
+//			CASE 'm_menu_principal.m_cuponera'
+//				m_menu_principal.m_cuponera.m_cupones.visible												= false
+//				m_menu_principal.m_cuponera.m_cupones.m_crearcuponeras.visible							= false
+//				m_menu_principal.m_cuponera.m_analisisdecuponeras.visible								= false
+//				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_promesas2.visible				= false
+//				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_pagaré0.visible					= false
+//				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_liberadores1.visible			= false
+//				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_derechoespecial0.visible		= false
+//				m_menu_principal.m_cuponera.m_etiquetas.visible												= false
+//				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetas.visible						= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuevas.visible										= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_promesas3.visible						= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_liberadores2.visible					= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_pagaré1.visible						= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.visible							= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_promesas4.visible			= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_liberadores3.visible		= false
+//				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_pagaré2.visible				= false
+//				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.visible								= false
+//				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_promesas5.visible				= false
+//				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_liberadores4.visible			= false
+//				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_pagaré3.visible				= false
+//				m_menu_principal.m_cuponera.visible																= false
+//			CASE 'm_menu_principal.m_fallecidos0'
+//				m_menu_principal.m_fallecidos0.visible															= false
+//				m_menu_principal.m_indicadores.visible															= false
+//		END CHOOSE
+////				CASE 'objeto' //no tiene
+//END CHOOSE
+end subroutine
+
+global type f_valida_menu3 from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu3 (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu3 (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_cuponera'
+				m_menu_principal.m_cuponera.visible																						= False
+				m_menu_principal.m_cuponera.m_cupones.visible																		= False
+				m_menu_principal.m_cuponera.m_cupones.m_crearcuponeras.visible													= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.visible														= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_promesas2.visible										= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_pagaré0.visible											= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_liberadores1.visible									= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_derechoespecial0.visible								= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_aumentocapacidad0.visible								= False
+				m_menu_principal.m_cuponera.m_etiquetas.visible																		= False
+				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetas.visible												= False
+				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetasbaseexterna.visible								= False
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.visible																= False
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_promesas3.visible												= False
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_liberadores2.visible											= False
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_pagaré1.visible												= False
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_aumentocapacidad1.visible									= False
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.visible													= False
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_promesas4.visible									= False
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_liberadores3.visible								= False
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_pagaré2.visible										= False
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_aumentocapacidad2.visible							= False
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.visible														= False
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_promesas5.visible										= False
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_liberadores4.visible									= False
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_pagaré3.visible										= False
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_aumentocapacidad3.visible							= False
+			CASE 'm_menu_principal.m_cuponera.m_cupones'
+				m_menu_principal.m_cuponera.m_cupones.visible																		= False
+				m_menu_principal.m_cuponera.m_cupones.m_crearcuponeras.visible													= False
+			CASE 'm_menu_principal.m_cuponera.m_cupones.m_crearcuponeras'
+				m_menu_principal.m_cuponera.m_cupones.m_crearcuponeras.visible													= False
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.visible														= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_promesas2.visible										= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_pagaré0.visible											= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_liberadores1.visible									= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_derechoespecial0.visible								= False
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_aumentocapacidad0.visible								= False
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras.m_promesas2'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_promesas2.visible										= False
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras.m_pagaré0'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_pagaré0.visible											= False
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras.m_liberadores1'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_liberadores1.visible									= False
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras.m_derechoespecial0'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_derechoespecial0.visible								= False
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras.m_aumentocapacidad0'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_aumentocapacidad0.visible								= False
+			CASE 'm_menu_principal.m_cuponera.m_etiquetas'
+				m_menu_principal.m_cuponera.m_etiquetas.visible																		= False
+				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetas.visible												= False
+				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetasbaseexterna.visible								= False
+			CASE 'm_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetas'
+				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetas.visible												= False
+			CASE 'm_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetasbaseexterna'
+				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetasbaseexterna.visible								= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuevas'
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.visible																= False
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_promesas3.visible												= False
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_liberadores2.visible											= False
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_pagaré1.visible												= False
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_aumentocapacidad1.visible									= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuevas.m_promesas3'
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_promesas3.visible												= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuevas.m_liberadores2'
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_liberadores2.visible											= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuevas.m_pagaré1'
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_pagaré1.visible												= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuevas.m_aumentocapacidad1'
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_aumentocapacidad1.visible									= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuncaemitidas'
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.visible													= False
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_promesas4.visible									= False
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_liberadores3.visible								= False
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_pagaré2.visible										= False
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_aumentocapacidad2.visible							= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_promesas4'
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_promesas4.visible									= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_liberadores3'
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_liberadores3.visible								= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_pagaré2'
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_pagaré2.visible										= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_aumentocapacidad2'
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_aumentocapacidad2.visible							= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnofacturadas'
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.visible														= False
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_promesas5.visible										= False
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_liberadores4.visible									= False
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_pagaré3.visible										= False
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_aumentocapacidad3.visible							= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_promesas5'
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_promesas5.visible										= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_liberadores4'
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_liberadores4.visible									= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_pagaré3'
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_pagaré3.visible										= False
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_aumentocapacidad3'
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_aumentocapacidad3.visible							= False
+			CASE 'm_menu_principal.m_fallecidos0'
+				m_menu_principal.m_fallecidos0.visible																					= false
+			CASE 'm_menu_principal.m_indicadores'
+				m_menu_principal.m_indicadores.visible																					= false
+			CASE 'm_menu_principal.m_gestionventa'
+				m_menu_principal.m_gestionventa.visible																				= False
+				m_menu_principal.m_gestionventa.m_promesas.visible																	= False
+				m_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo.visible										= False
+				m_menu_principal.m_gestionventa.m_promesas.m_calculohistorico.visible										= False
+				m_menu_principal.m_gestionventa.m_liberadores.visible																= False
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0.visible									= False
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0.visible									= False
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.visible														= False
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculodelperiodo1.visible							= False
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculohistorico1.visible							= False
+				m_menu_principal.m_gestionventa.m_informegestiónactual.visible													= False
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_8.visible											= False
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_9.visible											= False
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente.visible									= False
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.visible												= False
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10.visible										= False
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11.visible										= False
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12.visible										= False
+				m_menu_principal.m_gestionventa.m_estructuradeventa.visible														= False
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_13.visible												= False
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_14.visible												= False
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_15.visible												= False
+				m_menu_principal.m_gestionventa.m_cierreventas.visible															= False
+				m_menu_principal.m_gestionventa.m_cierreventas.m_16.visible														= False
+				m_menu_principal.m_gestionventa.m_cierreventas.m_17.visible														= False
+				m_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor.visible							= False
+				m_menu_principal.m_gestionventa.m_cierreventas.m_18.visible														= False
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.visible														= False
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_19.visible												= False
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_20.visible												= False
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_21.visible												= False
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_22.visible												= False
+				m_menu_principal.m_gestionventa.m_consultas0.visible																= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.visible														= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.visible														= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.visible										= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.visible						= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesnuevas.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_sindefinición.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_definición00.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesantiguas.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.visible														= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.visible													= False
+				m_menu_principal.m_gestionventa.m_estadocartera.visible															= False
+				m_menu_principal.m_gestionventa.m_estadocartera.m_36.visible													= False
+				m_menu_principal.m_gestionventa.m_estadocartera.m_37.visible													= False
+				m_menu_principal.m_gestionventa.m_estadocartera.m_38.visible													= False
+				m_menu_principal.m_gestionventa.m_estadocartera.m_39.visible													= False
+				m_menu_principal.m_gestionventa.m_promesasperiodo.visible														= False
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo.visible									= False
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor.visible			= False
+			CASE 'm_menu_principal.m_gestionventa.m_promesas'
+				m_menu_principal.m_gestionventa.m_promesas.visible																	= False
+				m_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo.visible										= False
+				m_menu_principal.m_gestionventa.m_promesas.m_calculohistorico.visible										= False
+			CASE 'm_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo'
+				m_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo.visible										= False
+			CASE 'm_menu_principal.m_gestionventa.m_promesas.m_calculohistorico'
+				m_menu_principal.m_gestionventa.m_promesas.m_calculohistorico.visible										= False
+			CASE 'm_menu_principal.m_gestionventa.m_liberadores'
+				m_menu_principal.m_gestionventa.m_liberadores.visible																= False
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0.visible									= False
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0.visible									= False
+			CASE 'm_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0'
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0.visible									= False
+			CASE 'm_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0'
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0.visible									= False
+			CASE 'm_menu_principal.m_gestionventa.m_aumentocapacidad4'	
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.visible														= False
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculodelperiodo1.visible							= False
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculohistorico1.visible							= False
+			CASE 'm_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculodelperiodo1'
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculodelperiodo1.visible							= False
+			CASE 'm_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculohistorico1'
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculohistorico1.visible							= False
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual'
+				m_menu_principal.m_gestionventa.m_informegestiónactual.visible													= False
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_8.visible											= False
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_9.visible											= False
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente.visible									= False
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual.m_8'
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_8.visible											= False
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual.m_9'
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_9.visible											= False
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente'
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente.visible									= False
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica'
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.visible												= False
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10.visible										= False
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11.visible										= False
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12.visible										= False
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10'
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10.visible										= False
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11'
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11.visible										= False
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12'
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12.visible										= False
+			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa'
+				m_menu_principal.m_gestionventa.m_estructuradeventa.visible														= False
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_13.visible												= False
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_14.visible												= False
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_15.visible												= False
+			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa.m_13'
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_13.visible												= False
+			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa.m_14'
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_14.visible												= False
+			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa.m_15'
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_15.visible												= False
+			CASE 'm_menu_principal.m_gestionventa.m_cierreventas'
+				m_menu_principal.m_gestionventa.m_cierreventas.visible															= False
+				m_menu_principal.m_gestionventa.m_cierreventas.m_16.visible														= False
+				m_menu_principal.m_gestionventa.m_cierreventas.m_17.visible														= False
+				m_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor.visible							= False
+				m_menu_principal.m_gestionventa.m_cierreventas.m_18.visible														= False
+			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_16'
+				m_menu_principal.m_gestionventa.m_cierreventas.m_16.visible														= False
+			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_17'
+				m_menu_principal.m_gestionventa.m_cierreventas.m_17.visible														= False
+			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor'
+				m_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor.visible							= False
+			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_18'
+				m_menu_principal.m_gestionventa.m_cierreventas.m_18.visible														= False
+			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas'
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.visible														= False
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_19.visible												= False
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_20.visible												= False
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_21.visible												= False
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_22.visible												= False
+			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_19'
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_19.visible												= False
+			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_20'
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_20.visible												= False
+			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_21'
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_21.visible												= False
+			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_22'
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_22.visible												= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0'
+				m_menu_principal.m_gestionventa.m_consultas0.visible																= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.visible														= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.visible														= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.visible										= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.visible						= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesnuevas.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_sindefinición.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_definición00.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesantiguas.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.visible														= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23'
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.visible														= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_24'
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_25'
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_26'
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_27'
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28'
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.visible														= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.visible										= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_29'
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_30'
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0'
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.visible										= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_32'
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad'
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.visible						= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesnuevas.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_sindefinición.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_definición00.visible	= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesantiguas.visible	= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesnuevas'
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesnuevas.visible	= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_sindefinición'
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_sindefinición.visible	= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_definición00'
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_definición00.visible	= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesantiguas'
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesantiguas.visible	= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_33'
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.visible														= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.visible													= False
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_33.m_34'
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_33.m_35'
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_estadocartera'
+				m_menu_principal.m_gestionventa.m_estadocartera.visible															= False
+				m_menu_principal.m_gestionventa.m_estadocartera.m_36.visible													= False
+				m_menu_principal.m_gestionventa.m_estadocartera.m_37.visible													= False
+				m_menu_principal.m_gestionventa.m_estadocartera.m_38.visible													= False
+				m_menu_principal.m_gestionventa.m_estadocartera.m_39.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_36'
+				m_menu_principal.m_gestionventa.m_estadocartera.m_36.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_37'
+				m_menu_principal.m_gestionventa.m_estadocartera.m_37.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_38'
+				m_menu_principal.m_gestionventa.m_estadocartera.m_38.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_39'
+				m_menu_principal.m_gestionventa.m_estadocartera.m_39.visible													= False
+			CASE 'm_menu_principal.m_gestionventa.m_promesasperiodo'
+				m_menu_principal.m_gestionventa.m_promesasperiodo.visible														= False
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo.visible									= False
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor.visible			= False
+			CASE 'm_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo'
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo.visible									= False
+			CASE 'm_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor'
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor.visible			= False
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

@@ -1,0 +1,34 @@
+﻿global type f_nivel_codigo from function_object
+end type
+
+forward prototypes
+global function long f_nivel_codigo (long al_cod_parque, datetime adt_fec_ini, datetime adt_fec_fin)
+end prototypes
+
+global function long f_nivel_codigo (long al_cod_parque, datetime adt_fec_ini, datetime adt_fec_fin);string	ls_nivel,ls_cod_geren,ls_nivel_02,ls_nivel_03
+long	ll_tot_reg
+
+//f_nivel_codigo(al_cod_parque,adt_fec_ini,adt_fec_fin)
+SELECT	"NIVEL_RECLAMO",	"RECLAMO_COG_GEREN"
+INTO		:ls_nivel,					:ls_cod_geren
+FROM		"ENCARGADOS"  
+WHERE	( "ENCARGADOS"."RECLAMO" = 'R' ) AND  
+			( "ENCARGADOS"."ESTADO" = 'A' ) AND  
+			( "ENCARGADOS"."CODIGO_USUARIO" = :gs_user )
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ls_nivel) and ls_nivel<>'' and not isnull(ls_cod_geren) and ls_cod_geren<>'' then
+		if ls_nivel='1' or ls_nivel='2' then
+			ls_nivel_02					= '2'
+			ls_nivel_03					= '3'
+		elseif ls_nivel='3' then
+			ls_nivel_02					= '3'
+			ls_nivel_03					= '3'
+		end if
+		ll_tot_reg						= w_administrar_reclamos.tab_1.tabpage_3.dw_asigna_lista.retrieve(al_cod_parque,'V',adt_fec_ini,adt_fec_fin,ls_nivel_02,ls_nivel_03,gs_depto,gs_user)
+	end if
+end if
+if isnull(ll_tot_reg) or ll_tot_reg=0 then ll_tot_reg=0
+Return ll_tot_reg
+end function
+

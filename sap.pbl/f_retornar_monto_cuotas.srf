@@ -1,0 +1,86 @@
+﻿global type f_retornar_monto_cuotas from function_object
+end type
+
+forward prototypes
+global function double f_retornar_monto_cuotas (string as_base, string as_serie, double adb_numero, string as_tipo_mov, string as_tipo_deuda, long al_nro_cuota, double adb_uf, double adb_valor_m, double adb_valor_peso, string as_moneda)
+end prototypes
+
+global function double f_retornar_monto_cuotas (string as_base, string as_serie, double adb_numero, string as_tipo_mov, string as_tipo_deuda, long al_nro_cuota, double adb_uf, double adb_valor_m, double adb_valor_peso, string as_moneda);double	ldb_valor_cuota, ldb_valor_cuota_ctto, ldb_monto,ldb_calc_cta,ldb_suma
+Long		ll_count_reg,ll_cta_ini,ll_ctas_pag_s,ll_cta_fin,ll_indi
+String		ls_moneda
+
+if isnull(al_nro_cuota) then al_nro_cuota=1
+//wf_valor_cuota(ls_base,ls_serie,ll_numero,ls_tipo_mov,ls_tipo_deuda,ll_nro_cuota)
+if as_tipo_mov = 'E' OR as_tipo_mov = 'K' OR as_tipo_mov = 'U' then
+	 SELECT  	COUNT( "SAP_CTTO_05_CUOTA"."BASE")
+      INTO   		:ll_count_reg
+      FROM 	  	"SAP_CTTO_05_CUOTA"  
+      WHERE	  	"SAP_CTTO_05_CUOTA"."BASE" = :as_base AND  
+					"SAP_CTTO_05_CUOTA"."SERIE" = :as_serie AND  
+					"SAP_CTTO_05_CUOTA"."NUMERO" = :adb_numero AND  
+					("SAP_CTTO_05_CUOTA"."TIPO_DEUDA" = 'C' or "SAP_CTTO_05_CUOTA"."TIPO_DEUDA" = 'E' ) ;
+	
+	if ll_count_reg > 0 then
+		ldb_valor_cuota_ctto			= f_retorna_valor_cuota_s(as_base,as_serie,adb_numero)
+		ll_ctas_pag_s					= f_retorna_ctas_pag_sap(as_base,as_serie,adb_numero,as_tipo_mov,'N')
+		ls_moneda						= f_retorna_moneda_ctto(as_base,as_serie,adb_numero)
+		ll_cta_ini							= ll_ctas_pag_s + 1
+		ll_cta_fin							= (ll_cta_ini + al_nro_cuota) - 1
+		for ll_indi=ll_cta_ini to ll_cta_fin
+			SELECT  	SUM( "SAP_CTTO_05_CUOTA"."MTO_CTA_K" + "SAP_CTTO_05_CUOTA"."MTO_CTA_I" + "SAP_CTTO_05_CUOTA"."MTO_CTA_G")
+			INTO    	:ldb_monto
+			FROM 	 "SAP_CTTO_05_CUOTA"  
+			WHERE	 "SAP_CTTO_05_CUOTA"."BASE" = :as_base AND  
+						 "SAP_CTTO_05_CUOTA"."SERIE" = :as_serie AND  
+						 "SAP_CTTO_05_CUOTA"."NUMERO" = :adb_numero AND  
+						 ("SAP_CTTO_05_CUOTA"."TIPO_DEUDA" = 'C' or "SAP_CTTO_05_CUOTA"."TIPO_DEUDA" = 'E') AND
+						 TO_NUMBER("SAP_CTTO_05_CUOTA"."NRO_CUOTA") = :ll_indi;
+			if ldb_monto > 0 then
+				if ls_moneda='2' then
+					ldb_calc_cta			= round(ldb_monto * adb_uf,0)
+				else
+					ldb_calc_cta			= ldb_monto
+				end if
+				ldb_suma				= ldb_suma + ldb_calc_cta
+			end if
+		next
+		ldb_valor_cuota				= ldb_suma
+	else
+		ldb_valor_cuota_ctto			= f_retorna_valor_cuota_s(as_base,as_serie,adb_numero)
+		ll_ctas_pag_s					= f_retorna_ctas_pag_sap(as_base,as_serie,adb_numero,as_tipo_mov,'N')
+		ls_moneda						= f_retorna_moneda_ctto(as_base,as_serie,adb_numero)
+		if ls_moneda='2' then
+			ldb_calc_cta					= round(ldb_valor_cuota_ctto * adb_uf,0)
+		else
+			ldb_calc_cta					= ldb_valor_cuota_ctto
+		end if
+		ldb_valor_cuota				= ldb_calc_cta * al_nro_cuota
+	end if
+	if as_moneda = 'U' then //UF
+		if isnull(ldb_valor_cuota ) or ldb_valor_cuota=0 then 
+			ldb_valor_cuota				= round((adb_valor_m * adb_uf) * al_nro_cuota , 0)
+		end if
+	elseif as_moneda='P' then //Peso
+		if isnull(ldb_valor_cuota ) or ldb_valor_cuota=0 then 
+			ldb_valor_cuota				= round(adb_valor_peso * al_nro_cuota,0)
+		end if
+	end if
+	
+elseif as_tipo_mov = 'F' then
+	ldb_valor_cuota					= round((al_nro_cuota * adb_valor_m) * adb_uf,0)
+	
+elseif as_tipo_mov = 'A' OR as_tipo_mov = 'Q' then
+	SELECT	SUM("SAP_CTTO_04_PIE"."MTO_PIE_K" + "SAP_CTTO_04_PIE"."MTO_PIE_I" + "SAP_CTTO_04_PIE"."MTO_PIE_G")
+     INTO    	:ldb_monto
+     FROM 	"SAP_CTTO_04_PIE"  
+     WHERE  	"SAP_CTTO_04_PIE"."BASE" = :as_base AND  
+             		"SAP_CTTO_04_PIE"."SERIE" = :as_serie AND  
+             		"SAP_CTTO_04_PIE"."NUMERO" = :adb_numero AND  
+             		("SAP_CTTO_04_PIE"."TIPO_DEUDA" = 'C' or "SAP_CTTO_04_PIE"."TIPO_DEUDA" = 'E') ;//AND
+//          		TO_NUMBER((SELECT SUBSTR("SAP_CTTO_04_PIE"."NRO_CUOTA",2,2) FROM DUAL)) > :ll_cta_ini AND
+//          		TO_NUMBER((SELECT SUBSTR("SAP_CTTO_04_PIE"."NRO_CUOTA",2,2) FROM DUAL)) = :al_nro_cuota ;
+end if
+if isnull(ldb_valor_cuota) then ldb_valor_cuota = 0
+return	 ldb_valor_cuota;
+end function
+

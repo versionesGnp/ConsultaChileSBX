@@ -1,0 +1,56 @@
+﻿global type f_log_graba_res_comi from function_object
+end type
+
+forward prototypes
+global function long f_log_graba_res_comi (string as_cod_age_sup, long al_rut, long al_monto, string as_cod_contab, string as_mes, datetime adt_fecha, double adb_contrato, string as_serie, double adb_porc_ing_caja, double adb_porc_venta, double adb_precio, double adb_total_pago, double adb_valor_uf, string as_haber, string as_moneda, string as_cod_com, string as_estado_age, string as_base, long al_cod_parque)
+end prototypes
+
+global function long f_log_graba_res_comi (string as_cod_age_sup, long al_rut, long al_monto, string as_cod_contab, string as_mes, datetime adt_fecha, double adb_contrato, string as_serie, double adb_porc_ing_caja, double adb_porc_venta, double adb_precio, double adb_total_pago, double adb_valor_uf, string as_haber, string as_moneda, string as_cod_com, string as_estado_age, string as_base, long al_cod_parque);//f_log_graba_res_comi(as_cod_age_sup,al_rut,al_monto,as_cod_contab,as_mes,adt_fecha,al_contrato,as_serie,adb_porc_ing_caja,adb_porc_venta,adb_precio,al_total_pago,adb_valor_uf,as_haber,as_moneda,as_cod_com,as_estado_age,as_base,al_cod_parque)
+SELECT	sysdate
+INTO 		:gdt_fec_sistema
+FROM		"TASA"  
+WHERE	"TASA"."LOOK" = 1   
+USING	sqlca ;
+
+INSERT INTO "LOG_RES_COMI"  
+   			("COD_AGE_SUP",		"RUT",	"MONT_AGE_SUP",	"COD_CONTABLE",	"MES",	"FECHA",		"CONTRATO",	"SERIE",		"PORC_ING_CAJA",	"PORC_VENTA",	"PRECIO",		"TOTAL_PAGO",	"VALOR_UF",	"HABER",		"MONEDA",		"CODIGO_COM",	"ESTADO_AGE_SUP",	"FECHA_ELIMINAR",	"BASE",		"COD_PARQUE")  
+VALUES	(:as_cod_age_sup,	:al_rut,	:al_monto,				:as_cod_contab,	:as_mes,	:adt_fecha,	:adb_contrato,	:as_serie,	:adb_porc_ing_caja,	:adb_porc_venta,	:adb_precio,	:adb_total_pago,		:adb_valor_uf,	:as_haber,	:as_moneda,	:as_cod_com,		:as_estado_age,		:gdt_fec_sistema,		:as_base,	:al_cod_parque)  ;
+if sqlca.sqlcode = 0 then
+	commit;
+	return 1
+else
+	ROLLBACK;
+	UPDATE	"LOG_RES_COMI"  
+  	SET 		"RUT" = :al_rut,   
+				"MONT_AGE_SUP" = :al_monto,   
+				"COD_CONTABLE" = :as_cod_contab,   
+				"MES" = :as_mes,   
+				"FECHA" = :adt_fecha,   
+				"PORC_ING_CAJA" = :adb_porc_ing_caja,   
+				"PORC_VENTA" = :adb_porc_venta,   
+				"PRECIO" = :adb_precio, 
+				"TOTAL_PAGO" =:adb_total_pago,
+				"VALOR_UF" =:adb_valor_uf,
+				"HABER" =:as_haber,
+				"MONEDA" =:as_moneda,
+				"CODIGO_COM" =:as_cod_com,
+				"ESTADO_AGE_SUP" =:as_estado_age,
+				"FECHA_ELIMINAR"=:gdt_fec_sistema,
+				"BASE" = :as_base,
+				"COD_PARQUE" = :al_cod_parque
+   WHERE	( "LOG_RES_COMI"."COD_AGE_SUP" = :as_cod_age_sup ) AND
+				( "LOG_RES_COMI"."COD_CONTABLE" = :as_cod_contab ) AND
+          		( "LOG_RES_COMI"."FECHA" = :adt_fecha ) AND
+			 	( "LOG_RES_COMI"."CONTRATO" = : adb_contrato) AND 
+			 	( "LOG_RES_COMI"."SERIE" = :as_serie )			 ;
+	if sqlca.sqlcode = 0 then
+		commit;
+		return 1
+	else
+//		messagebox(gs_app_name,sqlca.SQLErrText,stopsign!)
+		ROLLBACK;
+		return -1
+	end if	
+end if
+end function
+

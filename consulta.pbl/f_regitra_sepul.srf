@@ -1,0 +1,33 @@
+﻿global type f_regitra_sepul from function_object
+end type
+
+forward prototypes
+global function string f_regitra_sepul (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function string f_regitra_sepul (string as_base, string as_serie, double al_numero);string	ls_sepult
+
+//f_regitra_sepul(as_base,as_serie,al_numero)
+SELECT	"INVENTARIO_PLANI"."SEPULTURA"
+INTO		:ls_sepult
+FROM 	"INVENTARIO_PLANI"  
+WHERE	( "INVENTARIO_PLANI"."BASE" = :as_base ) AND  
+      		( "INVENTARIO_PLANI"."SERIE" = :as_serie ) AND  
+	      	( "INVENTARIO_PLANI"."NUMERO" = :al_numero )
+USING	sqlca;
+if isnull(ls_sepult) or ls_sepult='' then 
+	SELECT	"INVENTARIO_PLANI_CONST"."SEPULTURA"
+	INTO		:ls_sepult
+   	FROM		"INVENTARIO_PLANI_CONST"  
+	WHERE	( "INVENTARIO_PLANI_CONST"."BASE" = :as_base ) AND  
+         		( "INVENTARIO_PLANI_CONST"."SERIE" = :as_serie ) AND  
+         		( "INVENTARIO_PLANI_CONST"."NUMERO" = :al_numero )
+	USING	sqlca;
+	if isnull(ls_sepult) or ls_sepult='' then ls_sepult=''
+end if
+if isnull(ls_sepult) or ls_sepult='' then ls_sepult=''
+Return ls_sepult
+
+
+end function
+

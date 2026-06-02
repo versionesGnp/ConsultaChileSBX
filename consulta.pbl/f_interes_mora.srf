@@ -1,0 +1,24 @@
+﻿global type f_interes_mora from function_object
+end type
+
+forward prototypes
+global function double f_interes_mora (integer ctas_mora, integer dias_mora, double tasa, double valor_mora)
+end prototypes
+
+global function double f_interes_mora (integer ctas_mora, integer dias_mora, double tasa, double valor_mora);integer i
+double mora_cobro,res
+FOR i = 1 TO ctas_mora 
+	IF (dias_mora - (i - 1) * 30) > 5 THEN 
+		mora_cobro = (dias_mora - (i - 1) * 30)
+		res = res + gf_int_mora(tasa, mora_cobro, valor_mora)
+	ELSE
+		// id_gc = 0
+		// id_im = 0
+		// ii_mora_cobro = 0
+	END IF
+NEXT
+
+
+return res
+end function
+

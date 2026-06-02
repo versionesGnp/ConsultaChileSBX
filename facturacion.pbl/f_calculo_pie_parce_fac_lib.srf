@@ -1,0 +1,47 @@
+﻿global type f_calculo_pie_parce_fac_lib from function_object
+end type
+
+forward prototypes
+global function double f_calculo_pie_parce_fac_lib (string ls_base, string ls_serie, long ll_numero, date ld_fec_cierre)
+end prototypes
+
+global function double f_calculo_pie_parce_fac_lib (string ls_base, string ls_serie, long ll_numero, date ld_fec_cierre);string		ls_moneda
+double	ldb_monto,ldb_valor_uf,ldb_pie,ldb_saldo_pie
+
+setnull(ldb_saldo_pie);setnull(ldb_pie);setnull(ldb_monto)
+
+SELECT 	"INGRESO"."MONTO","INGRESO"."VALOR_UF","PAGO_LIBERADOR"."PIE","PAGO_LIBERADOR"."MONEDA"  
+INTO		:ldb_monto,:ldb_valor_uf,:ldb_pie,:ls_moneda
+FROM 	"CADENA","FACTURA_OFERTA_INGRESO","INGRESO","OFERTA_V","PAGO_LIBERADOR"  
+WHERE 	"CADENA"."SERIE" = "INGRESO"."SERIE" and  
+			"CADENA"."NUMERO" = "INGRESO"."CONTRATO" and  
+			"CADENA"."CODIGO" = "INGRESO"."BASE" and  
+			"INGRESO"."SERIE" = "OFERTA_V"."SERIE" and  
+			"INGRESO"."CONTRATO" = "OFERTA_V"."NRO_OFERTA" and  
+			"OFERTA_V"."SERIE" = "PAGO_LIBERADOR"."SERIE_M" and  
+			"OFERTA_V"."NRO_OFERTA" = "PAGO_LIBERADOR"."NRO_LIBERADOR" and  
+			"OFERTA_V"."ULT_FOLIO" = "PAGO_LIBERADOR"."FOLIO" and  
+			"CADENA"."CODIGO" = "FACTURA_OFERTA_INGRESO"."BASE" and  
+			"CADENA"."SERIE" = "FACTURA_OFERTA_INGRESO"."SERIE" and  
+			"CADENA"."NUMERO" = "FACTURA_OFERTA_INGRESO"."NUMERO" and  
+			"CADENA"."CODIGO" = :ls_base AND  
+			"CADENA"."SERIE" = :ls_serie AND  
+			"CADENA"."NUMERO" = :ll_numero AND  
+			"INGRESO"."FECHA_PAGO" <= :ld_fec_cierre AND  
+			("INGRESO"."TIPO_MOV" = 'A' OR  
+			"INGRESO"."TIPO_MOV" = 'Q') AND  
+			"INGRESO"."PAGO_HIST" = 'A' AND  
+			("FACTURA_OFERTA_INGRESO"."ESTADO" = 'N' OR  
+			"FACTURA_OFERTA_INGRESO"."ESTADO" = 'S' OR  
+			"FACTURA_OFERTA_INGRESO"."ESTADO" = 'R' OR  
+			"FACTURA_OFERTA_INGRESO"."ESTADO" = 'T')  ;	
+if isnull(ldb_monto) then 
+	ldb_monto = 0	
+else	
+	ldb_saldo_pie	= ldb_pie - ldb_monto
+end if
+
+return ldb_saldo_pie;			
+
+end function
+

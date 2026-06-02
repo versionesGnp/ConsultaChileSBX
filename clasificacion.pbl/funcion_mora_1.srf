@@ -1,0 +1,38 @@
+﻿global type funcion_mora_1 from function_object
+end type
+
+forward prototypes
+global function double funcion_mora_1 (datetime primer, double pag, double cuotas)
+end prototypes
+
+global function double funcion_mora_1 (datetime primer, double pag, double cuotas);double vmes,vano,vcuo_venc,vmora
+		  	  
+  	  	vano=year(date('15/06/2000'))-year(DATE(primer))
+		vano=vano*12	 
+ 		vmes=month(date('15/06/2000'))-month(DATE(primer))
+		
+		vcuo_venc= vano+vmes
+		
+			if day(date('15/06/2000'))+5>day(DATE(Primer)) then
+				vcuo_venc=vcuo_venc+1
+			end if
+		
+			if vcuo_venc <0 then
+				vcuo_venc=0
+			end if
+	 		
+			if vcuo_venc> cuotas then
+				vcuo_venc=cuotas
+			end if
+	 		vmora=  vcuo_venc - pag
+	 		
+	 	 	 if vmora < 0 then vmora = 0
+
+return(vmora)
+
+
+
+               
+
+end function
+

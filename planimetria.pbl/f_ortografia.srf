@@ -1,0 +1,90 @@
+﻿//objectcomments jlreinoso: función que realiza corrección ortográfica
+global type f_ortografia from function_object
+end type
+
+forward prototypes
+global function string f_ortografia (string as_texto)
+end prototypes
+
+global function string f_ortografia (string as_texto);/*****************************************************
+    \\|//        Code: Leonardo Orellana P.
+   ( @ @ )       Last Updated:  16/06/2005
+     ( )         E-mail: orellana.leonardo27@gmail.com
+~~oooO~~Oooo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ Descripción: realiza corrección de ortografía
+ utiliza un objeto ole no visual para referenciar a excel
+ luego ubicamos el texto que queremos corregir en una celda 
+ y se abre la herramienta de ortografía luego nos devuelve el
+ texto corregido.
+ Argumentos:  string que contiene el texto a corregir
+ Retorna: string con el texto corregido
+
+Ejemplo: 		
+en cualquier evento
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
+
+oleobject ole_object
+boolean lb_booleanval
+any anyval
+string ls_holdtype
+string ls_holdtext
+double ls_doubleval
+datetime datetimeval
+setpointer(hourglass!)
+//crea un objeto ole local
+Ole_object = create oleobject
+//conecta el objeto ole a excel
+If ole_object.ConnectToNewObject("excel.application") <> 0 Then
+	Messagebox("No es Posible","Lo siento, no se puede realizar corrección ortográfica")
+	Return ''
+End If
+//inserta una nueva hoja de cálculo en excel
+ole_object.workbooks.add()
+//ubica en la primera celda nuestra variable string para corregir
+ole_object.activesheet.cells(1,1).value = as_texto //puede venir de un multiple line edit
+//llama a la ortografía
+ole_object.activesheet.checkspelling
+//obtiene el resultado del corrector ortográfico
+anyval = ole_object.activesheet.cells(1,1).value
+//identifica el tipo de dato retornado. pueden ser string, numeric, o date
+//encuetra a cual fue asignado y lo asigna un string
+ls_holdtype = classname(anyval)
+choose case ls_holdtype
+    case "boolean"
+      lb_booleanval = anyval
+      if lb_booleanval then
+        ls_holdtext = "TRUE"
+      else
+        ls_holdtext = "FALSE"
+      end if
+      
+      case "integer", "long", "float", "double", "decimal", "time"
+      ls_doubleval   =  anyval
+      ls_holdtext = string(ls_doubleval)
+
+      case "string"
+      ls_holdtext = anyval
+
+      case "date", "datetime"
+      datetimeval = anyval
+      ls_holdtext = string(datetimeval)
+
+end choose
+
+//ubica a la hoja de excel como guardada para que no pregunte si guardamos o no
+ole_object.activeworkbook.saved=true
+//cierra excel
+ole_object.application.quit()
+//desconecta el objeto
+ole_object.disconnectobject()
+
+//devuelve el string con el texto ya corregido
+//este resultado podemos utilizarlo en un multiple line edit
+RETURN ls_holdtext
+
+//destruimos el objeto ole
+destroy ole_object
+end function
+

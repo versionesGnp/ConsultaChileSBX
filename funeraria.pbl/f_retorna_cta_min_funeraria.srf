@@ -1,0 +1,48 @@
+﻿global type f_retorna_cta_min_funeraria from function_object
+end type
+
+forward prototypes
+global subroutine f_retorna_cta_min_funeraria (string as_base, string as_serie, double al_numero, double al_boleta)
+end prototypes
+
+global subroutine f_retorna_cta_min_funeraria (string as_base, string as_serie, double al_numero, double al_boleta);Long		ll_cta
+Double	ll_cod_servicio
+
+SELECT 	"REVISION_CONTRATOS"."CODIGO_SERVICIO"  
+INTO 		:ll_cod_servicio  
+FROM 	"REVISION_CONTRATOS"  
+WHERE 	( "REVISION_CONTRATOS"."BASE" = :as_base ) AND  
+			( "REVISION_CONTRATOS"."SERIE" = :as_serie ) AND  
+			( "REVISION_CONTRATOS"."NUMERO" = :al_numero )   ;
+			
+if as_base='F' and ll_cod_servicio >= 670 and ll_cod_servicio <= 674 then
+	SELECT	MIN( "PRODUCTO_GESTION_SERVICIO"."CORRELATIVO" ) 
+	INTO 		:ll_cta  
+	FROM 	"PRODUCTO_GESTION_SERVICIO"  
+	WHERE 	( "PRODUCTO_GESTION_SERVICIO"."BASE" = :as_base ) AND  
+				( "PRODUCTO_GESTION_SERVICIO"."SERIE" = :as_serie ) AND  
+				( "PRODUCTO_GESTION_SERVICIO"."NUMERO" = :al_numero ) AND  
+				( "PRODUCTO_GESTION_SERVICIO"."SW_ACTIVACION" = 2 ) AND  
+				( "PRODUCTO_GESTION_SERVICIO"."ESTADO_REGISTRO" = 'A' )   ;
+	if isnull(ll_cta) then ll_cta=0
+else
+	ll_cta			= 0
+end if
+if ll_cta > 0 then
+//	  UPDATE "PRODUCTO_GESTION_SERVICIO"  
+//     SET "SW_ACTIVACION" = 0,   
+//         "FECHA_ACTIVACION" = sysdate  ;
+//
+//	
+//	
+	UPDATE 	"REVISION_CONTRATOS"  
+	SET 		"FOLIO_FA" = :al_boleta,
+				"SW_ACTIVA_SERVICIO" = 0
+	WHERE 	( "REVISION_CONTRATOS"."BASE" = :as_base ) AND  
+				( "REVISION_CONTRATOS"."SERIE" = :as_serie ) AND  
+				( "REVISION_CONTRATOS"."NUMERO" = :al_numero )   
+	USING	sqlca;
+end if
+
+end subroutine
+

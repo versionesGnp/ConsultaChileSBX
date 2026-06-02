@@ -1,0 +1,144 @@
+﻿global type f_busca_licencias from function_object
+end type
+
+forward prototypes
+global subroutine f_busca_licencias (ref date fecha_inicio, ref date fecha_fin, ref datawindow dw_paso, ref datawindow dw_cierre_de_ventas, ref datawindow dw_periodo)
+end prototypes
+
+global subroutine f_busca_licencias (ref date fecha_inicio, ref date fecha_fin, ref datawindow dw_paso, ref datawindow dw_cierre_de_ventas, ref datawindow dw_periodo);datetime periodo_1,periodo_2
+integer i,j,k,ll_tot_filas,periodo,dias_acum,dias_lic,periodo_max_busqueda,a
+long periodo_lic,count,periodo_lic_1 
+string cod_age,ANTERIOR = '0',MES,ANNO
+date fech,cierre_venta_ini,cierre_venta,fecha_dw_fin,fecha_trasp_1,fecha_de_inicio
+
+ll_tot_filas = dw_paso.rowcount()
+fecha_de_inicio = fecha_inicio
+if isvalid(w_premios_ofertas_2) then
+	w_premios_ofertas_2.hpb_1.maxposition = ll_tot_filas
+	w_premios_ofertas_2.hpb_1.minposition = 0
+	w_premios_ofertas_2.hpb_1.setstep = 10
+	for j = 1 to ll_tot_filas
+		cod_age = dw_paso.getitemstring(j,'agentes_cod_age')
+		SELECT sum("LICENCIAS"."NRO_DIAS")  
+		INTO :dias_lic FROM "LICENCIAS" 
+		WHERE ( ( ( "LICENCIAS"."FECHA_INICIO_LICENCIA" >= :fecha_inicio and "LICENCIAS"."FECHA_INICIO_LICENCIA" <= :fecha_fin ) or  
+				( "LICENCIAS"."FECHA_FIN_LICENCIA"        >= :fecha_inicio and "LICENCIAS"."FECHA_FIN_LICENCIA"    <= :fecha_fin ) ) and 
+				( "LICENCIAS"."CODIGO_EMPLEADO"            = :COD_AGE ) and ( "LICENCIAS"."GRUPO"                   = 'A' ));
+		if dias_lic >= 10 then
+			dw_paso.setitem(j,'licencia',dias_lic)
+		else
+			dw_paso.setitem(j,'licencia',0)
+		end if
+		dw_paso.accepttext ()
+		w_premios_ofertas_2.hpb_1.position = j
+	next
+	if gs_lic = "0" then
+		dw_paso.SetFilter("licencia = 0")
+		dw_paso.Filter()
+	elseif gs_lic = "1" then
+		dw_paso.SetFilter("licencia > 0")
+		dw_paso.Filter()
+		periodo_max_busqueda = integer(DaysAfter(date('01/05/1999'), fecha_fin) / 30)
+//----------------------------------------------------------------------------------------------------------------------------------------
+		for j = 1 to dw_paso.rowcount()
+			w_premios_ofertas_2.hpb_1.maxposition = dw_paso.rowcount()
+			w_premios_ofertas_2.hpb_1.minposition = 0
+			w_premios_ofertas_2.hpb_1.setstep = 10
+			cod_age = dw_paso.getitemstring(j,'agentes_cod_age')
+			periodo_lic = 0 ; count = 0  ; periodo = 0 ; dias_lic = 0 ; dias_acum = 0
+			fecha_dw_fin = fecha_fin
+			paso:		
+			IF anterior = '0' then//----------
+				fecha_inicio = fecha_de_inicio
+				dw_cierre_de_ventas.retrieve( fecha_inicio , fecha_dw_fin )
+			else//----------
+				dw_cierre_de_ventas.retrieve(  fecha_inicio,fech  )//----------
+				dias_lic = 0;dias_acum = 0;periodo = 0//----------
+			end if//----------
+			if dw_cierre_de_ventas.ROWCOUNT(  ) > 0 then
+				fech = fecha_inicio
+				for i = 1 to dw_cierre_de_ventas.rowcount()
+					cierre_venta_ini = date(dw_cierre_de_ventas.getitemdatetime(i,'cierre_venta_ini'))
+					cierre_venta     = date(dw_cierre_de_ventas.getitemdatetime(i,'cierre_venta'))
+					if dw_periodo.retrieve(cierre_venta_ini,cierre_venta,cod_age) > 0 then
+						for k = 1 to dw_periodo.rowcount()
+							periodo_1 = dw_periodo.getitemdatetime(k,'fecha_inicio_licencia')
+							periodo_2 = dw_periodo.getitemdatetime(k,'fecha_fin_licencia')
+							dias_lic = 0
+							if date(periodo_2) <= cierre_venta and date(periodo_1) >= cierre_venta_ini then
+								dias_lic = DaysAfter(date(periodo_1),date(periodo_2))
+							end if
+							if date(periodo_2) > cierre_venta then
+								dias_lic = DaysAfter(date(periodo_1),cierre_venta)
+							end if
+							if date(periodo_1) < cierre_venta_ini then
+								dias_lic = DaysAfter(cierre_venta_ini,date(periodo_2))
+							end if
+							if date(periodo_2) > cierre_venta and date(periodo_1) < cierre_venta_ini then
+								dias_lic = DaysAfter(cierre_venta_ini,cierre_venta)
+							end if
+							periodo_lic = 0;SETNULL(periodo_1);SETNULL(periodo_2)
+							dias_acum = dias_acum + dias_lic
+						next
+					end if
+					periodo = 0
+					if dias_acum >= 11 then
+						periodo = integer(dias_acum / 11)
+						dw_paso.setitem(j,'licencia',periodo)
+						dw_paso.setitem(j,'dias_lic',dias_acum)
+					end if
+					dw_paso.accepttext ()
+				next
+				dias_acum = 0
+				dw_paso.accepttext ()
+				if periodo >= periodo_max_busqueda then periodo = periodo_max_busqueda
+				periodo = periodo * 30
+
+				if anterior = '0'	then//----------
+					fech = date('01/'+string(month(fech))+'/'+string(year(fech)))
+				else//----------
+					fecha_inicio  = fech//----------				
+					fech = date('01/'+string(month(fecha_dw_fin))+'/'+string(year(fecha_dw_fin)))//----------
+					anterior = '0'//----------
+				end if//----------
+				fecha_trasp_1 = fech//----------
+				if periodo > 0 then
+					MES = string(month(RelativeDate(fech, - periodo ) ) , '00' )
+					ANNO = string(year(RelativeDate(fech, - periodo ) ) , '0000' )
+					fech = date('01/'+MES+'/'+ANNO)
+				else
+					if periodo = 0 then goto paso1//<---------------------
+				end if
+				SELECT sum("LICENCIAS"."NRO_DIAS") 
+				INTO :periodo_lic_1 FROM "LICENCIAS" 
+				WHERE ( ( ( "LICENCIAS"."FECHA_INICIO_LICENCIA" >= :fech AND "LICENCIAS"."FECHA_INICIO_LICENCIA" <= :fecha_inicio ) and  
+						( "LICENCIAS"."FECHA_FIN_LICENCIA"        >= :fech AND "LICENCIAS"."FECHA_FIN_LICENCIA"    <= :fecha_inicio ) ) and 
+						( "LICENCIAS"."CODIGO_EMPLEADO"            = :COD_AGE ) and ( "LICENCIAS"."GRUPO"           = 'A' ));
+				fecha_dw_fin = fech
+				if periodo_lic_1 > 10 then
+					MES = string(month(RelativeDate(fech, - periodo_lic_1 ) ) , '00' )
+					ANNO = string(year(RelativeDate(fech, - periodo_lic_1 ) ) , '0000' )
+					fecha_inicio = date('01/'+MES+'/'+ANNO)
+					if 100 < periodo_lic_1 then
+						fech = fecha_trasp_1 //----------
+						MES = string(month(RelativeDate(fech, -periodo_lic_1)))//- periodo_max_busqueda*30 ) ) , '00' )//-------------
+						ANNO = string(year(RelativeDate(fech, -periodo_lic_1)))// - periodo_max_busqueda*30 ) ) , '0000' )//-------------
+						fech = date('01/'+MES+'/'+ANNO)//-------------
+						goto paso1
+					end if
+					periodo = 0
+					ANTERIOR = '1'
+					goto paso
+				end if
+			end if
+			ANTERIOR = '0'
+			paso1:
+			dw_paso.setitem(j,'fecha_ini',string(fech))
+			setnull(fech)
+			dw_paso.accepttext ()
+			w_premios_ofertas_2.hpb_1.position = j
+		next
+	end if
+end if
+end subroutine
+

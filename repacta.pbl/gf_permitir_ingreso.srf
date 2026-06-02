@@ -1,0 +1,28 @@
+﻿global type gf_permitir_ingreso from function_object
+end type
+
+forward prototypes
+global function boolean gf_permitir_ingreso (string as_base, string as_serie, double as_numero)
+end prototypes
+
+global function boolean gf_permitir_ingreso (string as_base, string as_serie, double as_numero);string ls_estado
+boolean lb_permitir
+
+SELECT "CADENA"."ESTADO"  
+    INTO :ls_estado
+    FROM "CADENA"  
+   WHERE ( "CADENA"."CODIGO" = :as_base ) AND  
+         ( "CADENA"."SERIE" = :as_serie ) AND  
+         ( "CADENA"."NUMERO" = :as_numero );
+			
+lb_permitir = false			
+IF Not(IsNull(ls_estado)) THEN
+	lb_permitir = Not((ls_estado <> 'R') AND (ls_estado <> 'N'))
+ELSE
+	// Si no existe
+   lb_permitir = true
+END IF
+
+RETURN lb_permitir
+end function
+

@@ -1,0 +1,477 @@
+﻿global type f_modifica_reg from function_object
+end type
+
+forward prototypes
+global function string f_modifica_reg (string as_base, string as_serie, double al_numero, string as_estado_reg, string as_nombre, string as_a_pater, string as_a_mater, long al_rut, string as_email, string as_fono_part, string as_fono_comer, string as_celular, string as_area, string as_sector, string as_sepult, long al_parque, string as_cod_solic, datetime adt_fec_crea, long al_cod_gest, datetime adt_fec_gest, long al_rut_contacto)
+end prototypes
+
+global function string f_modifica_reg (string as_base, string as_serie, double al_numero, string as_estado_reg, string as_nombre, string as_a_pater, string as_a_mater, long al_rut, string as_email, string as_fono_part, string as_fono_comer, string as_celular, string as_area, string as_sector, string as_sepult, long al_parque, string as_cod_solic, datetime adt_fec_crea, long al_cod_gest, datetime adt_fec_gest, long al_rut_contacto);string	ls_glosa,ls_base,ls_serie,ls_estado_reg,ls_nombre,ls_a_pater,ls_a_mater,ls_email,ls_fono_part,ls_fono_comer,ls_celular,ls_area,ls_sector,ls_sepult,&
+		ls_pasa_base,ls_pasa_serie,ls_pasa_numero,ls_numero,ls_pasa_reg,ls_pasa_nomb,ls_pasa_a_pater,ls_pasa_a_mater,ls_rut,ls_pasa_rut,ls_pasa_email,&
+		ls_pasa_f_part,ls_pasa_f_comer,ls_pasa_celu,ls_pasa_area,ls_pasa_sector,ls_pasa_sepult
+long	ll_rut,ll_grabar
+Double	ll_numero
+//wf(ls_base,ls_serie,ll_numero,ls_estado_reg,ls_nombre,ls_a_pater,ls_a_mater,ll_rut	,ls_email,ls_fono_part,ls_fono_comer	,ls_celular,ls_area,ls_sector,ls_sepult,ll_parque,ll_cod_solic,ldt_fec_crea,ll_cod_gest,ldt_fec_gest,al_rut_contacto)
+ls_pasa_base					= 'N'
+ls_pasa_serie					= 'N'
+ls_pasa_numero				= 'N'
+ls_pasa_reg						= 'N'
+ls_pasa_nomb					= 'N'
+ls_pasa_a_pater				= 'N'
+ls_pasa_a_mater				= 'N'
+ls_pasa_rut						= 'N'
+ls_pasa_email					= 'N'
+ls_pasa_f_part					= 'N'
+ls_pasa_f_comer				= 'N'
+ls_pasa_celu					= 'N'
+ls_pasa_area					= 'N'
+ls_pasa_sector					= 'N'
+ls_pasa_sepult					= 'N'
+ll_grabar							= 0
+
+
+SELECT	"BASE",	"SERIE",	"NUMERO",	"COD_ESTADO_REG",	"NOMBRE_CONTACTO",	"A_PATERNO_CONTACTO",	"A_MATERNO_CONTACTO",	"RUT_CONTACTO",	"EMAIL",		"FONO_PARTICULAR",	"FONO_COMERCIAL",	"CELULAR",	"AREA",	"SECTOR",	"SEPULTURA"  
+INTO 		:ls_base,	:ls_serie,	:ll_numero,	:ls_estado_reg,			:ls_nombre,					:ls_a_pater,						:ls_a_mater,					:ll_rut	,					:ls_email,	:ls_fono_part,				:ls_fono_comer	,		:ls_celular,	:ls_area,	:ls_sector,	:ls_sepult   
+FROM	 	"RECLAMO_SOLICITUD"
+WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+         	"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+         	"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+         	"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+         	"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+         	"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	if isnull(as_base) or as_base='' or as_base='-' then
+		ls_base						= 'Base Nula'
+	else
+		if as_base <> ls_base then
+			ls_base					= ls_base+' a Base "'+as_base+'"'
+			ls_pasa_base			= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"BASE" = :as_base  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	if isnull(as_serie) or as_serie='' or as_serie='-' then 
+		ls_serie				= 'Serie Nula'
+	else
+		if as_serie <> ls_serie then
+			ls_serie					= ls_serie+' a Serie "'+as_serie+'"'
+			ls_pasa_serie			= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"SERIE" = :as_serie  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if al_numero <> ll_numero then
+		ls_numero					= 'Número '+string(ll_numero)+' a Número '+string(al_numero)
+		ls_pasa_numero				= 'S'
+		UPDATE	"RECLAMO_SOLICITUD"  
+		SET		"NUMERO" = :al_numero  
+		WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+					"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+					"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+					"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+					"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+					"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+		USING		sqlca;
+		if sqlca.sqlcode=0 then
+			commit using sqlca;
+			ll_grabar++
+		else
+			rollback using sqlca;
+		end if
+	end if
+	
+	if isnull(as_estado_reg) or as_estado_reg='' or as_estado_reg='-' then 
+		ls_estado_reg				= 'Estado Registro'
+	else
+		if as_estado_reg <> ls_estado_reg then
+			ls_estado_reg		= ls_estado_reg+' a Registro "'+as_estado_reg+'"'
+			ls_pasa_reg			= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"COD_ESTADO_REG" = :as_estado_reg  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if isnull(as_nombre) or as_nombre='' or as_nombre='-' then 
+		ls_nombre				= 'Nombre Nulo'
+	else
+		if as_nombre <> ls_nombre then
+			ls_nombre			= ls_nombre+' a Nombre "'+as_nombre+'"'
+			ls_pasa_nomb		= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"NOMBRE_CONTACTO" = :as_nombre  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if isnull(as_a_pater) or as_a_pater='' or as_a_pater='-' then 
+		ls_a_pater						= 'Apellido Paterno Nulo'
+	else
+		if as_a_pater <> ls_a_pater then
+			ls_a_pater					= ls_a_pater+' a Apellido Paterno "'+as_a_pater+'"'
+			ls_pasa_a_pater			= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"A_PATERNO_CONTACTO" = :as_a_pater  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if isnull(as_a_mater) or as_a_mater='' or as_a_mater='-' then 
+		ls_a_mater						= 'Apellido Materno Nulo'
+	else
+		if as_a_mater <> ls_a_mater then
+			ls_a_mater					= ls_a_mater+' a Apellido Materno "'+as_a_mater+'"'
+			ls_pasa_a_mater			= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"A_MATERNO_CONTACTO" = :as_a_mater  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if al_rut <> ll_rut then
+		ls_rut					= 'Número '+string(ll_rut)+' a RUT '+string(al_rut)
+		ls_pasa_rut				= 'S'
+		UPDATE	"RECLAMO_SOLICITUD"  
+		SET		"RUT_CONTACTO" = :al_rut  
+		WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+					"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+					"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+					"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+					"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+					"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+		USING		sqlca;
+		if sqlca.sqlcode=0 then
+			commit using sqlca;
+			ll_grabar++
+		else
+			rollback using sqlca;
+		end if
+	end if
+	
+	if isnull(as_email) or as_email='' or as_email='-' then 
+		ls_email						= 'Email Nulo'
+	else
+		if as_email <> ls_email then
+			ls_email					= ls_email+' a Email "'+as_email+'"'
+			ls_pasa_email			= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"EMAIL" = :as_email  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if isnull(as_fono_part) or as_fono_part='' or as_fono_part='-' then 
+		ls_fono_part						= 'Fono Particular Nulo'
+	else
+		if as_fono_part <> ls_fono_part then
+			ls_fono_part					= ls_fono_part+' a Fono Particular"'+as_fono_part+'"'
+			ls_pasa_f_part				= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"FONO_PARTICULAR" = :as_fono_part  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if isnull(as_fono_comer) or as_fono_comer='' or as_fono_comer='-' then 
+		ls_fono_comer						= 'Fono Comercial Nulo'
+	else
+		if as_fono_comer <> ls_fono_comer then
+			ls_fono_comer					= ls_fono_comer+' a Fono Comercial"'+as_fono_comer+'"'
+			ls_pasa_f_comer				= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"FONO_COMERCIAL" = :as_fono_comer  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if isnull(as_celular) or as_celular='' or as_celular='-' then 
+		ls_celular						= 'Celular Nulo'
+	else
+		if as_celular <> ls_celular then
+			ls_celular					= ls_celular+' a	 Celular"'+as_celular+'"'
+			ls_pasa_celu				= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"CELULAR" = :as_celular  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if isnull(as_area) or as_area='' or as_area='-' then 
+		ls_area						= 'Area Comercial Nula'
+	else
+		if as_area <> ls_area then
+			ls_area						= ls_area+' a Area"'+as_area+'"'
+			ls_pasa_area				= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"AREA" = :as_area  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if isnull(as_sector) or as_sector='' or as_sector='-' then 
+		ls_sector						= 'Sector Nulo'
+	else
+		if as_sector <> ls_sector then
+			ls_sector						= ls_sector+' a Sector"'+as_sector+'"'
+			ls_pasa_sector				= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"SECTOR" = :as_sector  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	
+	if isnull(as_sepult) or as_sepult='' or as_sepult='-' then 
+		ls_sepult						= 'Sepulturar Nula'
+	else
+		if as_sepult <> ls_sepult then
+			ls_sepult						= ls_sepult+' a Sepultura"'+as_sepult+'"'
+			ls_pasa_sepult				= 'S'
+			UPDATE	"RECLAMO_SOLICITUD"  
+			SET		"SEPULTURA" = :as_sepult  
+			WHERE 	"RECLAMO_SOLICITUD"."COD_PARQUE" = :al_parque AND  
+						"RECLAMO_SOLICITUD"."CODIGO_SOLICITUD" = :as_cod_solic AND  
+						"RECLAMO_SOLICITUD"."FECHA_CREA" = :adt_fec_crea AND  
+						"RECLAMO_SOLICITUD"."ULT_ESTADO_GESTION" = :al_cod_gest AND  
+						"RECLAMO_SOLICITUD"."ULT_FECHA_GESTION" = :adt_fec_gest AND  
+						"RECLAMO_SOLICITUD"."RUT_CONTACTO" = :al_rut_contacto
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				commit using sqlca;
+				ll_grabar++
+			else
+				rollback using sqlca;
+			end if
+		end if
+	end if
+	if ls_pasa_base='S' then
+		ls_base						= ls_base
+	else
+		ls_base						= ''
+	end if
+	if ls_pasa_serie='S' then
+		ls_serie						= '; '+ls_serie
+	else
+		ls_serie						= ''
+	end if
+	if ls_pasa_numero='S' then
+		ls_numero					= '; '+ls_numero
+	else
+		ls_numero					= ''
+	end if
+	if ls_pasa_reg= 'S' then
+		ls_estado_reg				='; '+ls_estado_reg
+	else
+		ls_estado_reg				= ''
+	end if
+	if ls_pasa_nomb= 'S' then
+		ls_nombre					= '; '+ls_nombre
+	else
+		ls_nombre					= ''
+	end if
+	if ls_pasa_a_pater	= 'S' then
+		ls_a_pater					= '; '+ls_a_pater
+	else
+		ls_a_pater					= ''
+	end if
+	if ls_pasa_a_mater= 'S' then
+		ls_a_mater					= '; '+ls_a_mater
+	else
+		ls_a_mater					= ''
+	end if
+	if ls_pasa_rut= 'S' then
+		ls_rut							= '; '+ls_rut
+	else
+		ls_rut							= ''
+	end if
+	if ls_pasa_email = 'S' then
+		ls_email						= '; '+ls_email
+	else
+		ls_email						= ''	
+	end if
+	if ls_pasa_f_part = 'S' then
+		ls_fono_part					= '; '+ls_fono_part
+	else
+		ls_fono_part					= ''
+	end if
+	if ls_pasa_f_comer = 'S' then
+		ls_fono_comer				= '; '+ls_fono_comer
+	else
+		ls_fono_comer				= ''
+	end if
+	if ls_pasa_celu = 'S' then
+		ls_celular					= '; '+ls_celular
+	else
+		ls_celular					= ''
+	end if
+	if ls_pasa_area = 'S' then
+		ls_area						= '; '+ls_area
+	else
+		ls_area						= ''
+	end if
+	if ls_pasa_sector = 'S' then
+		ls_sector						= '; '+ls_sector
+	else
+		ls_sector						= ''
+	end if
+	if ls_pasa_sepult = 'S' then
+		ls_sepult						= '; '+ls_sepult
+	else
+		ls_sepult						= ''
+	end if
+ end if
+ if ll_grabar>0 then
+	ls_glosa							= ls_base+ls_serie+ls_numero+ls_estado_reg+ls_nombre+ls_a_pater+ls_a_mater+ls_rut+ls_email+ls_fono_part+ls_fono_comer+ls_celular+ls_area+ls_sector+ls_sepult
+else
+	ls_glosa							= ''
+end if
+if isnull(ls_glosa) then ls_glosa=''
+Return ls_glosa
+end function
+

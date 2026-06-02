@@ -1,0 +1,19 @@
+﻿global type f_retorna_cant_ctomp_hijos from function_object
+end type
+
+forward prototypes
+global function long f_retorna_cant_ctomp_hijos (string as_base, string as_serie, long al_numero)
+end prototypes
+
+global function long f_retorna_cant_ctomp_hijos (string as_base, string as_serie, long al_numero);Long		ll_cant
+SELECT 	Count("CADENA"."CODIGO" )
+INTO 		:ll_cant
+FROM 	"CADENA"  
+WHERE 	( "CADENA"."CODIGO" = :gs_base ) AND  
+			( "CADENA"."SERIE" = :gs_serie ) AND  
+			( "CADENA"."NUMERO" = :gi_numero ) AND  
+			( "CADENA"."MPBASE" = 'M' )   ;
+if isnull(ll_cant) then ll_cant=0
+return		ll_cant
+end function
+

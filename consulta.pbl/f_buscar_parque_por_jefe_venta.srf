@@ -1,0 +1,30 @@
+﻿global type f_buscar_parque_por_jefe_venta from function_object
+end type
+
+forward prototypes
+global function string f_buscar_parque_por_jefe_venta (string as_jefe)
+end prototypes
+
+global function string f_buscar_parque_por_jefe_venta (string as_jefe);String	ls_parque
+Long		ll_cod_parque
+
+SELECT	"JEFE_VENTAS"."COD_PARQUE"  
+INTO 		:ll_cod_parque  
+FROM 		"JEFE_VENTAS"  
+WHERE 	"JEFE_VENTAS"."JEFE_VENTAS" = :as_jefe   
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	SELECT	"COD_PARQ"."NOMBRE"  
+	INTO 		:ls_parque  
+	FROM 		"COD_PARQ"  
+	WHERE 	"COD_PARQ"."CODIGO" = :ll_cod_parque   
+	USING		sqlca;
+	if sqlca.sqlcode<>0 then
+		ls_parque	= 'XXX'
+	end if
+else
+	ls_parque		= 'XXX'
+end if
+return ls_parque
+end function
+

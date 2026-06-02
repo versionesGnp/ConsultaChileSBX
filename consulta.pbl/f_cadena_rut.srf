@@ -1,0 +1,20 @@
+﻿global type f_cadena_rut from function_object
+end type
+
+forward prototypes
+global function long f_cadena_rut (string base, string serie, double numero)
+end prototypes
+
+global function long f_cadena_rut (string base, string serie, double numero);long rut_c
+rut_c=0
+
+  SELECT "CADENA"."RUT"  
+  INTO :rut_c
+  FROM "CADENA"  
+   WHERE ( "CADENA"."CODIGO" = :base ) AND  
+         ( "CADENA"."SERIE" = :serie ) AND  
+         ( "CADENA"."NUMERO" = :numero )   ;
+			
+return rut_c			
+end function
+

@@ -1,0 +1,39 @@
+﻿global type f_sap_tabla_vtas_cargo from function_object
+end type
+
+forward prototypes
+global function string f_sap_tabla_vtas_cargo (string as_cargo, string as_codigo)
+end prototypes
+
+global function string f_sap_tabla_vtas_cargo (string as_cargo, string as_codigo);string	ls_codigo,ls_nulo
+
+setnull(ls_nulo)
+//f_sap_tabla_vtas_cargo(as_mandante,as_cargo,as_codigo)
+connect using Trans_hana;
+if as_cargo='A' then
+	SELECT DISTINCT	"SAPABAP1"."T2503"."WWEJE"
+	INTO		:ls_codigo
+	FROM 	"SAPABAP1"."T2503"
+	WHERE	"SAPABAP1"."T2503"."MANDT" = :gs_mandatario AND
+				"SAPABAP1"."T2503"."WWEJE" =:as_codigo
+	USING	Trans_hana;
+elseif as_cargo='S' then
+	SELECT DISTINCT	"SAPABAP1"."T25A2"."WWSUP"
+	INTO		:ls_codigo
+	FROM 	"SAPABAP1"."T25A2"
+	WHERE	"SAPABAP1"."T25A2"."MANDT" = :gs_mandatario AND
+				"SAPABAP1"."T25A2"."WWSUP" =:as_codigo
+	USING	Trans_hana;
+elseif as_cargo='J' then
+	SELECT DISTINCT	"SAPABAP1"."T25A1"."WWJEF"
+	INTO		:ls_codigo
+	FROM 	"SAPABAP1"."T25A1"
+	WHERE	"SAPABAP1"."T25A1"."MANDT" = :gs_mandatario AND
+				"SAPABAP1"."T25A1"."WWJEF" =:as_codigo
+	USING	Trans_hana;
+end if
+if isnull(ls_codigo)  then ls_codigo=''
+return		ls_codigo
+disconnect using Trans_hana;
+end function
+

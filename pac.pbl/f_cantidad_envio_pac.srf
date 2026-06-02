@@ -1,0 +1,21 @@
+﻿global type f_cantidad_envio_pac from function_object
+end type
+
+forward prototypes
+global function long f_cantidad_envio_pac (string as_base, string as_serie, double al_numero, long al_cupon)
+end prototypes
+
+global function long f_cantidad_envio_pac (string as_base, string as_serie, double al_numero, long al_cupon);Long	ll_cant
+
+SELECT	Count("PAC_DETALLE"."BASE")  
+INTO 		:ll_cant  
+FROM 		"PAC_DETALLE"  
+WHERE  ( "PAC_DETALLE"."BASE" = :as_base ) AND  
+		 ( "PAC_DETALLE"."SERIE" = :as_serie ) AND  
+		 ( "PAC_DETALLE"."NUMERO" = :al_numero ) AND  
+		 ( "PAC_DETALLE"."CUPON" = :al_cupon )   
+USING		sqlca;
+if isnull(ll_cant) or ll_cant=0 then ll_cant=0
+Return ll_cant
+end function
+

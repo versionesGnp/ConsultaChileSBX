@@ -1,0 +1,36 @@
+﻿global type f_valida_precio_liberador_nuevo from function_object
+end type
+
+forward prototypes
+global function string f_valida_precio_liberador_nuevo (double adb_valor_mant, long al_anno, string as_moneda, double adb_valor_uf)
+end prototypes
+
+global function string f_valida_precio_liberador_nuevo (double adb_valor_mant, long al_anno, string as_moneda, double adb_valor_uf);string		ls_string
+double	ldb_precio,ldb_descto,ldb_liberador,ldb_pie_min,ldb_precio_vta
+
+//f_valida_precio_liberador_nuevo(adb_valor_mant,al_anno,as_moneda,adb_valor_uf)
+SELECT	"LISTA_PRECIO_LIBERADORES"."PRECIO",   
+			"LISTA_PRECIO_LIBERADORES"."PORCE_DSCTO",
+			"LISTA_PRECIO_LIBERADORES"."PRECIO_VENTA"
+INTO 		:ldb_precio,   
+			:ldb_descto,
+			:ldb_precio_vta
+FROM		"LISTA_PRECIO_LIBERADORES"
+WHERE	( "LISTA_PRECIO_LIBERADORES"."VALOR_CUOTA" = :adb_valor_mant ) AND 
+			( "LISTA_PRECIO_LIBERADORES"."ANNOS" = :al_anno ) AND
+			( "LISTA_PRECIO_LIBERADORES"."ESTADO" = 'V' )
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if as_moneda='1' then
+		ldb_precio		= round(double(ldb_precio * adb_valor_uf),0)
+		ldb_precio_vta	= round(double(ldb_precio_vta * adb_valor_uf),0)
+	else
+//		messagebox("Advertencia "+ls_descrip_sepult,"Recuerde que pie minimo es de "+string(ldb_pie_min)+" U.F.")
+	end if
+end if
+ldb_liberador			= 0
+ldb_pie_min				= 0
+ls_string					= string(ldb_precio)+'~t'+string(ldb_descto)+'~t'+string(ldb_precio_vta)+'~t'+string(ldb_liberador)+'~t'+string(ldb_pie_min)
+return(ls_string)
+end function
+

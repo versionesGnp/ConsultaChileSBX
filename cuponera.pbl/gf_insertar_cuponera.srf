@@ -1,0 +1,144 @@
+﻿global type gf_insertar_cuponera from function_object
+end type
+
+forward prototypes
+global function integer gf_insertar_cuponera (integer ai_fila, string as_base, string as_serie, double al_numero, integer al_lugar)
+end prototypes
+
+global function integer gf_insertar_cuponera (integer ai_fila, string as_base, string as_serie, double al_numero, integer al_lugar);integer	ii_indice, I, ii_num_cuota, ii_total_cuota, ii_cuotas_pagadas,&
+			ii_mes, ii_anno , ii_dia,incremento,cup_mant,cup_tot
+string   	is_barra, is_nombre, is_dv, is_moneda
+long     	il_rut, ii_num_cuponera,ll_suma1=0
+double   	il_monto,ii_valor_cuota_m
+date     	id_vencimiento, id_e
+datetime ii_dia_pago,ii_dia_pago_m
+date 		fecha_mant,fecha_mant_prox
+integer 	contador,cta_pag_m
+setnull(cta_pag_m)
+
+gf_datos_cupon(as_base, as_serie,al_numero,is_nombre,il_rut,is_dv,il_monto,ii_total_cuota,ii_cuotas_pagadas,is_moneda,ii_dia_pago,ii_valor_cuota_m,ii_dia_pago_m,cta_pag_m)
+is_barra		= as_base + as_serie +String(al_numero)
+ii_dia  		= Integer(String(ii_dia_pago, "dd" ))
+ii_mes  		= Integer(String(ii_dia_pago, "mm" ))
+ii_anno 		= Integer(String(ii_dia_pago, "yyyy" ))
+ii_mes 		= ii_mes + ii_cuotas_pagadas
+DO WHILE ii_mes > 12
+	ii_anno	= ii_anno + 1
+	ii_mes 	= ii_mes - 12
+LOOP
+IF ii_mes  	= 1 THEN 
+	ii_mes  	= 12
+	ii_anno 	= ii_anno - 1
+ELSE
+	ii_mes  	= ii_mes - 1
+END IF
+
+if gs_cuponera_aviso = '0' then//Cuponera ==> 0
+	gf_cantidad_cupones(gi_cant_cup,cup_mant,cup_tot)
+	//IF cta_pag_m > 99 OR as_base <> 'O' THEN
+	//	gi_cant_cup = cup_tot - cup_mant
+	//elseIF isnull(cta_pag_m) then
+	//	gi_cant_cup = cup_tot + cup_mant
+	//END IF
+	ll_suma1		= 0
+	FOR I = 1 TO gi_cant_cup
+		IF as_serie <> "" THEN
+			ii_indice	= (I - 1) * 5  + ai_fila
+			gl_ultimo_cupon	= gl_ultimo_cupon + 1
+			ii_num_cuponera 	= gl_ultimo_cupon 
+			if I > 2 then
+		//--------------------------------- bloquea todos los folios ocupados de la cuponera---------------------------------
+				ll_suma1 ++
+				ii_num_cuota 		= ll_suma1 + ii_cuotas_pagadas
+				ii_mes 				= ii_mes + 1
+				IF ii_mes > 12 THEN
+					ii_mes 			= 1
+					ii_anno 			= ii_anno + 1
+				END IF
+				ii_dia 				= Integer(String(ii_dia_pago, "dd"))
+				id_vencimiento 	= Date((String(ii_dia) + "/"+ String(ii_mes) + "/"+ String(ii_anno)))
+				id_e 					= Date("30/02/2000")
+				do while id_vencimiento = id_e
+					ii_dia 			= ii_dia - 1
+					id_vencimiento = date(String(ii_dia) + "/"+ String(ii_mes) + "/"+ String(ii_anno))
+				loop
+			end if
+			IF ii_num_cuota <= ii_total_cuota THEN
+				IF I < 3 and cta_pag_m < 90 THEN
+					if I = 1 then
+						INSERT INTO "TEM_CUPON"  
+								  ( "CODIGO" ,"SERIE"  ,"NUMERO"  ,"BARRA"  ,"NUM_CUP"       ,"NOMBRE"  ,"RUT"  ,"NRO_CUOTA"  ,"TOT_CUOTA"    ,"FECHA_PAGO"   ,"VALOR_CUOTA"     ,"MANTENCION","MONEDA"  ,"DV"  ,"AUX"     ,"LUGAR"  ,"EMPRESA","USUARIO","FECHA_PRIM"               ,"ESTADO" ,"TIPO_MOV")  
+						VALUES  ( :as_base ,:as_serie,:al_numero,:is_barra,:ii_num_cuponera,:is_nombre,:il_rut,null         ,:ii_total_cuota,:ii_dia_pago_m ,:ii_valor_cuota_m ,null        ,:is_moneda,:is_dv,:ii_indice,:al_lugar,null     , :gs_user,to_date(to_char(sysdate  )),'V'      ,'F')  
+						using sqlca;
+						if sqlca.sqlcode = 0 then
+							commit;
+						else
+							rollback;
+						end if
+					else
+						string a
+						ii_dia_pago_m = datetime(date(mid(string(ii_dia_pago_m,'dd/mm/yyyy'),1,6)+string(integer(mid(string(ii_dia_pago_m,'dd/mm/yyyy'),7,4)) + 1,'0000')),time('00:00:00'))
+						INSERT INTO "TEM_CUPON"  
+								  ( "CODIGO","SERIE"  ,"NUMERO"  ,"BARRA"  ,"NUM_CUP"       ,"NOMBRE"  ,"RUT"  ,"NRO_CUOTA"  ,"TOT_CUOTA"    ,"FECHA_PAGO"     ,"VALOR_CUOTA"    ,"MANTENCION","MONEDA"  ,"DV"  ,"AUX"     ,"LUGAR"  ,"EMPRESA","USUARIO","FECHA_PRIM"               ,"ESTADO" ,"TIPO_MOV")  
+						VALUES ( :as_base ,:as_serie,:al_numero,:is_barra,:ii_num_cuponera,:is_nombre,:il_rut,NULL         ,NULL           ,:ii_dia_pago_m ,:ii_valor_cuota_m,null        ,:is_moneda,:is_dv,:ii_indice,:al_lugar,null     , :gs_user,to_date(to_char(sysdate  )),'V'      ,'F')  
+						using sqlca;
+						if sqlca.sqlcode = 0 then
+							commit;
+						else
+							rollback;
+						end if
+					end if
+				ELSE
+					INSERT INTO "TEM_CUPON"  
+							  ( "CODIGO","SERIE"  ,"NUMERO"  ,"BARRA"  ,"NUM_CUP"       ,"NOMBRE"  ,"RUT"  ,"NRO_CUOTA"  ,"TOT_CUOTA"    ,"FECHA_PAGO"   ,"VALOR_CUOTA","MANTENCION","MONEDA"  ,"DV"  ,"AUX"     ,"LUGAR"  ,"EMPRESA","USUARIO","FECHA_PRIM"               ,"ESTADO" ,"TIPO_MOV")  
+					VALUES ( :as_base ,:as_serie,:al_numero,:is_barra,:ii_num_cuponera,:is_nombre,:il_rut,:ii_num_cuota,:ii_total_cuota,:id_vencimiento,:il_monto    ,null        ,:is_moneda,:is_dv,:ii_indice,:al_lugar,null     , :gs_user,to_date(to_char(sysdate  )),'V'      ,'E')  
+					using sqlca;
+					if sqlca.sqlcode = 0 then
+						commit;
+					else
+						rollback;
+					end if
+				END IF
+			ELSE
+				INSERT INTO "TEM_CUPON"  
+							( "CODIGO","SERIE","NUMERO","BARRA","NUM_CUP","NOMBRE","RUT","NRO_CUOTA","TOT_CUOTA","FECHA_PAGO","VALOR_CUOTA","MANTENCION","MONEDA","DV","AUX"     ,"LUGAR"  ,"EMPRESA","USUARIO","FECHA_PRIM"               ,"ESTADO" ,"TIPO_MOV")    
+				VALUES 	( null    ,null   ,null    ,null   ,null     ,null    ,null ,null       ,null       ,null        ,null         ,null        ,null    ,null,:ii_indice,:al_lugar,null     , :gs_user,to_date(to_char(sysdate  )),'V'      ,'E')  
+				using sqlca;
+				if sqlca.sqlcode = 0 then
+					commit;
+				else
+					rollback;
+				end if
+			END IF
+		ELSE
+			ii_indice 			= (I - 1) * 5  + ai_fila	
+			INSERT INTO "TEM_CUPON"  
+						( "CODIGO","SERIE","NUMERO","BARRA","NUM_CUP","NOMBRE","RUT","NRO_CUOTA","TOT_CUOTA","FECHA_PAGO","VALOR_CUOTA","MANTENCION","MONEDA","DV","AUX"     ,"LUGAR"  ,"EMPRESA","USUARIO","FECHA_PRIM"               ,"ESTADO" ,"TIPO_MOV")  
+			VALUES 	( null    ,null   ,null    ,null   ,null     ,null    ,null ,null       ,null       ,null        ,null         ,null        ,null    ,null,:ii_indice,:al_lugar,null     , :gs_user,to_date(to_char(sysdate  )),'V'      ,'E')  
+			using sqlca;
+			if sqlca.sqlcode = 0 then
+				commit;
+			else
+				rollback;
+			end if
+		END IF
+	NEXT
+	// actualizar il_ultimo_cupon
+	
+	
+else//aviso_vencimiento ==> 1
+	gl_ultimo_cupon	= gl_ultimo_cupon + 1
+	ii_num_cuponera 	= gl_ultimo_cupon 
+	INSERT INTO "TEM_CUPON"  
+			  ( "CODIGO" ,"SERIE"  ,"NUMERO"  ,"BARRA"  ,"NUM_CUP"       ,"NOMBRE"  ,"RUT"  ,"NRO_CUOTA"  ,"TOT_CUOTA"    ,"FECHA_PAGO"   ,"VALOR_CUOTA"     ,"MANTENCION","MONEDA"  ,"DV"  ,"AUX"     ,"LUGAR"  ,"EMPRESA","USUARIO","FECHA_PRIM"               ,"ESTADO" ,"TIPO_MOV")  
+	VALUES  ( :as_base ,:as_serie,:al_numero,:is_barra,:ii_num_cuponera,:is_nombre,:il_rut,null         ,:ii_total_cuota,:ii_dia_pago_m ,:ii_valor_cuota_m ,null        ,:is_moneda,:is_dv,:ii_indice,:al_lugar,null     , :gs_user,to_date(to_char(sysdate  )),'V'      ,'F')  
+	using sqlca;
+	if sqlca.sqlcode = 0 then
+		commit;
+	else
+		rollback;
+	end if
+end if
+RETURN 0
+end function
+

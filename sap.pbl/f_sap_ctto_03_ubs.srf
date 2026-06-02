@@ -1,0 +1,121 @@
+﻿global type f_sap_ctto_03_ubs from function_object
+end type
+
+forward prototypes
+global function long f_sap_ctto_03_ubs (string as_base, string as_serie, double adb_numero, string as_tipo_deuda, long al_folio, datetime adt_fecha_pago)
+end prototypes
+
+global function long f_sap_ctto_03_ubs (string as_base, string as_serie, double adb_numero, string as_tipo_deuda, long al_folio, datetime adt_fecha_pago);string		ls_base,ls_serie,ls_tipo_deuda,ls_cod_material,ls_centro,ls_almacen,ls_sector,ls_sepult,ls_nro_tecnico,ls_centro_benef,ls_impto
+long		ll_estado,ll_nro_posic,ll_cant_material,ll_cuotas,ll_tasa
+double	ldb_numero
+
+DECLARE x03 CURSOR FOR
+SELECT	"BASE",
+        		"SERIE",
+        		"NUMERO",
+        		"TIPO_DEUDA",
+        		"POSICION_UBS",
+			"CODIGO_MATERIAL_SAP",
+			1,
+			"CENTRO",
+			"ALMACEN",
+			"SECTOR",
+			"SEPULTURA",
+			"NRO_TECNICO",
+			"NRO_CUOTAS",
+        		TRUNC("SAP_CADENA"."TASA_CTTO", 3),
+			"CENTRO_BENEF",
+			'0'
+FROM    "SAP_CADENA"
+WHERE   "SAP_CADENA"."ESTADO" = 'V' AND
+        		"SAP_CADENA"."TIPO_DEUDA" = 'C' AND
+        		("SAP_CADENA"."BASE" = 'O' OR "SAP_CADENA"."BASE"='C' ) AND
+			"SAP_CADENA"."BASE" = :as_base and
+			"SAP_CADENA"."SERIE" = :as_serie and
+			"SAP_CADENA"."NUMERO" = :adb_numero and
+			"SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda	  
+UNION
+SELECT	"BASE",
+        		"SERIE",
+        		"NUMERO",
+        		"TIPO_DEUDA",
+        		"POSICION_UBS",
+			"CODIGO_MATERIAL_SAP",
+			1,
+			"CENTRO",
+			"ALMACEN",
+			"SECTOR",
+			"SEPULTURA",
+			"NRO_TECNICO",
+			"NRO_CUOTAS",
+        		TRUNC("SAP_CADENA"."TASA_CTTO", 3),
+			"CENTRO_BENEF",
+			'0'
+FROM    "SAP_CADENA"
+WHERE   "SAP_CADENA"."ESTADO" = 'V' AND
+        		"SAP_CADENA"."TIPO_DEUDA" = 'C' AND
+        		("SAP_CADENA"."BASE" = 'O' OR "SAP_CADENA"."BASE"='C' ) AND
+			"SAP_CADENA"."BASE" = :as_base and
+			"SAP_CADENA"."SERIE" = :as_serie and
+			"SAP_CADENA"."NUMERO" = :adb_numero and
+			"SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda	  
+UNION
+SELECT	"SAP_CADENA_SERVICIO"."BASE",
+        		"SAP_CADENA_SERVICIO"."SERIE",
+        		"SAP_CADENA_SERVICIO"."NUMERO",
+        		"SAP_CADENA_SERVICIO"."TIPO_DEUDA",
+        		( "SAP_CADENA_SERVICIO"."NRO_CUOTAS" * 10 ),
+        		"SAP_TIPO_CONTRATO"."COD_MATERIAL_SAP",
+        		1,
+        		"VISTA_SAP_ESTRUCTURA_NEGOCIO"."CENTRO",
+        		"VISTA_SAP_ESTRUCTURA_NEGOCIO"."ALMACEN",
+        		'',
+        		'',
+        		'',
+        		0,
+        		0,
+        		"VISTA_SAP_ESTRUCTURA_NEGOCIO"."CENTRO_BENEF",
+        		'0'
+FROM    "SAP_CADENA_SERVICIO","INGRESO","TAB_UF","VISTA_SAP_ESTRUCTURA_NEGOCIO","SAP_TIPO_CONTRATO","SAP_EMPRESA"
+WHERE  "INGRESO"."FOLIO" = "SAP_CADENA_SERVICIO"."FOLIO_COMPROBANTE" AND  
+			"INGRESO"."TIPO_COB" = "SAP_CADENA_SERVICIO"."TIPO_COB_COMPROBANTE" AND
+			"INGRESO"."FECHA_PAGO" = "SAP_CADENA_SERVICIO"."FECHA_PAGO_COMPROBANTE" AND
+			"INGRESO"."BASE" = "SAP_CADENA_SERVICIO"."BASE" AND
+			"SAP_CADENA_SERVICIO"."TIPO_DEUDA" = "SAP_TIPO_CONTRATO"."TIPO_DEUDA" AND
+			"SAP_TIPO_CONTRATO"."BASE" = 'S' AND
+			"INGRESO"."FECHA_PAGO" = "TAB_UF"."FECHA_UF" AND
+			"INGRESO"."COD_PARQUE" = "VISTA_SAP_ESTRUCTURA_NEGOCIO"."COD_PARQUE" AND
+			"VISTA_SAP_ESTRUCTURA_NEGOCIO"."SOCIEDAD" = "SAP_EMPRESA"."SOCIEDAD" and
+			"SAP_CADENA_SERVICIO"."FECHA_PAGO_COMPROBANTE" = :adt_fecha_pago and
+			"SAP_CADENA_SERVICIO"."FOLIO_COMPROBANTE" = :al_folio and
+			"SAP_EMPRESA"."GRUPO" = 1 AND
+			"INGRESO"."TIPO_MOV" = 'M' AND
+			"VISTA_SAP_ESTRUCTURA_NEGOCIO"."TIPO_VENTA" = 'S' AND
+			"VISTA_SAP_ESTRUCTURA_NEGOCIO"."DESCRIP_ALMACEN" = 'Sarcófagos' AND
+			"SAP_CADENA_SERVICIO"."TIPO_DEUDA" = 'S' AND
+			"SAP_CADENA_SERVICIO"."ESTADO" = 'V'
+USING	sqlca;
+open x03;
+if sqlca.sqlcode=0 then
+	DO WHILE sqlca.sqlcode=0
+	fetch x03 INTO	:ls_base,:ls_serie,:ldb_numero,:ls_tipo_deuda,:ll_nro_posic,:ls_cod_material,:ll_cant_material,:ls_centro,:ls_almacen,:ls_sector,:ls_sepult,:ls_nro_tecnico,:ll_cuotas,:ll_tasa,:ls_centro_benef,:ls_impto;
+		if not isnull(ls_base) and ls_base<>'' and not isnull(ls_serie) and ls_serie<>'' and  not isnull(ldb_numero) and ldb_numero>0 and not isnull(ls_tipo_deuda) and ls_tipo_deuda<>'' then
+			INSERT INTO "SAP_CTTO_03_UBS"  
+         				( "BASE",		"SERIE",	"NUMERO",  	 "TIPO_DEUDA",	"NRO_POSIC_UBS",	"CODIGO_MATERIAL_SAP",	"CANT_MATERIAL",	"CENTRO",	"ALMACEN",		"SECTOR",	"SEPULTURA",	"NRO_TECNICO",	"NRO_CUOTAS",	"TASA_CTTO",	"CENTRO_BENEF",	"IMPTO_UBS",	"FOLIO")
+			VALUES	( :ls_base,	:ls_serie,	:ldb_numero,	:ls_tipo_deuda,		:ll_nro_posic,			:ls_cod_material,				:ll_cant_material,		:ls_centro,	:ls_almacen,	:ls_sector,	:ls_sepult,		:ls_nro_tecnico,	:ll_cuotas,			:ll_tasa,			:ls_centro_benef,	:ls_impto,		:al_folio)
+			USING	sqlca;
+			if sqlca.sqlcode = 0 then
+				commit using sqlca;
+				ll_estado					= 1
+			else
+				rollback using sqlca;
+				ll_estado 				= 0
+			end if
+		end if
+		setnull(ls_base);setnull(ls_serie);setnull(ldb_numero);setnull(ls_tipo_deuda);setnull(ll_nro_posic);setnull(ls_cod_material);setnull(ll_cant_material);setnull(ls_centro);setnull(ls_almacen);setnull(ls_sector);setnull(ls_sepult);setnull(ls_nro_tecnico);setnull(ll_cuotas);setnull(ll_tasa);setnull(ls_centro_benef);setnull(ls_impto)
+	LOOP
+end if
+close x03;
+return ll_estado
+end function
+

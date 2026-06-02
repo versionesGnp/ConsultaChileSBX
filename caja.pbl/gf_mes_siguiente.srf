@@ -1,0 +1,49 @@
+﻿global type gf_mes_siguiente from function_object
+end type
+
+forward prototypes
+global function date gf_mes_siguiente (date ad_fecha, integer ai_meses, long al_dia)
+end prototypes
+
+global function date gf_mes_siguiente (date ad_fecha, integer ai_meses, long al_dia);long ll_anno, ll_mes, ll_dia
+date ld_fecha, id_e
+//ll_dia = Integer(String(ad_fecha, "dd"))
+//ll_mes  = Integer(String(ad_fecha,"mm"))
+//ll_anno = Integer(String(ad_fecha,"yyyy"))
+if al_dia=30 then
+	ll_dia		= day(ad_fecha)
+	ll_mes 		= month(ad_fecha) + ai_meses
+	ll_anno 		= year(ad_fecha) 
+elseif al_dia=1 then
+	ll_dia		= day(ad_fecha)
+	ll_mes 		= month(ad_fecha)
+	ll_anno 		= year(ad_fecha) 
+elseif al_dia<>1 and al_dia<>30 then
+	ad_fecha		=  RelativeDate(ad_fecha, al_dia)
+	ll_dia		= day(ad_fecha)
+	ll_mes 		= month(ad_fecha)
+	ll_anno 		= year(ad_fecha) 
+end if
+IF ll_mes > 12  AND ll_mes <= 24 then
+	ll_mes	= ll_mes - 12
+	ll_anno 	= ll_anno + 1
+ELSEIF ll_mes > 24 and ll_mes <=36 then
+	ll_mes 	= ll_mes - 24
+	ll_anno 	= ll_anno + 2
+elseif ll_mes > 36 and ll_mes <= 48 then
+	ll_mes 	= ll_mes - 36
+	ll_anno 	= ll_anno + 3
+elseif ll_mes > 48 and ll_mes <= 60 then
+	ll_mes 	= ll_mes - 48
+	ll_anno 	= ll_anno + 4
+END IF
+ld_fecha		= Date((String(ll_dia) + "/"+ String(ll_mes) + "/"+ String(ll_anno)))
+id_e 			= Date("30/02/2004")
+do while ld_fecha = id_e
+	ll_dia 	= ll_dia - 1
+	ld_fecha = Date((String(ll_dia) + "/"+ String(ll_mes) + "/"+ String(ll_anno)))
+loop
+ld_fecha 	= date(ll_anno, ll_mes, ll_dia)
+RETURN ld_fecha
+end function
+

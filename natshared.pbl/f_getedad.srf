@@ -1,0 +1,41 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Calcula edad exacta~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_getedad from function_object
+end type
+
+forward prototypes
+global function integer f_getedad (datetime ad_nac)
+end prototypes
+
+global function integer f_getedad (datetime ad_nac);/* f_GetEdad( date ad_nac )
+	Return {li_edad}
+	Autor: César Vilela R. */
+
+Date		ld_hoy, ld_nac
+Integer	li_edad, li_ano, li_mes, li_dia, li_nano, li_nmes, li_ndia
+
+
+ld_hoy = Today( )
+li_ano = Year( ld_hoy )
+li_mes = Month( ld_hoy )
+li_dia = Day( ld_hoy )
+
+ld_nac = Date( ad_nac )
+li_nano = Year( ld_nac )
+li_nmes = Month( ld_nac )
+li_ndia = Day( ld_nac )
+
+// se le resta uno para luego comprobar los meses y días
+li_edad = li_ano - li_nano - 1 
+
+// si el mes de cumpleaños aun no ha pasado
+If ( li_mes - li_nmes ) < 0 Then Return li_edad
+
+// si el mes de cumpleaños ya pasó
+If ( li_mes - li_nmes ) > 0 Then Return li_edad + 1
+
+// si el mes de cumpleaños es el mes actual, verificar los días
+If ( li_dia - li_ndia ) >= 0 Then Return li_edad + 1
+
+Return li_edad
+end function
+

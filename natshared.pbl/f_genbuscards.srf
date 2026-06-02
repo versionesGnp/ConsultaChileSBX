@@ -1,0 +1,59 @@
+﻿global type f_genbuscards from function_object
+end type
+
+forward prototypes
+global function string f_genbuscards (uo_datastore ads_1, string as_parm[], boolean ab_ret, string as_col, datawindow adw_1)
+end prototypes
+
+global function string f_genbuscards (uo_datastore ads_1, string as_parm[], boolean ab_ret, string as_col, datawindow adw_1);/* f_GenBuscarDS( ads_1, {as_cod, as_tabla, as_fil }, ab_ret , as_col, adw_1 ) */
+
+s_parm	lstr_parm
+LongLong	ll_cod
+Dec		ldc_cod
+String	ls_cod, ls_colType
+
+
+lstr_parm.s_cad[ 1] = as_parm[ 2] 
+lstr_parm.s_cad[ 2] = as_parm[ 1] 
+lstr_parm.s_cad[ 3] = ''
+lstr_parm.s_cad[ 4] = ''
+lstr_parm.s_cad[ 5] = 'DS'
+lstr_parm.s_cad[ 6] = ''
+lstr_parm.ds_dat[ 1] = ads_1
+
+If UpperBound( lstr_parm.s_cad[]) >= 3 Then lstr_parm.s_cad[ 3] = f_Trim( as_parm[ 3] ) 
+If UpperBound( lstr_parm.s_cad[]) >= 4 Then lstr_parm.s_cad[ 6] = f_Trim( as_parm[ 4] ) 
+If ab_ret Then lstr_parm.s_cad[ 4] = 'RET' 
+
+OpenWithParm( w_mant_gen_buscar_x_nombre, lstr_parm )
+ls_cod = Message.StringParm
+ls_cod = f_Trim( ls_cod )
+
+If ls_cod = '' Then Return ls_cod
+If as_col = '' Then Return ls_cod
+
+ls_colType = Lower( adw_1.Describe( as_col + '.ColType' ) )
+
+Choose Case ls_colType
+	Case 'char', 'string'
+		adw_1.SetItem( adw_1.GetRow(), as_col, ls_cod )
+		
+	Case 'long', 'number', 'ulong', 'decimal(0)'
+		ll_cod = LongLong( ls_cod )
+		adw_1.SetItem( adw_1.GetRow(), as_col, ll_cod )
+		
+	Case 'decimal', 'dec'
+		ldc_cod = Dec( ls_cod )
+		adw_1.SetItem( adw_1.GetRow(), as_col, ldc_cod )
+		
+End Choose
+
+adw_1.AcceptText( )
+
+adw_1.SetColumn( as_col )
+
+
+Return ls_cod 
+
+end function
+

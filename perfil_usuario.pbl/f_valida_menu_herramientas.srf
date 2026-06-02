@@ -1,0 +1,54 @@
+﻿global type f_valida_menu_herramientas from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_herramientas (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_herramientas (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+
+			CASE 'm_menu_principal.m_herramienta'
+				m_menu_principal.m_herramienta.visible															= false
+				m_menu_principal.m_herramienta.m_cambiaconexion.visible									= false
+				m_menu_principal.m_herramienta.m_cambiopassword.visible									= false
+				m_menu_principal.m_herramienta.m_perfilusuario.visible									= false
+				m_menu_principal.m_herramienta.m_mantenedortablas.visible								= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.visible								= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ipparque.visible				= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ipcaja.visible					= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_usuario0.visible				= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ingresosoporte.visible		= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ingresoequipo.visible			= false
+			CASE 'm_menu_principal.m_herramienta.m_cambiaconexion'
+				m_menu_principal.m_herramienta.m_cambiaconexion.visible									= false
+			CASE 'm_menu_principal.m_herramienta.m_cambiopassword'
+				m_menu_principal.m_herramienta.m_cambiopassword.visible									= false
+			CASE 'm_menu_principal.m_herramienta.m_perfilusuario'
+				m_menu_principal.m_herramienta.m_perfilusuario.visible									= false
+			CASE 'm_menu_principal.m_herramienta.m_mantenedortablas'
+				m_menu_principal.m_herramienta.m_mantenedortablas.visible								= false
+			CASE 'm_menu_principal.m_herramienta.m_mantenedorsoporte'
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.visible								= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ipparque.visible				= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ipcaja.visible					= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_usuario0.visible				= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ingresosoporte.visible		= false
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ingresoequipo.visible			= false
+			CASE 'm_menu_principal.m_herramienta.m_mantenedorsoporte.m_ipparque'
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ipparque.visible				= false
+			CASE 'm_menu_principal.m_herramienta.m_mantenedorsoporte.m_ipcaja'
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ipcaja.visible					= false
+			CASE 'm_menu_principal.m_herramienta.m_mantenedorsoporte.m_usuario0'
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_usuario0.visible				= false
+			CASE 'm_menu_principal.m_herramienta.m_mantenedorsoporte.m_ingresosoporte'
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ingresosoporte.visible		= false
+			CASE 'm_menu_principal.m_herramienta.m_mantenedorsoporte.m_ingresoequipo'
+				m_menu_principal.m_herramienta.m_mantenedorsoporte.m_ingresoequipo.visible			= false
+
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

@@ -1,0 +1,12 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Versión de ejecutable Eclipse del proyecto~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genappversion from function_object
+end type
+
+forward prototypes
+global function string f_genappversion ()
+end prototypes
+
+global function string f_genappversion ();
+Return gs_version
+end function
+

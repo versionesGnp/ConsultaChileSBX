@@ -1,0 +1,28 @@
+﻿global type f_buscar_ingreso_res_comi from function_object
+end type
+
+forward prototypes
+global function double f_buscar_ingreso_res_comi (string as_codigo, string as_serie, double al_numero, string as_base)
+end prototypes
+
+global function double f_buscar_ingreso_res_comi (string as_codigo, string as_serie, double al_numero, string as_base);LONG	ll_count_porc=0
+String	ls_contab
+if as_base='O' then
+	ls_contab='037'
+else
+	ls_contab='036'
+end if 
+SELECT sum("RES_COMI"."TOTAL_PAGO")
+INTO :ll_count_porc
+FROM "RES_COMI"  
+WHERE ( "RES_COMI"."COD_AGE_SUP" = :as_codigo ) AND  
+		( "RES_COMI"."SERIE" = :as_serie ) AND  
+		( "RES_COMI"."CONTRATO" = :al_numero )  AND
+		( "RES_COMI"."COD_CONTABLE" = :ls_contab )
+Using	sqlca;
+if ll_count_porc <=0 or isnull(ll_count_porc) then ll_count_porc=0
+return(ll_count_porc)
+		
+
+end function
+

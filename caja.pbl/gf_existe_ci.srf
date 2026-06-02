@@ -1,0 +1,27 @@
+﻿global type gf_existe_ci from function_object
+end type
+
+forward prototypes
+global function boolean gf_existe_ci (long al_num_ci, string as_tipo_cob)
+end prototypes
+
+global function boolean gf_existe_ci (long al_num_ci, string as_tipo_cob);long il_num_ci
+
+if as_tipo_cob='BE' or as_tipo_cob='BA' then
+	SELECT DISTINCT "INGRESO"."FOLIO"  
+	INTO 		:il_num_ci
+	FROM 	"INGRESO"  
+	WHERE  ( "INGRESO"."FOLIO" = :al_num_ci ) AND  
+			 ( "INGRESO"."TIPO_COB" = :as_tipo_cob )  AND
+			 ( "INGRESO"."COD_PARQUE" = :gl_cod_parque );
+else
+	SELECT DISTINCT "INGRESO"."FOLIO"  
+	INTO 		:il_num_ci
+	FROM 	"INGRESO"  
+	WHERE  ( "INGRESO"."FOLIO" = :al_num_ci ) AND  
+			 ( "INGRESO"."TIPO_COB" = :as_tipo_cob ) ;
+end if
+RETURN (al_num_ci = il_num_ci )
+
+end function
+

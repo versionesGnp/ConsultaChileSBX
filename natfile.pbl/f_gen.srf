@@ -1,0 +1,59 @@
+﻿//objectcomments /* Autor: César Vilela ~r~n    Función: LLamada a elementos del menú GEN~r~n    Recomendación: No Modificar~r~n*/
+global type f_gen from function_object
+end type
+
+forward prototypes
+global function boolean f_gen (string as_opc)
+end prototypes
+
+global function boolean f_gen (string as_opc);/* Llamado a Sub-Módulo General
+	f_Gen( as_opc ) */
+String	ls_doc
+
+Choose Case as_opc
+	/* Tablas */
+		
+	Case '90225'
+				
+	Case '90230'
+		
+	Case '90232'
+		
+	Case '90235'
+		OpenSheet( w_mant_gen_etiqueta_list, gw_frame, 1, Original! )
+		
+	Case '90240'
+		OpenSheet( w_mant_gen_estado_list, gw_frame, 1, Original! )
+		
+	Case '90245'
+		
+	Case '90250'
+		
+	Case '90255'
+		OpenSheet( w_mant_gen_giro_list, gw_frame, 1, Original! )
+		
+	Case '90310'
+				
+	Case '90313'
+				
+	Case '90315'
+		
+	Case '90320'
+		
+	Case '90325'
+				
+	Case '90330'
+		OpenSheet( w_arch_ecli_tipo_cambio, gw_frame, 1, Original! )
+				
+	Case '90335'
+
+	Case '90340'
+		
+	Case Else
+		Return False
+		
+End Choose
+
+Return True
+end function
+

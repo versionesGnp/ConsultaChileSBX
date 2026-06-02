@@ -1,0 +1,32 @@
+﻿global type f_genvalidanrotelefono from function_object
+end type
+
+forward prototypes
+global function boolean f_genvalidanrotelefono (string as_telefono)
+end prototypes
+
+global function boolean f_genvalidanrotelefono (string as_telefono);
+// f_GenValidaNroTelefono( as_telefono )
+
+Int	li_len
+
+as_telefono = UpperTrim( as_telefono )
+
+If as_telefono = '' Or as_telefono = '-' Then
+	Return True
+End If
+
+li_len = Len( as_telefono )
+
+If Not li_len = 9 Then
+	Return False
+End If
+
+If Match( as_telefono, "[A-Z]+") then
+	Return False
+End If
+
+Return True
+
+end function
+

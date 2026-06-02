@@ -1,0 +1,18 @@
+﻿global type gf_contador_co_prop_isa from function_object
+end type
+
+forward prototypes
+global function integer gf_contador_co_prop_isa (ref long al_contador)
+end prototypes
+
+global function integer gf_contador_co_prop_isa (ref long al_contador);
+ SELECT "COPROP_ISACRUZ"."LINEA"  
+    INTO :al_contador
+    FROM "COPROP_ISACRUZ"  
+   WHERE "COPROP_ISACRUZ"."LINEA" = max("COPROP_ISACRUZ"."LINEA" );    
+
+al_contador = al_contador + 1
+
+RETURN 0
+end function
+

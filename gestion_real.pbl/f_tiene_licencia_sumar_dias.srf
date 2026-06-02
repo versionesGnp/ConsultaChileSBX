@@ -1,0 +1,29 @@
+﻿global type f_tiene_licencia_sumar_dias from function_object
+end type
+
+forward prototypes
+global function long f_tiene_licencia_sumar_dias (string as_codigo, datetime ad_fec_ini, datetime ad_fec_fin)
+end prototypes
+
+global function long f_tiene_licencia_sumar_dias (string as_codigo, datetime ad_fec_ini, datetime ad_fec_fin);gl_count_lic	= 0
+SELECT 	sum("LICENCIAS"."NRO_DIAS")
+INTO 		:gl_count_lic  
+FROM 		"LICENCIAS"  
+WHERE 	( "LICENCIAS"."CODIGO_EMPLEADO" = :as_codigo ) AND  
+			(("LICENCIAS"."FECHA_INICIO_LICENCIA" >= :ad_fec_ini AND  
+			"LICENCIAS"."FECHA_INICIO_LICENCIA" <= :ad_fec_fin) OR  
+			("LICENCIAS"."FECHA_FIN_LICENCIA" >= :ad_fec_ini AND  
+			"LICENCIAS"."FECHA_FIN_LICENCIA" <= :ad_fec_fin))   
+USING		sqlca  ;
+
+if sqlca.sqlcode = 0 then
+	if gl_count_lic <= 0 then
+		gl_count_lic	= 0
+	end if
+else
+	gl_count_lic	= 0
+end if
+return(gl_count_lic)
+
+end function
+

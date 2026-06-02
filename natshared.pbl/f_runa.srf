@@ -1,0 +1,45 @@
+﻿global type f_runa from function_object
+end type
+
+forward prototypes
+global function integer f_runa (string as_exe, boolean ab_wait, windowstate winstate)
+end prototypes
+
+global function integer f_runa (string as_exe, boolean ab_wait, windowstate winstate);/* f_RunA( as_exe, ab_wait, winState )
+	CVILELA: 03/Ene/2023
+*/
+OleObject wsh
+integer  li_rc, State
+
+CONSTANT integer MAXIMIZED = 3
+CONSTANT integer MINIMIZED = 2
+CONSTANT integer NORMAL = 1
+CONSTANT boolean WAIT = TRUE
+CONSTANT boolean NOWAIT = FALSE
+
+Choose Case winState
+	Case Normal!
+		State = NORMAL
+		
+	Case Minimized!
+		State = MINIMIZED
+
+	Case Maximized!
+		State = MAXIMIZED
+
+End Choose
+
+
+
+wsh = CREATE OleObject
+li_rc = wsh.ConnectToNewObject( "WScript.Shell" )
+
+If ab_wait Then
+	li_rc = wsh.Run( as_exe, State, WAIT )
+Else
+	li_rc = wsh.Run( as_exe, State, NOWAIT )
+End If	
+
+Return li_rc
+end function
+

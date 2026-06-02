@@ -1,0 +1,23 @@
+﻿global type f_buscar_dir_iguales from function_object
+end type
+
+forward prototypes
+global function string f_buscar_dir_iguales (string as_direccion)
+end prototypes
+
+global function string f_buscar_dir_iguales (string as_direccion);long	ll_count
+string	ls_resp
+SELECT count("CLIENTE"."RUT")
+INTO :ll_count  
+FROM "CLIENTE"  
+WHERE "CLIENTE"."DIRECCION_P" = :as_direccion   
+using sqlca;
+if ll_count>1 then
+	ls_resp='S'
+else
+	ls_resp='N'
+end if
+return ls_resp
+
+end function
+

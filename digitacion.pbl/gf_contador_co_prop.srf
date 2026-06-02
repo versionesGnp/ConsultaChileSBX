@@ -1,0 +1,19 @@
+﻿global type gf_contador_co_prop from function_object
+end type
+
+forward prototypes
+global function integer gf_contador_co_prop (ref long al_contador)
+end prototypes
+
+global function integer gf_contador_co_prop (ref long al_contador);
+SELECT	MAX("CO_PROP"."CONTADOR")  
+INTO 		:al_contador
+FROM 		"CO_PROP"  ;    
+if al_contador > 0 then
+	al_contador ++
+else
+	al_contador = 1
+end if
+RETURN 0
+end function
+

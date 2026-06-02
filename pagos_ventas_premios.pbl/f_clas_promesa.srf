@@ -1,0 +1,175 @@
+﻿global type f_clas_promesa from function_object
+end type
+
+forward prototypes
+global function string f_clas_promesa (string as_base, string as_serie, long al_numero)
+end prototypes
+
+global function string f_clas_promesa (string as_base, string as_serie, long al_numero);string		ls_jefe,ls_superv,ls_agente,ls_cargo,ls_base,ls_serie,ls_codigo,ls_forma_pago,&
+			ls_clasif_promesa,ls_clasif
+long		ll_cod_parque,ll_plazo,ll_renta,ll_dicom,ll_new,ll_punto_ingr,ll_punto_plazo,&
+			ll_punto_renta,ll_punto_dicom,ll_contr_ped,ll_valor_pat,ll_cta_pat
+datetime	ldt_fecha_cierre,ldt_fecha_max_clas_vta,ldt_fecha_max_clasifica
+double	ldb_numero,ldb_ingr,ldb_pondera_ingr,ldb_valor_vta_ingr,ldb_pondera_plazo,ldb_valor_vta_plazo,ldb_pondera_renta,ldb_valor_vta_renta,&
+			ldb_pondera_dicom,ldb_valor_vta_dicom,ldb_valor_total
+
+//f_clas_promesa(as_base,as_serie,al_numero)
+SELECT	"CODIGO",	"SERIE",	"NUMERO",	"PORCE_ING_CIERRE",	"NRO_CUOTAS",	"TIPO_CLASIFICA_RENTA",	"DICOM_SCORE",	"CIERRE_VENTA",	"FORMA_PAGO"	  
+INTO		:ls_base,		:ls_serie,	:ldb_numero,	:ldb_ingr,					:ll_plazo,				:ll_renta,							:ll_dicom,			:ldt_fecha_cierre,	:ls_forma_pago
+FROM		"VISTA_CLASIFICA_PROMESA"
+WHERE 	( "VISTA_CLASIFICA_PROMESA"."CODIGO" = :as_base ) and
+			( "VISTA_CLASIFICA_PROMESA"."SERIE" = :as_serie ) and
+			( "VISTA_CLASIFICA_PROMESA"."NUMERO" = :al_numero )
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ls_base) and ls_base<>'' and not isnull(ls_serie) and ls_serie<>'' and not isnull(ldb_numero) and ldb_numero >0 then
+		SELECT	MAX("FECHA")
+		INTO 		:ldt_fecha_max_clas_vta  
+		FROM		"CLASIFICA_VENTAS"  
+		WHERE	( "CLASIFICA_VENTAS"."FECHA" <= :ldt_fecha_cierre )
+		USING	sqlca;
+		if sqlca.sqlcode=0 then
+			if not isnull(ldt_fecha_max_clas_vta) then
+			end if
+		end if
+		SELECT	"PUNTOS",			"PONDERA",				"VALOR_VENTA"  
+		INTO 		:ll_punto_ingr,	:ldb_pondera_ingr,	:ldb_valor_vta_ingr  
+		FROM		"CLASIFICA_VENTAS"  
+		WHERE	( "CLASIFICA_VENTAS"."CODIGO" = 1 ) AND  
+					( "CLASIFICA_VENTAS"."RANDO_INICIO" <= :ldb_ingr ) AND  
+					( "CLASIFICA_VENTAS"."RANGO_FIN" > :ldb_ingr ) AND
+					( "CLASIFICA_VENTAS"."FECHA" = :ldt_fecha_max_clas_vta ) 
+		USING	sqlca;
+		if sqlca.sqlcode=0 then
+			ll_punto_ingr					= ll_punto_ingr
+			ldb_pondera_ingr				= ldb_pondera_ingr
+			ldb_valor_vta_ingr  			= ldb_valor_vta_ingr
+		else
+			ll_punto_ingr					= 0
+			ldb_pondera_ingr				= 0
+			ldb_valor_vta_ingr	  			= 0
+		end if
+		SELECT	"PUNTOS",			"PONDERA",				"VALOR_VENTA"  
+		INTO 		:ll_punto_plazo,	:ldb_pondera_plazo,	:ldb_valor_vta_plazo  
+		FROM		"CLASIFICA_VENTAS"  
+		WHERE	( "CLASIFICA_VENTAS"."CODIGO" = 2 ) AND  
+					( "CLASIFICA_VENTAS"."RANDO_INICIO" < :ll_plazo ) AND  
+					( "CLASIFICA_VENTAS"."RANGO_FIN" >= :ll_plazo ) AND
+					( "CLASIFICA_VENTAS"."FECHA" = :ldt_fecha_max_clas_vta )
+		USING	sqlca;
+		if sqlca.sqlcode=0 then
+			ll_punto_plazo					= ll_punto_plazo
+			ldb_pondera_plazo			= ldb_pondera_plazo
+			ldb_valor_vta_plazo  			= ldb_valor_vta_plazo
+		else
+			ll_punto_plazo					= 0
+			ldb_pondera_plazo			= 0
+			ldb_valor_vta_plazo  			= 0
+		end if
+		SELECT	"PUNTOS",			"PONDERA",				"VALOR_VENTA"  
+		INTO 		:ll_punto_renta,	:ldb_pondera_renta,	:ldb_valor_vta_renta  
+		FROM		"CLASIFICA_VENTAS"  
+		WHERE	( "CLASIFICA_VENTAS"."CODIGO" = 3 ) AND  
+					( "CLASIFICA_VENTAS"."RANDO_INICIO" = :ll_renta ) AND  
+					( "CLASIFICA_VENTAS"."RANGO_FIN" = :ll_renta ) AND
+					( "CLASIFICA_VENTAS"."FECHA" = :ldt_fecha_max_clas_vta )
+		USING	sqlca;
+		if sqlca.sqlcode=0 then
+			ll_punto_renta					= ll_punto_renta
+			ldb_pondera_renta			= ldb_pondera_renta
+			ldb_valor_vta_renta  			= ldb_valor_vta_renta
+		else
+			ll_punto_renta					= 0
+			ldb_pondera_renta			= 0
+			ldb_valor_vta_renta  			= 0
+		end if
+		SELECT	"PUNTOS",			"PONDERA",				"VALOR_VENTA"  
+		INTO 		:ll_punto_dicom,	:ldb_pondera_dicom,	:ldb_valor_vta_dicom  
+		FROM		"CLASIFICA_VENTAS"  
+		WHERE	( "CLASIFICA_VENTAS"."CODIGO" = 4 ) AND  
+					( "CLASIFICA_VENTAS"."RANDO_INICIO" = :ll_dicom ) AND  
+					( "CLASIFICA_VENTAS"."RANGO_FIN" = :ll_dicom ) AND
+					( "CLASIFICA_VENTAS"."FECHA" = :ldt_fecha_max_clas_vta ) 
+		USING	sqlca;
+		if sqlca.sqlcode=0 then
+			ll_punto_dicom					= ll_punto_dicom
+			ldb_pondera_dicom			= ldb_pondera_dicom
+			ldb_valor_vta_dicom  			= ldb_valor_vta_dicom
+		else
+			ll_punto_dicom					= 0
+			ldb_pondera_dicom			= 0
+			ldb_valor_vta_dicom  			= 0
+		end if
+		
+		if ldt_fecha_cierre < datetime(date(string('31/08/2011'))) then
+			ll_valor_pat							= 0
+		else
+			SELECT	count("SOL_ESTATUS"."BASE")  
+    			INTO		:ll_cta_pat  
+    			FROM		"SOL_PAT","SOL_ESTATUS"  
+   			WHERE 	"SOL_ESTATUS"."BASE" = "SOL_PAT"."BASE" and  
+        					"SOL_ESTATUS"."SERIE" = "SOL_PAT"."SERIE" and  
+        					"SOL_ESTATUS"."NUMERO" = "SOL_PAT"."NUMERO" and  
+        					"SOL_PAT"."BASE" = :ls_base AND  
+        					"SOL_PAT"."SERIE" = :ls_serie AND  
+        					"SOL_PAT"."NUMERO" = :ldb_numero AND  
+        					"SOL_PAT"."ESTATUS_OPERACION" = 0 AND  
+        					"SOL_PAT"."ESTATUS_OPERACION" = 0 AND  
+        					"SOL_ESTATUS"."CODIGO_SOLICITUD" = '21' AND  
+        					"SOL_ESTATUS"."ESTADO_REG" = 'A'
+			USING	sqlca;
+			if sqlca.sqlcode=0 then
+				if not isnull(ll_cta_pat) and ll_cta_pat>0 then
+					ll_valor_pat						= 1
+				else
+					ll_valor_pat						= 0
+				end if
+			else
+				ll_valor_pat							= 0
+			end if
+		end if
+			
+		ldb_valor_total						= Round(ldb_valor_vta_ingr + ldb_valor_vta_plazo + ldb_valor_vta_renta + ldb_valor_vta_dicom + ll_valor_pat,2)
+		if ls_forma_pago = '1' or ls_forma_pago = '2' or ls_forma_pago = '3' or ls_forma_pago = '4' then
+			SELECT	MAX("FECHA")  
+			INTO 		:ldt_fecha_max_clasifica  
+			FROM		"CLASIFICACION"  
+			WHERE	"CLASIFICACION"."TIPO_CLASIFICA" = 2 AND  
+						"CLASIFICACION"."FECHA" <= :ldt_fecha_cierre 
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				if not isnull(ldt_fecha_max_clasifica) then
+					SELECT	"CLASIFICA"  
+					INTO 		:ls_clasif  
+					FROM		"CLASIFICACION"  
+					WHERE	( "CLASIFICACION"."TIPO_CLASIFICA" = 2 ) AND  
+								( "CLASIFICACION"."TRAMO_INICIO" <= :ldb_valor_total) AND  
+								( "CLASIFICACION"."TRAMO_FIN" > :ldb_valor_total )	AND
+								( "CLASIFICACION"."FECHA" = :ldt_fecha_max_clasifica )
+					USING		sqlca;
+					if sqlca.sqlcode=0 then
+						if not isnull(ls_clasif) and ls_clasif <> '' then
+							ls_clasif				= ls_clasif
+						end if
+					end if
+				end if
+			end if
+		end if
+		if ls_base='L' then
+			ls_clasif								= 'C'
+		end if
+		ll_contr_ped								= f_docto_pend(ls_base,ls_serie,ldb_numero,ldt_fecha_cierre)
+		if ldb_ingr>=9.98 then
+			ls_clasif								= 'A'
+//		else
+//			if ll_contr_ped>0 then
+//				ls_clasif							= 'C'
+//			end if	
+		end if
+		ls_clasif									= ls_clasif
+	end if
+end if
+if isnull(ls_clasif) or ls_clasif='' then ls_clasif = ''
+Return ls_clasif
+end function
+

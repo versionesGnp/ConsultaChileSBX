@@ -1,0 +1,52 @@
+﻿global type f_direccion_url_new from function_object
+end type
+
+forward prototypes
+global subroutine f_direccion_url_new (string as_tipo_cliente, double adb_rut)
+end prototypes
+
+global subroutine f_direccion_url_new (string as_tipo_cliente, double adb_rut);string	ls_string
+long 		ret
+Inet  iinet_base
+ret = GetContextService("Internet", iinet_base)
+
+//f_direccion_url(as_tipo_cliente,adb_rut)
+if ret = -1 then
+	messagebox('No hay servicio','No hay servidor disponible de internet',stopsign!)
+	return
+end if
+
+if as_tipo_cliente='C' then
+	ls_string							= 'z001'
+else
+	ls_string							= 'z0013'
+end if
+//if gs_sap_conex='P' then
+//	if gl_cod_parque=104 then
+//		ret 					= iinet_base.HyperlinkToURL("http://50.50.50.192/z001.php?conexion=N")
+//	elseif gl_cod_parque=11 then
+//		ret 					= iinet_base.HyperlinkToURL("http://50.50.50.192/z001.php?conexion=F")
+//	else
+//		ret 					= iinet_base.HyperlinkToURL("http://50.50.50.192/z001.php?conexion=P")
+//	end if
+//elseif gs_sap_conex='Q' then
+//	if gl_cod_parque=104 then
+//		ret 					= iinet_base.HyperlinkToURL("http://50.50.50.192/z001.php?conexion=QN")
+//	elseif gl_cod_parque=11 then
+//		ret 					= iinet_base.HyperlinkToURL("http://50.50.50.192/"+ls_string+".php?conexion=QF&rut="+string(adb_rut)+"&fi=si")
+//	else
+//		ret 					= iinet_base.HyperlinkToURL("http://50.50.50.192/"+ls_string+".php?conexion=QP&rut="+string(adb_rut)+"&fi=si")
+//	end if
+//elseif gs_sap_conex='R' then
+//	if gl_cod_parque=104 then
+//		ret 					= iinet_base.HyperlinkToURL("http://50.50.50.192/z001.php?conexion=RN")
+//	elseif gl_cod_parque=11 then
+//		ret 					= iinet_base.HyperlinkToURL("http://50.50.50.192/"+ls_string+".php?conexion=RF&rut="+string(adb_rut)+"&fi=si")
+//	else
+//		ret 					= iinet_base.HyperlinkToURL("http://50.50.50.192/"+ls_string+".php?conexion=RP&rut="+string(adb_rut)+"&fi=si")
+//	end if	
+//end if
+f_reg_x_segundo('CLIE',1350000)
+
+end subroutine
+

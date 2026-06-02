@@ -1,0 +1,33 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Genera LOG de documentos eliminados~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_genlogdelete from function_object
+end type
+
+forward prototypes
+global function boolean f_genlogdelete (string as_tipo, string as_cod, string as_desc)
+end prototypes
+
+global function boolean f_genlogdelete (string as_tipo, string as_cod, string as_desc);/* f_GenLogDelete( as_tipo, as_cod, as_desc ) 
+	Return Boolean */
+
+Boolean	lb_ret
+DateTime	ld_hoy
+String	ls_hora
+
+
+ld_hoy = DateTime( Today( ) )
+ls_hora = String( Now(), 'hh:mm' )
+as_desc = Left( f_Trim( as_desc ), 100 )
+
+Insert Into genlogdelete
+	( c_tipo_log, c_codigo_log, v_descripcion_log, c_codigo_usu, d_creacion_log, c_hora_log )
+Values
+	( :as_tipo, :as_cod, :as_desc, :gs_usuario, :ld_hoy, :ls_hora ) 
+Using SqlCa ;
+
+lb_ret = (SqlCa.SqlCode <> -1)
+
+Return lb_ret
+	
+	
+end function
+

@@ -1,0 +1,198 @@
+﻿global type f_mora_cierre_vtas from function_object
+end type
+
+forward prototypes
+global function long f_mora_cierre_vtas (string as_base, string as_serie, double al_numero, long al_cod_parque, datetime adt_fecha_cierre)
+end prototypes
+
+global function long f_mora_cierre_vtas (string as_base, string as_serie, double al_numero, long al_cod_parque, datetime adt_fecha_cierre);string	ls_estado,ls_base_consul,ls_serie_consul,ls_fecha
+long		ll_plazo,ll_cta_pag,ll_sum_pag_post,ll_ctas_pag_1,ll_dias_mora,ll_mora_01,ll_dia_venc,ll_mes_venc,ll_ano_venc,&
+			ll_dia_01,ll_mes_01,ll_ano_01,ll_resta_ano,ll_resta_mes,ll_cuota_venc
+datetime	ldt_fecha_fact,ldt_fecha_prim,ldt_fecha_res,ldt_fecha_est,ldt_fec_repac,ldt_fecha_venc
+Double	ll_numero_consul
+connect using Trans_1;
+SELECT	"OFERTA_V"."FECHA_CIERRE",
+			"PAGO_OFERTA"."FECHA_PRIM",
+			"PAGO_OFERTA"."NRO_CUOTAS",
+			"CADENA_MORA"."CTAS_PAG_S",
+			"CADENA"."ESTADO",
+			"CADENA"."FECHA_RES",
+			"CADENA"."CODIGO",
+			"CADENA"."SERIE",
+			"CADENA"."NUMERO"  
+INTO		:ldt_fecha_fact,:ldt_fecha_prim,:ll_plazo,:ll_cta_pag,:ls_estado,:ldt_fecha_res,:ls_base_consul,:ls_serie_consul,	:ll_numero_consul	
+FROM		"OFERTA_V",	"PAGO_OFERTA",	"CADENA",	"CADENA_MORA"  
+WHERE		"OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" and  
+         "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" and  
+         "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" and  
+         "PAGO_OFERTA"."SERIE" = "CADENA"."SERIE" and  
+         "PAGO_OFERTA"."NRO_OFERTA" = "CADENA"."NUMERO" and  
+         "CADENA"."CODIGO" = "CADENA_MORA"."BASE" and  
+         "CADENA"."SERIE" = "CADENA_MORA"."SERIE" and  
+         "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" and  
+         "CADENA"."CODIGO" = :as_base AND  
+         "CADENA"."SERIE" = :as_serie AND  
+         "CADENA"."NUMERO" = :al_numero AND
+			"CADENA"."COD_PARQUE" = :al_cod_parque
+USING		sqlca;			
+if sqlca.sqlcode=0 then
+	if ls_estado= 'P' then
+		if adt_fecha_cierre < ldt_fecha_res then
+			SELECT	max("FACTURA_OFERTA"."FECHA_CIERRE") 
+			INTO		:ldt_fecha_est 
+			FROM 		"FACTURA_OFERTA"  
+			WHERE 	( "FACTURA_OFERTA"."BASE" = :ls_base_consul ) AND  
+						( "FACTURA_OFERTA"."SERIE" = :ls_serie_consul ) AND  
+						( "FACTURA_OFERTA"."NUMERO" = :ll_numero_consul ) AND  
+						( "FACTURA_OFERTA"."FECHA_CIERRE" < :adt_fecha_cierre ) AND  
+						( "FACTURA_OFERTA"."ESTADO" = 'S' )
+			USING		Trans_1;
+			if Trans_1.sqlcode = 0 then
+				if not isnull(ldt_fecha_est) then
+					ldt_fecha_est										= ldt_fecha_est
+				end if
+			end if
+			SELECT	"FACTURA_OFERTA"."ESTADO_CADENA"  
+			INTO		:ls_estado  
+			FROM 		"FACTURA_OFERTA"  
+			WHERE 	( "FACTURA_OFERTA"."BASE" = :ls_base_consul) AND  
+						( "FACTURA_OFERTA"."SERIE" = :ls_serie_consul ) AND  
+						( "FACTURA_OFERTA"."NUMERO" = :ll_numero_consul ) AND  
+						( "FACTURA_OFERTA"."FECHA_CIERRE" = :ldt_fecha_est ) AND  
+						( "FACTURA_OFERTA"."ESTADO" = 'S' )
+			USING		Trans_1;
+			if Trans_1.sqlcode = 0 then
+				if not isnull(ls_estado) and ls_estado <> '' then
+					ls_estado											= ls_estado
+				else
+					ls_estado											= ls_estado
+				end if
+			else
+				ls_estado												= ls_estado
+			end if
+		else
+			SELECT	"CADENA"."ESTADO"  
+			INTO 		:ls_estado  
+			FROM		"CADENA"  
+			WHERE 	( "CADENA"."CODIGO" = :ls_base_consul ) AND  
+						( "CADENA"."SERIE" = :ls_serie_consul ) AND  
+						( "CADENA"."NUMERO" = :ll_numero_consul ) AND  
+						( "CADENA"."COD_PARQUE" = :al_cod_parque )
+			USING		sqlca;
+			if sqlca.sqlcode = 0 then
+				if not isnull(ls_estado) and ls_estado <> '' then
+					ls_estado											= ls_estado
+				else
+					ls_estado											= ls_estado
+				end if
+			else
+				ls_estado												= ls_estado
+			end if
+		end if
+	else
+		SELECT	"CADENA"."ESTADO"  
+		INTO 		:ls_estado  
+		FROM		"CADENA"  
+		WHERE 	( "CADENA"."CODIGO" = :ls_base_consul ) AND  
+					( "CADENA"."SERIE" = :ls_serie_consul ) AND  
+					( "CADENA"."NUMERO" = :ll_numero_consul ) AND  
+					( "CADENA"."COD_PARQUE" = :al_cod_parque )
+		USING		sqlca;
+		if sqlca.sqlcode = 0 then
+			if not isnull(ls_estado) and ls_estado <> '' then
+				ls_estado												= ls_estado
+			else
+				ls_estado												= ls_estado
+			end if
+		else
+			ls_estado													= ls_estado
+		end if
+	end if
+	SELECT	sum("INGRESO"."CUOTAS_PAG")  
+	INTO		:ll_sum_pag_post  
+	FROM		"CADENA",	"INGRESO"  
+	WHERE		( "CADENA"."CODIGO" = "INGRESO"."BASE" ) and  
+				( "CADENA"."SERIE" = "INGRESO"."SERIE" ) and  
+				( "CADENA"."NUMERO" = "INGRESO"."CONTRATO" ) and  
+				( ( "CADENA"."CODIGO" = :ls_base_consul ) AND  
+				( "CADENA"."SERIE" = :ls_serie_consul ) AND  
+				( "CADENA"."NUMERO" = :ll_numero_consul ) AND  
+				( "CADENA"."COD_PARQUE" = :al_cod_parque ) AND  
+				( "INGRESO"."TIPO_MOV" = 'E' ) and
+				( "INGRESO"."FECHA_PAGO" > :adt_fecha_cierre ) and
+				( "INGRESO"."FECHA_PAGO" <= :gdt_fec_sistema ))
+	USING		sqlca;
+	if sqlca.sqlcode = 0 then
+		if not isnull(ll_sum_pag_post) and ll_sum_pag_post>0 then
+			ll_sum_pag_post											= ll_sum_pag_post
+		else
+			ll_sum_pag_post											= 0
+		end if
+	else
+		ll_sum_pag_post												= 0
+	end if
+	
+	SELECT	MAX("SOL_REPACTA_CVTA"."FECVTA_1_VCTO") /*repactacion*/
+	INTO		:ldt_fec_repac  
+	FROM 		"SOL_REPACTA_CVTA"
+	WHERE		"SOL_REPACTA_CVTA"."BASE" = :ls_base_consul AND   
+				"SOL_REPACTA_CVTA"."SERIE" = :ls_serie_consul AND   
+				"SOL_REPACTA_CVTA"."NUMERO" = :ll_numero_consul AND
+				"SOL_REPACTA_CVTA"."FECHA_INFOR" >= :adt_fecha_cierre
+	USING		sqlca;
+	if sqlca.sqlcode = 0 then
+		if not isnull(ldt_fec_repac) then
+			SELECT	"SOL_REPACTA_CVTA"."FECVTA_1_VCTO"
+			INTO		:ldt_fecha_prim  
+			FROM 		"SOL_REPACTA_CVTA"
+			WHERE		"SOL_REPACTA_CVTA"."BASE" = :ls_base_consul AND   
+						"SOL_REPACTA_CVTA"."SERIE" = :ls_serie_consul AND   
+						"SOL_REPACTA_CVTA"."NUMERO" = :ll_numero_consul AND
+						"SOL_REPACTA_CVTA"."FECVTA_1_VCTO" = :ldt_fec_repac
+			USING		Trans_1;
+			if Trans_1.sqlcode = 0 then
+				if not isnull(ldt_fecha_prim) then
+					ldt_fecha_prim										= ldt_fecha_prim
+				end if
+			end if
+		end if
+	end if
+	ll_ctas_pag_1														= ll_cta_pag - ll_sum_pag_post
+	select	to_char(add_months( to_date(:ldt_fecha_prim), :ll_ctas_pag_1 ),'dd/mm/yyyy')  
+	INTO		:ls_fecha
+	from 		dual;
+	ldt_fecha_venc	= datetime(date(string(ls_fecha)),time('00:00:00'))
+	ll_dias_mora														= DaysAfter(date(ldt_fecha_venc), date(adt_fecha_cierre)) 
+	if ll_dias_mora <= 5 then
+		ll_mora_01														= 0
+	else
+		ll_dia_venc														= day(date(ldt_fecha_prim))
+		ll_mes_venc														= month(date(ldt_fecha_prim))
+		ll_ano_venc														= year(date(ldt_fecha_prim))
+		ll_dia_01														= day(date(adt_fecha_cierre))
+		ll_mes_01														= month(date(adt_fecha_cierre))
+		ll_ano_01														= year(date(adt_fecha_cierre))
+		ll_resta_ano													= ll_ano_01 - ll_ano_venc
+		ll_resta_ano													= ll_resta_ano * 12
+		ll_resta_mes													= ll_mes_01 - ll_mes_venc
+		ll_cuota_venc													= ll_resta_ano + ll_resta_mes 
+		if ll_dia_01 > ll_dia_venc then 
+			ll_cuota_venc  	                             	= ll_cuota_venc + 1 
+		end if 
+		if ll_cuota_venc < 0 then 
+			ll_cuota_venc                          			= 0 
+		end if												
+		if ll_cuota_venc > ll_plazo then 
+			ll_cuota_venc                              		= ll_plazo 
+		end if 
+		ll_mora_01														= ll_cuota_venc - ll_ctas_pag_1 
+		if ll_mora_01 <= 0 then 
+			ll_mora_01													= 0 
+		end if
+	end if
+end if
+disconnect using Trans_1;
+if isnull(ll_mora_01) then ll_mora_01=0
+Return ll_mora_01
+end function
+

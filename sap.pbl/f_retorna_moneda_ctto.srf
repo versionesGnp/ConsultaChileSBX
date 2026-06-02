@@ -1,0 +1,85 @@
+﻿global type f_retorna_moneda_ctto from function_object
+end type
+
+forward prototypes
+global function string f_retorna_moneda_ctto (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function string f_retorna_moneda_ctto (string as_base, string as_serie, double al_numero);String		ls_moneda
+if as_base = 'O' then
+	 SELECT "PAGO_OFERTA"."MONEDA"  
+	 INTO    :ls_moneda
+	 FROM   "CADENA", "OFERTA_V",   "PAGO_OFERTA"  
+	 WHERE   ( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+			  ( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+			  ( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+			  ( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+			  ( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+			  ( ( "CADENA"."CODIGO" = :as_base ) AND  
+			  ( "CADENA"."SERIE" = :as_serie ) AND  
+			  ( "CADENA"."NUMERO" = :al_numero ) )   ;
+elseif as_base = 'P' then
+	SELECT "PAGARE"."MONEDA"  
+	INTO    :ls_moneda
+	FROM   "CADENA",  "PAGARE"  
+	WHERE ( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+		 ( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+		 ( ( "CADENA"."CODIGO" = :as_base ) AND  
+		 ( "CADENA"."SERIE" = :as_serie ) AND  
+		 ( "CADENA"."NUMERO" = :al_numero ) )   ;
+elseif as_base = 'C' then
+	SELECT "CONTRATO"."MONEDA"  
+	INTO    :ls_moneda
+	FROM   "CONTRATO",   "CADENA"  
+	WHERE ( "CONTRATO"."SERIE_C" = "CADENA"."SERIE" ) and  
+		 ( "CONTRATO"."NRO_CONTRATO" = "CADENA"."NUMERO" ) and  
+		 (( "CADENA"."CODIGO" = :as_base ) AND  
+		 ( "CADENA"."SERIE" = :as_serie ) AND  
+		 ( "CADENA"."NUMERO" = :al_numero ) )   ;
+elseif as_base = 'D' then
+	SELECT "DERECHO"."MONEDA" 
+	INTO    :ls_moneda
+	FROM   "CADENA",   "DERECHO"  
+	WHERE ( "CADENA"."SERIE" = "DERECHO"."SERIE_P" ) and  
+		 ( "CADENA"."NUMERO" = "DERECHO"."NRO_PAGARE" ) and  
+		 ( ( "CADENA"."CODIGO" = :as_base ) AND  
+		 ( "CADENA"."SERIE" = :as_serie ) AND  
+		 ( "CADENA"."NUMERO" = :al_numero ) )   ;
+elseif as_base = 'L' then
+	SELECT "PAGO_LIBERADOR"."MONEDA"  
+	INTO    :ls_moneda
+	FROM   "ANEXO_LIBERADOR",  "CADENA",  "PAGO_LIBERADOR"  
+	WHERE ( "PAGO_LIBERADOR"."SERIE_M" = "ANEXO_LIBERADOR"."SERIE_M" ) and  
+		 ( "PAGO_LIBERADOR"."NRO_LIBERADOR" = "ANEXO_LIBERADOR"."NRO_LIBERADOR" ) and  
+		 ( "PAGO_LIBERADOR"."FOLIO" = "ANEXO_LIBERADOR"."ULT_FOLIO" ) and  
+		 ( "ANEXO_LIBERADOR"."SERIE_M" = "CADENA"."SERIE" ) and  
+		 ( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "CADENA"."NUMERO" ) and  
+		 ( ( "CADENA"."CODIGO" = :as_base ) AND  
+		 ( "CADENA"."SERIE" = :as_serie ) AND  
+		 ( "CADENA"."NUMERO" = :al_numero ) )     ;
+elseif as_base = 'A' then
+	SELECT "PAGO_AUMENTO"."MONEDA"  
+	INTO    :ls_moneda
+	FROM   "CADENA","ANEXO_AUMENTO","PAGO_AUMENTO"  
+	WHERE ( "PAGO_AUMENTO"."SERIE_M" = "ANEXO_AUMENTO"."SERIE_M" ) and  
+		 ( "PAGO_AUMENTO"."NRO_AUMENTO" = "ANEXO_AUMENTO"."NRO_AUMENTO" ) and  
+		 ( "PAGO_AUMENTO"."FOLIO" = "ANEXO_AUMENTO"."ULT_FOLIO" ) and  
+		 ( "ANEXO_AUMENTO"."SERIE_M" = "CADENA"."SERIE" ) and  
+		 ( "ANEXO_AUMENTO"."NRO_AUMENTO" = "CADENA"."NUMERO" ) and  
+		 ( ( "CADENA"."CODIGO" = :as_base ) AND  
+		 ( "CADENA"."SERIE" = :as_serie ) AND  
+		 ( "CADENA"."NUMERO" = :al_numero ) )    ;
+elseif as_base = 'R' then
+	SELECT  "REPACTA_MANTENCION"."TIPO_MONEDA"  
+	INTO    :ls_moneda
+	FROM    "CADENA",   "REPACTA_MANTENCION"  
+	WHERE ( "CADENA"."SERIE" = "REPACTA_MANTENCION"."SERIE" ) and  
+		 ( "CADENA"."CODIGO" = "REPACTA_MANTENCION"."BASE" ) and  
+		 ( "CADENA"."NUMERO" = "REPACTA_MANTENCION"."NUMERO" ) and  
+		 ( ( "CADENA"."CODIGO" = :as_base ) AND  
+		 ( "CADENA"."SERIE" = :as_serie ) AND  
+		 ( "CADENA"."NUMERO" = :al_numero ) )   ;
+end if;
+Return ls_moneda;
+end function
+

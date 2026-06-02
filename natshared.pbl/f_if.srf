@@ -1,0 +1,55 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Simplifica el uso de IF de PBScript, reemplaza reduciendo líneas y carga, BLScript~r~n    Recomendación: NO MODIFICAR - NIVEL DESARROLLADOR EXPERTO - AFECTA A TODO EL SISTEMA~r~n*/
+global type f_if from function_object
+end type
+
+forward prototypes
+global function any f_if (boolean ab_cond, any any_if, any any_else)
+end prototypes
+
+global function any f_if (boolean ab_cond, any any_if, any any_else);/* any = f_If( ab_cond, any_if, any_else ) */
+
+Any	lany_ret
+
+
+If ab_cond Then
+	lany_ret = any_if
+Else
+	lany_ret = any_else
+End If
+
+Choose Case Lower( ClassName( lany_ret ) )
+	Case 'string'
+		Return String( lany_ret )
+		
+	Case 'datetime'
+		Return DateTime( lany_ret )
+		
+	Case 'integer'
+		Return Integer( lany_ret )
+		
+	Case 'decimal', 'dec'
+		Return Dec( lany_ret )
+		
+	Case 'long'
+		Return Long( lany_ret )
+		
+	Case 'time'
+		Return Time( lany_ret )
+		
+	Case 'boolean'
+		Return ( lany_ret )
+		
+	Case Else
+		If IsNumber( lany_ret ) Then
+			Return Dec( lany_ret )
+		Else
+			Return String( lany_ret )
+		End If
+End Choose
+
+Return lany_ret
+
+
+
+end function
+

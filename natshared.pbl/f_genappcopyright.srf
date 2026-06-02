@@ -1,0 +1,12 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Eclipse Copyright ~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genappcopyright from function_object
+end type
+
+forward prototypes
+global function string f_genappcopyright ()
+end prototypes
+
+global function string f_genappcopyright ();
+Return gs_copyright
+end function
+

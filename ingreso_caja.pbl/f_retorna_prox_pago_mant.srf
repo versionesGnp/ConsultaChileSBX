@@ -1,0 +1,173 @@
+﻿global type f_retorna_prox_pago_mant from function_object
+end type
+
+forward prototypes
+global function string f_retorna_prox_pago_mant (string as_base, string as_serie, long al_numero, long al_ctas_paga, string as_tipo_mov)
+end prototypes
+
+global function string f_retorna_prox_pago_mant (string as_base, string as_serie, long al_numero, long al_ctas_paga, string as_tipo_mov);String		ls_string
+Long		ll_estado_mora_cred,ll_estado_mora_mant,ll_ctas_pag_m,ll_ctas_pag_s,ll_meses,ll_ctas_pag,ll_meses_credito,ll_meses_mantencion,ll_plazo
+Datetime	ldt_fec_venc_mant,ldt_fecha_prox_pago,ldt_fec_venc_cred
+
+SELECT	  "CADENA"."ESTADO_MORA_CREDITO",	"CADENA"."ESTADO_MORA_MANTENCION", 	"OFERTA_V"."CTA_PAG_M", 	"OFERTA_V"."CTA_PAG_S" ,	"CADENA_MORA"."FECHA_VENC_MANT"  ,	"CADENA_MORA"."FECHA_VENC_CRED" ,	"ESTADO_MORA_CREDITO"."CANTIDAD_MESES",		"ESTADO_MORA_MANTENCION"."CANTIDAD_MESES",	"PAGO_OFERTA"."NRO_CUOTAS"
+INTO		  :ll_estado_mora_cred,						:ll_estado_mora_mant,								:ll_ctas_pag_m,					:ll_ctas_pag_s,						:ldt_fec_venc_mant,								:ldt_fec_venc_cred,								:ll_meses_credito,												:ll_meses_mantencion,											:ll_plazo
+FROM 	  "CADENA",   "CADENA_MORA",   "OFERTA_V" ,	"ESTADO_MORA_CREDITO",	"ESTADO_MORA_MANTENCION" ,	"PAGO_OFERTA"
+WHERE   ( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+			( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+			( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+			( "CADENA_MORA"."BASE" = "OFERTA_V"."BASE" ) and  
+			( "CADENA_MORA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+			( "CADENA_MORA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+			( "PAGO_OFERTA"."BASE" = "OFERTA_V"."BASE" ) and  
+			( "PAGO_OFERTA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+			( "PAGO_OFERTA"."NRO_OFERTA" = "OFERTA_V"."NRO_OFERTA" ) and  
+			( "PAGO_OFERTA"."FOLIO" = "OFERTA_V"."ULT_FOLIO" ) and  
+			( "CADENA"."ESTADO_MORA_CREDITO" = "ESTADO_MORA_CREDITO"."ESTADO_MORA_CREDITO") AND 
+			( "CADENA"."ESTADO_MORA_MANTENCION" = "ESTADO_MORA_MANTENCION"."ESTADO_MORA_MANTENCION") AND 
+			( ( "CADENA"."CODIGO" = :as_base ) AND  
+			( "CADENA"."SERIE" = :as_serie ) AND  
+			( "CADENA"."NUMERO" = :al_numero ) )   
+			
+UNION   
+
+SELECT 	  "CADENA"."ESTADO_MORA_CREDITO",  	"CADENA"."ESTADO_MORA_MANTENCION",  	"CONTRATO"."CTA_PAG_M",  	0 as ctas_pag_s,	"CADENA_MORA"."FECHA_VENC_MANT",	"CADENA_MORA"."FECHA_VENC_CRED"   ,	"ESTADO_MORA_CREDITO"."CANTIDAD_MESES",		"ESTADO_MORA_MANTENCION"."CANTIDAD_MESES",	"CONTRATO"."PLAZO"
+FROM 	  "CADENA",   "CADENA_MORA",   "CONTRATO"  ,	"ESTADO_MORA_CREDITO",	"ESTADO_MORA_MANTENCION" 
+WHERE   ( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+			( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+			( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+			( "CADENA_MORA"."SERIE" = "CONTRATO"."SERIE_C" ) and  
+			( "CADENA_MORA"."NUMERO" = "CONTRATO"."NRO_CONTRATO" ) and  
+			( "CADENA"."ESTADO_MORA_CREDITO" = "ESTADO_MORA_CREDITO"."ESTADO_MORA_CREDITO") AND 
+			( "CADENA"."ESTADO_MORA_MANTENCION" = "ESTADO_MORA_MANTENCION"."ESTADO_MORA_MANTENCION") AND 
+			( ( "CADENA"."CODIGO" = :as_base ) AND  
+			( "CADENA"."SERIE" = :as_serie ) AND  
+			( "CADENA"."NUMERO" = :al_numero ) )   
+
+UNION			
+
+SELECT 	"CADENA"."ESTADO_MORA_CREDITO",  	"CADENA"."ESTADO_MORA_MANTENCION",   	0 ,   	("PAGARE"."CTA_PAG_LA" + "PAGARE"."CTA_PAG_ISA"),   	"CADENA_MORA"."FECHA_VENC_MANT",   	"CADENA_MORA"."FECHA_VENC_CRED",   	"ESTADO_MORA_CREDITO"."CANTIDAD_MESES",   0,	"PAGARE"."PLAZO"
+FROM 	"CADENA_MORA",         "ESTADO_MORA_CREDITO",       "PAGARE",      "CADENA"  
+WHERE	( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+			( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+			( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+			( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+			( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+			( "CADENA"."ESTADO_MORA_CREDITO" = "ESTADO_MORA_CREDITO"."ESTADO_MORA_CREDITO" ) and  
+			( ( "CADENA"."CODIGO" = :as_base ) AND  
+			( "CADENA"."SERIE" = :as_serie ) AND  
+			( "CADENA"."NUMERO" = :al_numero ) ) 
+
+UNION
+
+SELECT 	"CADENA"."ESTADO_MORA_CREDITO",   0,   0,   ("DERECHO"."CTA_PAG_LA" + "DERECHO"."CTA_PAG_ISA"),   "CADENA_MORA"."FECHA_VENC_MANT",   "CADENA_MORA"."FECHA_VENC_CRED",   "ESTADO_MORA_CREDITO"."CANTIDAD_MESES",   0  ,	"DERECHO"."PLAZO"
+FROM 	"CADENA",         "CADENA_MORA",          "DERECHO",        "ESTADO_MORA_CREDITO"  
+WHERE 	( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+			( "CADENA"."ESTADO_MORA_CREDITO" = "ESTADO_MORA_CREDITO"."ESTADO_MORA_CREDITO" ) and  
+			( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+			( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+			( "CADENA"."SERIE" = "DERECHO"."SERIE_P" ) and  
+			( "CADENA"."NUMERO" = "DERECHO"."NRO_PAGARE" )   and
+			( ( "CADENA"."CODIGO" = :as_base ) AND  
+			( "CADENA"."SERIE" = :as_serie ) AND  
+			( "CADENA"."NUMERO" = :al_numero ) ) 
+
+UNION
+
+SELECT 	"CADENA"."ESTADO_MORA_CREDITO",   "CADENA"."ESTADO_MORA_MANTENCION",   0,   "ANEXO_LIBERADOR"."CTA_PAG_M",   "CADENA_MORA"."FECHA_VENC_MANT",   "CADENA_MORA"."FECHA_VENC_CRED",   "ESTADO_MORA_CREDITO"."CANTIDAD_MESES",   0  ,	"PAGO_LIBERADOR"."NRO_CUOTAS"
+FROM 	"ANEXO_LIBERADOR",            "CADENA",            "CADENA_MORA",            "ESTADO_MORA_CREDITO",            "PAGO_LIBERADOR"  
+   WHERE 	( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+				( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+				( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+				( "CADENA_MORA"."SERIE" = "ANEXO_LIBERADOR"."SERIE_M" ) and  
+				( "CADENA_MORA"."NUMERO" = "ANEXO_LIBERADOR"."NRO_LIBERADOR" ) and  
+				( "CADENA_MORA"."BASE" = "ANEXO_LIBERADOR"."BASE_LIBERADOR" ) and  
+				( "ANEXO_LIBERADOR"."SERIE_M" = "PAGO_LIBERADOR"."SERIE_M" ) and  
+				( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "PAGO_LIBERADOR"."NRO_LIBERADOR" ) and  
+				( "ANEXO_LIBERADOR"."ULT_FOLIO" = "PAGO_LIBERADOR"."FOLIO" ) and  
+				( "CADENA"."ESTADO_MORA_CREDITO" = "ESTADO_MORA_CREDITO"."ESTADO_MORA_CREDITO" ) and  
+				( ( "CADENA"."CODIGO" = :as_base ) AND  
+				( "CADENA"."SERIE" = :as_serie ) AND  
+				( "CADENA"."NUMERO" = :al_numero ) )  
+UNION
+SELECT "CADENA"."ESTADO_MORA_CREDITO",           0,            0,            "REPACTA_MANTENCION"."CTAS_PAGADAS",            "CADENA_MORA"."FECHA_VENC_MANT",            "CADENA_MORA"."FECHA_VENC_CRED",            "ESTADO_MORA_CREDITO"."CANTIDAD_MESES",            0  ,		"REPACTA_MANTENCION"."CUOTAS_PACTADAS"
+FROM 	"CADENA",            "CADENA_MORA",            "ESTADO_MORA_CREDITO",            "REPACTA_MANTENCION"  
+WHERE	( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+			( "CADENA"."ESTADO_MORA_CREDITO" = "ESTADO_MORA_CREDITO"."ESTADO_MORA_CREDITO" ) and  
+			( "CADENA_MORA"."BASE" = "REPACTA_MANTENCION"."BASE" ) and  
+			( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+			( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+			( "CADENA_MORA"."SERIE" = "REPACTA_MANTENCION"."SERIE" ) and  
+			( "CADENA_MORA"."NUMERO" = "REPACTA_MANTENCION"."NUMERO" ) and  
+			( ( "CADENA"."CODIGO" = :as_base ) AND  
+			( "CADENA"."SERIE" = :as_serie ) AND  
+			( "CADENA"."NUMERO" = :al_numero ) )   
+			
+UNION
+
+SELECT 	"CADENA"."ESTADO_MORA_CREDITO",   "CADENA"."ESTADO_MORA_MANTENCION",   0,   "PRODUCTO_ANEXO"."CUOTAS_PAG",   "CADENA_MORA"."FECHA_VENC_MANT",   "CADENA_MORA"."FECHA_VENC_CRED",   "ESTADO_MORA_CREDITO"."CANTIDAD_MESES",   0  ,"PRODUCTO_PAGO"."PLAZO"
+FROM 	"CADENA",            "CADENA_MORA",            "ESTADO_MORA_CREDITO",            "PRODUCTO_ANEXO",            "PRODUCTO_PAGO"  
+WHERE	( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+			( "CADENA"."ESTADO_MORA_CREDITO" = "ESTADO_MORA_CREDITO"."ESTADO_MORA_CREDITO" ) and  
+			( "CADENA_MORA"."BASE" = "PRODUCTO_ANEXO"."BASE" ) and  
+			( "PRODUCTO_ANEXO"."BASE" = "PRODUCTO_PAGO"."BASE" ) and  
+			( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+			( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+			( "CADENA_MORA"."SERIE" = "PRODUCTO_ANEXO"."SERIE" ) and  
+			( "CADENA_MORA"."NUMERO" = "PRODUCTO_ANEXO"."NUMERO" ) and  
+			( "PRODUCTO_ANEXO"."SERIE" = "PRODUCTO_PAGO"."SERIE" ) and  
+			( "PRODUCTO_ANEXO"."NUMERO" = "PRODUCTO_PAGO"."NUMERO" ) and  
+			( "PRODUCTO_ANEXO"."ULT_FOLIO" = "PRODUCTO_PAGO"."FOLIO" ) and  
+			( ( "CADENA"."CODIGO" = :as_base ) AND  
+			( "CADENA"."SERIE" = :as_serie ) AND  
+			( "CADENA"."NUMERO" = :al_numero ) )  
+			
+UNION
+
+SELECT 	"CADENA"."ESTADO_MORA_CREDITO",   "CADENA"."ESTADO_MORA_MANTENCION",   0,   "ANEXO_AUMENTO"."CTA_PAG_M",   "CADENA_MORA"."FECHA_VENC_MANT",   "CADENA_MORA"."FECHA_VENC_CRED",   "ESTADO_MORA_CREDITO"."CANTIDAD_MESES",   0  ,	"PAGO_AUMENTO"."NRO_CUOTAS"
+FROM 	"ANEXO_AUMENTO",            "CADENA",            "CADENA_MORA",            "ESTADO_MORA_CREDITO",            "PAGO_AUMENTO"  
+WHERE 	( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+			( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+			( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+			( "CADENA_MORA"."SERIE" = "ANEXO_AUMENTO"."SERIE_M" ) and  
+			( "CADENA_MORA"."NUMERO" = "ANEXO_AUMENTO"."NRO_AUMENTO" ) and  
+			( "PAGO_AUMENTO"."SERIE_M" = "ANEXO_AUMENTO"."SERIE_M" ) and  
+			( "ANEXO_AUMENTO"."NRO_AUMENTO" = "PAGO_AUMENTO"."NRO_AUMENTO" ) and  
+			( "ANEXO_AUMENTO"."ULT_FOLIO" = "PAGO_AUMENTO"."FOLIO" ) and  
+			( "CADENA"."ESTADO_MORA_CREDITO" = "ESTADO_MORA_CREDITO"."ESTADO_MORA_CREDITO" ) and  
+			( ( "CADENA"."CODIGO" = :as_base ) AND  
+			( "CADENA"."SERIE" = :as_serie ) AND  
+			( "CADENA"."NUMERO" = :al_numero ) ) 
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	if as_tipo_mov='F' then
+		ll_meses			= al_ctas_paga * ll_meses_mantencion
+		SELECT 	add_months( TO_DATE(:ldt_fec_venc_mant), :ll_meses) 
+		INTO 		:ldt_fecha_prox_pago
+		FROM 	dual;
+		if not isnull(ldt_fecha_prox_pago) then
+			ll_ctas_pag	= ll_ctas_pag_m + al_ctas_paga
+			ls_string		= string(ldt_fecha_prox_pago,'dd/mm/yyyy')
+		else
+			ls_string		= ''
+		end if
+	elseif as_tipo_mov='E' then
+		ll_meses			= al_ctas_paga * ll_meses_credito
+		SELECT 	add_months( TO_DATE(:ldt_fec_venc_cred), :ll_meses) 
+		INTO 		:ldt_fecha_prox_pago
+		FROM 	dual;
+		if ll_ctas_pag_s + al_ctas_paga = ll_plazo then setnull(ldt_fecha_prox_pago)
+		if not isnull(ldt_fecha_prox_pago) then
+			ll_ctas_pag	= ll_ctas_pag_s + al_ctas_paga
+			if ll_ctas_pag >= ll_plazo then ll_ctas_pag=ll_plazo
+			ls_string		= string(ldt_fecha_prox_pago,'dd/mm/yyyy') + ' Cta.'+string(ll_ctas_pag) +' de '+string(ll_plazo)
+		else
+			ls_string		= ''
+		end if
+	end if
+else
+	ls_string				= ''
+end if
+
+Return ls_string
+end function
+

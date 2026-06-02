@@ -1,0 +1,21 @@
+﻿//objectcomments Autor: César Vilela~r~nf_GenProcesandoA -> De genProcessando, consultar
+global type f_genprocesandoa from function_object
+end type
+
+forward prototypes
+global subroutine f_genprocesandoa (string as_msg)
+end prototypes
+
+global subroutine f_genprocesandoa (string as_msg);/* f_GenProcesandoA( as_msg ) */
+
+SetPointer( Arrow! )
+
+If as_msg = '' Then
+	Close ( w_arch_gen_procesando )
+	Return
+Else
+	If Not IsValid( w_arch_gen_procesando ) Then Open( w_arch_gen_procesando )
+	w_arch_gen_procesando.SetText( as_msg )
+End If
+end subroutine
+

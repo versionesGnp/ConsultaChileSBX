@@ -1,0 +1,125 @@
+﻿global type f_actualiz_tablas from function_object
+end type
+
+forward prototypes
+global function long f_actualiz_tablas (string as_tipo_deuda, long al_estado, string as_nro_sap, string as_base, string as_serie, double adb_numero, long al_folio, string as_tipo_cob, datetime adt_fecha_ctto, long al_graba_cab, string as_observ_tot, string as_tipo_serv)
+end prototypes
+
+global function long f_actualiz_tablas (string as_tipo_deuda, long al_estado, string as_nro_sap, string as_base, string as_serie, double adb_numero, long al_folio, string as_tipo_cob, datetime adt_fecha_ctto, long al_graba_cab, string as_observ_tot, string as_tipo_serv);long	ll_graba=0
+
+//wf_actualiz_tablas(as_creado,as_tipo_deuda,al_estado,as_nro_sap,as_base,as_serie,adb_numero,al_folio,as_tipo_cob,adt_fecha_ctto)
+
+if al_estado=2 then
+	if as_tipo_deuda<>'S' then
+		UPDATE	"SAP_CADENA"  
+		SET 		"ESTADO_SAP" = :al_estado
+		WHERE	"SAP_CADENA"."BASE" = :as_base AND
+					"SAP_CADENA"."SERIE" = :as_serie AND
+					"SAP_CADENA"."NUMERO" = :adb_numero AND
+					"SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda AND
+					"SAP_CADENA"."ESTADO" = 'V'
+		USING	sqlca;
+	elseif as_tipo_deuda='S' then
+		UPDATE	"SAP_CADENA_SERVICIO"  
+		SET 		"ESTADO_SAP" = :al_estado
+		WHERE	"SAP_CADENA_SERVICIO"."BASE" = :as_base AND
+					"SAP_CADENA_SERVICIO"."SERIE" = :as_serie AND
+					"SAP_CADENA_SERVICIO"."NUMERO" = :adb_numero AND
+					"SAP_CADENA_SERVICIO"."TIPO_DEUDA" = :as_tipo_deuda AND
+					"SAP_CADENA_SERVICIO"."FOLIO_COMPROBANTE" =:al_folio AND
+					"SAP_CADENA_SERVICIO"."ESTADO" = 'V'
+		USING	sqlca;
+	end if
+	if sqlca.sqlcode=0 then
+		commit using sqlca;
+	else
+		rollback using sqlca;
+	end if
+else
+	if as_tipo_deuda<>'S' then
+		UPDATE	"SAP_CADENA"  
+		SET 		"ESTADO_SAP" = :al_estado,   
+					"FECHA_SAP" = :gdt_fec_sistema,   
+					"NRO_CONTRATO_SAP" = :as_nro_sap,
+					"OBSERV_POSICION" = :as_observ_tot
+		WHERE	"SAP_CADENA"."ESTADO_SAP" = 2
+		USING	sqlca;
+		if sqlca.sqlcode=0 then
+			commit using sqlca;
+			if as_tipo_deuda='C' then
+				UPDATE	"CADENA"  
+				SET		"ESTADO_SAP_CRED" = :al_graba_cab
+				WHERE	"CADENA"."CODIGO" = :as_base AND  
+							"CADENA"."SERIE" = :as_serie AND  
+							"CADENA"."NUMERO" = :adb_numero AND  
+							"CADENA"."SAP_CRED" = 'C'
+				USING	Trans_1;
+			elseif as_tipo_deuda='E' then
+				UPDATE	"CADENA"  
+				SET		"ESTADO_SAP_CRED" = :al_graba_cab
+				WHERE	"CADENA"."CODIGO" = :as_base AND  
+							"CADENA"."SERIE" = :as_serie AND  
+							"CADENA"."NUMERO" = :adb_numero AND  
+							"CADENA"."SAP_CRED" = 'E'
+				USING	Trans_1;	
+			elseif as_tipo_deuda='M' then
+				UPDATE	"CADENA"  
+				SET		"ESTADO_SAP_MANT" = :al_graba_cab  
+				WHERE	"CADENA"."CODIGO" = :as_base AND  
+							"CADENA"."SERIE" = :as_serie AND  
+							"CADENA"."NUMERO" = :adb_numero AND  
+							"CADENA"."SAP_MANT" = 'M'
+				USING	Trans_1;
+			end if
+			if Trans_1.sqlcode=0 then
+				commit using Trans_1;
+				ll_graba++	
+			else
+				rollback using Trans_1;
+			end if
+		else
+			rollback using sqlca;
+		end if
+	elseif as_tipo_deuda='S' then
+		UPDATE	"SAP_CADENA_SERVICIO"  
+		SET 		"ESTADO_SAP" = :al_estado,   
+					"FECHA_SAP" = :gdt_fec_sistema,   
+					"NRO_CONTRATO_SAP" = :as_nro_sap,
+					"OBSERV_POSICION" = :as_observ_tot  
+		WHERE	"SAP_CADENA_SERVICIO"."ESTADO_SAP" = 2
+		USING	sqlca;
+		if sqlca.sqlcode=0 then
+			commit using sqlca;
+			if as_tipo_serv = 'R' then
+				UPDATE	"INGRESO"  
+				SET		"ESTADO_SAP" = :al_graba_cab  
+				WHERE	"INGRESO"."FOLIO" = :al_folio AND  
+							"INGRESO"."TIPO_COB" = :as_tipo_cob AND  
+							"INGRESO"."FECHA_PAGO" = :adt_fecha_ctto
+				USING	Trans_1;
+			else
+				UPDATE	"INGRESO"  
+				SET		"ESTADO_SAP" = :al_graba_cab  
+				WHERE	"INGRESO"."BASE" = :as_base AND  
+							"INGRESO"."SERIE" = :as_serie AND  
+							"INGRESO"."CONTRATO" = :adb_numero AND  
+							"INGRESO"."FOLIO" = :al_folio AND  
+							"INGRESO"."TIPO_COB" = :as_tipo_cob AND  
+							"INGRESO"."FECHA_PAGO" = :adt_fecha_ctto
+				USING	Trans_1;
+			end if
+			if sqlca.sqlcode=0 then
+				commit using Trans_1;
+				ll_graba++	
+			else
+				rollback using Trans_1;
+			end if
+		else
+			rollback using sqlca;
+		end if
+	end if
+end if
+if isnull(ll_graba) then ll_graba=0
+return	ll_graba
+end function
+

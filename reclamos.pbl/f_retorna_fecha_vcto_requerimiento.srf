@@ -1,0 +1,47 @@
+﻿global type f_retorna_fecha_vcto_requerimiento from function_object
+end type
+
+forward prototypes
+global function datetime f_retorna_fecha_vcto_requerimiento (datetime adt_fecha_actual, long ad_dias)
+end prototypes
+
+global function datetime f_retorna_fecha_vcto_requerimiento (datetime adt_fecha_actual, long ad_dias);Datetime		ldt_fecha_retorno, ldt_fecha_tope, ld_fec_prox
+String			ls_pasa,ls_dia_fer,ls_descrip
+Long			ll_mas_dia,ll_mes_fec,ll_dia_fec,ll_anno_fec
+
+ls_pasa 								= 'S'
+
+ld_fec_prox							= adt_fecha_actual
+ldt_fecha_tope						= Datetime(RelativeDate(date(adt_fecha_actual),  ad_dias - 1))
+do while ls_pasa = 'S'
+	ll_mas_dia						= 0
+	CHOOSE CASE UPPER(DayName(date(ld_fec_prox)))
+		CASE 'SABADO','SATURDAY'
+			ll_mas_dia 				= 1
+		CASE 'DOMINGO','SUNDAY'
+			ll_mas_dia 				= 1
+		CASE ELSE
+			ll_mes_fec				= Month(date(ld_fec_prox))
+			ll_dia_fec				= day(date(ld_fec_prox))
+			ll_anno_fec				= Year(date(ld_fec_prox))
+			ls_dia_fer				= string(ll_dia_fec,"00")+string(ll_mes_fec,"00")
+			SELECT	"PER_DIAS_FESTIVOS"."DESCRIPCION"  
+			INTO 		:ls_descrip  
+			FROM 	"PER_DIAS_FESTIVOS"  
+			WHERE 	"PER_DIAS_FESTIVOS"."FECHA" = :ls_dia_fer   
+			USING		sqlca;
+			if sqlca.sqlcode=0 then
+				ll_mas_dia 			= 1
+			end if
+	END CHOOSE
+	ldt_fecha_tope					= Datetime(RelativeDate(date(ldt_fecha_tope),  ll_mas_dia))
+	if ld_fec_prox < ldt_fecha_tope then
+		ld_fec_prox					= Datetime(RelativeDate(date(ld_fec_prox),  1))
+	else
+		ls_pasa 						= 'N'
+	end if
+loop
+if not isnull(ld_fec_prox) then ldt_fecha_retorno = ld_fec_prox
+Return ldt_fecha_retorno
+end function
+

@@ -1,0 +1,29 @@
+﻿global type gf_validar from function_object
+end type
+
+forward prototypes
+global function boolean gf_validar (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function boolean gf_validar (string as_base, string as_serie, double al_numero);Double il_numero
+
+if gs_cuponera_aviso = '0' then
+	SELECT	"CADENA"."NUMERO"  
+	INTO 		:il_numero  
+	FROM 		"CADENA"  
+	WHERE  ( "CADENA"."CODIGO" = :as_base ) AND  
+			 ( "CADENA"."SERIE" = :as_serie ) AND  
+			 ( "CADENA"."NUMERO" = :al_numero ) AND  
+			 ( "CADENA"."ESTADO" = 'V' );    
+else
+	SELECT	"CADENA"."NUMERO"  
+	INTO 		:il_numero  
+	FROM 		"CADENA"  
+	WHERE  ( "CADENA"."CODIGO" = :as_base ) AND  
+			 ( "CADENA"."SERIE" = :as_serie ) AND  
+			 ( "CADENA"."NUMERO" = :al_numero ) AND  
+			 ( "CADENA"."ESTADO" = 'V' or  "CADENA"."ESTADO" = 'C') ;    
+end if	
+RETURN (il_numero = al_numero)
+end function
+

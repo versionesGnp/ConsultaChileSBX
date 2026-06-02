@@ -1,0 +1,24 @@
+﻿global type f_cta_promesa_cierre_mayor_ab from function_object
+end type
+
+forward prototypes
+global function long f_cta_promesa_cierre_mayor_ab (string as_cod_age, datetime adt_fecha)
+end prototypes
+
+global function long f_cta_promesa_cierre_mayor_ab (string as_cod_age, datetime adt_fecha);long	ll_cuenta_cierre
+
+SELECT	COUNT("PAGO_OFERTA"."PRECIO")  
+INTO		:ll_cuenta_cierre
+FROM		"OFERTA_V",	"PAGO_OFERTA"  
+WHERE		"OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" and  
+			"OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" and  
+			"OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" and  
+			"OFERTA_V"."COD_AGE" = :as_cod_age AND  
+			"OFERTA_V"."CIERRE_VENTA" = :adt_fecha AND
+			"OFERTA_V"."CLASIFICA_VENTA" <> 'C';
+			
+if isnull(ll_cuenta_cierre) then ll_cuenta_cierre=0
+Return ll_cuenta_cierre
+
+end function
+

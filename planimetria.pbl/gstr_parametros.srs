@@ -1,0 +1,8 @@
+﻿global type gstr_parametros from structure
+	string		gs_serie
+	double		gi_numero
+	long		gi_rut
+	string		gs_cod_sup
+	datawindow		dw_paso
+end type
+

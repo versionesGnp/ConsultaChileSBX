@@ -1,0 +1,19 @@
+﻿global type gf_centrar from function_object
+end type
+
+forward prototypes
+global function integer gf_centrar (ref window aw_ventana)
+end prototypes
+
+global function integer gf_centrar (ref window aw_ventana);environment env
+integer rtn
+
+rtn = GetEnvironment(env)
+IF rtn <> 1 THEN RETURN 0
+
+aw_ventana.y = (PixelsToUnits(env.ScreenHeight,YPixelsToUnits!) - aw_ventana.Height) / 2	
+aw_ventana.x = (PixelsToUnits(env.ScreenWidth,XPixelsToUnits!) - aw_ventana.Width) / 2
+
+RETURN 0
+end function
+

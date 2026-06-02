@@ -1,0 +1,64 @@
+﻿//objectcomments /* Autor: Marco Ortiz~r~n    Función: Barras mode-128~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_strto128a from function_object
+end type
+
+forward prototypes
+global function string f_strto128a (string tcstring)
+end prototypes
+
+global function string f_strto128a (string tcstring);//FUNCTION f_StrTo128A(tcString)
+/* Modificacion Marco A. Ortiz 31/05/2010
+   Variables de Control estaban erroneas
+	Font Code128 AB
+
+*/
+String	ls_start, ls_stop, ls_ret, ls_check, ls_char
+Long		ll_Long, i , ll_checksum, ll_asc, ll_sum
+
+ll_sum   = 103
+ls_start = Char(123)
+ls_stop  = Char(126)
+
+ls_ret = ls_start
+
+FOR i = 1 TO LEN( tcstring )
+	ls_char = Mid( tcstring ,i ,1)
+	ll_asc  = Asc( ls_char ) 
+	  
+	If	ll_asc < 123 Then
+		ll_asc = ll_asc - 32
+	Else
+		ll_asc = ll_asc - 70	
+	End IF
+	
+	ll_sum = ll_sum + ( ll_asc * i )
+	
+	If ls_char = '' Then
+		ls_ret = ls_ret + Char(174)
+	Else
+		ls_ret = ls_ret + ls_char
+	End If
+	
+Next
+
+ll_checksum = Max( MOD( ll_sum, 103 ), 0 )
+
+If ll_checksum > 90 Then
+	ll_checksum = ll_checksum + 70
+ElseIf ll_checksum = 0 Then
+	ll_checksum = ll_checksum + 174
+Else
+	ll_checksum = ll_checksum + 32
+End If
+
+ls_check = Char( ll_checksum )
+
+ls_ret	= ls_ret + 	ls_check + ls_stop
+
+Return ls_ret
+
+
+
+
+end function
+

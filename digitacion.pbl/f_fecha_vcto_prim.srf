@@ -1,0 +1,60 @@
+﻿global type f_fecha_vcto_prim from function_object
+end type
+
+forward prototypes
+global function string f_fecha_vcto_prim (long al_nro_cuota, datetime adt_fecha_prim)
+end prototypes
+
+global function string f_fecha_vcto_prim (long al_nro_cuota, datetime adt_fecha_prim);String		ls_fecha=''
+Long		ll_indi,ll_dia,ll_mes,ll_year
+ll_dia						= day(date(adt_fecha_prim))
+ll_mes					= month(date(adt_fecha_prim))
+ll_year					= year(date(adt_fecha_prim))
+al_nro_cuota			= al_nro_cuota - 1
+if al_nro_cuota>=0 and not isnull(adt_fecha_prim) then
+	if al_nro_cuota=0 then
+		ls_fecha			= string(adt_fecha_prim,"dd/mm/yyyy")
+	else
+		for ll_indi=1 to al_nro_cuota
+			ll_mes ++
+			if ll_mes>12 then 
+				ll_mes	= 1
+				ll_year++
+			end if
+			ls_fecha		= string(ll_dia,"00")+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+		next
+		CHOOSE CASE mid(ls_fecha,4,2)
+			CASE '01'
+				if long(mid(ls_fecha,1,2))>31 then ls_fecha	= "31"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+			CASE '02'
+				if int(ll_year/4) = ll_year/4 then
+					if long(mid(ls_fecha,1,2))>28 then ls_fecha	= "29"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+				else
+					if long(mid(ls_fecha,1,2))>28 then ls_fecha	= "28"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+				end if
+			CASE '03'
+				if long(mid(ls_fecha,1,2))>31 then ls_fecha	= "31"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+			CASE '04'
+				if long(mid(ls_fecha,1,2))>30 then ls_fecha	= "30"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+			CASE '05'
+				if long(mid(ls_fecha,1,2))>31 then ls_fecha	= "31"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+			CASE '06'
+				if long(mid(ls_fecha,1,2))>30 then ls_fecha	= "30"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+			CASE '07'
+				if long(mid(ls_fecha,1,2))>31 then ls_fecha	= "31"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+			CASE '08'
+				if long(mid(ls_fecha,1,2))>31 then ls_fecha	= "31"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+			CASE '09'
+				if long(mid(ls_fecha,1,2))>30 then ls_fecha	= "30"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+			CASE '10'
+				if long(mid(ls_fecha,1,2))>31 then ls_fecha	= "31"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+			CASE '11'
+				if long(mid(ls_fecha,1,2))>30 then ls_fecha	= "30"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+			CASE '12'
+				if long(mid(ls_fecha,1,2))>31 then ls_fecha	= "31"+'/'+string(ll_mes,"00")+'/'+string(ll_year,"0000")
+		END CHOOSE
+	end if
+end if
+return(ls_fecha)
+end function
+

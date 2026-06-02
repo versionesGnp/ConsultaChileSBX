@@ -1,0 +1,19 @@
+﻿global type f_trim_2 from function_object
+end type
+
+forward prototypes
+global function string f_trim_2 (string as_data)
+end prototypes
+
+global function string f_trim_2 (string as_data);/* 
+	Limpia de espacios o null a un dato tipo string 
+	f_trim_2( as_data )
+
+*/
+
+as_data = Trim( as_data )
+If IsNull( as_data ) Then as_data = ''
+
+Return as_data
+end function
+

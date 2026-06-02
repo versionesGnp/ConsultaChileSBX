@@ -1,0 +1,51 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Formato Literal de fechas (Class)~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_datetostring from function_object
+end type
+
+forward prototypes
+global function string f_datetostring (datetime ad_dtos, string as_format)
+end prototypes
+
+global function string f_datetostring (datetime ad_dtos, string as_format);/* f_DateToString( ad_dtos, as_format )
+	César Vilela: 10/Mar/2018 - Se agrega nuevos formatos */
+String	ls_dia, ls_mes, ls_anio, ls_mesx, ls_ret
+
+
+If Not f_IsDate( ad_dtos ) Then Return ''
+
+ls_dia = String( ad_dtos, 'dd' )
+ls_anio = String( ad_dtos, 'yyyy' )
+
+ls_mes = String( ad_dtos, 'mm' )
+
+ls_mesx = f_Mes( Integer( ls_mes ) )
+
+Choose Case Upper( as_format )
+	Case 'DD/MMM/YYYY'
+		ls_ret = ls_dia + '/' + ls_mesx + '/' + ls_anio
+		
+	Case 'TEXT'
+		ls_ret = ls_dia + ' de ' + ls_mesx + ' de ' + ls_anio
+		
+	Case 'SHORTTEXT'
+		ls_ret = ls_dia + ' de ' + ls_mesx 
+		
+	Case 'DD/M/YYYY'
+		ls_ret = ls_dia + '/' + Left( ls_mesx, 3 ) + '/' + ls_anio
+
+	Case 'LETTER', 'CARTA'
+		ls_dia = String( Integer( ls_dia ) )
+		If ls_dia = '1' Then			
+			ls_ret = ls_dia + ' día del mes de ' + ls_mesx + ' de ' + ls_anio
+		Else
+			ls_ret = ls_dia + ' días del mes de ' + ls_mesx + ' de ' + ls_anio
+		End If
+		
+	Case Else
+		ls_ret = ls_dia + '/' + ls_mes + '/' + ls_anio
+End Choose
+
+Return ls_ret
+
+end function
+

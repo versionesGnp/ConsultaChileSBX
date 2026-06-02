@@ -1,0 +1,14 @@
+﻿global type f_print from function_object
+end type
+
+forward prototypes
+global function integer f_print (datawindow adw_doc)
+end prototypes
+
+global function integer f_print (datawindow adw_doc);
+
+OpenWithParm( w_arch_printers2, adw_doc )
+
+Return 1
+end function
+

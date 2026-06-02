@@ -1,0 +1,42 @@
+﻿//objectcomments Autor: César Vilela~r~nFunción: Buscar documentos x Empresa
+global type f_genbuscardocxemp from function_object
+end type
+
+forward prototypes
+global function string f_genbuscardocxemp (string as_emp, string as_doc, string as_tbl, string as_dw, string as_ult, ref s_parm astr_parm)
+end prototypes
+
+global function string f_genbuscardocxemp (string as_emp, string as_doc, string as_tbl, string as_dw, string as_ult, ref s_parm astr_parm);/* f_GenBuscarDocxEmp( as_emp, as_doc, as_tbl, as_dw, as_ult, astr_parm ) */
+String	ls_tem, ls_doc
+s_parm	lstr_parm
+
+
+gs_winnumdoc = ''
+
+SetNull( Message.PowerObjectParm )
+
+If Not as_doc = '' Then
+	gb_winopendoc = True
+	gs_winnumdoc = as_doc
+End If
+
+lstr_parm.s_cad[ 1] = as_emp
+lstr_parm.s_cad[ 2] = as_doc
+lstr_parm.s_cad[ 3] = as_tbl
+lstr_parm.s_cad[ 4] = as_dw
+lstr_parm.s_cad[ 5] = as_ult
+
+OpenWithParm( w_arch_gen_documento_abrir_x_emp, lstr_parm )
+lstr_parm = Message.PowerObjectParm
+
+If Not IsValid( lstr_parm ) Then Return ''
+If IsNull( lstr_parm ) Then Return ''
+If UpperBound( lstr_parm.s_cad[] ) = 0 Then Return ''
+
+astr_parm = lstr_parm
+
+ls_doc = lstr_parm.s_cad[ 2]
+
+Return ls_doc
+end function
+

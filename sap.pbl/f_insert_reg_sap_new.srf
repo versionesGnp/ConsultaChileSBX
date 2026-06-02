@@ -1,0 +1,40 @@
+﻿global type f_insert_reg_sap_new from function_object
+end type
+
+forward prototypes
+global function string f_insert_reg_sap_new (string as_tipo_deuda, string as_base, string as_serie, double adb_numero, long al_folio, string as_tipo_ctto, string as_organiz, string as_origen_vta, string as_uso, datetime adt_fecha_ctto, readonly double adb_pie, long al_ctas_pact, datetime adt_fec_pie, double adb_rut_aval, double adb_cuota_m, datetime adt_fecha_m, long al_periodo_m, long al_cta_pag_s, double adb_rut, string as_forma_pago, string as_centro, string as_centro_benef, string as_cod_mat_sap, string as_almacen, string as_sector, string as_sepult, string as_nro_tecnico, long al_plazo, double adb_tasa, long al_posic_ubs, double adb_pie_pag, long al_mora_recon, string as_nro_cliente, string as_fecha, string as_moneda, string as_clasif, long al_fallec, string as_cod_jef, string as_cod_sup, string as_cod_age, string as_area, long al_capac, string as_grupo_imput, string as_nro_ctto_sap, string as_ctto_asociado, string as_ctto_serv, string as_tipo_cob, string as_tipo_carga)
+end prototypes
+
+global function string f_insert_reg_sap_new (string as_tipo_deuda, string as_base, string as_serie, double adb_numero, long al_folio, string as_tipo_ctto, string as_organiz, string as_origen_vta, string as_uso, datetime adt_fecha_ctto, readonly double adb_pie, long al_ctas_pact, datetime adt_fec_pie, double adb_rut_aval, double adb_cuota_m, datetime adt_fecha_m, long al_periodo_m, long al_cta_pag_s, double adb_rut, string as_forma_pago, string as_centro, string as_centro_benef, string as_cod_mat_sap, string as_almacen, string as_sector, string as_sepult, string as_nro_tecnico, long al_plazo, double adb_tasa, long al_posic_ubs, double adb_pie_pag, long al_mora_recon, string as_nro_cliente, string as_fecha, string as_moneda, string as_clasif, long al_fallec, string as_cod_jef, string as_cod_sup, string as_cod_age, string as_area, long al_capac, string as_grupo_imput, string as_nro_ctto_sap, string as_ctto_asociado, string as_ctto_serv, string as_tipo_cob, string as_tipo_carga);string ls_carga	
+
+//wf_insert_reg_sap(as_tipo_deuda,as_base,as_serie,adb_numero,al_folio,as_tipo_ctto,as_organiz,as_origen_vta,as_uso,adt_fecha_ctto,adb_pie,al_ctas_pact,adt_fec_pie,adb_rut_aval,adb_cuota_m,adt_fecha_m,al_periodo_m,al_cta_pag_s,adb_rut,as_forma_pago,as_centro,as_centro_benef,as_cod_mat_sap,as_almacen,as_sector,as_sepult,as_nro_tecnico,al_plazo,adb_tasa,al_posic_ubs,adb_pie_pag,al_mora_recon,as_nro_cliente,as_fecha,as_moneda,as_clasif,al_fallec,as_cod_jef,as_cod_sup,as_cod_age,as_area,al_capac,as_grupo_imput,as_nro_ctto_sap,as_ctto_asociado,as_ctto_serv,as_tipo_cob)
+
+SELECT	SYSDATE
+INTO 		:gdt_fec_sistema
+FROM		"TASA"  
+WHERE	"TASA"."LOOK" = 1   
+USING	sqlca;
+
+
+if as_tipo_deuda<>'S' then
+	INSERT INTO "SAP_CADENA"  
+				( "BASE",		"SERIE",		"NUMERO",   	"TIPO_DEUDA",		"TIPO_CONTRATO",	"ORGANIZACION",	"TIPO_VENTA",		"USO",	"FECHA_CTTO",	"PIE",			"CTAS_PACTADAS_PIE",		"FECHA_PIE",	"RUT_AVAL",	"VALOR_CUOTA_M",	"FECHA_M",		"PERIODO_MANT",		"CTA_PAG_S",	"ESTADO_SAP",	"FECHA_SAP",	"NRO_CONTRATO_SAP",		"ESTADO",	"FECHA_CREA",	"USUARIO_CREA",	"RUT",	"FORMA_PAGO",	"CENTRO",	"CENTRO_BENEF",	"CODIGO_MATERIAL_SAP",	"ALMACEN",		"SECTOR",	"SEPULTURA",	"NRO_TECNICO",	"NRO_CUOTAS",	"TASA_CTTO",	"POSICION_UBS",	"PIE_PAGADO",	"MORA_MANT_RECON",	"NRO_CLIENTE_SAP",	"FECHA",		"MONEDA",		"CLASIFICA_VENTA",	"FALLECIDOS",	"COD_JEF",	"COD_SUP",		"COD_AGE",		"AREA",		"CAPACIDAD",	"GRUPO_IMPUTACION",	"NRO_CTTO_SAP",	"CTTO_ASOCIADO",	"TIPO_CARGA" ) 
+	VALUES	( :as_base,	:as_serie,	:adb_numero,	:as_tipo_deuda,	:as_tipo_ctto,			:as_organiz,			:as_origen_vta,		:as_uso,	:adt_fecha_ctto,	:adb_pie,	:al_ctas_pact,					:adt_fec_pie,	:adb_rut_aval,	:adb_cuota_m,			:adt_fecha_m,	:al_periodo_m,			:al_cta_pag_s,	2,						NULL,				NULL,								'V',			:gdt_fec_sistema,	:gs_user,			:adb_rut,	:as_forma_pago,	:as_centro,	:as_centro_benef,	:as_cod_mat_sap,				:as_almacen,	:as_sector,	:as_sepult,		:as_nro_tecnico,	:al_plazo,			:adb_tasa,		:al_posic_ubs,		:adb_pie_pag,	:al_mora_recon,			:as_nro_cliente,		:as_fecha,	:as_moneda,	:as_clasif,				:al_fallec,		:as_cod_jef,	:as_cod_sup,	:as_cod_age,	:as_area,	:al_capac,		:as_grupo_imput,			:as_nro_ctto_sap,		:as_ctto_asociado,	 	:as_tipo_carga)
+	USING	sqlca;
+elseif as_tipo_deuda='S' then
+	INSERT INTO "SAP_CADENA_SERVICIO"  
+				(	"BASE",		"SERIE",		"NUMERO",		"TIPO_DEUDA",		"RUT",	"TIPO_CONTRATO",	"ORGANIZACION",	"TIPO_VENTA",	"USO",	"FECHA_CTTO",	"CODIGO_MATERIAL_SAP",	"CENTRO",	"ALMACEN",		"CENTRO_BENEF",	"NRO_CUOTAS",	"FORMA_PAGO",	"CONTRATO_SERVICIO",		"FOLIO_COMPROBANTE",	"TIPO_COB_COMPROBANTE",	"FECHA_PAGO_COMPROBANTE",	"ESTADO_SAP",	"FECHA_SAP",	"NRO_CONTRATO_SAP",	"ESTADO",	"FECHA_CREA",	"USUARIO_CREA",	"GRUPO_IMPUTACION",	"MONEDA",		"FECHA",		"NRO_CLIENTE_SAP",	"TIPO_CARGA")
+	VALUES	( 	:as_base,	:as_serie,	:adb_numero,	:as_tipo_deuda,	:adb_rut,	:as_tipo_ctto,			:as_organiz,			:as_origen_vta,	:as_uso,	:adt_fecha_ctto,	:as_cod_mat_sap,				:as_centro,	:as_almacen,	:as_centro_benef,	:al_plazo,			:as_forma_pago,	:as_ctto_serv,					:al_folio,							:as_tipo_cob,						:adt_fecha_ctto, 						2,						NULL,				NULL,							'V',			:gdt_fec_sistema,	:gs_user,			:as_grupo_imput,			:as_moneda,	:as_fecha,	:as_nro_cliente,		:as_tipo_carga)
+	USING	sqlca;
+end if
+if sqlca.sqlcode = 0 then
+	commit using sqlca;
+	ls_carga				= 'S'
+else
+	rollback using sqlca;
+	ls_carga				= 'N'
+end if
+if isnull(ls_carga) then ls_carga='N'
+return ls_carga
+end function
+

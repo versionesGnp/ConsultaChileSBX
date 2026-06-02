@@ -1,0 +1,53 @@
+﻿//objectcomments Carga registros en DDLB
+global type f_ddlb_all_2 from function_object
+end type
+
+forward prototypes
+global function integer f_ddlb_all_2 (ref dropdownlistbox ddlb_param, string select_string, string codigo_param)
+end prototypes
+
+global function integer f_ddlb_all_2 (ref dropdownlistbox ddlb_param, string select_string, string codigo_param);datetime fecha
+STRING ls_codigo,ls_nombre,ls_item, ls_item_buscado
+STRING Blancos,Ceros,dato_1,dato_2
+INT li_pos //posición buscada
+
+PREPARE sqlsa FROM :select_string;
+DECLARE dyn_cursor DYNAMIC CURSOR FOR sqlsa;
+OPEN DYNAMIC dyn_cursor;  
+
+IF sqlca.sqlcode < 0 THEN
+	MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_ddlb_all()")
+	Return -1
+END IF
+
+ddlb_param.SetRedraw(FALSE)
+ddlb_param.Reset( )
+
+Do While sqlca.sqlcode = 0
+	Fetch dyn_cursor into :fecha;
+	If sqlca.sqlcode = 0 Then
+		IF not isnull(fecha) THEN
+			ls_item = RightTrim(string(fecha,gs_formato_fecha))
+			ddlb_param.AddItem(ls_item)
+			dato_1 = codigo_param
+			dato_2 = RightTrim(string(fecha,gs_formato_fecha))
+			If dato_1 = dato_2 Then
+				ls_item_buscado = ls_item
+			End If
+		END IF
+	ElseIf sqlca.sqlcode < 0 Then
+		MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_ddlb_all()")
+		Return -1
+	Else
+		Exit
+	End If
+Loop
+
+//ddlb_param.Sorted = TRUE
+ddlb_param.SetRedraw(TRUE)
+li_pos = ddlb_param.FindItem(ls_item_buscado, 0)
+
+Close dyn_cursor;
+Return li_pos
+end function
+

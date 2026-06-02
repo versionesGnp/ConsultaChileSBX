@@ -1,0 +1,438 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Export to Excel PowerBuilder Hybrid, interactura con varios objetos, clases y métodos ~r~n    Recomendación: NO MODIFICAR - AFECTA Nueva Versión Eclipse~r~n*/
+global type f_dwtoexcelhybrid from function_object
+end type
+
+forward prototypes
+global function integer f_dwtoexcelhybrid (datawindow adw_export)
+end prototypes
+
+global function integer f_dwtoexcelhybrid (datawindow adw_export);/* Exporta los datos del DW adw_export a una hoja de cálculo XLS
+	f_DWToExcelHybrid( adw_export )
+	BL César Vilela - 2022
+*/
+Integer	li_rc, li_ret
+String	ls_dataobj, ls_path, ls_file, ls_dir
+
+
+// Verificación si es existente un DWObject
+ls_dataobj = f_Trim( adw_export.DataObject )
+If ls_dataobj = '' Then 
+	bleclipse.Messagebox( 'Exportar Archivo', 'No se puede exportar porque Objeto DW ' + &
+									'se encuentra vacío.', StopSign! )
+	Return -1
+End If
+
+
+// Guardamos ruta actual
+ls_dir = GetCurrentDirectory()
+gs_file = ''
+
+
+ls_file = adw_export.Describe( 'DataWindow.Print.DocumentName' )
+
+If ls_file = '' Then 
+	ls_file = 'Documento'
+End If
+
+ls_file = gs_sys + ' - ' + ls_file + '.xlsx'
+ls_file = f_GlobalReplace( ls_file, '·', '-' )
+ls_path = ls_file
+// Tomamos nombre del archivo a generar
+li_rc = GetFileSaveName( "Exportar Archivo", ls_path, ls_file, "xlsx", "Archivos Excel(*.xlsx),*.xlsx", "Documentos", 32770 )
+
+If Not li_rc = 1 Then Return li_rc
+
+Boolean	lb_del = False
+Integer	li_File, li_byte
+String	ls_xpath
+
+ls_xpath = ls_path
+ls_path = GetCurrentDirectory() + '\'
+ls_path = ls_path + 'T_' + ls_file
+ls_path = Left( ls_path, Len( ls_path ) - 1 ) 
+
+// Eliminar existencias anteriores
+If FileExists( ls_path ) Then 
+	lb_del = FileDelete( ls_path )
+	If Not lb_del Then
+		bleclipse.Messagebox( 'Exportar Archivo', 'No se puede exportar porque archivo ' + Char(13) + ls_path + &
+									Char(13) + 'se encuentra bloqueado.', Exclamation! )
+		Return -1
+	End If
+End If
+If FileExists( ls_xpath ) Then 
+	lb_del = FileDelete( ls_xpath )
+	If Not lb_del Then
+		bleclipse.Messagebox( 'Exportar Archivo', 'No se puede exportar porque archivo ' + Char(13) + ls_xpath + &
+									Char(13) + 'se encuentra bloqueado.', Exclamation! )
+		Return -1
+	End If
+End If
+
+
+f_GenProcesando( 'Exportando Archivo...' )
+
+// Importar el fichero .xls al d_FilaFichero
+uo_Datastore dsHTML, dsAtrb
+
+f_CreateDS( dsHTML, 'd_gen_fila', SqlCa )
+f_CreateDS( dsAtrb, 'd_gen_attributes', SqlCa )
+
+Boolean	lb_loop = True 
+Integer	li_pos
+Long		i, j, k, ll_ini, ll_fin, ll_pos, ll_len, ll_rows
+String	ls_sett, ls_type, ls_obj, ls_band, ls_cols[], ls_tr, ls_txt, ls_td, ls_row, ls_clrT, &
+			ls_HeaderHTML, ls_PieHTML, ls_colAux, ls_col, ls_val, ls_colType, ls_bld, ls_clr, ls_banx, ls_ali, &
+			ls_hex, ls_evl, ls_luD, ls_chk, ls_sty, ls_styleChk, ls_vis
+
+ls_sett	= adw_export.Object.DataWindow.Objects	// Lista de Objetos de un DW
+ll_len	= Len( ls_sett )
+ll_pos	= 1
+ll_ini	= 1
+
+Do While lb_loop
+	ll_pos	= f_Zero( Pos( ls_sett, '~t', ll_ini ) ) // Buscar la posicion del separador TAB
+	If ll_pos = 0 Then // Cuando no encuentre mas TAB debe indicar el final de la cadena
+		ll_fin = ll_len 
+	Else
+		ll_fin = ll_pos - ll_ini
+	End If
+	
+	ls_obj	= Mid( ls_sett, ll_ini, ll_fin )	// Nombre del Objeto
+	ls_type 	= f_Trim( adw_export.Describe( ls_obj + '.Type' ) )	//Tipo de Dato
+	ls_band	= Lower( f_Trim( adw_export.Describe( ls_obj + '.Band' ) ) )
+	ls_vis	= Lower( f_Trim( adw_export.Describe( ls_obj + '.Visible' ) ) )
+	ls_banx	= ls_band
+	ls_band	= Left( ls_band, 3 )
+	
+	Choose Case ls_band
+		Case 'tre'
+			ls_band = '1' + ls_band + Right( ls_banx, 1 )
+	
+		Case 'gro'
+			ls_band = '1' + ls_band + Right( ls_banx, 1 )
+			
+		Case 'hea'
+			ls_band = '1' + ls_band
+	
+		Case 'det'
+			ls_band = '2' + ls_band
+			
+		Case 'tra'
+			ls_band = '3' + ls_band
+			ls_band = '?'
+		Case 'sum'
+			ls_band = '4' + ls_band
+			ls_band = '?'
+		Case 'foo'
+			ls_band = '5' + ls_band
+			ls_band = '?'
+	End Choose
+	
+	If ls_vis = '0' Then ls_band = '?'
+	
+	If ( ls_type = 'compute' And ls_band = '2det' ) Then 
+		ls_evl = 'Evaluate( "' + ls_obj + '", 0 )'
+		ls_evl = adw_export.Describe( ls_evl )
+		If ls_evl = '' Then ls_band = '?'
+	End If
+	
+	If (ls_type = 'column' And Not ls_band = '?') Or ( ls_type = 'compute' And ls_band = '2det' ) Then 
+		i ++
+		ls_Cols[ i] = ls_obj
+		dsAtrb.InsertRow(i)
+		dsAtrb.Object.v_col[ i] = ls_obj
+		dsAtrb.Object.n_x[ i] = Long( UpperTrim( adw_export.Describe( ls_obj + '.X' ) ) )
+		dsAtrb.Object.n_y[ i] = Long( UpperTrim( adw_export.Describe( ls_obj + '.Y' ) ) )
+		ls_clr = f_Trim( adw_export.Describe( ls_obj + '.color' ) )
+		If IsNumber( ls_clr ) Then 
+			ls_clr = f_NumToHex( Long( ls_clr ) )
+			ls_hex = '1'
+		Else
+			ls_hex = '0'
+			ls_clr = f_Trim( ls_clr )
+			li_pos = Pos(ls_clr, '~t' )
+			If li_pos > 0 Then
+				ls_clr = Mid( ls_clr, li_pos + 1, Len(ls_clr) - li_pos - 1 )
+			End If
+		End If
+		dsAtrb.Object.n_clr[ i] = ls_clr
+		dsAtrb.Object.n_bld[ i] = UpperTrim( adw_export.Describe( ls_obj + '.font.weight' ) )
+		dsAtrb.Object.v_typ[ i] = Lower( adw_export.Describe( ls_obj + '.ColType' ) )
+		dsAtrb.Object.v_ban[ i] = ls_band
+		dsAtrb.Object.c_hex[ i] = ls_hex
+		dsAtrb.Object.c_chk[ i] = '0'
+		
+		// Verificar Alignment
+		ls_ali	= Lower( f_Trim( adw_export.Describe( ls_obj + '.Alignment' ) ) )
+		Choose Case ls_ali
+			Case '0'
+				ls_ali = 'left'
+			Case '1'
+				ls_ali = 'right'
+			Case '2'
+				ls_ali = 'center'
+			Case '3'
+				ls_ali = 'justify'
+		End Choose
+		dsAtrb.Object.v_ali[ i] = ls_ali
+			
+		// Verificar LookUpD x Type
+		Choose Case ls_type 
+			Case 'column'
+			ls_luD = adw_export.Describe( ls_obj + '.dddw.name' )
+			If ls_luD = '?' Then
+				ls_luD = adw_export.Describe( ls_obj + '.ddlb.case' )
+			End If
+			If ls_luD = '?' Then
+				ls_luD = UpperTrim( adw_export.Describe( ls_obj + '.checkbox.on' ) )
+				If Not f_In( ls_luD, {'!', '?'} ) Then 
+					dsAtrb.Object.c_chk[ i] = '1'
+					dsAtrb.Object.c_cbo[ i] = ls_lud
+				Else
+					ls_luD = '?'
+					//	checkbox.on="1" checkbox.off="0"
+				End If
+			End If
+			If ls_luD = '?' Then
+				ls_luD = UpperTrim( adw_export.Describe( ls_obj + '.Values' ) )
+			End If
+			ls_luD = f_If( ls_luD = '?', '0', '1' )
+			dsAtrb.Object.c_lud[ i] = ls_lud
+			
+		Case 'compute'
+			ls_lud = '1'
+			dsAtrb.Object.c_lud[ i] = ls_lud
+		End Choose		
+		dsAtrb.Object.v_tob[ i] = ls_type
+		
+		ls_vis = f_Trim( ls_vis )
+		li_pos = Pos(ls_vis, '~t' )
+		If li_pos > 0 Then
+			ls_vis = Mid( ls_vis, li_pos + 1, Len(ls_vis) - li_pos - 1 )
+		End If
+		dsAtrb.Object.v_vis[ i] = ls_vis
+
+	End If
+	
+	//adw_1.Modify( ls_obj + '.Color = ' + as_color )
+		
+	If ll_pos = 0 Then lb_loop = False
+	ll_ini = ll_pos + 1
+Loop
+
+dsAtrb.AcceptText( )
+dsAtrb.Sort( 'v_ban A, n_x A, n_y A' )
+
+ls_HeaderHTML = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">'
+ls_PieHTML = '</html>'
+ls_styleChk = 'style="font-family:' + "'Wingdings 2'" + '" '
+//ls_NumToStr = 'x:str'
+
+ls_clrT = f_NumToHex( f_Gen_Color( 't' ) )
+ls_tr = '<TR>' //+ Char(13)
+ls_td = '	<TD '
+
+For i = 1 To dsAtrb.RowCount( )
+	ls_col = dsAtrb.Object.v_col[ i]
+	ls_ali = dsAtrb.Object.v_ali[ i]
+	ls_chk = dsAtrb.Object.c_chk[ i]
+	
+	/* Genera TXT Header */
+	ls_txt = ''
+	If ls_chk = '1' Then
+		ls_txt = f_Trim( adw_export.Describe( ls_col + '.checkbox.Text' ) )
+		If f_In( ls_txt, {'!', '?', ''} ) Then 
+			ls_txt = ''
+		End If
+	End If
+	
+	If ls_txt = '' Then 
+		ls_txt = ls_col + '_t.Text'
+		ls_txt = f_Trim( adw_export.Describe( ls_txt ) )
+	End If
+	
+	If ls_txt = '' Or f_In (ls_txt , {'?', '!'} ) Then 
+		ls_txt = f_WordCap( f_GlobalReplace( ls_col, '_', ' ' ) )
+	End If
+
+	ls_row = ls_row + ls_td + 'ALIGN=' + ls_ali + '>' +  '<b>' + '<FONT COLOR=' + ls_clrT + '>' + ls_txt + '</b>' + '</TD>' + Char(13)
+Next
+	
+i = dsHTML.InsertRow( 0 )
+dsHTML.Object.fila[ i] = ls_HeaderHTML + '~r~n'
+
+i = dsHTML.InsertRow( 0 )
+dsHTML.Object.fila[ i] = '<TABLE>' + '~r~n'
+i = dsHTML.InsertRow( 0 )
+ls_row = ls_tr + ls_row + '</TR>' + '~r~n'
+dsHTML.Object.fila[ i] = ls_row
+
+Dec		ldc_pcs
+String	ls_pcs
+
+ll_rows = adw_export.RowCount( )
+
+For i = 1 To ll_rows
+	
+	ldc_pcs = ( ( i/ll_rows ) * 100 ) - 1
+	If i > 1 And ldc_pcs > 0 Then
+		ls_pcs = String( ldc_pcs, '####' )
+		ls_pcs = 'Procesando' + Char(13) + ls_pcs + '%'
+		f_GenProcesandoA( ls_pcs )
+	End If
+	
+	ls_row = ''
+	ls_val = ''
+	For j = 1 To dsAtrb.RowCount( )
+		ls_col = dsAtrb.Object.v_col[ j]
+		ls_bld = dsAtrb.Object.n_bld[ j]
+		ls_clr = dsAtrb.Object.n_clr[ j]
+		ls_hex = dsAtrb.Object.c_hex[ j]
+		ls_ali = dsAtrb.Object.v_ali[ j]
+		
+		ls_colType = dsAtrb.Object.v_typ[ j]
+		ls_colAux = Left( ls_colType, 4)
+	
+		ls_luD = dsAtrb.Object.c_lud[ j]
+		ls_val = ''
+		ls_evl = ''
+		ls_chk = ''
+		ls_sty = ''
+		
+		Choose Case ls_luD
+			Case '0'
+				Choose Case ls_colType
+					Case 'char'
+						ls_val = String( adw_export.GetItemString( i, ls_col ))
+					Case 'date'
+						ls_val = String( adw_export.GetItemDate( i, ls_col ))
+					Case 'datetime'
+						ls_val = String( adw_export.GetItemDateTime( i, ls_col ))
+					Case 'long', 'number', 'ulong'
+						ls_val = String( adw_export.GetItemNumber( i, ls_col ))
+					Case 'decimal'
+						ls_val = String( adw_export.GetItemDecimal( i, ls_col ))
+					Case Else
+						Choose Case ls_colAux
+							Case 'char'
+								ls_val = String( adw_export.GetItemString( i, ls_col ))
+							Case 'deci' 
+								ls_val = String( adw_export.GetItemDecimal( i, ls_col ))
+						End Choose
+				End Choose
+				
+			Case '1'
+				ls_chk = dsAtrb.Object.c_chk[ j]
+				If Not ls_chk = '1' Then
+					ls_type = dsAtrb.Object.v_tob[ j] 
+					Choose Case ls_type
+						Case 'column'
+							ls_evl = "Evaluate('LookUpDisplay("+ ls_col +")', " + String( i ) + ")" 
+						Case 'compute'
+							ls_evl = 'Evaluate( "' + ls_col + '", ' + String( i ) + " )"
+					End Choose
+					ls_val = adw_export.Describe( ls_evl )
+				Else
+					ls_val = UpperTrim( adw_export.GetItemString( i, ls_col ))
+					ls_luD = dsAtrb.Object.c_chk[ j] 
+					If ls_val = ls_lud Then
+						ls_val = Char(80)
+						ls_sty = ls_styleChk
+					Else
+						ls_val = ''
+					End If
+				End If
+		End Choose
+		
+		ls_vis = dsAtrb.Object.v_vis[ j] 
+		If Not ls_vis = '1' Then //Evalúa Visible
+			ls_evl = 'Evaluate( "' + ls_vis + '", ' + String( i ) + " )"
+			ls_vis = adw_export.Describe( ls_evl )
+			If Not ls_vis = '1' Then ls_val = ''
+		End If
+		
+		ls_val = f_Trim( f_GlobalReplace( ls_val, '>', ' ' ) )
+		ls_val = f_Trim( f_GlobalReplace( ls_val, '<', ' ' ) )
+		ls_val = f_Trim( f_GlobalReplace( ls_val, '/', ' ' ) )
+		ls_val = f_Trim( f_GlobalReplace( ls_val, '&', '_' ) )
+		
+		If Not ls_hex = '1' Then
+			ls_evl = 'Evaluate( "' + ls_clr + '", ' + String( i ) + " )"
+			ls_clr = adw_export.Describe( ls_evl )
+			If Not IsNumber( ls_clr ) Then 
+				ls_clr = ls_clrT
+			Else
+				ls_clr = f_NumToHex( Long( ls_clr ) )			
+			End If
+		End If
+		ls_clr = f_ColorCompatibility( ls_clr ) 
+		ls_val =  '<FONT ' + ls_sty + 'COLOR=' + ls_clr + '>' + ls_val 
+		
+		If ls_bld = '700' Then ls_val = '<b>' + ls_val + '</b>'
+		ls_row = ls_row + ls_td + 'ALIGN=' + ls_ali + '>' + ls_val + '</TD>' + '~r~n'
+	Next
+	
+	k = dsHTML.InsertRow(0)
+	ls_row = ls_tr + ls_row + '</TR>' + '~r~n' //+ Char(13) 
+	dsHTML.Object.fila[ k] = ls_row
+Next
+
+
+i = dsHTML.InsertRow( 0 )
+dsHTML.Object.fila[ i] = '</TABLE>'
+
+i = dsHTML.InsertRow( 0 )
+dsHTML.Object.fila[ i] = ls_PieHTML 
+
+dsHTML.AcceptText( )
+
+
+//dsHTML.SaveAs( ls_path, Text!, False )
+
+li_File = FileOpen(ls_path, TextMode!, Write!, LockWrite!, Append!)
+
+For i = 1 To dsHTML.RowCount( )
+	ls_row = dsHTML.Object.fila[ i]
+	li_byte = FileWriteEx( li_File, ls_row )
+Next
+FileClose ( li_File )
+
+ChangeDirectory( ls_dir )
+gs_file = ls_path
+
+Destroy dsHTML
+Destroy dsAtrb
+
+gw_frame.SetMicroHelp( 'Generando Archivo...' )
+SetPointer( HourGlass! )
+
+OLEObject ole_object
+ole_object = Create OLEObject
+
+li_ret = ole_object.ConnectToNewObject( 'Excel.Application' )
+If Not li_ret = 0 Then
+	gw_frame.SetMicroHelp( 'Listo (con error)' )
+	f_GenProcesando( '' )
+	SetPointer( Arrow! )
+	Return li_ret
+End If
+
+
+f_GenProcesandoA( 'Procesando' + Char(13) + '100%' )
+ole_object.WorkBooks.Open( ls_path )
+ole_object.Application.Visible = False
+ole_object.Application.WorkBooks(1).SaveAs( ls_xpath, 51 )
+ole_object.WorkBooks(1).Close( False )
+ole_object.Application.Quit
+ole_object.DisConnectObject( )
+Destroy ole_object
+
+FileDelete( ls_path )
+f_GenProcesando( '' )
+SetPointer( Arrow! )
+gw_frame.SetMicroHelp( 'Listo' )
+
+Return li_ret
+end function
+

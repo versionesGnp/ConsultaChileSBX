@@ -1,0 +1,37 @@
+﻿global type funcion_dv from function_object
+end type
+
+forward prototypes
+global function double funcion_dv (datetime primer, datetime fecha_corte)
+end prototypes
+
+global function double funcion_dv (datetime primer, datetime fecha_corte);
+double vmes,vano,vcuo_venc,vmora
+		  	  
+  	  	vano=year(date(fecha_corte))-year(DATE(primer))
+		vano=vano*12	 
+ 		vmes=month(date(fecha_corte))-month(DATE(primer))
+		
+		vcuo_venc= vano+vmes
+		
+			if day(DATE(fecha_corte))>day(DATE(Primer))+5 then
+				vcuo_venc=vcuo_venc+1
+			end if
+		
+			if vcuo_venc <0 then
+				vcuo_venc=0
+			end if
+	 		
+
+	 		vmora=  vcuo_venc 
+	 		
+	 	 	 
+
+return(vmora)
+
+
+
+               
+
+end function
+

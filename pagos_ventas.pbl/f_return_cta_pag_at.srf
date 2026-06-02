@@ -1,0 +1,24 @@
+﻿global type f_return_cta_pag_at from function_object
+end type
+
+forward prototypes
+global function long f_return_cta_pag_at (string as_serie, double adb_numero)
+end prototypes
+
+global function long f_return_cta_pag_at (string as_serie, double adb_numero);Long	ll_cta_pag_ult
+
+SELECT	"RES_COMI"."MES"  
+INTO 		:ll_cta_pag_ult  
+FROM 		"RES_COMI"  
+WHERE  ( "RES_COMI"."SERIE" = :as_serie ) AND  
+		 ( "RES_COMI"."CONTRATO" = :adb_numero ) AND  
+		 ( "RES_COMI"."COD_CONTABLE" = '007' OR "RES_COMI"."COD_CONTABLE" = '069' OR "RES_COMI"."COD_CONTABLE" = '071') AND  
+	 	 ( "RES_COMI"."FECHA" = (	SELECT	MAX("RES_COMI"."FECHA") 
+		  									FROM 		"RES_COMI" 
+											WHERE  ( "RES_COMI"."SERIE" = :as_serie ) AND 
+													 ( "RES_COMI"."CONTRATO" = :adb_numero ) AND 
+													 ( "RES_COMI"."COD_CONTABLE" = '007' OR "RES_COMI"."COD_CONTABLE" = '069' OR "RES_COMI"."COD_CONTABLE" = '071') ) )   ;
+if isnull(ll_cta_pag_ult) then ll_cta_pag_ult=0
+Return ll_cta_pag_ult
+end function
+

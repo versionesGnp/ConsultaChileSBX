@@ -1,0 +1,16 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: BLScript Class Convierte un dato X a String, quita espacios y convierte en minúsculas- Reduce Scrtips~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type lowertrim from function_object
+end type
+
+forward prototypes
+global function string lowertrim (any anyval)
+end prototypes
+
+global function string lowertrim (any anyval);
+String	ls_ret
+
+ls_ret = Upper( f_Trim( String( anyVal ) ) )
+
+Return ls_ret
+end function
+

@@ -1,0 +1,25 @@
+﻿global type gf_cuponera_mant from function_object
+end type
+
+forward prototypes
+global subroutine gf_cuponera_mant (string base, string serie, double numero, ref integer cantidad, ref date fecha_m, ref date fecha_m_prox)
+end prototypes
+
+global subroutine gf_cuponera_mant (string base, string serie, double numero, ref integer cantidad, ref date fecha_m, ref date fecha_m_prox);  SELECT count(1),   
+         to_date(substr(to_char("OFERTA_V"."FECHA_M",'dd/mm/yyyy'),1,6)||to_char(sysdate,'yyyy'),'dd/mm/yyyy') as fecha_m  ,
+         to_date(substr(to_char("OFERTA_V"."FECHA_M",'dd/mm/yyyy'),1,6)||to_char(to_number(to_char(sysdate,'yyyy'))+1,'0000'),'dd/mm/yyyy') as fecha_prox
+	into  :cantidad,:fecha_m,:fecha_m_prox
+    FROM "CADENA","OFERTA_V","PAGO_OFERTA"  
+   WHERE ( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+         ( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+         ( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+         ( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+         ( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+         ( ( "CADENA"."CODIGO" = :base) AND  
+         ( "OFERTA_V"."CTA_PAG_M" < 99 ) AND  
+         ( "CADENA"."SERIE" = :serie ) AND  
+         ( "CADENA"."NUMERO" = :numero ) )   
+GROUP BY "CADENA"."CODIGO","CADENA"."SERIE","CADENA"."NUMERO", "OFERTA_V"."FECHA_M" ;
+
+end subroutine
+

@@ -1,0 +1,30 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Asigna nuevos values a item de registry~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_setregistry from function_object
+end type
+
+forward prototypes
+global function boolean f_setregistry (string as_key, string as_value)
+end prototypes
+
+global function boolean f_setregistry (string as_key, string as_value);/* f_SetRegistry
+	Autor		= Cesar Vilela R.
+	Objetivo = Escribir un key del Registry de Windows
+	Argumentos:
+	as_key	-> Key a Escribir 
+	as_value -> Valor que se debe escribir
+	Retorna:
+	Boolean		-> True(Escritura Correcta)
+						False(Escritura Incorrecta)
+*/
+Integer	li_reg
+
+li_reg = RegistrySet ( 'HKEY_CURRENT_USER\Software\BlueLight\' + gs_sys + '\', &
+						  as_key, RegString!, as_value ) 
+
+If li_reg = -1 Then
+	Return False
+End If
+
+Return True
+end function
+

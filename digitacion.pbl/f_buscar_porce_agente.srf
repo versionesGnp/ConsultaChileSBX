@@ -1,0 +1,50 @@
+﻿global type f_buscar_porce_agente from function_object
+end type
+
+forward prototypes
+global function double f_buscar_porce_agente (string as_cod_age, string as_tipo_venta, string as_uso, string as_tipo_sepultura, string as_area, long al_capacidad)
+end prototypes
+
+global function double f_buscar_porce_agente (string as_cod_age, string as_tipo_venta, string as_uso, string as_tipo_sepultura, string as_area, long al_capacidad);Double	ldb_porce_age, ld_porce_nf, ld_porce_ni
+Long		ll_tipo_cont
+SELECT	"AGENTES"."TIPO_CONT"  
+INTO 		:ll_tipo_cont
+FROM 		"AGENTES"  
+WHERE 	"AGENTES"."COD_AGE" = :as_cod_age
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	IF ll_tipo_cont = 1 THEN	// Trae porcentaje de venta del vendedor segun contrato 1 (Antiguo)
+		SELECT comisiones.porcent_nf,
+				 comisiones.porcent_ni
+		INTO   :ld_porce_nf,
+				 :ld_porce_ni
+		FROM 		comisiones
+		WHERE (comisiones.tipo_venta = :as_tipo_venta) AND (comisiones.area_sepult = :as_area);
+		IF as_uso = "NF" THEN
+			ldb_porce_age	= ld_porce_nf
+		ELSE
+			ldb_porce_age	= ld_porce_ni
+		END IF
+	ELSE
+		// Trae porcentaje de venta del vendedor segun contrato 2 (Nuevo)
+		SELECT	"COMISIONES_INMOBI"."PORCE_NF",   
+       			"COMISIONES_INMOBI"."PORCE_NI"  
+		INTO   	:ld_porce_nf,
+					:ld_porce_ni
+		FROM 		"COMISIONES_INMOBI"  
+		WHERE  ( "COMISIONES_INMOBI"."TIPO_SEP" = :as_tipo_sepultura ) AND  
+				 ( "COMISIONES_INMOBI"."AREA" = :as_area ) AND  
+				 ( "COMISIONES_INMOBI"."CAPACIDAD" = :al_capacidad );    
+		
+		IF as_uso = "NF" THEN
+			ldb_porce_age	= ld_porce_nf
+		ELSE
+			ldb_porce_age	= ld_porce_ni
+		END IF
+	END IF
+else
+	ldb_porce_age	= 0
+end if
+return ldb_porce_age
+end function
+

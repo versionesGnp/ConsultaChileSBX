@@ -1,0 +1,36 @@
+﻿global type f_reclamo_cod_color from function_object
+end type
+
+forward prototypes
+global function string f_reclamo_cod_color (long al_codigo, string as_tipo)
+end prototypes
+
+global function string f_reclamo_cod_color (long al_codigo, string as_tipo);string	ls_color
+//f_reclamo_cod_color(al_codigo,as_tipo)
+if as_tipo='T' then
+	SELECT	"COLOR_TEXT_FONT"."COLOR_TEXT"  
+	INTO		:ls_color
+	FROM		"COLOR_TEXT_FONT"  
+	WHERE	"COLOR_TEXT_FONT"."CODIGO" = :al_codigo
+	USING	sqlca;
+elseif as_tipo='F' then
+	SELECT	"COLOR_TEXT_FONT"."COLOR_FONT"  
+	INTO		:ls_color
+	FROM		"COLOR_TEXT_FONT"  
+	WHERE	"COLOR_TEXT_FONT"."CODIGO" = :al_codigo
+	USING	sqlca;
+end if
+if sqlca.sqlcode=0 then
+	if not isnull(ls_color) and ls_color<>'' then
+		ls_color					= ls_color
+	else
+		ls_color					= 'rgb(0,0,0)'
+	end if
+else
+	ls_color						= 'rgb(0,0,0)'
+end if
+if isnull(ls_color) then ls_color='rgb(0,0,0)'
+Return ls_color
+		
+end function
+

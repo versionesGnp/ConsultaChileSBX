@@ -1,0 +1,44 @@
+﻿global type f_mora_mant_sap from function_object
+end type
+
+forward prototypes
+global function long f_mora_mant_sap (datetime adt_fec_prim, datetime adt_fec_term, long al_periodo, long al_ctas_pag)
+end prototypes
+
+global function long f_mora_mant_sap (datetime adt_fec_prim, datetime adt_fec_term, long al_periodo, long al_ctas_pag);long	ll_meses,ll_dia_venc,ll_mes_venc,ll_ano_venc,ll_dia_term,ll_mes_term,ll_ano_term,ll_resta_ano,ll_resta_mes,ll_cuota_venc,ll_mora
+
+
+//f_mora_mant_sap(adt_fec_prim,adt_fec_term,al_periodo,al_ctas_pag)
+
+if al_periodo=12 then
+	ll_meses				= 1
+elseif al_periodo=6 then
+	ll_meses				= 2
+end if
+
+ll_dia_venc														= day(date(adt_fec_prim))
+ll_mes_venc														= month(date(adt_fec_prim))
+ll_ano_venc														= year(date(adt_fec_prim))
+
+ll_dia_term														= day(date(adt_fec_term))
+ll_mes_term														= month(date(adt_fec_term))
+ll_ano_term														= year(date(adt_fec_term))
+
+ll_resta_ano														= ll_ano_term - ll_ano_venc
+ll_resta_ano														= ll_resta_ano * ll_meses
+ll_resta_mes													= ll_mes_term - ll_mes_venc
+ll_cuota_venc													= ll_resta_ano + ll_resta_mes 
+if ll_dia_term > ll_dia_venc then 
+	ll_cuota_venc  	                             					= ll_cuota_venc + 1 
+end if 
+if ll_cuota_venc < 0 then 
+	ll_cuota_venc                          						= 0 
+end if												
+ll_mora															= ll_cuota_venc - al_ctas_pag
+if ll_mora <= 0 then 
+	ll_mora														= 0 
+end if
+if isnull(ll_mora) then ll_mora=0
+return ll_mora
+end function
+

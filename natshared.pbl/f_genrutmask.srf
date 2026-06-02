@@ -1,0 +1,44 @@
+﻿//objectcomments Autor: César Vilela~r~nFunción: Genera Formato RUT
+global type f_genrutmask from function_object
+end type
+
+forward prototypes
+global function string f_genrutmask (datawindow adw_1, string as_col)
+end prototypes
+
+global function string f_genrutmask (datawindow adw_1, string as_col);
+/* f_GenRUTMask( adw_1, as_col ) */
+Integer	li_len
+Long		ll_row
+String	ls_fmt, ls_rut
+
+
+as_col = f_Trim( as_col )
+ll_row = adw_1.GetRow()
+ls_rut = String( adw_1.GetItemString( ll_row, as_col ) ) 
+li_len = Len( String( ls_rut ) )
+
+Choose Case li_len
+	Case 3
+		ls_fmt = '@@-@'
+	Case 4
+		ls_fmt = '@@@-@'
+	Case 5
+		ls_fmt = '@.@@@-@'
+	Case 6
+		ls_fmt = '@@.@@@-@'
+	Case 7
+		ls_fmt = '@@@.@@@-@'
+	Case 8
+		ls_fmt = '@.@@@.@@@-@'
+	Case 9
+		ls_fmt = '@@.@@@.@@@-@'
+	Case 2
+		ls_fmt = '@-@'
+End Choose
+
+adw_1.Modify( as_col + '.Format = "' + ls_fmt + '"' )
+
+Return ls_fmt
+end function
+

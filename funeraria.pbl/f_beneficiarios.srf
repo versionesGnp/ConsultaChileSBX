@@ -1,0 +1,29 @@
+﻿global type f_beneficiarios from function_object
+end type
+
+forward prototypes
+global function string f_beneficiarios (string as_base, string as_serie, long al_numero, long al_capac)
+end prototypes
+
+global function string f_beneficiarios (string as_base, string as_serie, long al_numero, long al_capac);string		ls_graba
+long		ll_benef
+
+//f_beneficiarios(as_base,as_serie,al_numero,al_capac)
+SELECT	COUNT("PRODUCTO_BENEFICIARIO"."BASE")
+INTO		:ll_benef
+FROM		"PRODUCTO_BENEFICIARIO"  
+WHERE	( "PRODUCTO_BENEFICIARIO"."BASE" = :as_base ) AND  
+			( "PRODUCTO_BENEFICIARIO"."SERIE" = :as_serie ) AND  
+			( "PRODUCTO_BENEFICIARIO"."NUMERO" = :al_numero ) AND  
+			( "PRODUCTO_BENEFICIARIO"."ESTADO_REG" = 'V' )
+USING	sqlca;
+if isnull(ll_benef) then ll_benef=0
+
+if ll_benef = al_capac then
+	ls_graba							= 'S'
+else
+	ls_graba							= 'N'
+end if
+Return ls_graba
+end function
+

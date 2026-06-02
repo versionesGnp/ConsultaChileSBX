@@ -1,0 +1,35 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Genera Formato Estándar por Empresa por Columna y Tipo~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_geneditmask from function_object
+end type
+
+forward prototypes
+global function string f_geneditmask (datawindow adw_1, string as_col, string as_pai, string as_for)
+end prototypes
+
+global function string f_geneditmask (datawindow adw_1, string as_col, string as_pai, string as_for);//f_genEditMask( adw_1, as_col, as_pai, as_for )
+
+String ls_pai, ls_mod
+
+
+ls_pai = Upper( as_pai )
+as_for = Upper( as_for )
+
+Choose Case ls_pai 
+	Case 'CL' 
+		Choose Case as_for
+			Case 'ID'
+				ls_mod = adw_1.Modify( as_col + '.editmask.autoskip=yes' )
+				ls_mod = adw_1.Modify( as_col + '.editmask.mask="XX.XXX.XXX-!"' ) 
+				ls_mod = adw_1.Modify( as_col + '.editmask.focusrectangle=no' )
+				
+			Case 'NUM'
+				ls_mod = adw_1.Modify( as_col + '.edit.format="#,##0"' ) 
+				ls_mod = adw_1.Modify( as_col + '.edit.autoselect=yes' )
+				ls_mod = adw_1.Modify( as_col + '.edit.nilisnull=yes' )
+				//ls_mod = adw_1.Modify( as_col + '.format="#.###.###.##0 "' )
+		End Choose
+End Choose
+
+Return ls_mod
+end function
+

@@ -1,0 +1,25 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Mueve un objeto a Y nivel A Class BLScript~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_setdwpositionya from function_object
+end type
+
+forward prototypes
+global subroutine f_setdwpositionya (datawindow adw_1, string as_obj[], integer ai_posy)
+end prototypes
+
+global subroutine f_setdwpositionya (datawindow adw_1, string as_obj[], integer ai_posy);/* f_SetDWPositionYA( adw_1, as_obj[], ai_posY )
+	Autor: César Vilela Requena
+	Cambia la posición Y de los objetos del DW */
+
+Integer	i
+String	ls_obj
+
+If ai_posY <= 0 Then ai_posY = 20
+
+For i = 1 To UpperBound( as_obj )
+	ls_obj = as_obj[ i]
+	adw_1.Modify( ls_obj + '.Y = ' + String( ai_posY ) )
+Next
+
+Return  
+end subroutine
+

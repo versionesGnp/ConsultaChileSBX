@@ -1,0 +1,31 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Exporta DBF -> DW~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_dbftodw from function_object
+end type
+
+forward prototypes
+global function integer f_dbftodw (datawindow adw_import)
+end prototypes
+
+global function integer f_dbftodw (datawindow adw_import);/* Exporta los datos del DW adw_export a una hoja de cálculo XLS
+	f_DBFToDW( adw_import )
+*/
+Integer	li_rc, li_ret
+String	ls_path, ls_file, ls_dir
+
+// Guardamos ruta actual
+ls_dir = GetCurrentDirectory()
+
+// Tomamos nombre del archivo a generar
+li_rc = GetFileOpenName( "Seleccione Archivo", ls_path, ls_file, "DBF", "Archivos DBase(*.DBF),*.DBF", "Documentos", 32770 )
+// Verificamos si dimos nombre al archivo a generar
+If li_rc = 1 then
+	ChangeDirectory( ls_dir )
+	li_ret = adw_import.ImportFile( DBase3!, ls_path )
+End If
+ChangeDirectory( ls_dir )
+
+Return li_ret
+
+
+end function
+

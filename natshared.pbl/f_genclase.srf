@@ -1,0 +1,39 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Determina la clase del producto consultado~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_genclase from function_object
+end type
+
+forward prototypes
+global function string f_genclase (string as_emp)
+end prototypes
+
+global function string f_genclase (string as_emp);/* f_GenClase( as_emp )
+	-- Este método se usará para reemplazar la expresión 'Cultivo' y poder personalizar para otros
+	-- Centros de costo.
+*/
+String	ls_ret, ls_tit
+
+
+ls_tit = 'f_GenClase'
+
+Select	dbo.fn_WordCap( v_etiquetaclase_emp )
+Into		:ls_ret
+From		genempresa
+Where		c_codigo_emp = :as_emp
+Using		SqlCa ;
+
+If f_SqlError( SqlCa, ls_tit + Char(13) + &
+								'No se pudo obtener información sobre la Etiqueta de la Clase para Centro de Costos de la Empresa (' + as_emp + ')' ) = -1 Then
+	Return ''
+End If
+
+ls_ret = f_Trim( ls_ret )
+
+If ls_ret = '' Then
+	MessageBox( ls_tit, 'Es necesario Configurar previamente la Etiqueta de la Clase para Centro de Costos de la Empresa.', Exclamation! )
+End If
+
+Return ls_ret
+
+
+end function
+

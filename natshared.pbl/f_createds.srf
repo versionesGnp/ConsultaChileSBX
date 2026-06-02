@@ -1,0 +1,21 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Script para crear DataStore, reduce líneas y tiempo de programación y ejecución~r~n    Recomendación: NO MODIFICAR, AFECTA TODO EL SISTEMA~r~n*/
+global type f_createds from function_object
+end type
+
+forward prototypes
+global subroutine f_createds (ref uo_datastore adsnew, string asdo, transaction atrsql)
+end prototypes
+
+global subroutine f_createds (ref uo_datastore adsnew, string asdo, transaction atrsql);
+/* f_CreateDS( adsNew, asDO, atrSQL )
+	Autor: César Vilela R. 2022
+*/
+
+Destroy	adsNew
+adsNew = Create uo_DataStore
+adsNew.DataObject = asDO
+adsNew.SetTransObject( atrSQL )
+
+Return
+end subroutine
+

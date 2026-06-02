@@ -1,0 +1,48 @@
+﻿global type f_graba_dev_persist from function_object
+end type
+
+forward prototypes
+global function long f_graba_dev_persist (string as_base, string as_serie, double adb_numero, string as_cargo, string as_canal, double adb_porc_comi, double adb_cta_01, double adb_cta_02, double adb_cta_03, double adb_cta_04, double adb_cta_05, double adb_cta_06, double adb_cta_07, string as_tipo_deveng)
+end prototypes
+
+global function long f_graba_dev_persist (string as_base, string as_serie, double adb_numero, string as_cargo, string as_canal, double adb_porc_comi, double adb_cta_01, double adb_cta_02, double adb_cta_03, double adb_cta_04, double adb_cta_05, double adb_cta_06, double adb_cta_07, string as_tipo_deveng);long ll_cont
+
+//f_graba_dev_persist(as_base,as_serie,al_numero,as_cargo,as_canal,adb_porc_comi,adb_cta_01,adb_cta_02,adb_cta_03,adb_cta_04,adb_cta_05,adb_cta_06,adb_cta_07)
+
+INSERT INTO "COMISION_PERSISTENCIA"  
+				( "BASE",		"SERIE",		"NUMERO",	"CARGO",	"CANAL",		"PORCE_COMI",	"C_PRIMERA",	"C_SEGUNDA",	"C_TERCERA",	"C_CUARTA",	"C_QUINTA",	"C_SEXTA",		"C_SEPTIMA",	"TIPO_DEVENG")  
+VALUES		(:as_base,	:as_serie,	:adb_numero,	:as_cargo,	:as_canal,	:adb_porc_comi,	:adb_cta_01,	:adb_cta_02,	:adb_cta_03,	:adb_cta_04,	:adb_cta_05,	:adb_cta_06,	:adb_cta_07,	:as_tipo_deveng ) ;
+if sqlca.sqlcode = 0 then
+	commit;
+	return 1
+else
+	ROLLBACK;
+//	UPDATE	"COMISION_PERSISTENCIA"  
+// 	 SET 		"CANAL"= :as_canal,	
+//	  			"PORCE_COMI" = :adb_porc_comi,
+//	  			"C_PRIMERA" = :adb_cta_01,
+//				"C_SEGUNDA" = :adb_cta_02,
+//				"C_TERCERA" = :adb_cta_03,
+//				"C_CUARTA" = :adb_cta_04,
+//				"C_QUINTA" = :adb_cta_05,
+//				"C_SEXTA" = :adb_cta_06,
+//				"C_SEPTIMA" = :adb_cta_07,
+//				"TIPO_DEVENG" = :as_tipo_deveng
+//   WHERE	( "COMISION_PERSISTENCIA"."BASE" = :as_base ) AND
+//			 	( "COMISION_PERSISTENCIA"."SERIE" = :as_serie ) AND
+//          		( "COMISION_PERSISTENCIA"."NUMERO" = :al_numero ) AND
+//			 	( "COMISION_PERSISTENCIA"."CARGO" = : as_cargo) ;
+	if sqlca.sqlcode = 0 then
+		commit;
+		return 1
+	else
+		ROLLBACK;
+		return -1
+	end if	
+end if
+
+
+
+
+end function
+

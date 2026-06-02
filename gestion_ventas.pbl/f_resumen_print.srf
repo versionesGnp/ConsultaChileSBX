@@ -1,0 +1,68 @@
+﻿global type f_resumen_print from function_object
+end type
+
+forward prototypes
+global function integer f_resumen_print (string tipo, string estado, ref datawindow dw_paso)
+end prototypes
+
+global function integer f_resumen_print (string tipo, string estado, ref datawindow dw_paso);string cod,select_string,RESULTADO,nombre,a_paterno
+long rut,total_pago
+integer i
+
+select_string = 'SELECT DISTINCT cod_age,   '+&
+					 ' rut,				  '+&
+					 ' nombre,          '+&
+					 ' a_paterno        '+&
+					 '	 FROM AGENTES 	'+&
+					 "	WHERE estado = '"+estado+"'"+&
+					 ' union '+&
+					 'SELECT DISTINCT cod_sup,   '+&
+					 ' rut,				  '+&
+					 ' nombre,          '+&
+					 ' a_paterno        '+&
+					 '	 FROM supervisor 	'+&
+					 "	WHERE estado = '"+estado+"'"+&
+					 ' union '+&
+					 'SELECT DISTINCT jefe_ventas,   '+&
+					 ' rut,				  '+&
+					 ' nombre,          '+&
+					 ' a_paterno        '+&
+					 '	 FROM jefe_ventas 	'+&
+					 "	WHERE estado = '"+estado+"'"
+PREPARE sqlsa FROM :select_string;
+DECLARE dyn_cursor DYNAMIC CURSOR FOR sqlsa;
+OPEN DYNAMIC dyn_cursor;  
+IF sqlca.sqlcode < 0 THEN
+	MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_optiene_porce_sup()")
+	Return -1
+END IF
+Do While sqlca.sqlcode >= 0
+	Fetch dyn_cursor into :cod,:rut,:nombre,:a_paterno;
+	If sqlca.sqlcode = 0 Then
+//------------------------------------------
+		if tipo = 'L' then
+			select sum(total_pago) into :total_pago from res_comi	where COD_AGE_SUP = :cod and serie = 'L';			
+		else
+			select sum(total_pago) into :total_pago from res_comi	where COD_AGE_SUP = :cod and (serie = 'M' or serie = 'I');
+		end if
+		i = dw_paso.Find("cod = '"+ cod +"'", 1, dw_paso.rowcount())
+		if sqlca.sqlcode = 0  and i = 0  and not isnull(total_pago) then
+			if isnull(rut) then
+				resultado = cod+'~t'+'0'+'~t'+nombre+'~t'+a_paterno+'~t'+string(total_pago)
+			else
+				resultado = cod+'~t'+string(rut)+'~t'+nombre+'~t'+a_paterno+'~t'+string(total_pago)
+			end if	
+			dw_paso.importstring(resultado)
+		end if
+//------------------------------------------
+	ElseIf sqlca.sqlcode < 0 Then
+		MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_optiene_porce_sup()")
+		Return -1
+	Else
+		Exit
+	End If
+Loop
+Close dyn_cursor;
+return 1
+end function
+

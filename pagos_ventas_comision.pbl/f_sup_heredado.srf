@@ -1,0 +1,21 @@
+﻿global type f_sup_heredado from function_object
+end type
+
+forward prototypes
+global function integer f_sup_heredado (string as_codigo)
+end prototypes
+
+global function integer f_sup_heredado (string as_codigo);long	ll_sup_here
+
+//f_sup_heredado(as_codigo)
+SELECT	count("SUPERVISOR_HEREDADO"."COD_SUP")  
+INTO 		:ll_sup_here  
+FROM 	"SUPERVISOR_HEREDADO"  
+WHERE 	( "SUPERVISOR_HEREDADO"."COD_SUP" = :as_codigo ) AND  
+			( "SUPERVISOR_HEREDADO"."CORREL" = 1 ) AND  
+			( "SUPERVISOR_HEREDADO"."ESTADO" = 'V' )
+USING	sqlca;
+if isnull(ll_sup_here) or ll_sup_here=0 then ll_sup_here=0
+Return ll_sup_here
+end function
+

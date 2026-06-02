@@ -1,0 +1,20 @@
+﻿global type f_dejar_nulo_print_usuario from function_object
+end type
+
+forward prototypes
+global subroutine f_dejar_nulo_print_usuario (string as_ip, string as_user)
+end prototypes
+
+global subroutine f_dejar_nulo_print_usuario (string as_ip, string as_user);UPDATE	"CUPONERAS_DETALLE"  
+SET 		"IP_PRINT" = null,   
+			"USUARIO_PRINT" = null  
+WHERE  ( "CUPONERAS_DETALLE"."IP_PRINT" = :as_ip ) AND  
+    	 ( "CUPONERAS_DETALLE"."USUARIO_PRINT" = :as_user )   
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	commit;
+else
+	rollback;
+end if
+end subroutine
+

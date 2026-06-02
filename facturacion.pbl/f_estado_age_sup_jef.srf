@@ -1,0 +1,22 @@
+﻿global type f_estado_age_sup_jef from function_object
+end type
+
+forward prototypes
+global function string f_estado_age_sup_jef (string cod, integer tipo)
+end prototypes
+
+global function string f_estado_age_sup_jef (string cod, integer tipo);string estado
+
+setnull(estado)
+
+CHOOSE CASE tipo
+	CASE 1
+		SELECT "AGENTES"."ESTADO" INTO :estado FROM "AGENTES" WHERE "AGENTES"."COD_AGE" = :cod   ;
+	CASE 2
+		  SELECT "SUPERVISOR"."ESTADO" INTO :estado FROM "SUPERVISOR" WHERE "SUPERVISOR"."COD_SUP" = :cod   ;
+	CASE 3
+		  SELECT "JEFE_VENTAS"."ESTADO" INTO :estado FROM "JEFE_VENTAS" WHERE "JEFE_VENTAS"."JEFE_VENTAS" = :cod   ;
+END CHOOSE
+return (estado)
+end function
+

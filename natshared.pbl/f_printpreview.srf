@@ -1,0 +1,41 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Habilita el modo Preview de DW Class - BLScript~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_printpreview from function_object
+end type
+
+forward prototypes
+global function datawindow f_printpreview (string as_rpt, string as_name)
+end prototypes
+
+global function datawindow f_printpreview (string as_rpt, string as_name);/* f_PrintPreview( as_rpt, as_name ) */
+DataWindow	ldw_1
+w_arch_gen_preview	lw_rpt
+
+
+OpenSheet( lw_rpt, gw_frame )
+ldw_1 = lw_rpt.dw_1 
+
+ldw_1.SetRedraw( False )
+ldw_1.DataObject = as_rpt
+ldw_1.SetTransObject( SqlCa )
+
+ldw_1.Modify("DataWindow.ReadOnly=YES")
+ldw_1.Modify("DataWindow.print.preview=YES")
+
+If as_name = '' Then
+	as_name = ldw_1.Describe( 'DataWindow.Print.DocumentName' )
+End If
+
+If as_name = '' Then 
+	as_name = 'Documento'
+End If
+
+lw_rpt.Title = 'Vista Previa: '+ as_name
+as_name = gs_aplicacion + ' - ' + as_name
+
+ldw_1.Modify( 'DataWindow.Print.DocumentName = "' + as_name + '"' )
+ldw_1.SetRedraw( True )
+
+Return ldw_1
+
+end function
+

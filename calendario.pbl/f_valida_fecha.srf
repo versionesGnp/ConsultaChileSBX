@@ -1,0 +1,15 @@
+﻿global type f_valida_fecha from function_object
+end type
+
+forward prototypes
+global function integer f_valida_fecha (string fecha)
+end prototypes
+
+global function integer f_valida_fecha (string fecha);if fecha='00/00/0000' then
+	messagebox(gs_app_name,"La fecha no puede ser '00/00/0000'.",information!)
+	return -1
+else
+	return 1
+end if	
+end function
+

@@ -1,0 +1,78 @@
+﻿global type f_sap_correo_validacion from function_object
+end type
+
+forward prototypes
+global function string f_sap_correo_validacion (string as_tipo, string as_texto, long al_cod_parque, string as_codigo)
+end prototypes
+
+global function string f_sap_correo_validacion (string as_tipo, string as_texto, long al_cod_parque, string as_codigo);string	ls_nombre_user,ls_email_de,ls_depto,ls_email_para,ls_descrip_depto,ls_glosa,ls_parque,ls_glosa_email,ls_cargo,ls_nombre,ls_res
+
+//f_sap_correo_validacion(as_tipo,as_texto,al_cod_parque,as_codigo)
+
+SELECT	"NOMBRE",			"EMAIL" 
+INTO		:ls_nombre_user,	:ls_email_de 
+FROM		"ENCARGADOS"  
+WHERE	"ENCARGADOS"."CODIGO_USUARIO" = :gs_user 
+USING		sqlca;			
+if isnull(ls_email_de) or ls_email_de='-' or ls_email_de='' then
+	ls_email_de				= 'consulta@nuestrosparques.cl'
+end if
+
+SELECT 	"NOMBRE"
+INTO		:ls_parque
+FROM 	"COD_PARQ"  
+WHERE	"COD_PARQ"."CODIGO" = :al_cod_parque
+USING	sqlca;
+
+
+if as_tipo = 'U' then		//UBS
+	ls_depto					= 'G'
+elseif as_tipo = 'C' then	//CARGO
+	ls_depto					= 'D'
+end if
+
+SELECT	"CORREO",			"DEPTO_DESCRIP"
+INTO		:ls_email_para,		:ls_descrip_depto
+FROM 	"SAP_CORREO_VALIDACIONES"  
+WHERE 	( "SAP_CORREO_VALIDACIONES"."DEPTO" = :ls_depto ) AND  
+         	( "SAP_CORREO_VALIDACIONES"."ESTADO" = 'A' )
+USING	sqlca;
+
+if as_tipo = 'U' then		//UBS
+	ls_glosa					= 'Disponibilizar Material en SAP " '+as_texto+' Parque '+ls_parque
+	ls_glosa_email 			= 'Estimados '+ls_descrip_depto+', Se solicita '+ ls_glosa+ ' Atentamente,  '+ls_nombre_user
+	
+elseif as_tipo = 'C' then	//CARGO
+	if as_texto='AGE' then
+		ls_cargo				= 'Agente'
+		SELECT	"NOMBRE"||' '||"A_PATERNO"||' '||"A_MATERNO"
+		INTO		:ls_nombre	
+		FROM		"AGENTES"  
+		WHERE	"AGENTES"."COD_AGE" = :as_codigo
+		USING	sqlca;
+	elseif as_texto='SUP' then
+		ls_cargo				= 'Supervisor'
+		SELECT	"NOMBRE"||' '||"A_PATERNO"||' '||"A_MATERNO"
+		INTO		:ls_nombre	
+		FROM		"SUPERVISOR"  
+		WHERE	"SUPERVISOR"."COD_SUP" = :as_codigo
+		USING	sqlca;
+	elseif as_texto='JEF' then
+		ls_cargo				= 'Jefe Ventas'
+		SELECT	"NOMBRE"||' '||"A_PATERNO"||' '||"A_MATERNO"
+		INTO		:ls_nombre	
+		FROM		"JEFE_VENTAS"  
+		WHERE	"JEFE_VENTAS"."JEFE_VENTAS" = :as_codigo
+		USING	sqlca;
+	end if
+	ls_glosa					= 'Reconocimiento '+ls_cargo+' en SAP'
+	ls_glosa_email 			= 'Estimados '+ls_descrip_depto+', Se solicita '+ ls_glosa+', '+as_codigo+'-'+ls_nombre+'     Atentamente, '+ls_nombre_user 
+end if
+
+SELECT	EnviarMail(:ls_email_de,:ls_email_para,:ls_glosa,:ls_glosa_email) 
+INTO 		:ls_res
+FROM		DUAL;
+
+return		ls_res
+end function
+

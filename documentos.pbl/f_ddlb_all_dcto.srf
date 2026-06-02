@@ -1,0 +1,57 @@
+﻿//objectcomments Carga registros en DDLB
+global type f_ddlb_all_dcto from function_object
+end type
+
+forward prototypes
+global function integer f_ddlb_all_dcto (ref dropdownlistbox ddlb_param, string select_string, string codigo_param)
+end prototypes
+
+global function integer f_ddlb_all_dcto (ref dropdownlistbox ddlb_param, string select_string, string codigo_param);
+STRING ls_codigo,ls_nombre,ls_item, ls_item_buscado,apellido
+
+//"SELECT codigo,descripcion FROM tabla "
+
+STRING Blancos,Ceros
+INT li_pos //posición buscada
+
+Blancos	= Space(180)
+Ceros		= "0000000000"
+
+PREPARE sqlsa FROM :select_string;
+DECLARE dyn_cursor DYNAMIC CURSOR FOR sqlsa;
+OPEN DYNAMIC dyn_cursor;  
+
+IF sqlca.sqlcode < 0 THEN
+	MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_ddlb_all()")
+	Return -1
+END IF
+
+ddlb_param.SetRedraw(FALSE)
+ddlb_param.Reset( )
+
+Do While sqlca.sqlcode = 0
+	Fetch dyn_cursor into :ls_codigo;
+	If sqlca.sqlcode = 0 Then
+		IF NOT ISNULL(ls_codigo) THEN//LONG(ls_codigo) <> 0 THEN
+			ls_item = ls_codigo
+			ddlb_param.AddItem(ls_item)
+//			If LONG(ls_codigo) = codigo_param Then
+//				ls_item_buscado = ls_item
+//			End If
+		END IF
+	ElseIf sqlca.sqlcode < 0 Then
+		MessageBox(gs_app_name,"DataBase Error!.~n~n"+sqlca.sqlerrtext+".~n~nf_ddlb_all()")
+		Return -1
+	Else
+		Exit
+	End If
+Loop
+
+ddlb_param.Sorted = TRUE
+ddlb_param.SetRedraw(TRUE)
+li_pos = ddlb_param.FindItem(ls_item_buscado, 0)
+
+Close dyn_cursor;
+Return li_pos
+end function
+

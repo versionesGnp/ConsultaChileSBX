@@ -1,0 +1,24 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: convierte a nombre del día de la semana~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_dayname from function_object
+end type
+
+forward prototypes
+global function string f_dayname (datetime ad_convertir)
+end prototypes
+
+global function string f_dayname (datetime ad_convertir);/* f_DayName( ad_convertir )
+	Retorna el nombre de una fecha DateTime */
+Date		ld_convertir
+Int		li_day
+String	ls_dia
+
+
+ld_convertir = Date( ad_convertir )
+
+li_day = f_Zero( DayNumber( ld_convertir ) ) 
+
+ls_dia = f_Dia( li_day )
+
+Return ls_dia 
+end function
+

@@ -1,0 +1,63 @@
+﻿global type f_monto_ingr_cierre from function_object
+end type
+
+forward prototypes
+global function double f_monto_ingr_cierre (string as_base, string as_serie, double adb_numero, datetime adt_fec_term)
+end prototypes
+
+global function double f_monto_ingr_cierre (string as_base, string as_serie, double adb_numero, datetime adt_fec_term);double	ldb_monto_ch=0,ldb_monto_ef=0,ldb_monto_ser=0,ldb_suma=0
+
+//f_monto_ingr_cierre(as_base,as_serie,al_numero,adt_fec_term)
+//SELECT 	sum("DOCUMENTOS"."MONTO")
+//INTO		:ldb_monto_ch
+//FROM 	"DOCUMENTOS",	"INGRESO"  
+//WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO" and  
+//			"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and  
+//			"DOCUMENTOS"."FECHA_PAGO" = "INGRESO"."FECHA_PAGO" and  
+//			//( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'BE') AND
+//			"INGRESO"."BASE" = :as_base AND  
+//			"INGRESO"."SERIE" = :as_serie AND  
+//			"INGRESO"."CONTRATO" = :adb_numero AND
+//			"INGRESO"."FECHA_PAGO" <= :adt_fec_term AND  
+//			//"DOCUMENTOS"."FECHA_VENC" <= :adt_fec_term AND  
+//			( "DOCUMENTOS"."ESTADO_CH" = 'C' OR "DOCUMENTOS"."ESTADO_CH" = 'V') AND  
+//			"DOCUMENTOS"."COD_PAGO" = 'CH' AND  
+//			( "INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+//USING	sqlca;
+//if isnull(ldb_monto_ch) then ldb_monto_ch=0
+//
+//SELECT	sum("DOCUMENTOS"."MONTO")
+//INTO		:ldb_monto_ef
+//FROM 	"DOCUMENTOS",	"INGRESO"  
+//WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO" and  
+//			"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and  
+//			"DOCUMENTOS"."FECHA_PAGO" = "INGRESO"."FECHA_PAGO" and  
+//			//( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'BE') AND
+//			"INGRESO"."BASE" = :as_base AND  
+//			"INGRESO"."SERIE" = :as_serie AND  
+//			"INGRESO"."CONTRATO" = :adb_numero AND  
+//			"INGRESO"."FECHA_PAGO" <= :adt_fec_term AND  
+//			( "DOCUMENTOS"."ESTADO_CH" = 'C' OR "DOCUMENTOS"."ESTADO_CH" = 'V') AND  
+//			"DOCUMENTOS"."COD_PAGO" <> 'CH' AND  
+//			( "INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+//USING	sqlca;
+//if isnull(ldb_monto_ef) then ldb_monto_ef=0
+		
+SELECT	sum("INGRESO"."MONTO")
+INTO		:ldb_monto_ser
+FROM		"INGRESO"  
+WHERE	"INGRESO"."BASE" = :as_base AND  
+			"INGRESO"."SERIE" = :as_serie AND  
+			"INGRESO"."CONTRATO" = :adb_numero AND  
+			"INGRESO"."FECHA_PAGO" <= :adt_fec_term AND  
+		 	//( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'BE') AND
+		 	//( "INGRESO"."COD_CAJA" = 'XX' OR "INGRESO"."COD_CAJA" = 'XY' OR "INGRESO"."COD_CAJA" = 'XZ' )  AND  
+		 	( "INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A' ) and
+			 "INGRESO"."PAGO_HIST" = 'A'
+USING	sqlca;
+if isnull(ldb_monto_ser) then ldb_monto_ser=0
+ldb_suma									= ldb_monto_ch + ldb_monto_ef + ldb_monto_ser
+if isnull(ldb_suma) then ldb_suma=0
+return ldb_suma
+end function
+

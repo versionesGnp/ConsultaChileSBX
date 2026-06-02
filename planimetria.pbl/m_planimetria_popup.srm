@@ -1,0 +1,638 @@
+﻿forward
+global type m_planimetria_popup from menu
+end type
+type m_popup from menu within m_planimetria_popup
+end type
+type m_datoscliente from menu within m_popup
+end type
+type m_datoscontrato from menu within m_popup
+end type
+type m_cuentacorriente from menu within m_popup
+end type
+type m_- from menu within m_popup
+end type
+type m_detallesepultura from menu within m_popup
+end type
+type m_sepulturasindividuales from menu within m_popup
+end type
+type m_ingresodereserva from menu within m_popup
+end type
+type m_0 from menu within m_popup
+end type
+type m_liberarsepulturadelapromnesa from menu within m_popup
+end type
+type m_historicoreservasporsepult from menu within m_popup
+end type
+type m_listarsector from menu within m_popup
+end type
+type m_distribuciónfallecidos from menu within m_popup
+end type
+type m_fallecidos from menu within m_popup
+end type
+type m_popup from menu within m_planimetria_popup
+m_datoscliente m_datoscliente
+m_datoscontrato m_datoscontrato
+m_cuentacorriente m_cuentacorriente
+m_- m_-
+m_detallesepultura m_detallesepultura
+m_sepulturasindividuales m_sepulturasindividuales
+m_ingresodereserva m_ingresodereserva
+m_0 m_0
+m_liberarsepulturadelapromnesa m_liberarsepulturadelapromnesa
+m_historicoreservasporsepult m_historicoreservasporsepult
+m_listarsector m_listarsector
+m_distribuciónfallecidos m_distribuciónfallecidos
+m_fallecidos m_fallecidos
+end type
+global type m_planimetria_popup from menu
+m_popup m_popup
+end type
+end forward
+
+global type m_planimetria_popup from menu
+m_popup m_popup
+end type
+global m_planimetria_popup m_planimetria_popup
+
+type variables
+datawindow dw_paso_menu
+
+end variables
+
+on m_planimetria_popup.create
+m_planimetria_popup=this
+call super::create
+this.text = "m_planimetria_popup"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_popup=create m_popup
+this.Item[UpperBound(this.Item)+1]=this.m_popup
+end on
+
+on m_planimetria_popup.destroy
+call super::destroy
+destroy(this.m_popup)
+end on
+
+type m_popup from menu within m_planimetria_popup
+m_datoscliente m_datoscliente
+m_datoscontrato m_datoscontrato
+m_cuentacorriente m_cuentacorriente
+m_- m_-
+m_detallesepultura m_detallesepultura
+m_sepulturasindividuales m_sepulturasindividuales
+m_ingresodereserva m_ingresodereserva
+m_0 m_0
+m_liberarsepulturadelapromnesa m_liberarsepulturadelapromnesa
+m_historicoreservasporsepult m_historicoreservasporsepult
+m_listarsector m_listarsector
+m_distribuciónfallecidos m_distribuciónfallecidos
+m_fallecidos m_fallecidos
+end type
+
+on m_popup.create
+call super::create
+this.text = "Popup"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_datoscliente=create m_datoscliente
+this.m_datoscontrato=create m_datoscontrato
+this.m_cuentacorriente=create m_cuentacorriente
+this.m_-=create m_-
+this.m_detallesepultura=create m_detallesepultura
+this.m_sepulturasindividuales=create m_sepulturasindividuales
+this.m_ingresodereserva=create m_ingresodereserva
+this.m_0=create m_0
+this.m_liberarsepulturadelapromnesa=create m_liberarsepulturadelapromnesa
+this.m_historicoreservasporsepult=create m_historicoreservasporsepult
+this.m_listarsector=create m_listarsector
+this.m_distribuciónfallecidos=create m_distribuciónfallecidos
+this.m_fallecidos=create m_fallecidos
+this.Item[UpperBound(this.Item)+1]=this.m_datoscliente
+this.Item[UpperBound(this.Item)+1]=this.m_datoscontrato
+this.Item[UpperBound(this.Item)+1]=this.m_cuentacorriente
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_detallesepultura
+this.Item[UpperBound(this.Item)+1]=this.m_sepulturasindividuales
+this.Item[UpperBound(this.Item)+1]=this.m_ingresodereserva
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_liberarsepulturadelapromnesa
+this.Item[UpperBound(this.Item)+1]=this.m_historicoreservasporsepult
+this.Item[UpperBound(this.Item)+1]=this.m_listarsector
+this.Item[UpperBound(this.Item)+1]=this.m_distribuciónfallecidos
+this.Item[UpperBound(this.Item)+1]=this.m_fallecidos
+end on
+
+on m_popup.destroy
+call super::destroy
+destroy(this.m_datoscliente)
+destroy(this.m_datoscontrato)
+destroy(this.m_cuentacorriente)
+destroy(this.m_-)
+destroy(this.m_detallesepultura)
+destroy(this.m_sepulturasindividuales)
+destroy(this.m_ingresodereserva)
+destroy(this.m_0)
+destroy(this.m_liberarsepulturadelapromnesa)
+destroy(this.m_historicoreservasporsepult)
+destroy(this.m_listarsector)
+destroy(this.m_distribuciónfallecidos)
+destroy(this.m_fallecidos)
+end on
+
+event clicked;//open(w_solicitud_reserva)
+end event
+
+type m_datoscliente from menu within m_popup
+end type
+
+event clicked;if not isnull(gs_base) and gi_numero>0 and gi_rut>0 then
+	w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+	Open(w_datos_cliente)
+end if
+end event
+
+on m_datoscliente.create
+call super::create
+this.text = "Datos Cliente"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_datoscliente.destroy
+call super::destroy
+end on
+
+type m_datoscontrato from menu within m_popup
+end type
+
+event clicked;
+CHOOSE CASE gs_base
+	CASE "O","U"	 // Oferta/Columbario
+		w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+		Open(w_datos_contrato_oferta)
+	CASE "C" // Contrato ISA
+		w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+		Open(w_datos_contrato_isa)
+END CHOOSE
+
+end event
+
+on m_datoscontrato.create
+call super::create
+this.text = "Datos Contrato"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_datoscontrato.destroy
+call super::destroy
+end on
+
+type m_cuentacorriente from menu within m_popup
+end type
+
+event clicked;//gi_tipo_busqueda = 8// busqueda por numero
+//gi_tipo_busqueda = 1// busqueda por rut
+
+//Open(w_listado_contratos)
+CHOOSE CASE gs_base
+	CASE "O","U" 	// Oferta/columbario
+		w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+		Open(w_cuenta_corriente_oferta)
+	CASE "C" 	// Contrato ISA
+		w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+		Open(w_cuenta_corriente_contrato_isa)
+END CHOOSE
+end event
+
+on m_cuentacorriente.create
+call super::create
+this.text = "Cuenta Corriente"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_cuentacorriente.destroy
+call super::destroy
+end on
+
+type m_- from menu within m_popup
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_detallesepultura from menu within m_popup
+event clicked ( )
+end type
+
+event clicked;w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+open(w_detalle_sepultura)
+
+end event
+
+on m_detallesepultura.create
+call super::create
+this.text = "Detalle Sepultura"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_detallesepultura.destroy
+call super::destroy
+end on
+
+type m_sepulturasindividuales from menu within m_popup
+end type
+
+event clicked;long contrato
+integer parque
+
+parque 	= integer(w_plano_sector_parque.st_parque.text)
+
+w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+
+SELECT 	"INVENTARIO_PLANI"."NUMERO" 
+INTO 		:contrato  
+FROM 	"INVENTARIO_PLANI"  
+WHERE 	( "INVENTARIO_PLANI"."SECTOR"     = :gs_sector ) AND  
+  	   		( "INVENTARIO_PLANI"."SEPULTURA"  = :gs_sepultura ) AND
+			( "INVENTARIO_PLANI"."COD_PARQUE" = :parque );
+if contrato >= 10000000 then
+	OpenWithParm(w_sepul_const_m12,gs_sepultura)
+else
+	messagebox('No Corresponde', 'No es una Sepultura Individual.',stopsign!)
+	w_plano_sector_parque.dw_plano_sector_parque.enabled = true
+end if
+end event
+
+on m_sepulturasindividuales.create
+call super::create
+this.text = "Sepulturas Individuales"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_sepulturasindividuales.destroy
+call super::destroy
+end on
+
+type m_ingresodereserva from menu within m_popup
+end type
+
+on m_ingresodereserva.create
+call super::create
+this.visible = false
+this.text = "Solicitud de Reserva"
+this.toolbaritemvisible = false
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ingresodereserva.destroy
+call super::destroy
+end on
+
+event clicked;long contrato,ll_obj, parque
+
+
+parque 	= integer(w_plano_sector_parque.st_parque.text)
+SELECT	count("PERFIL_USUARIO"."CORRELATIVO_OBJETO")  
+INTO 		:ll_obj  
+FROM 	"PERFIL_USUARIO"  
+WHERE 	( "PERFIL_USUARIO"."USUARIO" = :gs_user ) AND  
+		   	( "PERFIL_USUARIO"."CORRELATIVO_OBJETO" = '2154' )   
+USING	sqlca;
+if ll_obj > 0 then
+	messagebox("Advertencia","Ud. no está Autorizado a Reservar")
+else
+	w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+	//open(w_solicitud_reserva)
+	SELECT	"INVENTARIO_PLANI"."NUMERO" 
+	INTO 		:contrato  
+	FROM 	"INVENTARIO_PLANI"  
+	WHERE ( "INVENTARIO_PLANI"."SECTOR" = :gs_sector ) AND  
+			  ( "INVENTARIO_PLANI"."SEPULTURA"  = :gs_sepultura )  and ("INVENTARIO_PLANI"."COD_PARQUE" = :parque) ;
+	if contrato >= 10000000 then
+		OpenWithParm(w_sepul_const_m12,gs_sepultura)
+	else
+		OpenWithParm(w_solicitud_reserva,gs_sepultura)				
+	end if
+end if
+end event
+
+type m_0 from menu within m_popup
+end type
+
+event clicked;w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+open(w_listado_reservas)
+end event
+
+on m_0.create
+call super::create
+this.text = "Listar Reservas del Sector"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+type m_liberarsepulturadelapromnesa from menu within m_popup
+end type
+
+event clicked;open(w_libera_sepultura)
+end event
+
+on m_liberarsepulturadelapromnesa.create
+call super::create
+this.text = "Liberar Sepultura de la Promesa"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_liberarsepulturadelapromnesa.destroy
+call super::destroy
+end on
+
+type m_historicoreservasporsepult from menu within m_popup
+end type
+
+event clicked;
+w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+open(w_log_reservas)
+end event
+
+on m_historicoreservasporsepult.create
+call super::create
+this.text = "Historico Reservas por Sepult."
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_historicoreservasporsepult.destroy
+call super::destroy
+end on
+
+type m_listarsector from menu within m_popup
+end type
+
+on m_listarsector.create
+call super::create
+this.text = "Listar Sector"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_listarsector.destroy
+call super::destroy
+end on
+
+event clicked;w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+Open(w_lista_inv_plani)
+
+end event
+
+type m_distribuciónfallecidos from menu within m_popup
+end type
+
+event clicked;//w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+//open(w_ubs_por_sep)
+end event
+
+on m_distribuciónfallecidos.create
+call super::create
+this.text = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_distribuciónfallecidos.destroy
+call super::destroy
+end on
+
+type m_fallecidos from menu within m_popup
+event clicked ( )
+end type
+
+event clicked;w_plano_sector_parque.dw_plano_sector_parque.enabled = false
+Open(w_listado_fallecidos)
+
+end event
+
+on m_fallecidos.create
+call super::create
+this.text = "Fallecidos"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_fallecidos.destroy
+call super::destroy
+end on
+

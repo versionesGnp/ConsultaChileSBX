@@ -1,0 +1,30 @@
+﻿global type f_buscar_parque_por_agente from function_object
+end type
+
+forward prototypes
+global function string f_buscar_parque_por_agente (string as_agente)
+end prototypes
+
+global function string f_buscar_parque_por_agente (string as_agente);String	ls_parque
+Long		ll_cod_parque
+
+SELECT	"AGENTES"."COD_PARQUE"  
+INTO 		:ll_cod_parque  
+FROM 		"AGENTES"  
+WHERE 	"AGENTES"."COD_AGE" = :as_agente   
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	SELECT	"COD_PARQ"."NOMBRE"  
+	INTO 		:ls_parque  
+	FROM 		"COD_PARQ"  
+	WHERE 	"COD_PARQ"."CODIGO" = :ll_cod_parque   
+	USING		sqlca;
+	if sqlca.sqlcode<>0 then
+		ls_parque	= 'XXX'
+	end if
+else
+	ls_parque		= 'XXX'
+end if
+return ls_parque
+end function
+

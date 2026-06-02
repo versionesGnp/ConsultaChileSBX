@@ -1,0 +1,296 @@
+﻿global type f_retornar_monto_sap from function_object
+end type
+
+forward prototypes
+global function double f_retornar_monto_sap (string as_base, string as_serie, double al_numero, string as_rezago, string as_tipo_cob, long al_folio, datetime adt_fecha_pago, string as_tipo_mov, double al_monto, double adb_valor_uf, string as_cod_otro, long al_nro_cta_pag)
+end prototypes
+
+global function double f_retornar_monto_sap (string as_base, string as_serie, double al_numero, string as_rezago, string as_tipo_cob, long al_folio, datetime adt_fecha_pago, string as_tipo_mov, double al_monto, double adb_valor_uf, string as_cod_otro, long al_nro_cta_pag);Double	ldb_monto_sap
+String		ls_moneda,ls_tipo_deuda
+
+if as_rezago = 'S' then
+	SELECT 	"CLIENTE_REZAGO"."MONEDA"  
+	INTO 		:ls_moneda  
+	FROM 	"CLIENTE_REZAGO"  
+	WHERE ( "CLIENTE_REZAGO"."COD_PAGO" = :as_tipo_cob ) AND  
+			  ( "CLIENTE_REZAGO"."FOLIO" = :al_folio ) AND  
+			  ( "CLIENTE_REZAGO"."FECHA_PAGO" = :adt_fecha_pago )   
+	USING	sqlca;
+	if sqlca.sqlcode=0 then
+		if isnull(ls_moneda) or ls_moneda='' then ls_moneda=gs_moneda_rezago
+		if ls_moneda='2' then
+			if as_tipo_mov='A' or as_tipo_mov='Q' or as_tipo_mov='E' or as_tipo_mov='U' or as_tipo_mov='K' or as_tipo_mov='F' or as_tipo_mov='M' then
+				ldb_monto_sap			= Round(al_monto / adb_valor_uf,4)
+			else
+				ldb_monto_sap			= al_monto / adb_valor_uf
+			end if
+		else
+			ldb_monto_sap				= al_monto
+		end if
+	else
+		if as_tipo_mov='E' or as_tipo_mov='U' then
+			ldb_monto_sap				= f_retorna_valor_cuota_s(as_base, as_serie, al_numero)
+		else
+			ldb_monto_sap				= 0
+		end if
+		if ldb_monto_sap = 0 then
+			if isnull(ls_moneda) or ls_moneda='' then ls_moneda=gs_moneda_rezago
+			if ls_moneda='2' then
+				if as_tipo_mov='A' or as_tipo_mov='Q' or as_tipo_mov='E' or as_tipo_mov='U' or as_tipo_mov='K' or as_tipo_mov='F' or as_tipo_mov='M' then
+					ldb_monto_sap			= Round(al_monto / adb_valor_uf,4)
+				else
+					ldb_monto_sap			= al_monto / adb_valor_uf
+				end if
+			else
+				ldb_monto_sap				= al_monto
+			end if
+		end if
+	end if
+else
+	SELECT 	"COD_MOVI"."TIPO_DEUDA_SAP"  
+	INTO 		:ls_tipo_deuda  
+	FROM 	"COD_MOVI"  
+	WHERE 	"COD_MOVI"."COD_ING" = :as_tipo_mov 
+	USING	sqlca;
+	if ls_tipo_deuda = 'C' then
+		SELECT "SAP_CADENA"."MONEDA"  
+		INTO 		:ls_moneda  
+		FROM 	"SAP_CADENA"  
+		WHERE ( "SAP_CADENA"."BASE" = :as_base ) AND  
+				   ( "SAP_CADENA"."SERIE" = :as_serie ) AND  
+				   ( "SAP_CADENA"."NUMERO" = :al_numero ) AND  
+				   ( "SAP_CADENA"."TIPO_DEUDA" = :ls_tipo_deuda or "SAP_CADENA"."TIPO_DEUDA" = 'E' )  
+		USING	sqlca;
+		if ls_moneda='UF' then ls_moneda='2'
+		if ls_moneda='CLP' then ls_moneda='1'
+		if ls_moneda='USD' then ls_moneda='1'
+		if isnull(ls_moneda) or ls_moneda='' then
+			if as_base = 'O' or as_base='U' then
+				SELECT 	"PAGO_OFERTA"."MONEDA"  
+				INTO    	:ls_moneda
+				FROM  	 "CADENA", "OFERTA_V",   "PAGO_OFERTA"  
+				WHERE   ( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+							( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+							( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+							( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+							( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+							( ( "CADENA"."CODIGO" = :as_base ) AND  
+							( "CADENA"."SERIE" = :as_serie ) AND  
+							( "CADENA"."NUMERO" = :al_numero ) )   ;
+			elseif as_base = 'P' then
+				SELECT 	"PAGARE"."MONEDA"  
+				INTO    	:ls_moneda
+				FROM  	"CADENA",  "PAGARE"  
+				WHERE 	( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+							( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+							( ( "CADENA"."CODIGO" = :as_base ) AND  
+							( "CADENA"."SERIE" = :as_serie ) AND  
+							( "CADENA"."NUMERO" = :al_numero ) )   ;
+			elseif as_base = 'C' then
+				SELECT "CONTRATO"."MONEDA"  
+				INTO    :ls_moneda
+				FROM   "CONTRATO",   "CADENA"  
+				WHERE ( "CONTRATO"."SERIE_C" = "CADENA"."SERIE" ) and  
+							( "CONTRATO"."NRO_CONTRATO" = "CADENA"."NUMERO" ) and  
+							(( "CADENA"."CODIGO" = :as_base ) AND  
+							( "CADENA"."SERIE" = :as_serie ) AND  
+							( "CADENA"."NUMERO" = :al_numero ) )   ;
+			elseif as_base = 'D' then
+				SELECT 	"DERECHO"."MONEDA" 
+				INTO    	:ls_moneda
+				FROM   	"CADENA",   "DERECHO"  
+				WHERE ( "CADENA"."SERIE" = "DERECHO"."SERIE_P" ) and  
+							( "CADENA"."NUMERO" = "DERECHO"."NRO_PAGARE" ) and  
+							( ( "CADENA"."CODIGO" = :as_base ) AND  
+							( "CADENA"."SERIE" = :as_serie ) AND  
+							( "CADENA"."NUMERO" = :al_numero ) )   ;
+			elseif as_base = 'L' then
+				SELECT 	"PAGO_LIBERADOR"."MONEDA"  
+				INTO    	:ls_moneda
+				FROM   	"ANEXO_LIBERADOR",  "CADENA",  "PAGO_LIBERADOR"  
+				WHERE ( "PAGO_LIBERADOR"."SERIE_M" = "ANEXO_LIBERADOR"."SERIE_M" ) and  
+							( "PAGO_LIBERADOR"."NRO_LIBERADOR" = "ANEXO_LIBERADOR"."NRO_LIBERADOR" ) and  
+							( "PAGO_LIBERADOR"."FOLIO" = "ANEXO_LIBERADOR"."ULT_FOLIO" ) and  
+							( "ANEXO_LIBERADOR"."SERIE_M" = "CADENA"."SERIE" ) and  
+							( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "CADENA"."NUMERO" ) and  
+							( ( "CADENA"."CODIGO" = :as_base ) AND  
+							( "CADENA"."SERIE" = :as_serie ) AND  
+							( "CADENA"."NUMERO" = :al_numero ) )     ;
+			elseif as_base = 'A' then
+				SELECT 	"PAGO_AUMENTO"."MONEDA"  
+				INTO    	:ls_moneda
+				FROM   	"CADENA","ANEXO_AUMENTO","PAGO_AUMENTO"  
+				WHERE ( "PAGO_AUMENTO"."SERIE_M" = "ANEXO_AUMENTO"."SERIE_M" ) and  
+							( "PAGO_AUMENTO"."NRO_AUMENTO" = "ANEXO_AUMENTO"."NRO_AUMENTO" ) and  
+							( "PAGO_AUMENTO"."FOLIO" = "ANEXO_AUMENTO"."ULT_FOLIO" ) and  
+							( "ANEXO_AUMENTO"."SERIE_M" = "CADENA"."SERIE" ) and  
+							( "ANEXO_AUMENTO"."NRO_AUMENTO" = "CADENA"."NUMERO" ) and  
+							( ( "CADENA"."CODIGO" = :as_base ) AND  
+							( "CADENA"."SERIE" = :as_serie ) AND  
+							( "CADENA"."NUMERO" = :al_numero ) )    ;
+			elseif as_base = 'R' then
+				SELECT  	"REPACTA_MANTENCION"."TIPO_MONEDA"  
+				INTO    	:ls_moneda
+				FROM    "CADENA",   "REPACTA_MANTENCION"  
+				WHERE ( "CADENA"."SERIE" = "REPACTA_MANTENCION"."SERIE" ) and  
+							( "CADENA"."CODIGO" = "REPACTA_MANTENCION"."BASE" ) and  
+							( "CADENA"."NUMERO" = "REPACTA_MANTENCION"."NUMERO" ) and  
+							( ( "CADENA"."CODIGO" = :as_base ) AND  
+							( "CADENA"."SERIE" = :as_serie ) AND  
+							( "CADENA"."NUMERO" = :al_numero ) )   ;
+			elseif as_base = 'F' or as_base='G' or as_base='V' then
+				SELECT  "PRODUCTO_PAGO"."MONEDA"  
+				INTO    :ls_moneda
+				FROM    "CADENA",   "PRODUCTO_ANEXO",   "PRODUCTO_PAGO"  
+				WHERE ( "CADENA"."SERIE" = "PRODUCTO_ANEXO"."SERIE" ) and  
+							( "CADENA"."NUMERO" = "PRODUCTO_ANEXO"."NUMERO" ) and  
+							( "CADENA"."CODIGO" = "PRODUCTO_ANEXO"."BASE" ) and  
+							( "PRODUCTO_ANEXO"."BASE" = "PRODUCTO_PAGO"."BASE" ) and  
+							( "PRODUCTO_ANEXO"."SERIE" = "PRODUCTO_PAGO"."SERIE" ) and  
+							( "PRODUCTO_ANEXO"."NUMERO" = "PRODUCTO_PAGO"."NUMERO" ) and  
+							( "PRODUCTO_ANEXO"."ULT_FOLIO" = "PRODUCTO_PAGO"."FOLIO" ) and  
+							( ( "CADENA"."CODIGO" = :as_base ) AND  
+							( "CADENA"."SERIE" = :as_serie ) AND  
+							( "CADENA"."NUMERO" = :al_numero ) )    ;
+			else
+				ls_moneda 		= '2'
+			end if
+		end if
+		if ls_moneda = '1' then
+			ldb_monto_sap			= al_monto
+		else
+			if as_tipo_mov='A' or as_tipo_mov='Q' or as_tipo_mov='E' or as_tipo_mov='U' or as_tipo_mov='K' or as_tipo_mov='F' or as_tipo_mov='M' then
+				ldb_monto_sap		= Round(al_monto / adb_valor_uf,4)
+			else
+				ldb_monto_sap		= al_monto / adb_valor_uf
+			end if
+		end if
+	elseif  ls_tipo_deuda = 'M' then
+		if as_tipo_mov='F' then
+			ldb_monto_sap			= Round(al_monto / adb_valor_uf,2)
+		else
+			ldb_monto_sap			= al_monto / adb_valor_uf
+		end if
+	elseif  ls_tipo_deuda = 'S' then
+		if as_tipo_mov='S' then
+			ldb_monto_sap			= al_monto
+		elseif as_tipo_mov='M' then
+			ldb_monto_sap			= Round(al_monto / adb_valor_uf,4)
+		elseif (as_tipo_mov='L' and ( as_cod_otro='3' or as_cod_otro='76')) then
+			SELECT "SAP_CADENA"."MONEDA"  
+			INTO 		:ls_moneda  
+			FROM 	"SAP_CADENA"  
+			WHERE ( "SAP_CADENA"."BASE" = :as_base ) AND  
+						( "SAP_CADENA"."SERIE" = :as_serie ) AND  
+						( "SAP_CADENA"."NUMERO" = :al_numero ) AND  
+						( "SAP_CADENA"."TIPO_DEUDA" = 'C' or  "SAP_CADENA"."TIPO_DEUDA" = 'E' )  
+			USING	sqlca;
+			if ls_moneda='UF' then ls_moneda='2'
+			if ls_moneda='CLP' then ls_moneda='1'
+			if ls_moneda='USD' then ls_moneda='1'
+			if isnull(ls_moneda) or ls_moneda='' then
+				if as_base = 'O' or as_base='U' then
+					SELECT 	"PAGO_OFERTA"."MONEDA"  
+					INTO    	:ls_moneda
+					FROM  	 "CADENA", "OFERTA_V",   "PAGO_OFERTA"  
+					WHERE   ( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+								( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+								( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+								( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+								( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+								( ( "CADENA"."CODIGO" = :as_base ) AND  
+								( "CADENA"."SERIE" = :as_serie ) AND  
+								( "CADENA"."NUMERO" = :al_numero ) )   ;
+				elseif as_base = 'P' then
+					SELECT 	"PAGARE"."MONEDA"  
+					INTO    	:ls_moneda
+					FROM  	"CADENA",  "PAGARE"  
+					WHERE 	( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+								( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+								( ( "CADENA"."CODIGO" = :as_base ) AND  
+								( "CADENA"."SERIE" = :as_serie ) AND  
+								( "CADENA"."NUMERO" = :al_numero ) )   ;
+				elseif as_base = 'C' then
+					SELECT "CONTRATO"."MONEDA"  
+					INTO    :ls_moneda
+					FROM   "CONTRATO",   "CADENA"  
+					WHERE ( "CONTRATO"."SERIE_C" = "CADENA"."SERIE" ) and  
+								( "CONTRATO"."NRO_CONTRATO" = "CADENA"."NUMERO" ) and  
+								(( "CADENA"."CODIGO" = :as_base ) AND  
+								( "CADENA"."SERIE" = :as_serie ) AND  
+								( "CADENA"."NUMERO" = :al_numero ) )   ;
+				elseif as_base = 'D' then
+					SELECT 	"DERECHO"."MONEDA" 
+					INTO    	:ls_moneda
+					FROM   	"CADENA",   "DERECHO"  
+					WHERE ( "CADENA"."SERIE" = "DERECHO"."SERIE_P" ) and  
+								( "CADENA"."NUMERO" = "DERECHO"."NRO_PAGARE" ) and  
+								( ( "CADENA"."CODIGO" = :as_base ) AND  
+								( "CADENA"."SERIE" = :as_serie ) AND  
+								( "CADENA"."NUMERO" = :al_numero ) )   ;
+				elseif as_base = 'L' then
+					SELECT 	"PAGO_LIBERADOR"."MONEDA"  
+					INTO    	:ls_moneda
+					FROM   	"ANEXO_LIBERADOR",  "CADENA",  "PAGO_LIBERADOR"  
+					WHERE ( "PAGO_LIBERADOR"."SERIE_M" = "ANEXO_LIBERADOR"."SERIE_M" ) and  
+								( "PAGO_LIBERADOR"."NRO_LIBERADOR" = "ANEXO_LIBERADOR"."NRO_LIBERADOR" ) and  
+								( "PAGO_LIBERADOR"."FOLIO" = "ANEXO_LIBERADOR"."ULT_FOLIO" ) and  
+								( "ANEXO_LIBERADOR"."SERIE_M" = "CADENA"."SERIE" ) and  
+								( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "CADENA"."NUMERO" ) and  
+								( ( "CADENA"."CODIGO" = :as_base ) AND  
+								( "CADENA"."SERIE" = :as_serie ) AND  
+								( "CADENA"."NUMERO" = :al_numero ) )     ;
+				elseif as_base = 'A' then
+					SELECT 	"PAGO_AUMENTO"."MONEDA"  
+					INTO    	:ls_moneda
+					FROM   	"CADENA","ANEXO_AUMENTO","PAGO_AUMENTO"  
+					WHERE ( "PAGO_AUMENTO"."SERIE_M" = "ANEXO_AUMENTO"."SERIE_M" ) and  
+								( "PAGO_AUMENTO"."NRO_AUMENTO" = "ANEXO_AUMENTO"."NRO_AUMENTO" ) and  
+								( "PAGO_AUMENTO"."FOLIO" = "ANEXO_AUMENTO"."ULT_FOLIO" ) and  
+								( "ANEXO_AUMENTO"."SERIE_M" = "CADENA"."SERIE" ) and  
+								( "ANEXO_AUMENTO"."NRO_AUMENTO" = "CADENA"."NUMERO" ) and  
+								( ( "CADENA"."CODIGO" = :as_base ) AND  
+								( "CADENA"."SERIE" = :as_serie ) AND  
+								( "CADENA"."NUMERO" = :al_numero ) )    ;
+				elseif as_base = 'R' then
+					SELECT  	"REPACTA_MANTENCION"."TIPO_MONEDA"  
+					INTO    	:ls_moneda
+					FROM    "CADENA",   "REPACTA_MANTENCION"  
+					WHERE ( "CADENA"."SERIE" = "REPACTA_MANTENCION"."SERIE" ) and  
+								( "CADENA"."CODIGO" = "REPACTA_MANTENCION"."BASE" ) and  
+								( "CADENA"."NUMERO" = "REPACTA_MANTENCION"."NUMERO" ) and  
+								( ( "CADENA"."CODIGO" = :as_base ) AND  
+								( "CADENA"."SERIE" = :as_serie ) AND  
+								( "CADENA"."NUMERO" = :al_numero ) )   ;
+				elseif as_base = 'F' or as_base='G' or as_base='V' then
+					SELECT  "PRODUCTO_PAGO"."MONEDA"  
+					INTO    :ls_moneda
+					FROM    "CADENA",   "PRODUCTO_ANEXO",   "PRODUCTO_PAGO"  
+					WHERE ( "CADENA"."SERIE" = "PRODUCTO_ANEXO"."SERIE" ) and  
+								( "CADENA"."NUMERO" = "PRODUCTO_ANEXO"."NUMERO" ) and  
+								( "CADENA"."CODIGO" = "PRODUCTO_ANEXO"."BASE" ) and  
+								( "PRODUCTO_ANEXO"."BASE" = "PRODUCTO_PAGO"."BASE" ) and  
+								( "PRODUCTO_ANEXO"."SERIE" = "PRODUCTO_PAGO"."SERIE" ) and  
+								( "PRODUCTO_ANEXO"."NUMERO" = "PRODUCTO_PAGO"."NUMERO" ) and  
+								( "PRODUCTO_ANEXO"."ULT_FOLIO" = "PRODUCTO_PAGO"."FOLIO" ) and  
+								( ( "CADENA"."CODIGO" = :as_base ) AND  
+								( "CADENA"."SERIE" = :as_serie ) AND  
+								( "CADENA"."NUMERO" = :al_numero ) )    ;
+				else
+					ls_moneda 		= '2'
+				end if
+			end if
+			if ls_moneda = '1' then
+				ldb_monto_sap		= al_monto
+			else
+				ldb_monto_sap		= al_monto / adb_valor_uf
+			end if
+		else
+			ldb_monto_sap			= al_monto / adb_valor_uf
+		end if
+	end if
+end if
+if al_nro_cta_pag > 1 then ldb_monto_sap = ldb_monto_sap / al_nro_cta_pag
+Return ldb_monto_sap
+end function
+

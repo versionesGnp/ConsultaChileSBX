@@ -1,0 +1,68 @@
+﻿global type f_valida_precio from function_object
+end type
+
+forward prototypes
+global function string f_valida_precio (string as_tipo_sepultura, string as_area, long al_capacidad, string as_uso, string as_moneda, double ld_valor_uf, string as_tipo_construc, long al_cod_parque, long al_tipo_producto, date ad_fecha_contrato)
+end prototypes
+
+global function string f_valida_precio (string as_tipo_sepultura, string as_area, long al_capacidad, string as_uso, string as_moneda, double ld_valor_uf, string as_tipo_construc, long al_cod_parque, long al_tipo_producto, date ad_fecha_contrato);string		ls_string,ls_descrip_sepult
+Double	ldb_cuota_mant,ldb_precio,ldb_derecho,ldb_mantencion,ldb_liberador,ldb_pie_minimo
+Long		ll_reduccion
+datetime	ldt_fecha_vig
+
+SELECT	MAX("FECHA_VIGENCIA")
+INTO 		:ldt_fecha_vig
+FROM 	"LISTA_PRECIO"
+WHERE	"LISTA_PRECIO"."SECTOR" = :as_area AND  
+		 	"LISTA_PRECIO"."CAPACIDAD" = :al_capacidad AND  
+			"LISTA_PRECIO"."T_CONST" = :as_tipo_construc AND
+			"LISTA_PRECIO"."CANAL" = :as_uso AND  
+			"LISTA_PRECIO"."T_SEPULT" = :as_tipo_sepultura AND 
+			"LISTA_PRECIO"."COD_PARQUE" = :al_cod_parque AND
+			"LISTA_PRECIO"."TIPO_PRODUCTO" = :al_tipo_producto AND
+			"LISTA_PRECIO"."FECHA_VIGENCIA" <= :ad_fecha_contrato
+USING	sqlca;
+if isnull(ldt_fecha_vig) then ldt_fecha_vig = gdt_fec_sistema
+ldt_fecha_vig 		= datetime(date(ldt_fecha_vig),time('00:00:00'))
+SELECT	"LISTA_PRECIO"."VALOR",   
+			"LISTA_PRECIO"."DERECHO",   
+			"LISTA_PRECIO"."MANTENCION",   
+			"LISTA_PRECIO"."LIBERADOR",   
+			"TIPO_SEPULTURA"."DESCRIPCION",
+			"LISTA_PRECIO"."PIE_MINIMO",
+			"LISTA_PRECIO"."REDUCCION"
+INTO 		:ldb_precio,   
+			:ldb_derecho,   
+			:ldb_mantencion,   
+			:ldb_liberador,   
+			:ls_descrip_sepult,
+			:ldb_pie_minimo,
+			:ll_reduccion
+FROM 	"LISTA_PRECIO","TIPO_SEPULTURA"
+WHERE	"LISTA_PRECIO"."T_SEPULT" = "TIPO_SEPULTURA"."TIPO_SEP" and
+			"LISTA_PRECIO"."SECTOR" = :as_area AND  
+		 	"LISTA_PRECIO"."CAPACIDAD" = :al_capacidad AND  
+			"LISTA_PRECIO"."T_CONST" = :as_tipo_construc AND
+			"LISTA_PRECIO"."CANAL" = :as_uso AND  
+			"LISTA_PRECIO"."T_SEPULT" = :as_tipo_sepultura AND 
+			"LISTA_PRECIO"."COD_PARQUE" = :al_cod_parque AND
+			"LISTA_PRECIO"."TIPO_PRODUCTO" = :al_tipo_producto AND
+			to_date("LISTA_PRECIO"."FECHA_VIGENCIA") = to_date(:ldt_fecha_vig)
+USING	sqlca;
+if sqlca.sqlcode=0 then
+	if as_moneda='1' then
+//		ldb_pie_minimo	= round(double(ldb_pie_minimo * ld_valor_uf),0)
+		ldb_precio			= round(double(ldb_precio * ld_valor_uf),0)
+		ldb_derecho			= round(double(ldb_derecho * ld_valor_uf),0)
+//		ldb_mantencion	= double(ldb_mantencion * ld_valor_uf)
+		ldb_liberador		= round(double(ldb_liberador * ld_valor_uf),0)
+		ldb_pie_minimo	= round(double(ldb_pie_minimo * ld_valor_uf),0)
+//		messagebox("Advertencia "+ls_descrip_sepult,"Recuerde que pie minimo es de "+string(ldb_pie_min,"###,###,###,###,###")+" Pesos.")
+	else
+//		messagebox("Advertencia "+ls_descrip_sepult,"Recuerde que pie minimo es de "+string(ldb_pie_min)+" U.F.")
+	end if
+end if
+ls_string	= string(ldb_precio)+'~t'+string(ldb_derecho)+'~t'+string(ldb_mantencion)+'~t'+string(ldb_liberador)+'~t'+string(ldb_pie_minimo)+'~t'+string(ll_reduccion)
+return(ls_string)
+end function
+

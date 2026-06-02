@@ -1,0 +1,21 @@
+﻿global type f_gc_mensaje from function_object
+end type
+
+forward prototypes
+global function string f_gc_mensaje (string as_codigo)
+end prototypes
+
+global function string f_gc_mensaje (string as_codigo);String	ls_texto
+SELECT	"GC_MEMBRETE"."DESCRIPCION"  
+INTO 		:ls_texto  
+FROM 		"GC_MEMBRETE"  
+WHERE 	"GC_MEMBRETE"."CODIGO" = :as_codigo   
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	ls_texto	= trim(ls_texto)
+else
+	ls_texto	= 'XXX'
+end if
+return(ls_texto)
+end function
+

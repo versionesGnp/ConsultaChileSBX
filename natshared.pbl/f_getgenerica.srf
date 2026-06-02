@@ -1,0 +1,909 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Valores GET de tablas~r~n    Recomendación: NO MODIFICAR - NIVEL EXPERTO~r~n*/
+global type f_getgenerica from function_object
+end type
+
+forward prototypes
+global function string f_getgenerica (string as_cod, string as_tabla)
+end prototypes
+
+global function string f_getgenerica (string as_cod, string as_tabla);/* Autor: César Vilela R.
+	f_GetGenerica( as_cod, as_tabla )
+	25-Ago-2009 eti, env, pem */
+
+String	ls_ret, ls_cod, ls_tem, ls_emp 
+
+
+as_cod = f_Trim( as_cod )
+as_tabla = Upper( as_tabla )
+
+Choose Case as_tabla
+	Case 'CLI'
+		
+		as_cod = f_GlobalReplace( as_cod, '-', '' )
+		
+		
+		Select	NVL( cli.a_paterno, '' ) || ' ' || NVL( cli.a_materno, '') || ' ' || Nvl( cli.Nombre, '')
+		Into		:ls_ret
+		From		cliente cli
+		Where		To_Char( cli.rut ) || To_Char( cli.dv ) = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Proveedor.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'USU'
+		Select	v_nombre_usu
+		Into		:ls_ret
+		From		genlogin
+		Where		c_codigo_usu = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Login.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'EMP'
+		Select	v_nombre_emp
+		Into		:ls_ret
+		From		genempresa
+		Where		c_codigo_emp = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla empresa.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+/*		
+	Case 'CLI', 'PRV', 'CLIPRV', 'VEN'
+		as_cod = f_GenFormatPrv( gs_emp, as_cod )
+		Select	v_nombre_prv
+		Into		:ls_ret
+		From		comproveedor
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_prv = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Proveedor.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'CTA'
+		
+		ls_emp = gs_emp
+		
+		Select	dbo.fn_WordCap( v_nombre_cta )
+		Into		:ls_ret
+		From		concuenta
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_cta = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla concuenta.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'BAN'
+		Select	v_nombre_ban
+		Into		:ls_ret
+		From		banbanco
+		Where		c_codigo_ban = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla banbanco.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'CBABAN'
+		Select	v_nombre_ban
+		Into		:ls_ret
+		From		banbanco		b,
+					bancuenta	c
+		Where		c.c_codigo_ban = b.c_codigo_ban
+		And		c.c_codigo_cba = :as_cod
+		And		c.c_codigo_emp = :gs_emp
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla banbanco/bancuenta.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'CBAEMP'
+		Select	v_nombre_emp
+		Into		:ls_ret
+		From		genempresa	e,
+					bancuenta	c
+		Where		c.c_codigo_emp = e.c_codigo_emp
+		And		c.c_codigo_cba = :as_cod
+		And		c.c_codigo_emp = :gs_emp
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla empresa/bancuenta.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'AFI'
+		Select	v_nombre_afi
+		Into		:ls_ret
+		From		afiactivo
+		Where		c_codigo_afi = :as_cod
+		And		c_codigo_emp = :gs_emp
+		And		c_activo_afi = '1'
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla afiactivo.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'TRA'
+		ls_emp = gs_emp
+		
+		Select	dbo.fn_nom_nombretraxemp( :ls_emp, :as_cod )
+		Into		:ls_ret
+		From		nomtrabajador
+		Where		c_codigo_emp = :ls_emp
+		And		c_codigo_tra = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Trabajador.' ) = -1 Then
+			Return '@ERROR'
+		End If
+		
+	Case 'AEM'
+		/*
+		Select	v_nombre_aem
+		Into		:ls_ret
+		From		eyenomactividad
+		Where		c_codigo_aem = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla eyenomactividad.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )*/
+		
+	Case 'ACT'
+		Select	v_nombre_act
+		Into		:ls_ret
+		From		genactividad
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_act = :as_cod
+		And		c_activo_act = '1'
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla cosactividad.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'LOT'
+		// Divido el código
+		// Tem = 2
+		// Lot = 4
+		
+		ls_tem = Left( as_cod, 2 )
+		as_cod = Mid( as_cod, 3 )
+		
+		Select	v_nombre_lot
+		Into		:ls_ret
+		From		genlote
+		Where		c_codigo_tem = :ls_tem
+		And		c_codigo_lot = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla lote.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'CUL'
+		Select	v_nombre_cul
+		Into		:ls_ret
+		From		gencultivo
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_cul = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla cultivo.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+	Case 'MTD'
+		// 
+		Select	v_nombre_mtd
+		Into		:ls_ret
+		From		cprmotivodanio
+		Where		c_codigo_mtd = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla cprmotivodanio.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+	Case 'COS'
+		Select	v_nombre_cos
+		Into		:ls_ret
+		From		cosconcepto
+		Where		c_codigo_cos = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla cosconcepto.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'PRO'		
+		Select	v_nombre_pro
+		Into		:ls_ret
+		From		comproducto
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_pro = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla comProducto.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'PROEMP', 'PEM'
+		Select	v_nombre_pro
+		Into		:ls_ret
+		From		eyeblproducto
+		Where		c_codigo_pro = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Producto.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'ETI'
+		Select	v_nombre_eti
+		Into		:ls_ret
+		From		eyeetiqueta
+		Where		c_codigo_eti = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla etiqueta.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'DIS'
+		Select	v_nombre_dis
+		Into		:ls_ret
+		From		eyedistribuidor
+		Where		c_codigo_dis = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla distribuidor.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'EPQ'
+		Select	v_nombre_epq
+		Into		:ls_ret
+		From		eyeempaque
+		Where		c_codigo_epq = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla empaque.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+	Case 'FLU'
+		Select	v_nombre_flu
+		Into		:ls_ret
+		From		conflujoconceptodet
+		Where		c_codigo_flu = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Flujo-Concepto-Det.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'CHO'
+		Select	v_nombre_cho
+		Into		:ls_ret
+		From		eyechofer
+		Where		c_codigo_cho = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Chofer (CPR).' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'CPRRES'
+		Select	v_nombre_res
+		Into		:ls_ret
+		From		cprresponsable
+		Where		c_codigo_res = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Responsable (CPR).' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'PCS'
+		Select Top 1 c_usatablaproceso_cfg 
+		Into		:ls_ret
+		From 		genconfigura 
+		Using		SqlCa ;
+		
+		ls_ret = f_Trim( ls_ret )
+		
+		If Not ls_ret = '1' Then ls_ret = '0' 
+		
+		If ls_ret = '0' Then
+			ls_ret = ''
+			Select	v_nombre_act
+			Into		:ls_ret
+			From		genactividad
+			Where		c_codigo_emp = :gs_emp
+			And		c_codigo_act = :as_cod
+			And		c_nivel_act	 = '2'
+			Using		SqlCa ;
+		Else		
+			ls_ret = ''
+			Select	v_nombre_pcs
+			Into		:ls_ret
+			From		genproceso
+			Where		c_codigo_emp = :gs_emp
+			And		c_codigo_pcs = :as_cod
+			And		c_nivel_pcs	 = '2'
+			And 		( IsNull( ( Select Top 1 c_usatablaproceso_cfg From genconfigura ), '0' ) = '1' )  
+			Using		SqlCa ;
+		End If
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Proceso (GEN).' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'NEG'
+		Select Top 1 c_usatablaproceso_cfg 
+		Into		:ls_ret
+		From 		genconfigura 
+		Using		SqlCa ;
+		
+		ls_ret = f_Trim( ls_ret )
+		
+		If Not ls_ret = '1' Then ls_ret = '0' 
+		
+		If ls_ret = '0' Then
+			ls_ret = ''
+			Select	v_nombre_act
+			Into		:ls_ret
+			From		genactividad
+			Where		c_codigo_emp = :gs_emp
+			And		c_codigo_act = :as_cod
+			And		c_nivel_act	 = '1'
+			Using		SqlCa ;
+		Else		
+			ls_ret = ''
+			Select	v_nombre_pcs
+			Into		:ls_ret
+			From		genproceso
+			Where		c_codigo_emp = :gs_emp
+			And		c_codigo_pcs = :as_cod
+			And		c_nivel_pcs	 = '1'
+			And 		( IsNull( ( Select Top 1 c_usatablaproceso_cfg From genconfigura ), '0' ) = '1' )  
+			Using		SqlCa ;
+		End If
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Negocio-Proceso (GEN).' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'TBL'
+		ls_tem = f_GenTemporada( )
+		Select	v_nombre_tbl
+		Into		:ls_ret
+		From		gentabla
+		Where		c_codigo_tem = :ls_tem
+		And		c_codigo_tbl = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Relación Lote-Cultivo-Tabla (TBL).' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'EDO'
+		Select	v_nombre_edo
+		Into		:ls_ret
+		From		genestado
+		Where		c_codigo_edo = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Entidades/Estados (EDO).' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'LUG'
+		Select	v_nombre_lug
+		Into		:ls_ret
+		From		nomlugarpago
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_lug = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Lugar/Punto de Pago(LUG).' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'LOC'
+		Select	v_nombre_loc
+		Into		:ls_ret
+		From		genlocalidad
+		Where		c_codigo_loc = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Localidad(LOC).' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'INS'
+		Select	v_nombre_ins
+		Into		:ls_ret
+		From		cprinspector
+		Where		c_codigo_ins = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Inspectores.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'ENV'
+		Select	v_nombre_env
+		Into		:ls_ret
+		From		eyeenvase
+		Where		c_codigo_env = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Envase.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'TAM'
+		Select	v_nombre_tam
+		Into		:ls_ret
+		From		eyetamanio
+		Where		c_codigo_tam = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Tamaños de Productos.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'ICG'
+		Select	v_nombre_icg
+		Into		:ls_ret
+		From		conietuconceptogral
+		Where		c_codigo_icg = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla IETU Concepto Gral.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'CAM'
+		Select	v_nombre_cam
+		Into		:ls_ret
+		From		gencampo
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_cam = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Campos.' ) = -1 Then
+			Return '@ERROR'
+		End If
+		
+		ls_ret = f_Trim( ls_ret )
+
+	Case 'DEP'
+		Select	v_nombre_dep
+		Into		:ls_ret
+		From		comdepartamento
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_dep = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Departamentos.' ) = -1 Then
+			Return '@ERROR'
+		End If
+		
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'PRD'
+		Select	v_nombre_prd
+		Into		:ls_ret
+		From		cprproductor
+		Where		c_codigo_prd = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Productores.' ) = -1 Then
+			Return '@ERROR'
+		End If
+		
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'DIV'
+		Select	v_nombre_div
+		Into		:ls_ret
+		From		gendivision
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_div = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Divisiones de Empresa.' ) = -1 Then
+			Return '@ERROR'
+		End If
+		
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'ODE'
+		Select	v_nombre_ode
+		Into		:ls_ret
+		From		cexorigendestino
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_ode = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Origen/Destino.' ) = -1 Then
+			Return '@ERROR'
+		End If
+		
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'LIT'
+		Select	v_nombre_lit
+		Into		:ls_ret
+		From		eyelineatransporte
+		Where		c_codigo_lit = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Línea Transporte.' ) = -1 Then
+			Return '@ERROR'
+		End If
+		
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'SCAC'
+		Select	v_scac_lit
+		Into		:ls_ret
+		From		eyelineatransporte
+		Where		c_codigo_lit = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Línea Transporte (SCAC).' ) = -1 Then
+			Return '@ERROR'
+		End If
+		
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'TOM'
+		Select	v_nombre_tom
+		Into		:ls_ret
+		From		nomtomadortiempo
+		Where		c_codigo_tom = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla tomador de tiempo.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'SFM'
+		Select	v_nombre_sfm
+		Into		:ls_ret
+		From		comsubfamilia
+		Where		c_codigo_sfm = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla subfamilia.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'FAM'
+		Select	v_nombre_fam
+		Into		:ls_ret
+		From		comfamilia
+		Where		c_codigo_fam = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla familia de productos.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'PCC'
+		Select	v_nombre_pcc
+		Into		:ls_ret
+		From		cospptconceptocta
+		Where		c_codigo_pcc = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Concepto de Cuentas.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'ALM'
+		Select	v_nombre_alm
+		Into		:ls_ret
+		From		comalmacen
+		Where		c_codigo_alm = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Almacenes.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'IPC'
+		Select	v_nombre_ipc
+		Into		:ls_ret
+		From		cosinterproceso
+		Where		c_codigo_ipc = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla InterProceso.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'PRX'
+		Select	v_nombre_prx
+		Into		:ls_ret
+		From		cexproducto
+		Where		c_codigo_prx = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Producto (Comercio Exterior).' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'TEM'
+		Select	v_nombre_tem
+		Into		:ls_ret
+		From		gentemporada
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_tem = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Temporada.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'TRT'
+		Select	v_nombre_trt
+		Into		:ls_ret
+		From		nomtrabajadortipo
+		Where		c_codigo_trt = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Cargos/Puesto.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'TCN'
+		Select	v_nombre_tcn
+		Into		:ls_ret
+		From		nomcfdicontrato
+		Where		c_codigo_tcn = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla CFDi Tipo Contrato.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'TJO'
+		Select	v_nombre_tjo
+		Into		:ls_ret
+		From		nomcfdijornada
+		Where		c_codigo_tjo = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla CFDi Tipo Jornada.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'PRS'
+		Select	v_nombre_prs
+		Into		:ls_ret
+		From		calpresentacion
+		Where		c_codigo_prs = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Presentaciones de Calidad.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'CAL'
+		Select	v_nombre_cal
+		Into		:ls_ret
+		From		calconcepto
+		Where		c_codigo_cal = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Concepto de Calidad.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'VAR'
+		Select	v_nombre_var
+		Into		:ls_ret
+		From		calvariedad
+		Where		c_codigo_var = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Variedad de Producto (Calidad).' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'SEC'
+		Select	v_nombre_sec
+		Into		:ls_ret
+		From		calsector
+		Where		c_codigo_sec = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Sector de Lote (Calidad).' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'UNI'
+		Select	v_nombre_uni
+		Into		:ls_ret
+		From		comunidad
+		Where		c_codigo_emp = :gs_emp
+		And		c_codigo_uni = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Unidad de Medida.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'CLD'
+		Select	v_nombre_cld
+		Into		:ls_ret
+		From		conclasificadigital
+		Where		c_codigo_cld = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Clasificador Contabilidad Digital.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+	Case 'PAI'
+		Select	v_nombre_pai
+		Into		:ls_ret
+		From		genpais
+		Where		c_codigo_pai = :as_cod
+		Using		SqlCa ;
+       
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla País.' ) = -1 Then
+			Return '@ERROR'
+		End If
+       
+		ls_ret = f_Trim( ls_ret )		
+
+
+	Case 'PAC'
+		as_cod = Right( '000000' + as_cod, 6)
+		Select	IsNull( v_apellido_pac , '') + ', ' + IsNull( v_nombre_pac, '' )
+		Into		:ls_ret
+		From		rhuMedPatient
+		Where		c_codigo_pac = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Paciente.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		
+	Case 'SER'
+		
+		as_cod = Right( '0000' + as_cod, 4)
+		
+		Select	v_nombre_ser
+		Into		:ls_ret
+		From		rhuMedService
+		Where		c_codigo_ser = :as_cod
+		Using		SqlCa ;
+		
+		If f_SqlError( SqlCa, 'No se pudo obtener información de la tabla Servicio.' ) = -1 Then
+			Return '@ERROR'
+		End If
+
+		ls_ret = f_Trim( ls_ret )
+		*/
+End Choose	
+
+Return ls_ret
+end function
+

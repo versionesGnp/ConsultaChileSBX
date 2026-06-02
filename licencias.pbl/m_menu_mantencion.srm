@@ -1,0 +1,257 @@
+﻿forward
+global type m_menu_mantencion from menu
+end type
+type m_nuevo from menu within m_menu_mantencion
+end type
+type m_grabar from menu within m_menu_mantencion
+end type
+type m_eliminar from menu within m_menu_mantencion
+end type
+type m_buscar from menu within m_menu_mantencion
+end type
+type m_exportar from menu within m_menu_mantencion
+end type
+type m_ordenar from menu within m_menu_mantencion
+end type
+type m_filtrar from menu within m_menu_mantencion
+end type
+type m_imprimir from menu within m_menu_mantencion
+end type
+type m_0 from menu within m_menu_mantencion
+end type
+global type m_menu_mantencion from menu
+m_nuevo m_nuevo
+m_grabar m_grabar
+m_eliminar m_eliminar
+m_buscar m_buscar
+m_exportar m_exportar
+m_ordenar m_ordenar
+m_filtrar m_filtrar
+m_imprimir m_imprimir
+m_0 m_0
+end type
+end forward
+
+global type m_menu_mantencion from menu
+m_nuevo m_nuevo
+m_grabar m_grabar
+m_eliminar m_eliminar
+m_buscar m_buscar
+m_exportar m_exportar
+m_ordenar m_ordenar
+m_filtrar m_filtrar
+m_imprimir m_imprimir
+m_0 m_0
+end type
+global m_menu_mantencion m_menu_mantencion
+
+on m_menu_mantencion.create
+m_menu_mantencion=this
+call super::create
+this.text = "m_menu_mantencion"
+this.m_nuevo=create m_nuevo
+this.m_grabar=create m_grabar
+this.m_eliminar=create m_eliminar
+this.m_buscar=create m_buscar
+this.m_exportar=create m_exportar
+this.m_ordenar=create m_ordenar
+this.m_filtrar=create m_filtrar
+this.m_imprimir=create m_imprimir
+this.m_0=create m_0
+this.Item[UpperBound(this.Item)+1]=this.m_nuevo
+this.Item[UpperBound(this.Item)+1]=this.m_grabar
+this.Item[UpperBound(this.Item)+1]=this.m_eliminar
+this.Item[UpperBound(this.Item)+1]=this.m_buscar
+this.Item[UpperBound(this.Item)+1]=this.m_exportar
+this.Item[UpperBound(this.Item)+1]=this.m_ordenar
+this.Item[UpperBound(this.Item)+1]=this.m_filtrar
+this.Item[UpperBound(this.Item)+1]=this.m_imprimir
+this.Item[UpperBound(this.Item)+1]=this.m_0
+end on
+
+on m_menu_mantencion.destroy
+call super::destroy
+destroy(this.m_nuevo)
+destroy(this.m_grabar)
+destroy(this.m_eliminar)
+destroy(this.m_buscar)
+destroy(this.m_exportar)
+destroy(this.m_ordenar)
+destroy(this.m_filtrar)
+destroy(this.m_imprimir)
+destroy(this.m_0)
+end on
+
+type m_nuevo from menu within m_menu_mantencion
+end type
+
+on m_nuevo.create
+call super::create
+this.text = "&Nuevo"
+this.microhelp = "Crear Nuevo Registro"
+this.toolbaritemname = "ScriptNo!"
+this.toolbaritemtext = "Nuevo"
+end on
+
+on m_nuevo.destroy
+call super::destroy
+end on
+
+event clicked;parentwindow.TriggerEvent('ue_nuevo')
+
+//IF ISVALID(parentwindow.GetActiveSheet()) THEN
+//	parentwindow.GetActiveSheet().TriggerEvent('ue_nuevo')
+//END IF
+
+end event
+
+type m_grabar from menu within m_menu_mantencion
+end type
+
+on m_grabar.create
+call super::create
+this.text = "&Grabar"
+this.microhelp = "Grabar Información"
+this.toolbaritemname = "Save!"
+this.toolbaritemtext = "Grabar"
+end on
+
+on m_grabar.destroy
+call super::destroy
+end on
+
+event clicked;parentwindow.TriggerEvent('ue_grabar')
+
+end event
+
+type m_eliminar from menu within m_menu_mantencion
+end type
+
+on m_eliminar.create
+call super::create
+this.text = "&Eliminar"
+this.microhelp = "Eliminar Registro"
+this.toolbaritemname = "Custom094!"
+this.toolbaritemtext = "Eliminar"
+end on
+
+on m_eliminar.destroy
+call super::destroy
+end on
+
+event clicked;parentwindow.TriggerEvent('ue_eliminar') //w_mantencion
+
+end event
+
+type m_buscar from menu within m_menu_mantencion
+end type
+
+on m_buscar.create
+call super::create
+this.text = "&Buscar"
+this.microhelp = "Buscar Información"
+this.toolbaritemname = "Preview!"
+this.toolbaritemtext = "Buscar"
+end on
+
+on m_buscar.destroy
+call super::destroy
+end on
+
+event clicked;parentwindow.TriggerEvent('ue_buscar')
+
+end event
+
+type m_exportar from menu within m_menu_mantencion
+end type
+
+on m_exportar.create
+call super::create
+this.text = "E&xportar"
+this.microhelp = "Exportar Información"
+this.toolbaritemname = "Export!"
+this.toolbaritemtext = "Exportar"
+end on
+
+on m_exportar.destroy
+call super::destroy
+end on
+
+event clicked;parentwindow.TriggerEvent('ue_exportar')
+end event
+
+type m_ordenar from menu within m_menu_mantencion
+end type
+
+on m_ordenar.create
+call super::create
+this.text = "&Ordenar"
+this.microhelp = "Ordenar Información"
+this.toolbaritemname = "Sort!"
+this.toolbaritemtext = "Ordenar"
+end on
+
+on m_ordenar.destroy
+call super::destroy
+end on
+
+event clicked;parentwindow.TriggerEvent('ue_ordenar')
+end event
+
+type m_filtrar from menu within m_menu_mantencion
+end type
+
+on m_filtrar.create
+call super::create
+this.text = "&Filtrar"
+this.microhelp = "Filtrar Información"
+this.toolbaritemname = "CheckOut!"
+this.toolbaritemtext = "Filtrar"
+end on
+
+on m_filtrar.destroy
+call super::destroy
+end on
+
+event clicked;parentwindow.TriggerEvent('ue_filtrar')
+end event
+
+type m_imprimir from menu within m_menu_mantencion
+end type
+
+on m_imprimir.create
+call super::create
+this.text = "&Imprimir"
+this.microhelp = "Imprimir Información"
+this.toolbaritemname = "Print!"
+this.toolbaritemtext = "Imprimir"
+end on
+
+on m_imprimir.destroy
+call super::destroy
+end on
+
+event clicked;parentwindow.TriggerEvent('ue_imprimir')
+
+end event
+
+type m_0 from menu within m_menu_mantencion
+end type
+
+on m_0.create
+call super::create
+this.text = "&Cerrar"
+this.microhelp = "Cerrar Vetana"
+this.toolbaritemname = "Exit!"
+this.toolbaritemtext = "Cerrar"
+this.toolbaritemspace = 5
+end on
+
+on m_0.destroy
+call super::destroy
+end on
+
+event clicked;parentwindow.TriggerEvent('ue_cerrar')
+
+end event
+

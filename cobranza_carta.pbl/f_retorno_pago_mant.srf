@@ -1,0 +1,23 @@
+﻿global type f_retorno_pago_mant from function_object
+end type
+
+forward prototypes
+global function long f_retorno_pago_mant (long al_rut, string as_base, string as_serie, double al_numero, datetime adt_fecha)
+end prototypes
+
+global function long f_retorno_pago_mant (long al_rut, string as_base, string as_serie, double al_numero, datetime adt_fecha);Long	ll_monto
+SELECT	SUM("INGRE"."MONTO"  )
+INTO 		:ll_monto  
+FROM 		"INGRE"  
+WHERE	 ( "INGRE"."RUT" = :al_rut ) AND  
+		 ( "INGRE"."BASE" = :as_base ) AND  
+		 ( "INGRE"."SERIE" = :as_serie ) AND  
+		 ( "INGRE"."CONTRATO" = :al_numero ) AND  
+		 ( "INGRE"."FECHA_PAGO" >= :adt_fecha )  and 
+		 ( "INGRE"."TIPO_COB" = 'BL' OR "INGRE"."TIPO_COB" = 'B0')
+USING		sqlca;
+//		 ( "INGRE"."TIPO_MOV" = 'E' ) AND  
+if isnull(ll_monto) then ll_monto=0
+return ll_monto
+end function
+

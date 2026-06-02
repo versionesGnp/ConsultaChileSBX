@@ -1,0 +1,29 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: consulta País~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_genpais from function_object
+end type
+
+forward prototypes
+global function string f_genpais (string as_emp)
+end prototypes
+
+global function string f_genpais (string as_emp);/* f_GenPais( as_emp ) */
+String	ls_ret
+
+
+Select	c_codigo_pai
+Into		:ls_ret
+From		genempresa
+Where		c_codigo_emp = :as_emp
+Using		SqlCa ;
+
+ls_ret = f_Trim( ls_ret )
+
+If f_SqlError( SqlCa, 'No se pudo obtener información sobre el País de la Empresa (' + as_emp + ')' ) = -1 Then
+	Return ''
+End If
+
+Return ls_ret
+
+
+end function
+

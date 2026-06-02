@@ -1,0 +1,18 @@
+﻿global type gf_existe_cupon_bkp from function_object
+end type
+
+forward prototypes
+global function boolean gf_existe_cupon_bkp (long al_num_cupon)
+end prototypes
+
+global function boolean gf_existe_cupon_bkp (long al_num_cupon);long il_num_cupon
+
+SELECT DISTINCT "INGRESO"."FOLIO"  
+INTO 		:il_num_cupon
+FROM 		"INGRESO"  
+WHERE  ( "INGRESO"."FOLIO" = :al_num_cupon ) AND  
+		 ( "INGRESO"."TIPO_COB" = 'CU' );
+RETURN (al_num_cupon = il_num_cupon )
+
+end function
+

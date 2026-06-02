@@ -1,0 +1,248 @@
+﻿global type f_porce_ingreso_periodo from function_object
+end type
+
+forward prototypes
+global function double f_porce_ingreso_periodo (string as_base, string as_serie, double adb_numero, datetime adt_fecha_fin, string as_moneda, double al_parque, double adb_precio_reg, double adb_valor_uf)
+end prototypes
+
+global function double f_porce_ingreso_periodo (string as_base, string as_serie, double adb_numero, datetime adt_fecha_fin, string as_moneda, double al_parque, double adb_precio_reg, double adb_valor_uf);long		ll_suma_monto_ch,ll_suma_monto_ef,ll_suma_monto_ser,ll_suma,ll_precio_peso
+double	ldb_porce_ingreso,ldb_precio_reg,ldb_precio_uf,ldb_precio_pond,ldb_suma_precio,ldb_porce_ingreso_parque
+
+SELECT "COD_PARQ"."PORCE_CIERRE"  INTO :ldb_porce_ingreso_parque  FROM "COD_PARQ"  WHERE "COD_PARQ"."CODIGO" = :al_parque  ;
+if as_moneda = '1' then //peso
+	if as_serie = 'L' then
+		ll_suma_monto_ch	= 0
+		ll_suma_monto_ef	= 0
+		ll_suma_monto_ser	= 0
+		SELECT 	SUM("DOCUMENTOS"."MONTO")
+		INTO		:ll_suma_monto_ch
+		FROM		"DOCUMENTOS",	"INGRESO"  
+		WHERE  	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO" and  
+				 	"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and  
+				 	"DOCUMENTOS"."FECHA_PAGO" = "INGRESO"."FECHA_PAGO" and  
+				 	( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+				 	"INGRESO"."BASE" = 'L' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"DOCUMENTOS"."FECHA_VENC" <= :adt_fecha_fin AND  
+				 	( "DOCUMENTOS"."ESTADO_CH" = 'C' OR "DOCUMENTOS"."ESTADO_CH" = 'V') AND  
+				 	"DOCUMENTOS"."COD_PAGO" = 'CH' AND  
+				 	( "INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ch) then ll_suma_monto_ch=0
+		SELECT 	SUM("DOCUMENTOS"."MONTO")
+		INTO		:ll_suma_monto_ef
+		FROM 	"DOCUMENTOS",	"INGRESO"  
+		WHERE 	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO" and  
+					"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and  
+					"DOCUMENTOS"."FECHA_PAGO" = "INGRESO"."FECHA_PAGO" and  
+					(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+					"INGRESO"."BASE" = 'L' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"INGRESO"."SERVIPAG" <= :adt_fecha_fin AND  
+					(	"DOCUMENTOS"."ESTADO_CH" = 'C' OR "DOCUMENTOS"."ESTADO_CH" = 'V') AND  
+				 	"DOCUMENTOS"."COD_PAGO" <> 'CH' AND  
+					(	"INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ef) then ll_suma_monto_ef=0
+		SELECT 	SUM("INGRESO"."MONTO")
+		INTO		:ll_suma_monto_ser
+		FROM 	"INGRESO"  
+		WHERE 	"INGRESO"."BASE" = 'L' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"INGRESO"."SERVIPAG" <= :adt_fecha_fin AND  
+				 	( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+				 	( "INGRESO"."COD_CAJA" = 'XX' OR "INGRESO"."COD_CAJA" = 'XY' OR "INGRESO"."COD_CAJA" = 'XZ' ) AND  
+				 	( "INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ser) then ll_suma_monto_ser=0
+		ll_suma				= ll_suma_monto_ch + ll_suma_monto_ef + ll_suma_monto_ser
+		ldb_porce_ingreso	= round((ll_suma / ldb_precio_reg) * 100,2)
+	else
+		ll_suma_monto_ch	= 0
+		ll_suma_monto_ef	= 0
+		SELECT 	SUM("DOCUMENTOS"."MONTO")
+		INTO		:ll_suma_monto_ch
+		FROM 	"DOCUMENTOS",	"INGRESO"  
+		WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO"and  
+					"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and  
+					"DOCUMENTOS"."FECHA_PAGO" = "INGRESO"."FECHA_PAGO" and  
+					(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+					"INGRESO"."BASE" = 'O' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"DOCUMENTOS"."FECHA_VENC" <= :adt_fecha_fin AND  
+					( "DOCUMENTOS"."ESTADO_CH" = 'C' OR "DOCUMENTOS"."ESTADO_CH" = 'V') AND  
+					"DOCUMENTOS"."COD_PAGO" = 'CH' AND  
+					( "INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ch) then ll_suma_monto_ch=0
+		SELECT 	SUM("DOCUMENTOS"."MONTO")
+		INTO		:ll_suma_monto_ef
+		FROM 	"DOCUMENTOS",	"INGRESO"  
+		WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO" and  
+					"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and  
+					"DOCUMENTOS"."FECHA_PAGO" = "INGRESO"."FECHA_PAGO" and  
+					(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+					"INGRESO"."BASE" = 'O' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"INGRESO"."SERVIPAG" <= :adt_fecha_fin AND  
+					(	"DOCUMENTOS"."ESTADO_CH" = 'C' OR "DOCUMENTOS"."ESTADO_CH" = 'V') AND  
+					(	"DOCUMENTOS"."COD_PAGO" <> 'CH') AND  
+					(	"INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ef) then ll_suma_monto_ef=0
+		SELECT 	SUM("INGRESO"."MONTO")
+		INTO		:ll_suma_monto_ser
+		FROM 	"INGRESO"  
+		WHERE	"INGRESO"."BASE" = 'O' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"INGRESO"."SERVIPAG" <= :adt_fecha_fin AND  
+					(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+					(	"INGRESO"."COD_CAJA" = 'XX' OR "INGRESO"."COD_CAJA" = 'XY' OR "INGRESO"."COD_CAJA" = 'XZ' )  AND  
+					(	"INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ser) then ll_suma_monto_ser=0
+		ll_suma				= ll_suma_monto_ch + ll_suma_monto_ef + ll_suma_monto_ser
+		ldb_porce_ingreso	= round((ll_suma / adb_precio_reg) * 100,2)
+		if ldb_porce_ingreso > ldb_porce_ingreso_parque then
+			if as_moneda = '1' then //peso
+				ldb_precio_uf	= round(adb_precio_reg / adb_valor_uf,2)
+			else
+				ldb_precio_uf	= ldb_precio_reg
+			end if
+			ldb_precio_pond	= ldb_precio_uf
+			ldb_suma_precio	= ldb_suma_precio + ldb_precio_pond
+		else
+			ldb_precio_pond	= 0
+		end if
+	end if
+//Tipo_uf
+elseif as_moneda='2' then //UF
+	ll_precio_peso	= round(adb_precio_reg * adb_valor_uf,0)
+	if as_serie = 'L' then
+		ll_suma_monto_ch	= 0
+		ll_suma_monto_ef	= 0
+		ll_suma_monto_ser	= 0
+		SELECT 	SUM("DOCUMENTOS"."MONTO")
+		INTO		:ll_suma_monto_ch
+		FROM 	"DOCUMENTOS",	"INGRESO"  
+		WHERE 	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO" and  
+				 	"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and  
+				 	"DOCUMENTOS"."FECHA_PAGO" = "INGRESO"."FECHA_PAGO" and  
+				 	( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+				 	"INGRESO"."BASE" = 'L' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"DOCUMENTOS"."FECHA_VENC" <= :adt_fecha_fin AND  
+				 	( "DOCUMENTOS"."ESTADO_CH" = 'C' OR "DOCUMENTOS"."ESTADO_CH" = 'V') AND  
+				 	"DOCUMENTOS"."COD_PAGO" = 'CH' AND  
+				 	( "INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ch) then ll_suma_monto_ch=0
+		SELECT 	SUM("DOCUMENTOS"."MONTO")
+		INTO		:ll_suma_monto_ef
+		FROM 	"DOCUMENTOS",	"INGRESO"  
+		WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO" and  
+			 		"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and  
+			 		"DOCUMENTOS"."FECHA_PAGO" = "INGRESO"."FECHA_PAGO" and  
+			 		(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+			 		"INGRESO"."BASE" = 'L' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"INGRESO"."SERVIPAG" <= :adt_fecha_fin AND  
+			 		(	"DOCUMENTOS"."ESTADO_CH" = 'C' OR "DOCUMENTOS"."ESTADO_CH" = 'V') AND  
+			 		"DOCUMENTOS"."COD_PAGO" <> 'CH' AND  
+			 		(	"INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ef) then ll_suma_monto_ef=0
+		SELECT 	SUM("INGRESO"."MONTO")
+		INTO		:ll_suma_monto_ser
+		FROM 	"INGRESO"  
+		WHERE	"INGRESO"."BASE" = 'L' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"INGRESO"."SERVIPAG" <= :adt_fecha_fin AND  
+		 			(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+		 			(	"INGRESO"."COD_CAJA" = 'XX' OR "INGRESO"."COD_CAJA" = 'XY' OR "INGRESO"."COD_CAJA" = 'XZ' ) AND  
+					(	"INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ser) then ll_suma_monto_ser=0
+		ll_suma				= ll_suma_monto_ch + ll_suma_monto_ef + ll_suma_monto_ser
+		ldb_porce_ingreso	= round((ll_suma / ll_precio_peso) * 100,2)
+	else
+		ll_suma_monto_ch	= 0
+		ll_suma_monto_ef	= 0
+		SELECT 	SUM("DOCUMENTOS"."MONTO")
+		INTO		:ll_suma_monto_ch
+		FROM 	"DOCUMENTOS",	"INGRESO"  
+		WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO" and  
+					"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and  
+					"DOCUMENTOS"."FECHA_PAGO" = "INGRESO"."FECHA_PAGO" and  
+					(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+					"INGRESO"."BASE" = 'O' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"DOCUMENTOS"."FECHA_VENC" <= :adt_fecha_fin AND  
+					(	"DOCUMENTOS"."ESTADO_CH" = 'C' OR "DOCUMENTOS"."ESTADO_CH" = 'V') AND  
+					(	"DOCUMENTOS"."COD_PAGO" = 'CH')  AND  
+					(	"INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ch) then ll_suma_monto_ch=0
+		SELECT 	SUM("DOCUMENTOS"."MONTO")
+		INTO		:ll_suma_monto_ef
+		FROM 	"DOCUMENTOS",	"INGRESO"  
+		WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO" and  
+					"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and  
+					"DOCUMENTOS"."FECHA_PAGO" = "INGRESO"."FECHA_PAGO" and  
+					(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+					"INGRESO"."BASE" = 'O' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"INGRESO"."SERVIPAG" <= :adt_fecha_fin AND  
+					(	"DOCUMENTOS"."ESTADO_CH" = 'C' OR "DOCUMENTOS"."ESTADO_CH" = 'V') AND  
+					(	"DOCUMENTOS"."COD_PAGO" <> 'CH')  AND  
+					(	"INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ef) then ll_suma_monto_ef=0
+		SELECT 	SUM("INGRESO"."MONTO")
+		INTO		:ll_suma_monto_ser
+		FROM 	"INGRESO"  
+		WHERE	"INGRESO"."BASE" = 'O' AND  
+					"INGRESO"."SERIE" = :as_serie AND  
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					"INGRESO"."SERVIPAG" <= :adt_fecha_fin AND  
+					(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0') AND
+					(	"INGRESO"."COD_CAJA" = 'XX' OR "INGRESO"."COD_CAJA" = 'XY' OR "INGRESO"."COD_CAJA" = 'XZ' )  AND  
+					(	"INGRESO"."TIPO_MOV" = 'E' OR "INGRESO"."TIPO_MOV" = 'A')     
+		USING		sqlca;
+		if isnull(ll_suma_monto_ser) then ll_suma_monto_ser=0
+		ll_suma				= ll_suma_monto_ch + ll_suma_monto_ef + ll_suma_monto_ser
+		ldb_porce_ingreso	= round((ll_suma / ll_precio_peso) * 100,2)
+		if ldb_porce_ingreso > ldb_porce_ingreso_parque then
+			ldb_precio_pond	= ldb_precio_reg
+			ldb_suma_precio	= ldb_suma_precio + ldb_precio_pond
+		else
+			ldb_precio_pond	= 0	
+		end if
+	end if
+end if
+return(ldb_porce_ingreso)
+end function
+

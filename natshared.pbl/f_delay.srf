@@ -1,0 +1,21 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Detener la ejecución de transacción en segundos~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_delay from function_object
+end type
+
+forward prototypes
+global subroutine f_delay (integer ai_sec)
+end prototypes
+
+global subroutine f_delay (integer ai_sec);/* f_Delay( ai_sec ) 
+*/
+Time	lt_time
+
+lt_time = RelativeTime( Now( ), ai_sec )
+	
+Do While Now( ) <= lt_time
+	
+Loop
+
+Return
+end subroutine
+

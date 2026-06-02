@@ -1,0 +1,29 @@
+﻿global type f_buscar_estado_agente from function_object
+end type
+
+forward prototypes
+global function string f_buscar_estado_agente (string as_codigo)
+end prototypes
+
+global function string f_buscar_estado_agente (string as_codigo);String	ls_estado, ls_nom, ls_pat, ls_mat, ls_texto
+SELECT	"AGENTES"."NOMBRE",   
+			"AGENTES"."A_PATERNO",   
+			"AGENTES"."A_MATERNO",   
+			"AGENTES"."ESTADO"  
+INTO 		:ls_nom,   
+			:ls_pat,   
+			:ls_mat,   
+			:ls_estado  
+FROM 		"AGENTES"  
+WHERE 	"AGENTES"."COD_AGE" = :as_codigo  ;
+if TRIM(ls_estado)='A' then
+	ls_estado	= 'Activo'
+elseif TRIM(ls_estado)='I' then
+	ls_estado	= 'Inactivo'
+else
+	ls_estado	= '-'
+end if
+ls_texto			= ls_nom+ ' '+ls_pat+' '+ls_mat+'          Estado: '+ls_estado
+return(ls_texto)
+end function
+

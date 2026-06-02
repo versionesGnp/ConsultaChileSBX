@@ -1,0 +1,19 @@
+﻿global type f_retorna_valor_iva from function_object
+end type
+
+forward prototypes
+global function long f_retorna_valor_iva (long al_monto)
+end prototypes
+
+global function long f_retorna_valor_iva (long al_monto);Long		ll_iva
+Double	ldb_iva,ll_neto
+
+SELECT "TASA"."IVA"  INTO :ldb_iva  FROM "TASA"  WHERE "TASA"."LOOK" = 1   ;
+
+ll_iva				= round(al_monto * (ldb_iva - 1),0)
+//ll_neto			= round(al_monto / ldb_iva,0)
+//ll_iva				= round(al_monto - ll_neto,0)
+
+Return ll_iva
+end function
+

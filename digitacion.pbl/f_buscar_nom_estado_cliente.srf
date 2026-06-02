@@ -1,0 +1,25 @@
+﻿global type f_buscar_nom_estado_cliente from function_object
+end type
+
+forward prototypes
+global function string f_buscar_nom_estado_cliente (long al_rut)
+end prototypes
+
+global function string f_buscar_nom_estado_cliente (long al_rut);String	ls_texto,ls_nom,ls_ap_pat,ls_ap_mat,ls_estado_titular
+SELECT	"CLIENTE"."NOMBRE",   
+			"CLIENTE"."A_PATERNO",   
+			"CLIENTE"."A_MATERNO",   
+			"CLIENTE"."ESTADO_TITULAR"  
+INTO		:ls_nom,   
+			:ls_ap_pat,   
+			:ls_ap_mat,   
+			:ls_estado_titular  
+FROM 		"CLIENTE"  
+WHERE 	"CLIENTE"."RUT" = :al_rut   
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	ls_texto	= trim(ls_nom)+' '+trim(ls_ap_pat)+' '+trim(ls_ap_mat)
+end if
+return ls_texto
+end function
+

@@ -1,0 +1,130 @@
+﻿global type f_sap_ctto_creado from function_object
+end type
+
+forward prototypes
+global function long f_sap_ctto_creado (string as_base, string as_serie, double adb_numero, string as_nro_ctto_sap, string as_tipo_deuda)
+end prototypes
+
+global function long f_sap_ctto_creado (string as_base, string as_serie, double adb_numero, string as_nro_ctto_sap, string as_tipo_deuda);string		ls_obsev,ls_error,ls_moneda
+long		ll_cta_ubs,ll_cta_pie,ll_cta_cta,ll_cta_pos_ora,ll_cta_pos_sap,ll_estado=1
+double	ldb_sum_pie,ldb_sum_cta,ldb_sum_pos_ora,ldb_sum_mto_sap,ldb_decimal
+
+//f_valida_posic(as_base,as_serie,adb_numero,as_nro_ctto_sap,as_tipo_deuda)
+
+
+SELECT	"SAP_CTTO_01_CABEC"."MONEDA"  
+INTO		:ls_moneda
+FROM 	"SAP_CTTO_01_CABEC"
+WHERE 	"SAP_CTTO_01_CABEC"."BASE" = :as_base and
+			"SAP_CTTO_01_CABEC"."SERIE" = :as_serie and
+			"SAP_CTTO_01_CABEC"."NUMERO" = :adb_numero and
+			"SAP_CTTO_01_CABEC"."TIPO_DEUDA" = :as_tipo_deuda
+USING	sqlca;
+if isnull(ls_moneda) then ls_moneda='CLP'
+
+if ls_moneda = 'CLP' then
+  ldb_decimal            = 1
+elseif ls_moneda = 'UF' then
+   ldb_decimal            = 0.0001
+elseif ls_moneda = 'USD' then
+  ldb_decimal            = 1
+elseif ls_moneda = 'BOB' then
+   ldb_decimal            = 1
+end if
+
+
+SELECT	count("BASE")  
+INTO		:ll_cta_ubs
+FROM 	"SAP_CTTO_03_UBS"
+WHERE 	"SAP_CTTO_03_UBS"."BASE" = :as_base and
+			"SAP_CTTO_03_UBS"."SERIE" = :as_serie and
+			"SAP_CTTO_03_UBS"."NUMERO" = :adb_numero and
+			"SAP_CTTO_03_UBS"."TIPO_DEUDA" = :as_tipo_deuda
+USING	sqlca;
+if isnull(ll_cta_ubs) then ll_cta_ubs=0
+							
+SELECT	count("BASE"),SUM("SAP_CTTO_04_PIE"."MTO_PIE_K" + "SAP_CTTO_04_PIE"."MTO_PIE_I" + "SAP_CTTO_04_PIE"."MTO_PIE_G")
+INTO		:ll_cta_pie,:ldb_sum_pie
+FROM		"SAP_CTTO_04_PIE"
+WHERE 	"SAP_CTTO_04_PIE"."BASE" = :as_base and
+			"SAP_CTTO_04_PIE"."SERIE" = :as_serie and
+			"SAP_CTTO_04_PIE"."NUMERO" = :adb_numero and
+			"SAP_CTTO_04_PIE"."TIPO_DEUDA" = :as_tipo_deuda
+USING	sqlca;
+if isnull(ll_cta_pie) then ll_cta_pie=0
+if isnull(ldb_sum_pie) then ldb_sum_pie=0
+					
+SELECT	count("BASE"),sum("SAP_CTTO_05_CUOTA"."MTO_CTA_K" + "SAP_CTTO_05_CUOTA"."MTO_CTA_I" + "SAP_CTTO_05_CUOTA"."MTO_CTA_G")
+INTO		:ll_cta_cta,:ldb_sum_cta
+FROM		"SAP_CTTO_05_CUOTA"
+WHERE 	"SAP_CTTO_05_CUOTA"."BASE" = :as_base and
+			"SAP_CTTO_05_CUOTA"."SERIE" = :as_serie and
+			"SAP_CTTO_05_CUOTA"."NUMERO" = :adb_numero and
+			"SAP_CTTO_05_CUOTA"."TIPO_DEUDA" = :as_tipo_deuda
+USING	sqlca;
+if isnull(ll_cta_cta) then ll_cta_cta=0
+if isnull(ldb_sum_cta) then ldb_sum_cta=0
+
+ll_cta_pos_ora							= ll_cta_ubs + ll_cta_pie + ll_cta_cta
+ldb_sum_pos_ora						= ldb_sum_pie + ldb_sum_cta
+
+if ll_cta_pos_ora>0 then
+	if not isnull(as_nro_ctto_sap) then
+		SELECT 	count( DISTINCT "SAPABAP1"."ZV_CONTRATOS2"."NRO_POSICION"),sum( "SAPABAP1"."ZV_CONTRATOS2"."MTO_IMPUESTO")
+		INTO		:ll_cta_pos_sap,:ldb_sum_mto_sap
+		FROM 	"SAPABAP1"."ZV_CONTRATOS2"
+		WHERE	"SAPABAP1"."ZV_CONTRATOS2"."NUM_CONTRATO" = :as_nro_ctto_sap AND
+					"SAPABAP1"."ZV_CONTRATOS2"."TIPO_INTERES" <> 'VPRS'
+		USING	Trans_hana;
+		if isnull(ll_cta_pos_sap) then ll_cta_pos_sap=0
+		if isnull(ldb_sum_mto_sap) then ldb_sum_mto_sap=0
+		ldb_sum_mto_sap				= ldb_sum_mto_sap * ldb_decimal
+		
+		if ll_cta_pos_sap=0 then
+			ll_estado						= 3
+			ls_error						= 'P'			
+		else
+			if ll_cta_pos_sap<>ll_cta_pos_ora then
+				ll_estado					= 3
+				ls_error					= 'P'
+			end if
+		end if
+		
+		if ll_estado=1 then
+			ls_obsev						= 'Grabación Exitosa, Posiciones ORA: '+string(ll_cta_pos_ora)+' Posiciones SAP: '+string(ll_cta_pos_sap)+' Monto ORA: '+string(ldb_sum_pos_ora)+' Monto SAP: '+string(ldb_sum_mto_sap)
+		else
+			if ls_error='P' then
+				ls_obsev					= 'Error, Posiciones Enviadas: '+string(ll_cta_pos_ora)+' Posiciones Creadas en SAP: '+string(ll_cta_pos_sap)
+			elseif ls_error='M' then
+				ls_obsev					= 'Error, Monto Total Enviado: '+string(ldb_sum_pos_ora)
+			end if
+		end if
+	else
+		ll_estado							= 3
+		ls_obsev							= 'Error, No Registra Contrato SAP'
+	end if
+	if as_tipo_deuda<>'S' then
+		UPDATE 	"SAP_CADENA"  
+		SET 		"ESTADO_SAP" = :ll_estado,   
+					"NRO_CONTRATO_SAP" = :as_nro_ctto_sap,
+					"OBSERV_POSICION" = :ls_obsev,
+					"POSIC_ORA" = :ll_cta_pos_ora,
+					"POSIC_SAP" = :ll_cta_pos_sap,
+					"MONTO_ORA" = :ldb_sum_pos_ora,
+					"MONTO_SAP" = :ldb_sum_mto_sap
+					
+		WHERE	"SAP_CADENA"."BASE" = :as_base AND  
+					"SAP_CADENA"."SERIE" = :as_serie AND  
+					"SAP_CADENA"."NUMERO" = :adb_numero AND  
+					"SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda
+		USING	sqlca;
+	end if
+	if sqlca.sqlcode=0 then
+		commit using sqlca;
+	else
+		rollback using sqlca;
+	end if
+end if
+return	 ll_estado
+end function
+

@@ -1,0 +1,86 @@
+﻿//objectcomments /* Autor: PBResource~r~n    Función: ~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type fx_grl_montoesc from function_object
+end type
+
+forward prototypes
+global function string fx_grl_montoesc (decimal num)
+end prototypes
+
+global function string fx_grl_montoesc (decimal num);STRING LET
+STRING UNI[],DECI[],ONCE[],CEN[]
+INTEGER MILL,MIL,CENT,KIN,CENTE,DIEZ,UNID
+Long		ll_resto
+LET=""
+
+UNI   ={"uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve"}
+DECI  ={"diez","veinte","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"}
+ONCE  ={"once","doce","trece","catorce","quince","dieciseis","diecisiete","dieciocho","diecinueve"}
+CEN   ={"ciento","doscientos","trescientos","cuatrocientos","quinientos","seiscientos","setecientos","ochocientos","novecientos"}
+
+CENT=(MOD(NUM*100,100))
+
+KIN =INT(NUM)
+
+UNID=INT(MOD(KIN,10))
+DIEZ=INT(MOD(KIN,100)/10)
+
+CENTE =INT(NUM/100)
+MIL   =INT(NUM/1000)
+MILL  =INT(NUM/1000000)
+
+CHOOSE CASE DIEZ
+	CASE 1 
+    IF UNID = 0 THEN
+		LET=LET+"diez "
+     ELSE
+     IF UNID > 0 THEN
+      LET=ONCE[UNID]+" "
+  END IF	
+   END IF
+  CASE 2 
+	IF UNID = 0 THEN
+   	LET=LET+"veinte "
+      ELSE  
+   IF UNID > 0 THEN
+     IF UNI[UNID]="un" THEN
+      LET=LET+"veinti"+"uno"+" "
+     ELSE
+      LET=LET+"veinti"+UNI[UNID]+" " 
+      END IF 
+    END IF
+  END IF	
+CASE IS > 2 
+		IF UNID >0 THEN
+	     	LET=LET+DECI[DIEZ]+" y "+UNI[UNID]+" "
+		ELSE
+			LET=LET+DECI[DIEZ]
+		END IF
+	CASE 0 
+		IF UNID >0 THEN
+       LET=LET+ UNI[UNID]+" "
+		       END IF
+   END CHOOSE
+
+
+IF KIN >  99 THEN
+  IF KIN=100 THEN
+	LET="cien " + LET
+   ELSE
+  LET=CEN[CENTE]+" " +LET
+  END IF 
+END IF
+
+
+/*
+IF CENT <> 0 THEN
+  IF MID(STRING(CENT),1) > "1" THEN
+	LET=LET+" con "+ MID(STRING(CENT),1)+" centavos"
+   ELSE
+   LET=LET+" con "+ MID(STRING(CENT),1)+" centavo"
+END IF
+ END IF
+*/
+
+RETURN LET
+end function
+

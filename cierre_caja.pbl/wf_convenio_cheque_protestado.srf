@@ -1,0 +1,25 @@
+﻿global type wf_convenio_cheque_protestado from function_object
+end type
+
+forward prototypes
+global function string wf_convenio_cheque_protestado (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function string wf_convenio_cheque_protestado (string as_base, string as_serie, double al_numero);String	ls_mensaje
+Long		ll_count
+
+SELECT	count("DETALLE_CONVENIO_PROTESTO"."BASE_ORIGINAL")  
+INTO 		:ll_count  
+FROM 		"DETALLE_CONVENIO_PROTESTO"  
+WHERE  ( "DETALLE_CONVENIO_PROTESTO"."BASE_ORIGINAL" = :as_base ) AND  
+		 ( "DETALLE_CONVENIO_PROTESTO"."SERIE_ORIGINAL" = :as_serie ) AND  
+		 ( "DETALLE_CONVENIO_PROTESTO"."NUMERO_ORIGINAL" = :al_numero )   
+USING		sqlca;
+if ll_count>0 then
+	ls_mensaje	= 'Tiene '+string(ll_count)
+else
+	ls_mensaje	= 'No Tiene'
+end if
+return ls_mensaje
+end function
+

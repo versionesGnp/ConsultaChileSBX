@@ -1,0 +1,36 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Redondear según especificaciones~r~n    Recomendación: Consultar~r~n*/
+global type f_genround from function_object
+end type
+
+forward prototypes
+global function decimal f_genround (decimal adc_importe, string as_tipo)
+end prototypes
+
+global function decimal f_genround (decimal adc_importe, string as_tipo);/* f_GenRound( adc_importe, as_tipo ) */
+Dec	ldc_decimal, ldc_redondeado
+Long	ll_entero
+
+
+as_tipo = Upper( as_tipo ) 
+
+ll_entero = Truncate( adc_importe, 0 )
+
+ldc_decimal = adc_importe - ll_entero
+
+Choose Case as_tipo
+	Case 'CUARTOS'
+		If ldc_decimal <= 0.25 Then ldc_redondeado = ll_entero
+		If ldc_decimal > 0.25 And ldc_decimal <= 0.75  Then ldc_redondeado = ll_entero + 0.50
+		If ldc_decimal > 0.75 Then ldc_redondeado = ll_entero + 1
+		
+	Case 'MEDIOS'
+		If ldc_decimal < 0.50 Then ldc_redondeado = ll_entero
+		If ldc_decimal >= 0.50 Then ldc_redondeado = ll_entero + 1
+		
+	Case Else
+		ldc_redondeado = adc_importe
+End Choose
+
+Return ldc_redondeado
+end function
+

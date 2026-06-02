@@ -1,0 +1,21 @@
+﻿global type f_produc_cierre_agte_pro_lib_aum from function_object
+end type
+
+forward prototypes
+global function double f_produc_cierre_agte_pro_lib_aum (string as_cod_age, datetime adt_fecha)
+end prototypes
+
+global function double f_produc_cierre_agte_pro_lib_aum (string as_cod_age, datetime adt_fecha);double	ldb_producc
+
+SELECT	SUM("PRECIO_UF")
+INTO		:ldb_producc
+FROM		"VISTA_PRODUCC_MENSUAL"  
+WHERE	"VISTA_PRODUCC_MENSUAL"."COD_AGE" = :as_cod_age AND
+			"VISTA_PRODUCC_MENSUAL"."CIERRE_VENTA" = :adt_fecha AND
+			("VISTA_PRODUCC_MENSUAL"."BASE" = 'O' OR "VISTA_PRODUCC_MENSUAL"."BASE" = 'A') AND
+			"VISTA_PRODUCC_MENSUAL"."CLASIFICA_VENTA" <> 'C'
+USING	sqlca;
+if isnull(ldb_producc) then ldb_producc=0
+Return ldb_producc
+end function
+

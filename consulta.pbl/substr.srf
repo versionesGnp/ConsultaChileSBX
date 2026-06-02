@@ -1,0 +1,39 @@
+﻿global type substr from function_object
+end type
+
+forward prototypes
+global function string substr (integer row, integer col, string s)
+end prototypes
+
+global function string substr (integer row, integer col, string s);integer i,p,inicio
+string line
+
+p=pos(s,char(13)+char(10),1)
+if p<=0 then
+	line=s
+else
+	i=1;inicio=1
+	do while (p<>-1) and (i<row)
+		inicio=p+2
+		p=pos(s,char(13)+char(10),inicio)
+		i++
+	loop
+	if p<=0 then
+		line=''
+	else
+		line=mid(s,inicio,p - 1 - inicio + 1)
+	end if
+end if
+line=line+char(9)
+p=0
+for i=1 to col
+	inicio=p+1
+	p=pos(line,char(9),inicio)
+next
+if p<=0 then
+	return ''
+else
+	return mid(line,inicio,p - 1 - inicio + 1)
+end if 	
+end function
+

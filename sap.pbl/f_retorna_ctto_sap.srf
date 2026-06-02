@@ -1,0 +1,35 @@
+﻿global type f_retorna_ctto_sap from function_object
+end type
+
+forward prototypes
+global function string f_retorna_ctto_sap (string as_base, string as_serie, double al_numero, string as_tipo_deuda)
+end prototypes
+
+global function string f_retorna_ctto_sap (string as_base, string as_serie, double al_numero, string as_tipo_deuda);String		ls_ctto_sap
+
+if as_tipo_deuda='C' then
+	SELECT	"SAP_CADENA"."NRO_CONTRATO_SAP"  
+	INTO 		:ls_ctto_sap  
+	FROM 	"SAP_CADENA"  
+	WHERE ( "SAP_CADENA"."BASE" = :as_base ) AND  
+			  ( "SAP_CADENA"."SERIE" = :as_serie ) AND  
+			  ( "SAP_CADENA"."NUMERO" = :al_numero ) AND  
+			  ( "SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda or "SAP_CADENA"."TIPO_DEUDA" = 'E' ) 
+	USING	sqlca;
+else
+	SELECT	"SAP_CADENA"."NRO_CONTRATO_SAP"  
+	INTO 		:ls_ctto_sap  
+	FROM 	"SAP_CADENA"  
+	WHERE ( "SAP_CADENA"."BASE" = :as_base ) AND  
+			  ( "SAP_CADENA"."SERIE" = :as_serie ) AND  
+			  ( "SAP_CADENA"."NUMERO" = :al_numero ) AND  
+			  ( "SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda ) 
+	USING	sqlca;
+end if
+if sqlca.sqlcode <> 0 then
+	ls_ctto_sap		= 'Sin Contrato SAP'
+end if
+Return ls_ctto_sap
+
+end function
+

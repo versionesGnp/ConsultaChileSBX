@@ -1,0 +1,48 @@
+﻿global type f_clasif_hist from function_object
+end type
+
+forward prototypes
+global function string f_clasif_hist (string as_codigo, datetime adt_fecha)
+end prototypes
+
+global function string f_clasif_hist (string as_codigo, datetime adt_fecha);string	ls_clasif_hist
+datetime	ldt_fecha_clasif
+
+//f_clasif_hist(as_codigo,adt_fecha)
+SELECT	MAX("CLASIFICA_HIST"."FECHA_CLASIFICA")
+INTO		:ldt_fecha_clasif
+FROM		"CLASIFICA_HIST"  
+WHERE		( "CLASIFICA_HIST"."COD_AGE" = :as_codigo ) AND  
+         ( "CLASIFICA_HIST"."FECHA_CLASIFICA" <= :adt_fecha )
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ldt_fecha_clasif) then
+		SELECT	"CLASIFICA_HIST"."TIPO_CLASIFICA"
+		INTO		:ls_clasif_hist
+		FROM		"CLASIFICA_HIST"  
+		WHERE		( "CLASIFICA_HIST"."COD_AGE" = :as_codigo ) AND  
+					( "CLASIFICA_HIST"."FECHA_CLASIFICA" = :ldt_fecha_clasif )
+		USING		sqlca;
+	else
+		SELECT	MAX("CLASIFICA_HIST_SUP"."FECHA_CLASIFICA_SUP")
+		INTO		:ldt_fecha_clasif
+		FROM		"CLASIFICA_HIST_SUP"  
+		WHERE		( "CLASIFICA_HIST_SUP"."COD_SUP" = :as_codigo ) AND  
+					( "CLASIFICA_HIST_SUP"."FECHA_CLASIFICA_SUP" <= :adt_fecha )
+		USING		sqlca;
+		if sqlca.sqlcode=0 then
+			if not isnull(ldt_fecha_clasif) then
+				SELECT	"CLASIFICA_HIST_SUP"."TIPO_CLASIFICA_SUP"
+				INTO		:ls_clasif_hist
+				FROM		"CLASIFICA_HIST_SUP"  
+				WHERE		( "CLASIFICA_HIST_SUP"."COD_SUP" = :as_codigo ) AND  
+							( "CLASIFICA_HIST_SUP"."FECHA_CLASIFICA_SUP" = :ldt_fecha_clasif )
+				USING		sqlca;
+			end if
+		end if
+	end if
+end if
+if isnull(ldt_fecha_clasif) or isnull(ls_clasif_hist) or ls_clasif_hist='' then ls_clasif_hist = 'C'
+Return ls_clasif_hist
+end function
+

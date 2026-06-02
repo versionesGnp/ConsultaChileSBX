@@ -1,0 +1,98 @@
+﻿global type f_valida_menu_fallecidos from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_fallecidos (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_fallecidos (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_fallecidos0'
+				m_menu_principal.m_fallecidos0.visible																	= false
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.visible										= false
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_nueva.visible							= false
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_listado.visible							= false
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_-16.visible								= false
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_actualizar.visible						= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.visible											= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_ficha.visible								= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_fichadetraslado.visible					= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_-23.visible								= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_cartadesepultación.visible			= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_solicitudgrabaciónlápida.visible		= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_-20.visible								= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_resumenfunerales.visible				= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_-24.visible								= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_estadistico.visible						= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_administrador.visible					= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_-25.visible								= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_lápidasconvencimiento15díashábiles.visible	= false
+				m_menu_principal.m_fallecidos0.m_fosacomun.visible												= false
+				m_menu_principal.m_fallecidos0.m_fosacomun.m_mantenedor0.visible							= false
+				m_menu_principal.m_fallecidos0.m_fosacomun.m_informes14.visible							= false
+				m_menu_principal.m_fallecidos0.m_fichaimplementación.visible									= false		
+				
+			CASE 'm_menu_principal.m_fallecidos0.m_nuevaasignación'
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.visible										= false
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_nueva.visible							= false
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_listado.visible							= false
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_-16.visible								= false
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_actualizar.visible						= false
+			CASE 'm_menu_principal.m_fallecidos0.m_nuevaasignación.m_nueva'
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_nueva.visible							= false
+			CASE 'm_menu_principal.m_fallecidos0.m_nuevaasignación.m_listado'
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_listado.visible							= false
+			CASE 'm_menu_principal.m_fallecidos0.m_nuevaasignación.m_actualizar'
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_-16.visible								= false
+				m_menu_principal.m_fallecidos0.m_nuevaasignación.m_actualizar.visible						= false
+			
+			CASE 'm_menu_principal.m_fallecidos0.m_fichasepultación'
+				m_menu_principal.m_fallecidos0.m_fichasepultación.visible										= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_ficha.visible								= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_fichadetraslado.visible				= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_-23.visible								= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_cartadesepultación.visible			= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_solicitudgrabaciónlápida.visible	= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_-20.visible								= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_resumenfunerales.visible				= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_-24.visible								= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_estadistico.visible						= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_administrador.visible					= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fichasepultación.m_ficha'
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_ficha.visible								= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fichasepultación.m_fichadetraslado'
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_fichadetraslado.visible				= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fichasepultación.m_cartadesepultación'
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_cartadesepultación.visible			= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fichasepultación.m_solicitudgrabaciónlápida'
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_solicitudgrabaciónlápida.visible	= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fichasepultación.m_resumenfunerales'
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_resumenfunerales.visible				= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_-20.visible								= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fichasepultación.m_estadistico'
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_estadistico.visible						= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fichasepultación.m_administrador'
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_administrador.visible					= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fichasepultación.m_lápidasconvencimiento15díashábiles'
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_-25.visible								= false
+				m_menu_principal.m_fallecidos0.m_fichasepultación.m_lápidasconvencimiento15díashábiles.visible	= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fosacomun'
+				m_menu_principal.m_fallecidos0.m_fosacomun.visible													= false
+				m_menu_principal.m_fallecidos0.m_fosacomun.m_mantenedor0.visible								= false
+				m_menu_principal.m_fallecidos0.m_fosacomun.m_informes14.visible								= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fosacomun.m_mantenedor0'
+				m_menu_principal.m_fallecidos0.m_fosacomun.m_mantenedor0.visible								= false
+			CASE 'm_menu_principal.m_fallecidos0.m_fosacomun.m_informes14'
+				m_menu_principal.m_fallecidos0.m_fosacomun.m_informes14.visible								= false
+
+			CASE 'm_menu_principal.m_fallecidos0.m_fichaimplementación'
+				m_menu_principal.m_operaciones0.m_unidadgeneradoradenegocios.m_ugn0.m_ingreso5.m_fichaimplementación0.visible		= false
+				m_menu_principal.m_fallecidos0.m_fichaimplementación.visible										= false		
+				
+				
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

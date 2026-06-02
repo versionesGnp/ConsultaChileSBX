@@ -1,0 +1,108 @@
+﻿//objectcomments /* Autor: César Vilela */
+release 19;
+datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=8 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 108 print.margin.right = 108 print.margin.top = 94 print.margin.bottom = 94 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=yes showbackcoloronxp=no picture.file="" )
+header(height=120 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=100 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=char(5) updatewhereclause=yes name=c_codigo_mod dbname="genopcion.c_codigo_mod" dbalias=".c_codigo_mod" )
+ column=(type=char(100) updatewhereclause=yes name=v_nombre_mod dbname="genopcion.v_nombre_mod" dbalias=".v_nombre_mod" )
+ column=(type=char(1) updatewhereclause=yes name=c_nivel_mod dbname="genopcion.c_nivel_mod" dbalias=".c_nivel_mod" )
+ column=(type=char(20) updatewhereclause=yes name=v_color_mod dbname="genopcion.v_color_mod" dbalias=".v_color_mod" )
+ column=(type=char(250) updatewhereclause=yes name=v_descripcion_mod dbname="genopcion.v_descripcion_mod" dbalias=".v_descripcion_mod" )
+ column=(type=char(5) updatewhereclause=yes name=c_codigo_sub dbname="genopcion.c_codigo_sub" dbalias=".c_codigo_sub" )
+ column=(type=char(100) updatewhereclause=yes name=v_nombre_sub dbname="genopcion.v_nombre_sub" dbalias=".v_nombre_sub" )
+ column=(type=char(1) updatewhereclause=yes name=c_nivel_sub dbname="genopcion.c_nivel_sub" dbalias=".c_nivel_sub" )
+ column=(type=char(5) updatewhereclause=yes name=c_depende_sub dbname="genopcion.c_depende_sub" dbalias=".c_depende_sub" )
+ column=(type=char(20) updatewhereclause=yes name=v_color_sub dbname="genopcion.v_color_sub" dbalias=".v_color_sub" )
+ column=(type=char(250) updatewhereclause=yes name=v_descripcion_sub dbname="genopcion.v_descripcion_sub" dbalias=".v_descripcion_sub" )
+ column=(type=char(5) updatewhereclause=yes key=yes name=c_codigo_opc dbname="genopcion.c_codigo_opc" dbalias=".c_codigo_opc" )
+ column=(type=char(100) updatewhereclause=yes name=v_nombre_opc dbname="genopcion.v_nombre_opc" dbalias=".v_nombre_opc" )
+ column=(type=char(1) updatewhereclause=yes name=c_nivel_opc dbname="genopcion.c_nivel_opc" dbalias=".c_nivel_opc" )
+ column=(type=char(5) updatewhereclause=yes name=c_depende_opc dbname="genopcion.c_depende_opc" dbalias=".c_depende_opc" )
+ column=(type=char(20) updatewhereclause=yes name=v_color_opc dbname="genopcion.v_color_opc" dbalias=".v_color_opc" )
+ column=(type=char(250) updatewhereclause=yes name=v_descripcion_opc dbname="genopcion.v_descripcion_opc" dbalias=".v_descripcion_opc" )
+ column=(type=char(1) updatewhereclause=yes name=c_asignado dbname="c_asignado" values="	1/	0" )
+ column=(type=number updatewhereclause=yes name=n_dock_opc dbname="n_dock_opc" )
+ column=(type=char(1) updatewhereclause=yes name=c_sub dbname="c_sub" values="	1/	0" )
+ retrieve="Select   genopcion.c_codigo_opc c_codigo_mod,   
+         genopcion.v_nombre_opc v_nombre_mod,   
+         genopcion.c_nivel_opc  c_nivel_mod,   
+         genopcion.v_color_opc  v_color_mod,   
+         genopcion.v_descripcion_opc v_descripcion_mod,
+
+         nivel_2.c_codigo_opc  c_codigo_sub,   
+         nivel_2.v_nombre_opc  v_nombre_sub,   
+         nivel_2.c_nivel_opc   c_nivel_sub,   
+         nivel_2.c_depende_opc c_depende_sub,   
+         nivel_2.v_color_opc   v_color_sub,   
+         nivel_2.v_descripcion_opc v_descripcion_sub,
+
+         nivel_3.c_codigo_opc  c_codigo_opc,   
+         nivel_3.v_nombre_opc  v_nombre_opc,   
+         nivel_3.c_nivel_opc   c_nivel_opc,   
+         nivel_3.c_depende_opc c_depende_opc,   
+         nivel_3.v_color_opc   v_color_opc,   
+         nivel_3.v_descripcion_opc v_descripcion_opc,
+         
+         ( Case When ( Select Count(*) From genloginopc x Where x.c_codigo_usu = :as_usu 
+                                                          And   x.c_codigo_opc = nivel_3.c_codigo_opc ) > 0 Then '1' 
+                               Else '0' End ) As c_asignado,
+         ( Select n_dock_opc From genloginopc x Where x.c_codigo_usu = :as_usu 
+                                                          And   x.c_codigo_opc = nivel_3.c_codigo_opc ) As n_dock_opc,
+
+         '0' As c_sub
+From     genopcion 
+             
+Left Join   ( Select
+                     c_codigo_opc,   
+                     v_nombre_opc,   
+                     c_nivel_opc,   
+                     c_depende_opc,   
+                     v_color_opc,   
+                     v_descripcion_opc
+              From   genopcion    
+              Where  c_nivel_opc = '2' 
+              And    c_eclipse_opc = '1'  ) nivel_2
+On    genopcion.c_codigo_opc = nivel_2.c_depende_opc
+   
+Join        ( Select
+                     c_codigo_opc,   
+                     v_nombre_opc,   
+                     c_nivel_opc,   
+                     c_depende_opc,   
+                     v_color_opc,   
+                     v_descripcion_opc
+              From   genopcion    
+              Where  c_nivel_opc = '3' 
+              And    c_eclipse_opc = '1'  ) nivel_3
+On    nivel_2.c_codigo_opc = nivel_3.c_depende_opc
+
+Where genopcion.c_nivel_opc = '1'
+And   genopcion.c_eclipse_opc = '1'  
+
+" update="genopcion" updatewhere=0 updatekeyinplace=no arguments=(("as_usu", string))  sort="c_codigo_mod A c_codigo_sub A c_codigo_opc A " )
+group(level=1 header.height=84 trailer.height=0 by=("c_codigo_mod" ) header.color="536870912" header.transparency="0" header.gradient.color="8421504" header.gradient.transparency="0" header.gradient.angle="0" header.brushmode="0" header.gradient.repetition.mode="0" header.gradient.repetition.count="0" header.gradient.repetition.length="100" header.gradient.focus="0" header.gradient.scale="100" header.gradient.spread="100" trailer.color="536870912" trailer.transparency="0" trailer.gradient.color="8421504" trailer.gradient.transparency="0" trailer.gradient.angle="0" trailer.brushmode="0" trailer.gradient.repetition.mode="0" trailer.gradient.repetition.count="0" trailer.gradient.repetition.length="100" trailer.gradient.focus="0" trailer.gradient.scale="100" trailer.gradient.spread="100" )
+group(level=2 header.height=96 trailer.height=0 by=("c_codigo_sub" ) header.color="536870912" header.transparency="0" header.gradient.color="8421504" header.gradient.transparency="0" header.gradient.angle="0" header.brushmode="0" header.gradient.repetition.mode="0" header.gradient.repetition.count="0" header.gradient.repetition.length="100" header.gradient.focus="0" header.gradient.scale="100" header.gradient.spread="100" trailer.color="536870912" trailer.transparency="0" trailer.gradient.color="8421504" trailer.gradient.transparency="0" trailer.gradient.angle="0" trailer.brushmode="0" trailer.gradient.repetition.mode="0" trailer.gradient.repetition.count="0" trailer.gradient.repetition.length="100" trailer.gradient.focus="0" trailer.gradient.scale="100" trailer.gradient.spread="100" )
+text(band=header alignment="0" text="Menú de Opciones" border="0" color="33554432" x="133" y="24" height="48" width="1010" html.valueishtml="0"  name=v_nombre_usu_t visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=header.1 alignment="0" expression="WordCap( v_nombre_mod )"border="0" color="33554432~tf_Gen_Color( 'o' )" x="133" y="16" height="64" width="1170" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Tahoma" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=header.2 id=20 alignment="2" tabsequence=20 border="0" color="33554432" x="201" y="20" height="72" width="155" format="[general]" html.valueishtml="0"  name=c_sub pointer="HyperLink!" visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=yes checkbox.threed=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="1" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.tip="Marca o desmarca todo el submódulo" tooltip.transparency="0" transparency="0" )
+column(band=header.2 id=7 alignment="0" tabsequence=32766 border="0" color="33554432~tf_Gen_Color( 'o' )" x="347" y="20" height="68" width="1211" format="[general]" html.valueishtml="0"  name=v_nombre_sub visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="2" expression="If( GetRow() = CurrentRow(),  '>', '' )"border="0" color="0" x="5" y="24" height="48" width="155" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="MS Sans Serif" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="33554432~tf_Gen_Color( 't' )" x="480" y="20" height="76" width="1326" format="[general]" html.valueishtml="0"  name=v_nombre_opc visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=18 alignment="2" tabsequence=10 border="0" color="33554432" x="315" y="24" height="72" width="155" format="[general]" html.valueishtml="0"  name=c_asignado pointer="HyperLink!" visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=yes checkbox.threed=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=19 alignment="0" tabsequence=30 border="0" color="33554432" x="1495" y="24" height="52" width="347" format="[general]" html.valueishtml="0"  name=n_dock_opc visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=trailer.2 alignment="0" expression="Sum( If ( c_asignado = '1', 1, 0 ) for group 2 )"border="0" color="33554432" x="352" y="8" height="64" width="215" format="[GENERAL]" html.valueishtml="0"  name=n_sel visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=trailer.2 alignment="0" expression="Count( 1 for group 2 )"border="0" color="33554432" x="603" y="8" height="64" width="215" format="[GENERAL]" html.valueishtml="0"  name=n_sub visible="1"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no )
+export.xhtml()
+tree(type=1 showconnectlines=no showleafnodeconnectLines=no  indent=112 showtreenodeicon=no defaultexpandtolevel=3 stateiconalignmode=0 selectnodebymouse=no rtollayout=no 
+) 

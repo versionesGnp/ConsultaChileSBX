@@ -1,0 +1,92 @@
+﻿release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 1 print.margin.left = 100 print.margin.right = 0 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=564 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=76 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=datetime update=yes updatewhereclause=yes key=yes name=mes dbname="res_mora_fact.mes" )
+ column=(type=char(1) update=yes updatewhereclause=yes key=yes name=base dbname="res_mora_fact.base" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=mora_cero dbname="res_mora_fact.mora_cero" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=mora_uno dbname="res_mora_fact.mora_uno" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=mora_dos dbname="res_mora_fact.mora_dos" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=mora_tres_cuatro dbname="res_mora_fact.mora_tres_cuatro" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=mora_cinco_doce dbname="res_mora_fact.mora_cinco_doce" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=mora_trece dbname="res_mora_fact.mora_trece" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=capital_uno dbname="res_mora_fact.capital_uno" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=capital_dos dbname="res_mora_fact.capital_dos" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=capital_tres_cuatro dbname="res_mora_fact.capital_tres_cuatro" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=capital_cinco_doce dbname="res_mora_fact.capital_cinco_doce" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=capital_trece dbname="res_mora_fact.capital_trece" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"res_mora_fact~" ) COLUMN(NAME=~"res_mora_fact.mes~") COLUMN(NAME=~"res_mora_fact.base~") COLUMN(NAME=~"res_mora_fact.mora_cero~") COLUMN(NAME=~"res_mora_fact.mora_uno~") COLUMN(NAME=~"res_mora_fact.mora_dos~") COLUMN(NAME=~"res_mora_fact.mora_tres_cuatro~") COLUMN(NAME=~"res_mora_fact.mora_cinco_doce~") COLUMN(NAME=~"res_mora_fact.mora_trece~") COLUMN(NAME=~"res_mora_fact.capital_uno~") COLUMN(NAME=~"res_mora_fact.capital_dos~") COLUMN(NAME=~"res_mora_fact.capital_tres_cuatro~") COLUMN(NAME=~"res_mora_fact.capital_cinco_doce~") COLUMN(NAME=~"res_mora_fact.capital_trece~")WHERE(    EXP1 =~"~~~"RES_MORA_FACT~~~".~~~"BASE~~~"~"   OP =~"=~"    EXP2 =~"'L'~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"RES_MORA_FACT~~~".~~~"MES~~~"~"   OP =~">=~"    EXP2 =~":fecha~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"RES_MORA_FACT~~~".~~~"MES~~~"~"   OP =~"<=~"    EXP2 =~":fecha1~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"RES_MORA_FACT~~~".~~~"COD_PARQUE~~~"~"   OP =~"=~"    EXP2 =~":parque~" ) ) ARG(NAME = ~"fecha~" TYPE = date)  ARG(NAME = ~"fecha1~" TYPE = date)  ARG(NAME = ~"parque~" TYPE = number) " update="RES_MORA_FACT" updatewhere=1 updatekeyinplace=no arguments=(("fecha", date),("fecha1", date),("parque", number)) )
+text(band=header alignment="2" text="" border="0" color="0" x="14" y="232" height="80" width="3835"  name=titulo  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Promesas en Mora" border="0" color="0" x="14" y="108" height="100" width="3835"  name=titulo1  font.face="Arial" font.height="-16" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="3067" y="12" height="64" width="782" format="dd/mm/yyyy hh:mm"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="(total_mora/total_contratos)*100"border="2" color="0" x="3666" y="4" height="56" width="183" format="###,###,###,###.00"  name=compute_3  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+compute(band=detail alignment="1" expression="(mora_cero/total_contratos)*100"border="2" color="0" x="3470" y="4" height="56" width="183" format="###,###,###,###.00"  name=compute_4  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="2" color="0" x="265" y="4" height="56" width="178" format="###,###,###,##0"  name=mora_cero edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="2" color="0" x="462" y="4" height="56" width="178" format="###,###,###,##0"  name=mora_uno edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="2" color="0" x="654" y="4" height="56" width="293" format="###,###,###,##0"  name=capital_uno edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="2" color="0" x="978" y="4" height="56" width="178" format="###,###,###,##0"  name=mora_dos edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="2" color="0" x="1170" y="4" height="56" width="293" format="###,###,###,##0"  name=capital_dos edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="2" color="0" x="1495" y="4" height="56" width="178" format="###,###,###,##0"  name=mora_tres_cuatro edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="2" color="0" x="1687" y="4" height="56" width="293" format="###,###,###,##0"  name=capital_tres_cuatro edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="2" color="0" x="2011" y="4" height="56" width="178" format="###,###,###,##0"  name=mora_cinco_doce edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="2" color="0" x="2203" y="4" height="56" width="293" format="###,###,###,##0"  name=capital_cinco_doce edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="2" color="0" x="2528" y="4" height="56" width="178" format="###,###,###,##0"  name=mora_trece edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="2" color="0" x="2720" y="4" height="56" width="293" format="###,###,###,##0"  name=capital_trece edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" mora_cero  + mora_uno  +  mora_dos  +  mora_tres_cuatro  +  mora_cinco_doce  +  mora_trece "border="2" color="0" x="3241" y="4" height="56" width="215" format="###,###,###,##0"  name=total_contratos  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+compute(band=detail alignment="1" expression="mora_uno  +  mora_dos  +  mora_tres_cuatro  +  mora_cinco_doce  +  mora_trece "border="2" color="0" x="3045" y="4" height="56" width="183" format="###,###,###,##0"  name=total_mora  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+compute(band=footer alignment="2" expression="'Pagina ' + page() + ' de ' + pageCount()"border="0" color="0" x="14" y="8" height="64" width="3835" format="[general]"  name=compute_5  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="0
+cuota en
+Mora" border="2" color="0" x="265" y="356" height="204" width="178"  name=t_3  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="
+%
+Mora
+" border="2" color="0" x="3666" y="356" height="204" width="183"  name=t_1  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="
+%
+al dia
+" border="2" color="0" x="3470" y="356" height="204" width="183"  name=t_2  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="1
+cuota en
+Mora" border="2" color="0" x="462" y="356" height="204" width="178"  name=t_4  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="
+Capital
+" border="2" color="0" x="654" y="356" height="204" width="293"  name=t_5  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="2
+cuotas en
+Mora" border="2" color="0" x="978" y="356" height="204" width="178"  name=t_6  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="
+Capital
+" border="2" color="0" x="1170" y="356" height="204" width="293"  name=t_7  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="3 y 4
+cuotas en
+Mora" border="2" color="0" x="1495" y="356" height="204" width="178"  name=t_8  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="
+Capital
+" border="2" color="0" x="1687" y="356" height="204" width="293"  name=t_9  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="5 y 12
+cuotas en
+Mora" border="2" color="0" x="2011" y="356" height="204" width="178"  name=t_10  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="
+Capital
+" border="2" color="0" x="2203" y="356" height="204" width="293"  name=t_11  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="13 y más
+cuotas en
+Mora" border="2" color="0" x="2528" y="356" height="204" width="178"  name=t_12  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="
+Capital
+" border="2" color="0" x="2720" y="356" height="204" width="293"  name=t_13  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="
+total
+mora
+" border="2" color="0" x="3045" y="356" height="204" width="183"  name=t_14  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="
+total
+contratos
+" border="2" color="0" x="3241" y="356" height="204" width="215"  name=t_15  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+compute(band=detail alignment="2" expression="if( month( mes ) =1,'Enero',if(  month( mes ) =2,'Febrero',if(  month( mes ) =3,'Marzo',if(  month( mes ) =4,'Abril',if(  month( mes ) =5,'Mayo',if(  month( mes ) =6,'Junio',if(  month( mes ) =7,'Julio',if(  month( mes ) =8,'Agosto',if(  month( mes ) =9,'Septiembre',if(  month( mes ) =10,'Octubre',if(  month( mes ) =11,'Noviembre',if(  month( mes ) =12,'Diciembre',''))))))))))))"border="2" color="0" x="9" y="4" height="56" width="233" format="[general]"  name=compute_2  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
+  

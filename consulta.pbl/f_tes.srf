@@ -1,0 +1,10 @@
+﻿global type f_tes from function_object
+end type
+
+forward prototypes
+global subroutine f_tes (string as_opc)
+end prototypes
+
+global subroutine f_tes (string as_opc);return
+end subroutine
+

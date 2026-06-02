@@ -1,0 +1,32 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Establce tablas de compatir~r~n    Recomendación: NO MODIFICAR - NIVEL EXPERTO~r~n*/
+global type f_genshared from function_object
+end type
+
+forward prototypes
+global function s_parm f_genshared (string as_emp, string as_tab, string as_col, string as_cod, string as_usu, string as_wks, string as_shr, string as_pub, any aa_dat)
+end prototypes
+
+global function s_parm f_genshared (string as_emp, string as_tab, string as_col, string as_cod, string as_usu, string as_wks, string as_shr, string as_pub, any aa_dat);
+/* f_GenShared( ls_emp, ls_tab, ls_col, ls_cod, ls_usu, ls_wks, ls_pub, aa_dat ) */
+
+s_parm	lstr_parm
+String	ls_obj
+
+lstr_parm.s_cad[ 1] = as_emp
+lstr_parm.s_cad[ 2] = as_tab
+lstr_parm.s_cad[ 3] = as_col
+lstr_parm.s_cad[ 4] = as_cod
+lstr_parm.s_cad[ 5] = as_usu
+lstr_parm.s_cad[ 6] = as_wks
+lstr_parm.s_cad[ 7] = as_shr
+lstr_parm.s_cad[ 8] = as_pub
+
+lstr_parm.a_any[ 1] = aa_dat
+
+//OpenWithParm( w_mant_gen_tabla_compartida, lstr_parm )
+
+lstr_parm = Message.PowerObjectParm
+
+Return lstr_parm
+end function
+

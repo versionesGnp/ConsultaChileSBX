@@ -1,0 +1,142 @@
+﻿//objectcomments Autor: César Vilela~r~nFunción: Múltiples Gráficos (Charts)~r~nNivel Experto
+global type f_visualizationcharta from function_object
+end type
+
+forward prototypes
+global function string f_visualizationcharta (string as_gra[], string as_tit[], string as_pos[], string as_json[], string as_sub[], string as_area[], string as_effects[], string as_divstyle[], ref string as_file)
+end prototypes
+
+global function string f_visualizationcharta (string as_gra[], string as_tit[], string as_pos[], string as_json[], string as_sub[], string as_area[], string as_effects[], string as_divstyle[], ref string as_file);
+/* f_VisualizationChartA( as_gra[], as_tit[], as_pos[], as_json[], as_sub[], as_effects[], as_divStyle[] ,REF as_file ) */
+
+Integer	i
+String	ls_html, ls_header, ls_data, ls_footer, ls_chart, ls_ops, ls_AHeader[], ls_CI, ls_options[], ls_draw[], ls_table[], ls_div
+
+
+ls_header = '<html>' + Char(13) + &  
+    '  <head>' + Char(13) + &
+    '    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>' + Char(13) + &
+    '    <script type="text/javascript">' + Char(13) + &
+    '      google.charts.load("current", {"packages":["corechart"]});' + Char(13) 
+	 
+For i = 1 To UpperBound( as_gra[] ) 
+	ls_CI = String( i )
+	ls_AHeader[ i ] = '      google.charts.setOnLoadCallback(drawChart' +ls_CI+ ');' + Char(13) + &
+						 '      function drawChart'+ ls_CI +'() {' + Char(13) 
+						 
+	ls_data = '        var data = google.visualization.arrayToDataTable( '
+	ls_data = ls_data + as_json[i] + ');'
+	
+	If as_gra[i] = '' Then as_gra[i] = 'donut'
+	If as_pos[i] = '' Then as_pos[i] = 'bottom'
+	
+	as_gra[i] = Lower( as_gra[i] )
+
+	Choose Case as_gra[ i]
+		Case 'donut'
+			as_gra[ i] = 'donutchart' + ls_CI
+			ls_chart = "   var chart = new google.visualization.PieChart(document.getElementById('" + as_gra[ i] + "'));" + Char(13)  
+			ls_ops = ',pieHole: 0.4'
+			If Not f_Trim( as_effects[ i] ) = '' Then
+				ls_ops = ls_ops + as_effects[ i]
+			End If
+			
+		Case 'pie'
+			as_gra[ i] = 'piechart' + ls_CI
+			ls_chart = "   var chart = new google.visualization.PieChart(document.getElementById('" + as_gra[ i] + "'));" + Char(13)  
+			If Not f_Trim( as_effects[ i] ) = '' Then
+				ls_ops = ls_ops + as_effects[ i]
+			End If
+			
+		Case 'pie3d'
+			as_gra[ i] = 'piechart_3d' + ls_CI
+			ls_chart = "   var chart = new google.visualization.PieChart(document.getElementById('" + as_gra[ i] + "'));" + Char(13)  
+			If f_Trim( as_effects[ i] ) = '' Then
+				ls_ops = ',is3D: true'
+			Else
+				ls_ops = ls_ops + as_effects[ i]
+			End If
+			
+			
+		Case 'column'
+			as_gra[ i] = 'columnchart_values' + ls_CI
+			ls_chart = "   var chart = new google.visualization.ColumnChart(document.getElementById('" + as_gra[ i] + "'));" + Char(13)   
+			If f_Trim( as_effects[ i] ) = '' Then
+				ls_ops = ',bar: {groupWidth: "85%"}'
+			Else
+				ls_ops = as_effects[ i]
+			End If
+			
+		Case 'bar'
+			as_gra[ i] = 'barchart_values' + ls_CI
+			ls_chart = "   var chart = new google.visualization.BarChart(document.getElementById('" + as_gra[ i] + "'));" + Char(13)
+			If f_Trim( as_effects[ i] ) = '' Then
+				ls_ops = ',bar: {groupWidth: "85%"}'
+			Else
+				ls_ops = as_effects[ i]
+			End If
+			
+		Case 'histogram'
+			as_gra[ i] = 'Histogram' + ls_CI
+			ls_chart = "   var chart = new google.visualization.BarChart(document.getElementById('" + as_gra[ i] + "'));" + Char(13)
+			If f_Trim( as_effects[ i] ) = '' Then
+				ls_ops = ',bar: {groupWidth: "85%"}'
+			Else
+				ls_ops = as_effects[ i]
+			End If
+			
+	End Choose
+	
+	ls_options[ i] =	Char(13) + 'var options = { title: ' + as_tit[ i] + '' + as_area[ i] + &
+				 		Char(13) + ',    curveType: "function", legend: { position: "' + as_pos[ i] + '" }' + ls_ops + &
+						Char(13) + ' };' + Char(13) + Char(13) 
+						
+	ls_chart = ls_chart + '   chart.draw(data, options);' +  Char(13) + &
+									 '}' +  Char(13) 
+
+	ls_table[ i] = ls_data
+	ls_draw[ i] =  ls_options[ i] + ls_chart
+Next
+
+
+For i = 1 To UpperBound( as_gra[] ) 
+	ls_html = ls_html + ls_AHeader[ i ] + ls_table[ i] + ls_draw[ i]
+	ls_div = ls_div + '    <div id="' + as_gra[ i] + '" style=' + as_divstyle[ i] + '></div>' +  Char(13) + &
+				 			'    <div id="blank' + ls_CI +'" style="width: 50px; height: 10px; border: 0px solid #ccc"></div>' + Char(13)
+
+Next
+
+ls_footer = Char(13) + '    </script>' +  Char(13) + &
+				'  </head>' +  Char(13) + &
+				'  <body>' +  Char(13) 
+				
+ls_html = ls_header + ls_html + ls_footer + ls_div + &
+		    	'  </body>' +  Char(13) + &
+   			'</html>' +  Char(13) 
+
+
+// Sección Creación de Archivo para HTML
+Integer	li_fileNum
+String	ls_dir, ls_path, ls_file
+
+ls_file = as_file
+
+If ls_file = '' Then
+	ls_dir = GetCurrentDirectory()
+	ls_path = ls_dir + '\' + 'TmpChart'
+	CreateDirectory ( ls_path )
+	ls_file = f_GetPCName( ) + String( Today() , 'yymmdd') + String( Now(), 'hhmm' ) + '.html'
+	ls_file = ls_path + '\' + ls_file	
+End If
+
+FileDelete( ls_file )
+
+li_FileNum = FileOpen(ls_file, TextMode!, Write!, LockWrite!, Replace!)
+FileWriteEx( li_FileNum, ls_html )
+FileClose( li_FileNum )
+
+as_file = ls_file
+
+Return ls_html
+end function
+

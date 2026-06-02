@@ -1,0 +1,65 @@
+﻿global type f_membrete_empresa from function_object
+end type
+
+forward prototypes
+global function string f_membrete_linea_1 (long al_linea)
+global function string f_membrete_empresa (long al_linea)
+end prototypes
+
+global function string f_membrete_linea_1 (long al_linea);String	ls_linea,ls_codigo
+if gs_conexion='Parque El Prado' then
+	ls_codigo	= 'P'
+else
+	ls_codigo	= 'F'
+end if
+CHOOSE CASE al_linea
+	CASE 1
+		SELECT	"MEMBRETE_EMPRESA"."EMPRESA"  
+		INTO 		:ls_linea
+		FROM 		"MEMBRETE_EMPRESA"  
+		WHERE 	"MEMBRETE_EMPRESA"."CODIGO" = :ls_codigo   
+		USING		sqlca;
+
+	CASE 2
+	CASE 3
+	CASE 4
+END CHOOSE
+return ls_linea
+end function
+
+global function string f_membrete_empresa (long al_linea);String	ls_linea,ls_codigo
+
+CHOOSE CASE al_linea
+	CASE 1 // titulo empresa
+		SELECT	"MEMBRETE_EMPRESA"."EMPRESA"  
+		INTO 		:ls_linea
+		FROM 		"MEMBRETE_EMPRESA"  
+		WHERE 	"MEMBRETE_EMPRESA"."COD_PARQUE" = :gl_cod_parque_cta   
+		USING		sqlca;
+	CASE 2 //rut empresa
+		SELECT	"MEMBRETE_EMPRESA"."RUT"  
+		INTO 		:ls_linea
+		FROM 		"MEMBRETE_EMPRESA"  
+		WHERE 	"MEMBRETE_EMPRESA"."COD_PARQUE" = :gl_cod_parque_cta   
+		USING		sqlca;
+	CASE 3 // casa matriz
+		SELECT	"MEMBRETE_EMPRESA"."CASA_MATRIZ"  
+		INTO 		:ls_linea
+		FROM 		"MEMBRETE_EMPRESA"  
+		WHERE 	"MEMBRETE_EMPRESA"."COD_PARQUE" = :gl_cod_parque_cta   
+		USING		sqlca;
+	CASE 4 // sucursal
+		SELECT	"MEMBRETE_EMPRESA"."SUCURSAL"  
+		INTO 		:ls_linea
+		FROM 		"MEMBRETE_EMPRESA"  
+		WHERE 	"MEMBRETE_EMPRESA"."COD_PARQUE" = :gl_cod_parque_cta   
+		USING		sqlca;
+END CHOOSE
+if sqlca.sqlcode=0 then
+	if not isnull(ls_linea) and ls_linea<>'' then
+		ls_linea	= trim(ls_linea)
+	end if
+end if
+return ls_linea
+end function
+

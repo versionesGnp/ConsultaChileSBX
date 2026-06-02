@@ -1,0 +1,40 @@
+﻿global type f_buscar_sol_repacta from function_object
+end type
+
+forward prototypes
+global function string f_buscar_sol_repacta (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function string f_buscar_sol_repacta (string as_base, string as_serie, double al_numero);Long		ll_corr
+String	ls_corr
+
+SELECT	MAX("SOL_REPACTA_CVTA"."CORRELATIVO")  
+INTO 		:ll_corr  
+FROM 		"CADENA",	"PAGARE",	"SOL_ESTATUS",	"SOL_REPACTA_CVTA"  
+WHERE  ( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+		 ( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+		 ( "PAGARE"."SERIE_P" = "SOL_ESTATUS"."SERIE" ) and  
+		 ( "PAGARE"."NRO_PAGARE" = "SOL_ESTATUS"."NUMERO" ) and  
+		 ( "CADENA"."CODIGO" = "SOL_ESTATUS"."BASE" ) and  
+		 ( "SOL_ESTATUS"."BASE" = "SOL_REPACTA_CVTA"."BASE" ) and  
+		 ( "SOL_ESTATUS"."SERIE" = "SOL_REPACTA_CVTA"."SERIE" ) and  
+		 ( "SOL_ESTATUS"."NUMERO" = "SOL_REPACTA_CVTA"."NUMERO" ) and  
+		 ( "SOL_ESTATUS"."CORRELATIVO" = "SOL_REPACTA_CVTA"."CORRELATIVO" ) and  
+		 (("CADENA"."CODIGO" = :as_base ) AND  
+		 ( "CADENA"."SERIE" = :as_serie ) AND  
+		 ( "CADENA"."NUMERO" = :al_numero ) AND  
+		 ( "SOL_ESTATUS"."CODIGO_SOLICITUD" = '5' ) AND  
+		 ( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) )   
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if isnull(ll_corr) or ll_corr=0 then 
+		ls_corr	= '0'
+	else
+		ls_corr	= string(ll_corr)
+	end if
+else
+	ls_corr 		= '0'
+end if
+return(ls_corr)
+end function
+

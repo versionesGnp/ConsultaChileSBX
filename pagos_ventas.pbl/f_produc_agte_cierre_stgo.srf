@@ -1,0 +1,49 @@
+﻿global type f_produc_agte_cierre_stgo from function_object
+end type
+
+forward prototypes
+global function double f_produc_agte_cierre_stgo (string as_cod_age, datetime adt_fecha)
+end prototypes
+
+global function double f_produc_agte_cierre_stgo (string as_cod_age, datetime adt_fecha);string	ls_moneda
+double	ldb_valor_uf,ldb_precio,ldb_precio_uf,ldb_producc
+
+SELECT	"TAB_UF"."VALOR_UF"  
+INTO 		:ldb_valor_uf  
+FROM		"TAB_UF"  
+WHERE		"TAB_UF"."FECHA_UF" = :adt_fecha
+USING		sqlca;
+if sqlca.sqlcode=0 then
+end if
+DECLARE x1 CURSOR FOR
+SELECT	"PAGARE"."MONEDA",	"PAGARE"."KAPITAL"   
+FROM		"CADENA","PAGARE","CONTRATO"  
+WHERE		( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+         ( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+         ( "PAGARE"."NRO_PAGARE" = "CONTRATO"."NRO_PAGARE" ) and  
+         ( "PAGARE"."SERIE_P" = "CONTRATO"."SERIE" ) and  
+         ( ( "CADENA"."CODIGO" = 'P' ) AND  
+         ( "CONTRATO"."AGENTE" = :as_cod_age ) AND  
+         ( "CADENA"."FECHA_PRIM_FACTURA" = :adt_fecha ) )
+USING		sqlca;
+open x1;
+	if sqlca.sqlcode=0 then
+		DO WHILE sqlca.sqlcode=0
+			fetch x1 INTO	:ls_moneda,	:ldb_precio;
+				if not isnull(ls_moneda) or ls_moneda <> '' then
+					if ls_moneda = '1' then
+						ldb_precio_uf			= ldb_precio / ldb_valor_uf 
+					elseif ls_moneda = '2' then 
+						ldb_precio_uf			= ldb_precio
+					end if
+					ldb_producc					= round(ldb_producc + ldb_precio_uf, 2)
+				end if
+				setnull(ls_moneda)
+		LOOP
+	end if
+close x1;
+
+if isnull(ldb_producc) then ldb_producc=0
+Return ldb_producc
+end function
+

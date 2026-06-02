@@ -1,0 +1,84 @@
+﻿global type f_cta_promesa_mora from function_object
+end type
+
+forward prototypes
+global function long f_cta_promesa_mora (string as_cod_age, datetime adt_fecha)
+end prototypes
+
+global function long f_cta_promesa_mora (string as_cod_age, datetime adt_fecha);long	ll_cuenta_mora,ll_cuenta_mora_prom,ll_cuenta_mora_contr
+datetime	ldt_fecha_fact
+
+
+SELECT	max("CADENA"."FECHA_PRIM_FACTURA")
+INTO		:ldt_fecha_fact  
+FROM		"CADENA"  
+WHERE		"CADENA"."FECHA_PRIM_FACTURA" <= :adt_fecha
+USING		sqlca;
+
+SELECT	COUNT("CADENA_MORA"."MORA_CRED") 
+INTO		:ll_cuenta_mora_prom
+FROM		"CADENA",	"CADENA_MORA",	"OFERTA_V"  
+WHERE 	( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+			( "CADENA_MORA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+			( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+			( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+			( "CADENA_MORA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+			(("CADENA"."CODIGO" = 'O' AND  
+			"CADENA"."SERIE" <> 'R' AND  
+			"CADENA_MORA"."MORA_CRED" >= 2 AND  
+			("CADENA"."ESTADO" = 'C' OR "CADENA"."ESTADO" = 'V') AND  
+			"OFERTA_V"."COD_AGE" = :as_cod_age AND  
+			"OFERTA_V"."CIERRE_VENTA" >= :adt_fecha) OR  
+			("CADENA"."CODIGO" = 'O' AND  
+			"CADENA"."SERIE" <> 'R' AND  
+			"CADENA"."ESTADO" = 'P' AND  
+			"OFERTA_V"."COD_AGE" = :as_cod_age AND  
+			"OFERTA_V"."CIERRE_VENTA" >= :adt_fecha) )
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ll_cuenta_mora_prom) and ll_cuenta_mora_prom > 0 then
+		ll_cuenta_mora_prom							= ll_cuenta_mora_prom
+	else
+		ll_cuenta_mora_prom							= 0
+	end if
+else
+	ll_cuenta_mora_prom								= 0
+end if 
+
+SELECT	COUNT("CONTRATO"."SERIE_C")
+INTO		:ll_cuenta_mora_contr  
+FROM		"CADENA",	"CADENA_MORA",	"CONTRATO",	"PAGARE"  
+WHERE		( "CONTRATO"."SERIE" = "PAGARE"."SERIE_P" ) and  
+         ( "CONTRATO"."NRO_PAGARE" = "PAGARE"."NRO_PAGARE" ) and  
+         ( "PAGARE"."SERIE_P" = "CADENA"."SERIE" ) and  
+         ( "PAGARE"."NRO_PAGARE" = "CADENA"."NUMERO" ) and  
+         ( "CADENA"."CODIGO" = "CADENA_MORA"."BASE" ) and  
+         ( "CADENA"."SERIE" = "CADENA_MORA"."SERIE" ) and  
+         ( "CADENA"."NUMERO" = "CADENA_MORA"."NUMERO" ) and  
+         (("CADENA"."CODIGO" = 'P' AND  
+         "CADENA_MORA"."MORA_CRED" >= 2 AND  
+         ("CADENA"."ESTADO" = 'V' OR  
+         "CADENA"."ESTADO" = 'C') AND  
+         "CONTRATO"."AGENTE" = :as_cod_age AND  
+         "CADENA"."FECHA_PRIM_FACTURA" >= :ldt_fecha_fact) OR  
+         ("CADENA"."CODIGO" = 'P' AND  
+         "CADENA"."ESTADO" = 'P' AND  
+         "CONTRATO"."AGENTE" = :as_cod_age AND  
+         "CADENA"."FECHA_PRIM_FACTURA" >= :ldt_fecha_fact))
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ll_cuenta_mora_contr) and ll_cuenta_mora_contr > 0 then
+		ll_cuenta_mora_contr							= ll_cuenta_mora_contr
+	else
+		ll_cuenta_mora_contr							= 0
+	end if
+else
+	ll_cuenta_mora_contr								= 0
+end if 
+
+ll_cuenta_mora											= ll_cuenta_mora_prom + ll_cuenta_mora_contr
+
+if isnull(ll_cuenta_mora) then ll_cuenta_mora=0
+Return ll_cuenta_mora
+end function
+

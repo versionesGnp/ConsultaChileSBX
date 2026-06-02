@@ -1,0 +1,553 @@
+﻿forward
+global type m_menu_popup_titulo_ctto_def from menu
+end type
+type m_archivo from menu within m_menu_popup_titulo_ctto_def
+end type
+type m_generarlibroregistro from menu within m_archivo
+end type
+type m_generararchivomecanizado from menu within m_archivo
+end type
+type m_archivo from menu within m_menu_popup_titulo_ctto_def
+m_generarlibroregistro m_generarlibroregistro
+m_generararchivomecanizado m_generararchivomecanizado
+end type
+type m_0 from menu within m_menu_popup_titulo_ctto_def
+end type
+type m_actualizar from menu within m_0
+end type
+type m_registroseleccionado from menu within m_actualizar
+end type
+type m_todo from menu within m_actualizar
+end type
+type m_actualizar from menu within m_0
+m_registroseleccionado m_registroseleccionado
+m_todo m_todo
+end type
+type m_eliminar from menu within m_0
+end type
+type m_0 from menu within m_menu_popup_titulo_ctto_def
+m_actualizar m_actualizar
+m_eliminar m_eliminar
+end type
+type m_imprimir from menu within m_menu_popup_titulo_ctto_def
+end type
+type m_cartaaviso from menu within m_imprimir
+end type
+type m_títulodominio from menu within m_imprimir
+end type
+type m_contratodefinitivo from menu within m_imprimir
+end type
+type m_3 from menu within m_imprimir
+end type
+type m_imprimir from menu within m_menu_popup_titulo_ctto_def
+m_cartaaviso m_cartaaviso
+m_títulodominio m_títulodominio
+m_contratodefinitivo m_contratodefinitivo
+m_3 m_3
+end type
+type m_herramientas from menu within m_menu_popup_titulo_ctto_def
+end type
+type m_ordenar from menu within m_herramientas
+end type
+type m_filtrar from menu within m_herramientas
+end type
+type m_exportar from menu within m_herramientas
+end type
+type m_- from menu within m_herramientas
+end type
+type m_imprimir0 from menu within m_herramientas
+end type
+type m_-0 from menu within m_herramientas
+end type
+type m_desactivarestadoimpresión from menu within m_herramientas
+end type
+type m_herramientas from menu within m_menu_popup_titulo_ctto_def
+m_ordenar m_ordenar
+m_filtrar m_filtrar
+m_exportar m_exportar
+m_- m_-
+m_imprimir0 m_imprimir0
+m_-0 m_-0
+m_desactivarestadoimpresión m_desactivarestadoimpresión
+end type
+type m_salir from menu within m_menu_popup_titulo_ctto_def
+end type
+global type m_menu_popup_titulo_ctto_def from menu
+m_archivo m_archivo
+m_0 m_0
+m_imprimir m_imprimir
+m_herramientas m_herramientas
+m_salir m_salir
+end type
+end forward
+
+global type m_menu_popup_titulo_ctto_def from menu
+m_archivo m_archivo
+m_0 m_0
+m_imprimir m_imprimir
+m_herramientas m_herramientas
+m_salir m_salir
+end type
+global m_menu_popup_titulo_ctto_def m_menu_popup_titulo_ctto_def
+
+on m_menu_popup_titulo_ctto_def.create
+m_menu_popup_titulo_ctto_def=this
+call super::create
+this.text = "m_menu_popup_titulo_ctto_def"
+this.m_archivo=create m_archivo
+this.m_0=create m_0
+this.m_imprimir=create m_imprimir
+this.m_herramientas=create m_herramientas
+this.m_salir=create m_salir
+this.Item[UpperBound(this.Item)+1]=this.m_archivo
+this.Item[UpperBound(this.Item)+1]=this.m_0
+this.Item[UpperBound(this.Item)+1]=this.m_imprimir
+this.Item[UpperBound(this.Item)+1]=this.m_herramientas
+this.Item[UpperBound(this.Item)+1]=this.m_salir
+end on
+
+on m_menu_popup_titulo_ctto_def.destroy
+call super::destroy
+destroy(this.m_archivo)
+destroy(this.m_0)
+destroy(this.m_imprimir)
+destroy(this.m_herramientas)
+destroy(this.m_salir)
+end on
+
+type m_archivo from menu within m_menu_popup_titulo_ctto_def
+m_generarlibroregistro m_generarlibroregistro
+m_generararchivomecanizado m_generararchivomecanizado
+end type
+
+on m_archivo.create
+call super::create
+this.text = "&Archivo"
+this.microhelp = "Modulo Archivo"
+this.m_generarlibroregistro=create m_generarlibroregistro
+this.m_generararchivomecanizado=create m_generararchivomecanizado
+this.Item[UpperBound(this.Item)+1]=this.m_generarlibroregistro
+this.Item[UpperBound(this.Item)+1]=this.m_generararchivomecanizado
+end on
+
+on m_archivo.destroy
+call super::destroy
+destroy(this.m_generarlibroregistro)
+destroy(this.m_generararchivomecanizado)
+end on
+
+type m_generarlibroregistro from menu within m_archivo
+end type
+
+on m_generarlibroregistro.create
+call super::create
+this.text = "&Generar Libro Registro"
+this.microhelp = "Generar Archivo Libro de Registro"
+this.toolbaritemname = "Compile!"
+this.toolbaritemtext = "Libro Registro"
+end on
+
+on m_generarlibroregistro.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_exportar_libro_reg.triggerevent(clicked!)
+end event
+
+type m_generararchivomecanizado from menu within m_archivo
+end type
+
+event clicked;w_informar_titulo_de_dominio.cb_exp_mecanizado.triggerevent(clicked!)
+end event
+
+on m_generararchivomecanizado.create
+call super::create
+this.text = "Generar &Archivo Mecanizado"
+this.microhelp = "Generar Archivo Mecanizado"
+this.toolbaritemname = "Application5!"
+this.toolbaritemtext = "Generar Archivo Mecanizado"
+end on
+
+on m_generararchivomecanizado.destroy
+call super::destroy
+end on
+
+type m_0 from menu within m_menu_popup_titulo_ctto_def
+m_actualizar m_actualizar
+m_eliminar m_eliminar
+end type
+
+on m_0.create
+call super::create
+this.text = "&Proceso"
+this.microhelp = "Modulo Proceso"
+this.toolbaritemspace = 3
+this.m_actualizar=create m_actualizar
+this.m_eliminar=create m_eliminar
+this.Item[UpperBound(this.Item)+1]=this.m_actualizar
+this.Item[UpperBound(this.Item)+1]=this.m_eliminar
+end on
+
+on m_0.destroy
+call super::destroy
+destroy(this.m_actualizar)
+destroy(this.m_eliminar)
+end on
+
+type m_actualizar from menu within m_0
+m_registroseleccionado m_registroseleccionado
+m_todo m_todo
+end type
+
+on m_actualizar.create
+call super::create
+this.text = "&Actualizar Datos"
+this.microhelp = "Proceso de Actulización de Información"
+this.m_registroseleccionado=create m_registroseleccionado
+this.m_todo=create m_todo
+this.Item[UpperBound(this.Item)+1]=this.m_registroseleccionado
+this.Item[UpperBound(this.Item)+1]=this.m_todo
+end on
+
+on m_actualizar.destroy
+call super::destroy
+destroy(this.m_registroseleccionado)
+destroy(this.m_todo)
+end on
+
+type m_registroseleccionado from menu within m_actualizar
+end type
+
+on m_registroseleccionado.create
+call super::create
+this.text = "&Registro Seleccionado"
+this.microhelp = "Actualizar Datos de Contrato Seleccionado"
+this.toolbaritemname = "DataManip!"
+this.toolbaritemtext = "Actualizar Registro"
+this.toolbaritemspace = 3
+end on
+
+on m_registroseleccionado.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_actualiza_fila.triggerevent(clicked!)
+end event
+
+type m_todo from menu within m_actualizar
+end type
+
+on m_todo.create
+call super::create
+this.text = "&Todo"
+this.microhelp = "Actualizar Datos de Todos los Contrato en Pantalla"
+this.toolbaritemname = "DBConnect!"
+this.toolbaritemtext = "Actualizar Todo"
+end on
+
+on m_todo.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_actualiza_todo.triggerevent(clicked!)
+end event
+
+type m_eliminar from menu within m_0
+end type
+
+on m_eliminar.create
+call super::create
+this.text = "&Eliminar"
+this.microhelp = "Eliminar Proceso Titulo de Dominio o Contrato Definitivo de Fecha Indicada en Pantalla"
+this.toolbaritemname = "Custom094!"
+this.toolbaritemtext = "Eliminar Proceso"
+this.toolbaritemspace = 3
+end on
+
+on m_eliminar.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_elimina.triggerevent(clicked!)
+end event
+
+type m_imprimir from menu within m_menu_popup_titulo_ctto_def
+m_cartaaviso m_cartaaviso
+m_títulodominio m_títulodominio
+m_contratodefinitivo m_contratodefinitivo
+m_3 m_3
+end type
+
+on m_imprimir.create
+call super::create
+this.text = "&Imprimir"
+this.microhelp = "Modulo Imprimir"
+this.toolbaritemspace = 3
+this.m_cartaaviso=create m_cartaaviso
+this.m_títulodominio=create m_títulodominio
+this.m_contratodefinitivo=create m_contratodefinitivo
+this.m_3=create m_3
+this.Item[UpperBound(this.Item)+1]=this.m_cartaaviso
+this.Item[UpperBound(this.Item)+1]=this.m_títulodominio
+this.Item[UpperBound(this.Item)+1]=this.m_contratodefinitivo
+this.Item[UpperBound(this.Item)+1]=this.m_3
+end on
+
+on m_imprimir.destroy
+call super::destroy
+destroy(this.m_cartaaviso)
+destroy(this.m_títulodominio)
+destroy(this.m_contratodefinitivo)
+destroy(this.m_3)
+end on
+
+type m_cartaaviso from menu within m_imprimir
+end type
+
+on m_cartaaviso.create
+call super::create
+this.text = "&Carta Aviso"
+this.microhelp = "Imprimir Carta de Aviso de Contratos en Pantalla"
+this.toolbaritemname = "Custom002!"
+this.toolbaritemtext = "Carta Aviso"
+this.toolbaritemspace = 3
+end on
+
+on m_cartaaviso.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_print_carta_aviso.triggerevent(clicked!)
+end event
+
+type m_títulodominio from menu within m_imprimir
+end type
+
+on m_títulodominio.create
+call super::create
+this.text = "&Título Dominio"
+this.microhelp = "Imprimir Titulo de Dominio de Contratos en Pantalla"
+this.toolbaritemname = "DosEdit5!"
+this.toolbaritemtext = "Titulo Dominio"
+end on
+
+on m_títulodominio.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_print_titulo_dominio.triggerevent(clicked!)
+end event
+
+type m_contratodefinitivo from menu within m_imprimir
+end type
+
+on m_contratodefinitivo.create
+call super::create
+this.text = "Contrato &Definitivo"
+this.microhelp = "Imprimir Contrato Definitivo de Contratos en Pantalla"
+this.toolbaritemname = "Move!"
+this.toolbaritemtext = "Contrato Definitivo"
+end on
+
+on m_contratodefinitivo.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_print_ccto_def.triggerevent(clicked!)
+end event
+
+type m_3 from menu within m_imprimir
+end type
+
+on m_3.create
+call super::create
+this.text = "&Etiquetas"
+this.microhelp = "Imprimir Etiquetas de Contratos en Pantalla"
+this.toolbaritemname = "PlaceColumn5!"
+this.toolbaritemtext = "Etiquetas"
+end on
+
+on m_3.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_exportar_etiqueta.triggerevent(clicked!)
+end event
+
+type m_herramientas from menu within m_menu_popup_titulo_ctto_def
+m_ordenar m_ordenar
+m_filtrar m_filtrar
+m_exportar m_exportar
+m_- m_-
+m_imprimir0 m_imprimir0
+m_-0 m_-0
+m_desactivarestadoimpresión m_desactivarestadoimpresión
+end type
+
+on m_herramientas.create
+call super::create
+this.text = "&Herramientas"
+this.microhelp = "Modulo Herramientas"
+this.toolbaritemspace = 3
+this.m_ordenar=create m_ordenar
+this.m_filtrar=create m_filtrar
+this.m_exportar=create m_exportar
+this.m_-=create m_-
+this.m_imprimir0=create m_imprimir0
+this.m_-0=create m_-0
+this.m_desactivarestadoimpresión=create m_desactivarestadoimpresión
+this.Item[UpperBound(this.Item)+1]=this.m_ordenar
+this.Item[UpperBound(this.Item)+1]=this.m_filtrar
+this.Item[UpperBound(this.Item)+1]=this.m_exportar
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_imprimir0
+this.Item[UpperBound(this.Item)+1]=this.m_-0
+this.Item[UpperBound(this.Item)+1]=this.m_desactivarestadoimpresión
+end on
+
+on m_herramientas.destroy
+call super::destroy
+destroy(this.m_ordenar)
+destroy(this.m_filtrar)
+destroy(this.m_exportar)
+destroy(this.m_-)
+destroy(this.m_imprimir0)
+destroy(this.m_-0)
+destroy(this.m_desactivarestadoimpresión)
+end on
+
+type m_ordenar from menu within m_herramientas
+end type
+
+on m_ordenar.create
+call super::create
+this.text = "&Ordenar"
+this.microhelp = "Ordenar Lista en Pantalla"
+this.toolbaritemname = "Sort!"
+this.toolbaritemtext = "Ordenar"
+this.toolbaritemspace = 3
+end on
+
+on m_ordenar.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_ordenar.triggerevent(clicked!)
+end event
+
+type m_filtrar from menu within m_herramientas
+end type
+
+on m_filtrar.create
+call super::create
+this.text = "&Filtrar"
+this.microhelp = "Filtrar Lista en Pantalla"
+this.toolbaritemname = "Next5!"
+this.toolbaritemtext = "Filtrar"
+end on
+
+on m_filtrar.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_filtrar.triggerevent(clicked!)
+end event
+
+type m_exportar from menu within m_herramientas
+end type
+
+on m_exportar.create
+call super::create
+this.text = "&Exportar"
+this.microhelp = "Exportar Lista en Pantalla"
+this.toolbaritemname = "SaveAs!"
+this.toolbaritemtext = "Exportar"
+end on
+
+on m_exportar.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_exportar.triggerevent(clicked!)
+end event
+
+type m_- from menu within m_herramientas
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_imprimir0 from menu within m_herramientas
+end type
+
+on m_imprimir0.create
+call super::create
+this.text = "&Imprimir"
+this.microhelp = "Imprimir Lista en Pantalla"
+this.toolbaritemname = "Print!"
+this.toolbaritemtext = "Imprimir"
+end on
+
+on m_imprimir0.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_imprimir.triggerevent(clicked!)
+end event
+
+type m_-0 from menu within m_herramientas
+end type
+
+on m_-0.create
+call super::create
+this.text = "-"
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_desactivarestadoimpresión from menu within m_herramientas
+end type
+
+event clicked;open(w_desactivar_estado_impresion)
+end event
+
+on m_desactivarestadoimpresión.create
+call super::create
+this.text = "Desactivar Estado Impresión"
+this.microhelp = "Desactivar Estado Impresión"
+this.toolbaritemname = "MoveMode!"
+this.toolbaritemtext = "Desacticar"
+this.toolbaritemspace = 3
+end on
+
+on m_desactivarestadoimpresión.destroy
+call super::destroy
+end on
+
+type m_salir from menu within m_menu_popup_titulo_ctto_def
+end type
+
+on m_salir.create
+call super::create
+this.text = "&Salir"
+this.microhelp = "Salir de Aplicación Titulo de Dominio y Contrato Definitivo"
+this.toolbaritemname = "Exit!"
+this.toolbaritemtext = "Salir"
+this.toolbaritemspace = 20
+end on
+
+on m_salir.destroy
+call super::destroy
+end on
+
+event clicked;w_informar_titulo_de_dominio.cb_cerrar.triggerevent(clicked!)
+end event
+

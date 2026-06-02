@@ -1,0 +1,46 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: BLScript Class - Mueve a Pos Y un objeto~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_setdwpositiony from function_object
+end type
+
+forward prototypes
+global subroutine f_setdwpositiony (datawindow adw_1, integer ai_pos)
+end prototypes
+
+global subroutine f_setdwpositiony (datawindow adw_1, integer ai_pos);/* f_SetDWPositionY( adw_1 )
+	Autor: César Vilela Requena
+	Cambia la posición Y de los objetos del DW */
+
+Boolean	lb_loop = True 
+Long		ll_ini, ll_fin, ll_pos, ll_len
+String	ls_sett, ls_type, ls_obj, ls_txtcolor, ls_barcolor, ls_dataobj
+
+// Verificación si es existente un DWObject
+ls_dataobj = f_Trim( adw_1.DataObject )
+If ls_dataobj = '' Then Return 
+
+ls_sett	= adw_1.Object.DataWindow.Objects	// Lista de Objetos de un DW
+ll_len	= Len( ls_sett )
+ll_pos	= 1
+ll_ini	= 1
+
+If ai_pos <= 0 Then ai_pos = 20
+
+Do While lb_loop
+	ll_pos	= f_Zero( Pos( ls_sett, '~t', ll_ini ) ) // Buscar la posicion del separador TAB
+	If ll_pos = 0 Then // Cuando no encuentre mas TAB debe indicar el final de la cadena
+		ll_fin = ll_len 
+	Else
+		ll_fin = ll_pos - ll_ini
+	End If
+	ls_obj	= Mid( ls_sett, ll_ini, ll_fin )	// Nombre del Objeto
+	ls_type 	= f_Trim( adw_1.Describe( ls_obj + '.Type' ) )	//Tipo de Dato
+	If ls_type = 'text' Then adw_1.Modify( ls_obj + '.Y = 16' ) // Seteo de la Propiedad
+	If ls_type = 'column' Then adw_1.Modify( ls_obj + '.Y = ' + String( ai_pos ) ) // Seteo de la Propiedad
+	If ls_obj = 'co_row' Then adw_1.Modify( ls_obj + '.Y = ' + String( ai_pos ) )
+	If ll_pos = 0 Then lb_loop = False
+	ll_ini = ll_pos + 1
+Loop
+
+Return  
+end subroutine
+

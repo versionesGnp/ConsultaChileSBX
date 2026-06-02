@@ -1,0 +1,43 @@
+﻿global type f_valida_rut from function_object
+end type
+
+forward prototypes
+global function string f_valida_rut (string ci)
+end prototypes
+
+global function string f_valida_rut (string ci);Integer Suma,Factor,I
+String Valid_dv
+
+//Inicializa Variables para Validar el RUT
+suma=0
+factor=2
+
+
+//Verifica RUT Valido
+ci = ci +' '
+FOR i= len(ci)-1 to 1 STEP -1
+	If IsNumber(Mid(ci,i,1)) then
+		suma= suma+ factor*integer(mid(ci,i,1))
+		factor= factor+1
+		if factor >7  then
+			factor=2
+		end if
+	else
+		return ''
+	end if
+NEXT
+
+factor = 11-(suma - (11*int(suma/11)))
+
+
+valid_dv= string(factor)
+
+If factor=10  Then
+	valid_dv='K'
+elseif factor=11  then
+	valid_dv='0'
+end if
+
+return valid_dv
+end function
+

@@ -1,0 +1,21 @@
+﻿global type gf_int_mora from function_object
+end type
+
+forward prototypes
+global function double gf_int_mora (double ad_tasa, integer ai_n_cuotas, double ad_monto)
+end prototypes
+
+global function double gf_int_mora (double ad_tasa, integer ai_n_cuotas, double ad_monto);double 	id_monto
+
+id_monto = (ad_tasa / 36000 ) * ad_monto
+id_monto = (id_monto)
+id_monto = round((id_monto * ai_n_cuotas),0)
+RETURN id_monto
+
+
+
+
+
+
+end function
+

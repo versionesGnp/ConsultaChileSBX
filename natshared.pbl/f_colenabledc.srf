@@ -1,0 +1,58 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Column Enabled por Array {} y bajo una condición~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_colenabledc from function_object
+end type
+
+forward prototypes
+global subroutine f_colenabledc (datawindow adw_mod, string as_col[], string as_enabled)
+end prototypes
+
+global subroutine f_colenabledc (datawindow adw_mod, string as_col[], string as_enabled);/* Autor: Cesar Vilela v. BL-Eclipse 30/03/2022
+	f_ColEnabledC( adw_mod, ls_col[], as_enabled )
+	as_enabled Es la cadena que dará TRUE es decir ENABLED, si no es así, es DISABLED
+	*/
+   
+// Incluye Soporte fondo para Compute
+
+Integer	i
+String 	ls_col, ls_color, ls_modo, ls_protect, ls_err, ls_cbon, ls_cboff, ls_textc, &
+			ls_enaBack, ls_disBack, ls_enaText, ls_disText, ls_CondBack, ls_CondText, ls_CondProt
+
+
+ls_enaBack = String( f_Gen_Color( 'backenabled' ) )
+ls_disBack = String( f_Gen_Color( 'backdisabled' ) )
+ls_enaText = String( f_Gen_Color('t') )
+ls_disText = String( RGB( 128, 128, 128) )
+ls_CondBack = "'" + '536870912~tIf ( ' + as_Enabled + ', ' + ls_enaBack + ', ' +  ls_disBack + ')'	+ "'"
+ls_CondText = "'" + '33554432~tIf ( ' + as_Enabled + ', ' + ls_enaText + ', ' +  ls_disText + ')' + "'"	
+ls_CondProt = "'" + '0~tIf ( ' + as_Enabled + ', 0, 1 )' + "'"	
+
+For i = 1 To UpperBound( as_col[] )
+	ls_col = as_col[ i]
+	ls_cbon = adw_mod.Describe( ls_col + '.checkbox.on' )
+	ls_cboff = adw_mod.Describe( ls_col + '.checkbox.off' )
+	
+	If ls_cbon = '!' Then ls_cbon = '?' 
+	If ls_cboff = '!' Then ls_cboff = '?' 
+	
+	ls_color = ls_CondBack
+	ls_color = ls_col + '.Background.Color = ' + ls_color 
+	ls_protect = ls_col + '.Protect = ' + ls_CondProt
+	ls_textc = ls_CondText
+	ls_textc = ls_col + '.Color = ' + ls_textc //0 ' 
+	
+	ls_modo = ls_col + '.Background.Mode = 0'
+	
+	ls_err = adw_mod.Modify( ls_protect )
+	
+	If ( ls_cbon = '' Or ls_cboff = '' ) Or ( ls_cbon = '?' Or ls_cboff = '?' ) Then
+		ls_err = adw_mod.Modify( ls_color )
+		ls_err = adw_mod.Modify( ls_modo )
+	End If
+	
+	/* En el caso de ser checkbox */
+	If Not ( ls_cbon = '' And ls_cboff = '' ) And Not ( ls_cbon = '?' And ls_cboff = '?' ) Then
+		ls_err = adw_mod.Modify( ls_textc )
+	End If
+Next
+end subroutine
+

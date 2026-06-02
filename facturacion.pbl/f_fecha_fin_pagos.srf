@@ -1,0 +1,37 @@
+﻿global type f_fecha_fin_pagos from function_object
+end type
+
+forward prototypes
+global subroutine f_fecha_fin_pagos (ref datetime fecha_cierre, ref string serie, ref long nro_oferta, ref double saldo_total)
+end prototypes
+
+global subroutine f_fecha_fin_pagos (ref datetime fecha_cierre, ref string serie, ref long nro_oferta, ref double saldo_total);integer z
+				
+//SELECT count(1) INTO :z  
+//FROM "OFERTA_V"  
+//WHERE ( "OFERTA_V"."FECHA_FIN_PAGOS" is not null ) AND 
+//( "OFERTA_V"."SERIE" = :serie ) AND 
+//( "OFERTA_V"."NRO_OFERTA" = :nro_oferta ) ;
+
+SELECT count(1)   INTO :z  
+FROM "OFERTA_V","PAGO_OFERTA"  
+WHERE ( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+( "OFERTA_V"."SERIE" = :serie ) AND  
+( "OFERTA_V"."NRO_OFERTA" = :nro_oferta) AND  
+( "OFERTA_V"."FECHA_FIN_PAGOS" is null ) AND  
+( "OFERTA_V"."CTA_PAG_S" >= "PAGO_OFERTA"."NRO_CUOTAS" ) ;
+
+if z > 0 and saldo_total <= 0  then
+	UPDATE "OFERTA_V" SET "FECHA_FIN_PAGOS" = :fecha_cierre  
+	WHERE ( "OFERTA_V"."SERIE" = :serie ) AND ( "OFERTA_V"."NRO_OFERTA" = :nro_oferta ) ;
+	if sqlca.sqlcode = 0 then
+		commit;
+	else
+		rollback;
+	end if
+end if
+				
+end subroutine
+

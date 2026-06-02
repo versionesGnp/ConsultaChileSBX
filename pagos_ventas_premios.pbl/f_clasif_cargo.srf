@@ -1,0 +1,26 @@
+﻿global type f_clasif_cargo from function_object
+end type
+
+forward prototypes
+global function string f_clasif_cargo (double adb_porce, datetime adt_fecha)
+end prototypes
+
+global function string f_clasif_cargo (double adb_porce, datetime adt_fecha);string	ls_clasif
+
+//f_clasif_cargo(adb_porce,adt_fecha)
+
+SELECT	"CLASIFICACION"."CLASIFICA"  
+INTO 		:ls_clasif  
+FROM		"CLASIFICACION"  
+WHERE	"CLASIFICACION"."TIPO_CLASIFICA" = 1 AND  
+			( :adb_porce >= "CLASIFICACION"."TRAMO_INICIO" )  AND  
+			( :adb_porce < "CLASIFICACION"."TRAMO_FIN" ) AND  
+			"CLASIFICACION"."FECHA" = (	SELECT	max("CLASIFICACION"."FECHA")  
+													FROM	 	"CLASIFICACION"  
+													WHERE	"CLASIFICACION"."TIPO_CLASIFICA" = 1 AND  
+																"CLASIFICACION"."FECHA" <=:adt_fecha )
+USING	sqlca;
+if isnull(ls_clasif) or ls_clasif='' then ls_clasif = 'C'
+Return ls_clasif
+end function
+

@@ -1,0 +1,41 @@
+﻿global type f_retorna_fecha_palabra from function_object
+end type
+
+forward prototypes
+global function string f_retorna_fecha_palabra (date adt_fecha)
+end prototypes
+
+global function string f_retorna_fecha_palabra (date adt_fecha);String		ls_fecha_palabra
+Long		ll_dia_fec, ll_mes_fec,ll_anno_fec
+
+ll_dia_fec						= day(adt_fecha)
+ll_mes_fec						= month(adt_fecha)
+ll_anno_fec						= year(adt_fecha)
+if ll_mes_fec=1 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Enero de '+string(ll_anno_fec)
+elseif ll_mes_fec=2 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Febrero de '+string(ll_anno_fec)
+elseif ll_mes_fec=3 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Marzo de '+string(ll_anno_fec)
+elseif ll_mes_fec=4 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Abril de '+string(ll_anno_fec)
+elseif ll_mes_fec=5 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Mayo de '+string(ll_anno_fec)
+elseif ll_mes_fec=6 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Junio de '+string(ll_anno_fec)
+elseif ll_mes_fec=7 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Julio de '+string(ll_anno_fec)
+elseif ll_mes_fec=8 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Agosto de '+string(ll_anno_fec)
+elseif ll_mes_fec=9 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Septiembre de '+string(ll_anno_fec)
+elseif ll_mes_fec=10 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Octubre de '+string(ll_anno_fec)
+elseif ll_mes_fec=11 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Noviembre de '+string(ll_anno_fec)
+elseif ll_mes_fec=12 then
+	ls_fecha_palabra			= string(ll_dia_fec)+' de Diciembre de '+string(ll_anno_fec)
+end if
+Return ls_fecha_palabra
+end function
+

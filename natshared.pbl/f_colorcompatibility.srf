@@ -1,0 +1,26 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: color compatibility~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_colorcompatibility from function_object
+end type
+
+forward prototypes
+global function string f_colorcompatibility (string as_color)
+end prototypes
+
+global function string f_colorcompatibility (string as_color);
+// f_ColorCompatibility( as_color )
+
+Integer	i
+String	ls_hex[] = { 'DF0101', '2E9AFE', 'FE9A2E' }, &
+			ls_clr[] = { '82dbc', 'd29a5b', 'f6fd7' }, &
+			ls_ret
+
+ls_ret = as_color
+For i = 1 To UpperBound( ls_clr )
+	If Upper( ls_clr[ i] ) = Upper( as_color ) Then
+		ls_ret = ls_hex[ i]
+	End If
+Next
+
+Return ls_ret 
+end function
+

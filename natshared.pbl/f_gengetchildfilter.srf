@@ -1,0 +1,51 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Filtra DDDWs x empresa o códigos personalizados, reduce scripts, es nativo a eclipse, sustituye funciones PB~r~n    Recomendación: NO MODIFICAR - APLICA A TODO ERP~r~n*/
+global type f_gengetchildfilter from function_object
+end type
+
+forward prototypes
+global function integer f_gengetchildfilter (datawindow adw_1, string as_col, string as_emp, string as_tbl, string as_sel)
+end prototypes
+
+global function integer f_gengetchildfilter (datawindow adw_1, string as_col, string as_emp, string as_tbl, string as_sel);/*
+f_GenGetChildFilter( adw_1, as_col, as_emp, as_tbl, as_sel )
+*/
+DataWindowChild	ldwc_x
+Integer		li_ret
+
+
+adw_1.GetChild( as_col, ldwc_x )
+ldwc_x.SetTransObject( SqlCa )
+
+as_emp = f_Trim( as_emp )
+If Not as_emp = '-' Then
+	If as_emp = '' Then
+		li_ret = ldwc_x.Retrieve( )
+	ElseIf as_emp = '_' Then
+		ldwc_x.Reset( )
+	Else
+		li_ret = ldwc_x.Retrieve( as_emp )
+	End If
+End If
+
+If Not as_emp = '' And Not as_emp = '-' Then
+	ldwc_x.SetFilter( 'c_codigo_emp = "' + as_emp + '" Or f_Trim( c_codigo_emp ) = ""' )
+	ldwc_x.Filter( )
+End If
+
+as_tbl = f_Trim( as_tbl )
+as_tbl = Lower( as_tbl )
+
+ldwc_x.InsertRow( 1)
+If Not as_emp = '' And Not as_emp = '-' Then
+	ldwc_x.SetItem( 1, 'c_codigo_emp', as_emp )
+End If
+
+If Not as_tbl = '' Then
+	ldwc_x.SetItem( 1, 'c_codigo_' + as_tbl, '')
+	ldwc_x.SetItem( 1, 'v_nombre_' + as_tbl, as_sel )
+End If
+
+Return li_ret
+
+end function
+

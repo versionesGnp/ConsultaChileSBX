@@ -1,0 +1,20 @@
+﻿global type f_sup_canal from function_object
+end type
+
+forward prototypes
+global function long f_sup_canal (string sup, long valor, string tipo)
+end prototypes
+
+global function long f_sup_canal (string sup, long valor, string tipo);CHOOSE CASE tipo
+	CASE 'VD'
+		
+	CASE 'PV'
+		
+	CASE 'NI'
+		
+END CHOOSE
+
+return 1
+
+end function
+

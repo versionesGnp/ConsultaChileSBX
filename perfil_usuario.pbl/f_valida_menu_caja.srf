@@ -1,0 +1,238 @@
+﻿global type f_valida_menu_caja from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_caja (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_caja (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_caja0'
+				m_menu_principal.m_caja0.visible																	= false
+				m_menu_principal.m_caja0.m_ingreso.visible													= false
+				m_menu_principal.m_caja0.m_ingreso.m_7.visible												= false
+				m_menu_principal.m_caja0.m_ingreso.m_7.toolbaritemvisible								= false
+				m_menu_principal.m_caja0.m_ingreso.m_40.visible												= false
+				m_menu_principal.m_caja0.m_ingreso.m_40.toolbaritemvisible								= false
+				m_menu_principal.m_caja0.m_procesos.visible													= false
+				m_menu_principal.m_caja0.m_procesos.m_cuadraturacaja.visible							= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.visible									= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_deingresos.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_defolios.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.visible						= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0.visible		= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadébito.visible							= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informecierrecajafechahora0.visible		= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_pagosporparque.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.visible								= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_promesas0.visible				= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_contratoisa0.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_reprogramaciones.visible		= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_librodeventasboletas.visible= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.visible								= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_promesas1.visible				= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_liberadores0.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_pagares.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_derecho.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_rezagos0.visible				= false
+				m_menu_principal.m_caja0.m_procesos.m_centralización.visible							= false
+				m_menu_principal.m_caja0.m_consultas1.visible												= false
+				m_menu_principal.m_caja0.m_consultas1.m_comprobantedeingreso0.visible				= false
+				m_menu_principal.m_caja0.m_mantenedores.visible												= false
+				m_menu_principal.m_caja0.m_mantenedores.m_manteneruf.visible							= false
+				m_menu_principal.m_caja0.m_documentosnulos.m_boletas.m_ingreso1.visible				= false
+				m_menu_principal.m_caja0.m_documentosnulos.m_boletas.m_informe1.visible				= false
+				m_menu_principal.m_caja0.m_documentosnulos.m_ci.m_ingreso2.visible					= false
+				m_menu_principal.m_caja0.m_documentosnulos.m_ci.m_informe2.visible					= false
+				m_menu_principal.m_caja0.m_notasdecrédito.visible											= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.visible							= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_administradoranb.visible	= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_inmobiliarianc.visible		= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.visible							= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porcontrato.visible		= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porfolio.visible			= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_pornotadecrédito.visible= false
+			CASE 'm_menu_principal.m_caja0.m_ingreso'
+				m_menu_principal.m_caja0.m_ingreso.visible													= false
+				m_menu_principal.m_caja0.m_ingreso.m_7.visible												= false
+				m_menu_principal.m_caja0.m_ingreso.m_7.toolbaritemvisible								= false
+				m_menu_principal.m_caja0.m_ingreso.m_40.visible												= false
+				m_menu_principal.m_caja0.m_ingreso.m_40.toolbaritemvisible								= false
+			CASE 'm_menu_principal.m_caja0.m_ingreso.m_7'
+				m_menu_principal.m_caja0.m_ingreso.m_7.visible												= false
+				m_menu_principal.m_caja0.m_ingreso.m_7.toolbaritemvisible								= false
+			CASE 'm_menu_principal.m_caja0.m_ingreso.m_40'
+				m_menu_principal.m_caja0.m_ingreso.m_40.visible												= false
+				m_menu_principal.m_caja0.m_ingreso.m_40.toolbaritemvisible								= false
+			CASE 'm_menu_principal.m_caja0.m_procesos'
+				m_menu_principal.m_caja0.m_procesos.visible													= false
+				m_menu_principal.m_caja0.m_procesos.m_cuadraturacaja.visible							= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.visible									= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_deingresos.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_defolios.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.visible						= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0.visible		= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadébito.visible						= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informecierrecajafechahora0.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.visible= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.visible								= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_promesas0.visible				= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_contratoisa0.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_reprogramaciones.visible		= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_librodeventasboletas.visible= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.visible								= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_promesas1.visible				= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_liberadores0.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_pagares.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_derecho.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_rezagos0.visible				= false
+				m_menu_principal.m_caja0.m_procesos.m_centralización.visible							= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_cuadraturacaja'
+				m_menu_principal.m_caja0.m_procesos.m_cuadraturacaja.visible							= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.visible									= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_deingresos.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_defolios.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.visible						= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0.visible		= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadébito.visible						= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informecierrecajafechahora0.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.visible= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora.visible	= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_deingresos'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_deingresos.visible					= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_defolios'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_defolios.visible					= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.visible						= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha.visible			= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_aldía.visible			= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_cheques.m_afecha.visible			= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0.visible		= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0.visible	= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_aldía0.visible		= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadecrédito.m_afecha0.visible	= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadébito'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_tarjetadébito.visible						= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_informecierrecajafechahora0'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informecierrecajafechahora0.visible	= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.visible= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.visible= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria.visible	= false
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora.visible	= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deadministradoraainmobiliaria.visible	= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_informetraspasodepagoaempresa.m_deinmobiliariaaadministradora.visible	= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_informes2.m_pagosporparque'
+				m_menu_principal.m_caja0.m_procesos.m_informes2.m_pagosporparque.visible			= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_admistradora'
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.visible								= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_promesas0.visible				= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_contratoisa0.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_reprogramaciones.visible		= false
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_librodeventasboletas.visible= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_admistradora.m_promesas0'
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_promesas0.visible				= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_admistradora.m_contratoisa0'
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_contratoisa0.visible			= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_admistradora.m_reprogramaciones'
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_reprogramaciones.visible		= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_admistradora.m_librodeventasboletas'
+				m_menu_principal.m_caja0.m_procesos.m_admistradora.m_librodeventasboletas.visible= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_inmobiliaria'
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.visible								= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_promesas1.visible				= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_liberadores0.visible			= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_pagares.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_derecho.visible					= false
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_rezagos0.visible				= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_promesas1'
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_promesas1.visible				= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_liberadores0'
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_liberadores0.visible			= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_pagares'
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_pagares.visible					= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_derecho'
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_derecho.visible					= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_rezagos0'
+				m_menu_principal.m_caja0.m_procesos.m_inmobiliaria.m_rezagos0.visible				= false
+			CASE 'm_menu_principal.m_caja0.m_procesos.m_centralización'
+				m_menu_principal.m_caja0.m_procesos.m_centralización.visible							= false
+			CASE 'm_menu_principal.m_caja0.m_consultas1'
+				m_menu_principal.m_caja0.m_consultas1.visible												= false
+				m_menu_principal.m_caja0.m_consultas1.m_comprobantedeingreso0.visible				= false
+			CASE 'm_menu_principal.m_caja0.m_consultas1.m_comprobantedeingreso0'
+				m_menu_principal.m_caja0.m_consultas1.m_comprobantedeingreso0.visible				= false
+			CASE 'm_menu_principal.m_caja0.m_mantenedores'
+				m_menu_principal.m_caja0.m_mantenedores.visible												= false
+				m_menu_principal.m_caja0.m_mantenedores.m_manteneruf.visible							= false
+			CASE 'm_menu_principal.m_caja0.m_mantenedores.m_manteneruf'
+				m_menu_principal.m_caja0.m_mantenedores.m_manteneruf.visible							= false
+			CASE 'm_menu_principal.m_caja0.m_documentosnulos.m_boletas'
+				m_menu_principal.m_caja0.m_documentosnulos.m_boletas.m_ingreso1.visible				= false
+				m_menu_principal.m_caja0.m_documentosnulos.m_boletas.m_informe1.visible				= false
+			CASE 'm_menu_principal.m_caja0.m_documentosnulos.m_ci'
+				m_menu_principal.m_caja0.m_documentosnulos.m_ci.m_ingreso2.visible					= false
+				m_menu_principal.m_caja0.m_documentosnulos.m_ci.m_informe2.visible					= false
+			CASE 'm_menu_principal.m_caja0.m_notasdecrédito'
+				m_menu_principal.m_caja0.m_notasdecrédito.visible											= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.visible							= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_administradoranb.visible	= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_inmobiliarianc.visible		= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.visible							= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porcontrato.visible		= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porfolio.visible			= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_pornotadecrédito.visible= false
+			CASE 'm_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0'
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.visible							= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_administradoranb.visible	= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_inmobiliarianc.visible		= false
+			CASE 'm_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_administradoranb'
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_administradoranb.visible	= false
+			CASE 'm_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_inmobiliarianc'
+				m_menu_principal.m_caja0.m_notasdecrédito.m_ingreso0.m_inmobiliarianc.visible		= false
+			CASE 'm_menu_principal.m_caja0.m_notasdecrédito.m_consultar4'
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.visible							= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porcontrato.visible		= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porfolio.visible			= false
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_pornotadecrédito.visible= false
+			CASE 'm_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porcontrato'
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porcontrato.visible		= false
+			CASE 'm_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porfolio'
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_porfolio.visible			= false
+			CASE 'm_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_pornotadecrédito'
+				m_menu_principal.m_caja0.m_notasdecrédito.m_consultar4.m_pornotadecrédito.visible= false
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

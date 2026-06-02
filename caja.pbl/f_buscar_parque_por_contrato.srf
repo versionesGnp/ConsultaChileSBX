@@ -1,0 +1,62 @@
+﻿global type f_buscar_parque_por_contrato from function_object
+end type
+
+forward prototypes
+global function long f_buscar_parque_por_contrato (string as_tipo_cob, long al_folio)
+end prototypes
+
+global function long f_buscar_parque_por_contrato (string as_tipo_cob, long al_folio);String	ls_base_rez,ls_serie_rez,as_base,as_serie
+long		ll_parque
+Double	ll_numero_rez,al_numero
+Datetime	ad_fecha_pago
+
+SELECT DISTINCT 	"INGRESO"."FECHA_PAGO",	"INGRESO"."BASE",	"INGRESO"."SERIE",	"INGRESO"."CONTRATO"  
+INTO 					:ad_fecha_pago,			:as_base,			:as_serie,				:al_numero  
+FROM 					"DOCUMENTOS",	"INGRESO"  
+WHERE 			 ( "DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO" ) and  
+					 ( "DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" ) and  
+					 (("DOCUMENTOS"."FOLIO" = :al_folio ) AND  
+					 ( "DOCUMENTOS"."TIPO_COB" = :as_tipo_cob )   )   
+USING					sqlca;
+if sqlca.sqlcode=0 then
+	if al_numero=0 then
+		SELECT DISTINCT 	"CLIENTE_REZAGO"."BASE",   "CLIENTE_REZAGO"."SERIE",  "CLIENTE_REZAGO"."NUMERO"  
+		INTO 					:ls_base_rez,   				:ls_serie_rez,   				:ll_numero_rez  
+		FROM 					"CLIENTE_REZAGO"  
+		WHERE 			 ( "CLIENTE_REZAGO"."COD_PAGO" = :as_tipo_cob ) AND  
+							 ( "CLIENTE_REZAGO"."FOLIO" = :al_folio ) AND  
+							 ( "CLIENTE_REZAGO"."FECHA_PAGO" = :ad_fecha_pago )   
+		USING				sqlca;
+		if sqlca.sqlcode=0 then
+			SELECT	"CD_FOLIO"."COD_PARQUE"  
+			INTO 		:ll_parque  
+			FROM 		"CD_FOLIO"  
+			WHERE  ( "CD_FOLIO"."BASE" = :ls_base_rez ) AND  
+					 ( "CD_FOLIO"."SERIE" = :ls_serie_rez ) AND  
+					 ( "CD_FOLIO"."NUMERO" = :ll_numero_rez )   
+			USING		sqlca;
+			if sqlca.sqlcode<>0 then
+				SELECT	"CADENA"."COD_PARQUE"  
+				INTO 		:ll_parque  
+				FROM 		"CADENA"  
+				WHERE  ( "CADENA"."CODIGO" = :ls_base_rez ) AND  
+						 ( "CADENA"."SERIE" = :ls_serie_rez ) AND  
+						 ( "CADENA"."NUMERO" = :ll_numero_rez )   
+				USING		sqlca;
+			end if
+		end if
+	else
+		SELECT	"CADENA"."COD_PARQUE"  
+		INTO 		:ll_parque  
+		FROM 		"CADENA"  
+		WHERE  ( "CADENA"."CODIGO" = :as_base ) AND  
+				 ( "CADENA"."SERIE" = :as_serie ) AND  
+				 ( "CADENA"."NUMERO" = :al_numero )   
+		USING		sqlca;
+	end if 
+else
+	ll_parque	= 0
+end if
+return(ll_parque)
+end function
+

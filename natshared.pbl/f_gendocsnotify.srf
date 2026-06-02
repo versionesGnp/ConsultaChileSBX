@@ -1,0 +1,42 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Notificación sobre documentos por atender~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_gendocsnotify from function_object
+end type
+
+forward prototypes
+global function integer f_gendocsnotify (string as_doc, datetime ad_doc)
+end prototypes
+
+global function integer f_gendocsnotify (string as_doc, datetime ad_doc);Int	li_notify
+uo_DataStore	lds_noti
+
+
+If gs_usuario = '' Then li_notify = 0
+
+lds_noti = Create uo_DataStore
+
+lds_noti.DataObject = 'd_arch_gen_notificacion'
+//If ora='1' .DataObject.Procedure = 'execute usp_gen_blnotificaciones;1 @as_emp = :as_emp, @as_usu = :as_usu'
+lds_noti.SetTransObject( SqlCa )
+li_notify = lds_noti.Retrieve( gs_emp, gs_usuario, ad_doc )
+
+Destroy lds_noti
+
+Return li_notify
+
+/*
+Declare usp_com_bldocumentos_x_autorizar_notify Procedure For usp_com_bldocumentos_x_autorizar_notify 
+		      @as_emp = :gs_emp,
+				@as_usu = :gs_usuario,
+				@as_doc = :as_doc,
+				@as_aut = :as_aut,
+				@as_rec = :as_rec Using SqlCa;
+		  
+		  Execute usp_com_bldocumentos_x_autorizar_notify ;
+		  
+		  Fetch usp_com_bldocumentos_x_autorizar_notify Into :li_notify ;
+
+li_notify = f_Zero( li_notify )
+*/
+Return li_notify
+end function
+

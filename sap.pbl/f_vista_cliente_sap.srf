@@ -1,0 +1,30 @@
+﻿global type f_vista_cliente_sap from function_object
+end type
+
+forward prototypes
+global function string f_vista_cliente_sap (string as_grupo_cta, string as_sociedad, string as_tipo_vta, string as_uso, string as_origen_vta, string as_rut)
+end prototypes
+
+global function string f_vista_cliente_sap (string as_grupo_cta, string as_sociedad, string as_tipo_vta, string as_uso, string as_origen_vta, string as_rut);string		ls_nro_cli_sap,ls_nulo
+connect using Trans_hana;
+
+setnull(ls_nulo)
+//wf_vista_cliente_sap(as_grupo_cta,as_sociedad,as_tipo_vta,as_uso,as_origen_vta,as_rut)
+
+SELECT	 "SAPABAP1"."ZV_CLIENTES"."KUNNR"
+INTO		:ls_nro_cli_sap
+FROM 	"SAPABAP1"."ZV_CLIENTES"
+WHERE	"SAPABAP1"."ZV_CLIENTES"."MANDT" = :gs_mandatario AND
+			"SAPABAP1"."ZV_CLIENTES"."KTOKD" = :as_grupo_cta AND
+			"SAPABAP1"."ZV_CLIENTES"."BUKRS" = :as_sociedad AND
+			"SAPABAP1"."ZV_CLIENTES"."VKORG" = :as_tipo_vta AND
+			"SAPABAP1"."ZV_CLIENTES"."SPART" = :as_uso AND
+			"SAPABAP1"."ZV_CLIENTES"."VTWEG" = :as_origen_vta AND
+			"SAPABAP1"."ZV_CLIENTES"."STCD1" = :as_rut
+USING	Trans_hana;
+if isnull(ls_nro_cli_sap) or ls_nro_cli_sap='' then ls_nro_cli_sap=''
+return		ls_nro_cli_sap
+disconnect using Trans_hana;
+
+end function
+

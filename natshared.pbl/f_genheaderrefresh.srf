@@ -1,0 +1,25 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: refresh FrontEnd~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genheaderrefresh from function_object
+end type
+
+forward prototypes
+global subroutine f_genheaderrefresh ()
+end prototypes
+
+global subroutine f_genheaderrefresh ();/* f_genHeaderRefresh( ) 
+	César Vilela */
+
+f_SetMHStatus( 1, 'Espere...' )
+
+If IsValid( gw_frame ) Then
+//	gw_frame.wf_ShowMenu( )	
+End If
+
+If IsValid( w_arch_gen_pagina_inicio ) Then
+	w_arch_gen_pagina_inicio.wf_Config( )
+End If
+
+f_SetMHStatus( 1, 'Listo' )
+
+end subroutine
+

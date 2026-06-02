@@ -1,0 +1,22 @@
+﻿global type f_estado_gestion_funerario from function_object
+end type
+
+forward prototypes
+global function string f_estado_gestion_funerario (string as_base, string as_serie, long al_numero)
+end prototypes
+
+global function string f_estado_gestion_funerario (string as_base, string as_serie, long al_numero);Long		ll_estado_gestion
+String		ls_descrip_gestion,ls_string
+
+SELECT 	"FC_CABECERA"."ESTADO_GESTION",  	"FC_ESTADO_GESTION"."DESCRIPCION"  
+INTO 		:ll_estado_gestion,   							:ls_descrip_gestion  
+FROM 	"FC_CABECERA",  	"FC_ESTADO_GESTION"  
+WHERE 	( "FC_CABECERA"."ESTADO_GESTION" = "FC_ESTADO_GESTION"."ESTADO_GESTION" ) and  
+			(  "FC_CABECERA"."BASE" = :as_base ) AND  
+			( "FC_CABECERA"."SERIE" = :as_serie ) AND  
+			( "FC_CABECERA"."NUMERO" = :al_numero )   ;
+ls_string		= 'Estado Gestión Actual '+string(ll_estado_gestion,'###')+' - '+ls_descrip_gestion
+return(ls_string)
+
+end function
+

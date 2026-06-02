@@ -1,0 +1,156 @@
+﻿forward
+global type m_control_documento_popup from menu
+end type
+type m_popup from menu within m_control_documento_popup
+end type
+type m_ingresargestiontelefonica from menu within m_popup
+end type
+type m_popup from menu within m_control_documento_popup
+m_ingresargestiontelefonica m_ingresargestiontelefonica
+end type
+global type m_control_documento_popup from menu
+m_popup m_popup
+end type
+end forward
+
+global type m_control_documento_popup from menu
+m_popup m_popup
+end type
+global m_control_documento_popup m_control_documento_popup
+
+type variables
+datawindow dw_paso
+end variables
+
+on m_control_documento_popup.create
+m_control_documento_popup=this
+call super::create
+this.text = "m_control_documento_popup"
+this.m_popup=create m_popup
+this.Item[UpperBound(this.Item)+1]=this.m_popup
+end on
+
+on m_control_documento_popup.destroy
+call super::destroy
+destroy(this.m_popup)
+end on
+
+type m_popup from menu within m_control_documento_popup
+m_ingresargestiontelefonica m_ingresargestiontelefonica
+end type
+
+on m_popup.create
+call super::create
+this.text = "Popup"
+this.m_ingresargestiontelefonica=create m_ingresargestiontelefonica
+this.Item[UpperBound(this.Item)+1]=this.m_ingresargestiontelefonica
+end on
+
+on m_popup.destroy
+call super::destroy
+destroy(this.m_ingresargestiontelefonica)
+end on
+
+type m_ingresargestiontelefonica from menu within m_popup
+end type
+
+on m_ingresargestiontelefonica.create
+call super::create
+this.text = "Ingresar Gestión"
+end on
+
+on m_ingresargestiontelefonica.destroy
+call super::destroy
+end on
+
+event clicked;String	ls_string,ls_depto,ls_descrip
+Long		ll_estado,ll_row
+if isvalid(w_documentos_pendientes) then
+	ll_row				= w_documentos_pendientes.dw_lista.getrow()
+	if ll_row>0 then
+		gi_numero 		= w_documentos_pendientes.dw_lista.getitemnumber(ll_row,'numero')
+		gs_base			= w_documentos_pendientes.dw_lista.getitemstring(ll_row,'base')
+		gs_serie			= w_documentos_pendientes.dw_lista.getitemstring(ll_row,'serie')
+		ll_estado 		= w_documentos_pendientes.dw_lista.getitemnumber(ll_row,'ult_estado')
+		if isnull(ll_estado) then
+			messagebox("Advertencia","Contrato Antiguo, es posible consultar Cuenta Corriente")
+		else
+			SELECT	"CD_ESTADO"."GLOSA"  
+			INTO 		:ls_descrip  
+			FROM 		"CD_ESTADO"  
+			WHERE 	"CD_ESTADO"."CODIGO" = :ll_estado   ;
+		
+			ls_depto			= w_documentos_pendientes.dw_lista.getitemstring(ll_row,'depto_asignado')
+			if not isnull(gi_numero) and gi_numero>0 and not isnull(gs_base) and not isnull(gs_serie) then
+				if ls_depto=gs_depto or (gs_depto='O' and ll_estado=16) or gs_depto='I' or ll_estado=4 or ll_estado=10 or ll_estado=5 or ll_estado=11 or ll_estado=9 or ll_estado=8 then
+					if ll_estado>1 then
+						if ll_estado=100 or ll_estado=101 or ll_estado=102 or ll_estado=103 then
+							messagebox("Advertencia","No es posible Ingresar Gestión Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+', por encontrarse en Estado: '+string(ll_estado)+' - '+ls_descrip)
+						elseif (gs_depto='P' and ll_estado<>6) and (gs_depto='P' and ll_estado<>17) then
+							messagebox("Advertencia","No es posible Ingresar Gestión Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+', por encontrarse en Estado: '+string(ll_estado)+' - '+ls_descrip)
+						elseif (gs_depto='V' and ll_estado=9) or (gs_depto='O' and ll_estado=9) or (gs_depto='D' and ll_estado=9) or (gs_depto='O' and ll_estado=5) or (gs_depto='V' and ll_estado=11) or (gs_depto='D' and ll_estado=11) or (gs_depto='V' and ll_estado=4) or (gs_depto='D' and ll_estado=4) then //or (gs_depto='O' and ll_estado=11)
+							messagebox("Advertencia","No es posible Ingresar Gestión Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+', por encontrarse en Estado: '+string(ll_estado)+' - '+ls_descrip)
+						elseif gs_depto<>'O' and ll_estado=8 then 
+							messagebox("Advertencia","No es posible Ingresar Gestión Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+', por encontrarse en Estado: '+string(ll_estado)+' - '+ls_descrip)
+						else
+							ls_string	= gs_base+'~t'+gs_serie+'~t'+string(gi_numero)
+							if isvalid(w_cd_ingresar_control_documentacion) then close(w_cd_ingresar_control_documentacion)
+							openwithparm(w_cd_ingresar_control_documentacion,ls_string)
+						end if
+					else
+						messagebox("Advertencia","No es posible Ingresar Gestión, recuerde Estado Actual por lo menos debe estar en Código 2-Asignado Form.Ag.")
+					end if
+				elseif ll_estado=9 then
+					messagebox("Advertencia","Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+", está Aceptado por Depto. Operaciones")
+				else
+					messagebox("Advertencia","Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+", No está Asignado a su Departamento")
+				end if
+			end if
+		end if
+	end if
+elseif isvalid(w_cd_gestion_folio) then
+	ll_row				= w_cd_gestion_folio.dw_lista.getrow()
+	if ll_row>0 then
+		gi_numero 		= w_cd_gestion_folio.dw_lista.getitemnumber(ll_row,'numero')
+		gs_base			= w_cd_gestion_folio.dw_lista.getitemstring(ll_row,'base')
+		gs_serie			= w_cd_gestion_folio.dw_lista.getitemstring(ll_row,'serie')
+		ll_estado 		= w_cd_gestion_folio.dw_lista.getitemnumber(ll_row,'ult_estado')
+		if isnull(ll_estado) then
+			messagebox("Advertencia","Contrato Antiguo, es posible consultar Cuenta Corriente")
+		else
+			SELECT	"CD_ESTADO"."GLOSA"  
+			INTO 		:ls_descrip  
+			FROM 		"CD_ESTADO"  
+			WHERE 	"CD_ESTADO"."CODIGO" = :ll_estado   ;
+		
+			ls_depto			= w_cd_gestion_folio.dw_lista.getitemstring(ll_row,'depto_asignado')
+			if not isnull(gi_numero) and gi_numero>0 and not isnull(gs_base) and not isnull(gs_serie) then
+				if ls_depto=gs_depto or (gs_depto='O' and ll_estado=16) or gs_depto='I' or ll_estado=4 or ll_estado=10 or ll_estado=5 or ll_estado=11 or ll_estado=9 or ll_estado=8 then
+					if ll_estado>1 then
+						if ll_estado=100 or ll_estado=101 or ll_estado=102 or ll_estado=103 then
+							messagebox("Advertencia","No es posible Ingresar Gestión Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+', por encontrarse en Estado: '+string(ll_estado)+' - '+ls_descrip)
+						elseif (gs_depto='P' and ll_estado<>6) and (gs_depto='P' and ll_estado<>17) then
+							messagebox("Advertencia","No es posible Ingresar Gestión Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+', por encontrarse en Estado: '+string(ll_estado)+' - '+ls_descrip)
+						elseif (gs_depto='V' and ll_estado=9) or (gs_depto='O' and ll_estado=9) or (gs_depto='D' and ll_estado=9) or (gs_depto='O' and ll_estado=5) or (gs_depto='V' and ll_estado=11) or (gs_depto='D' and ll_estado=11) or (gs_depto='V' and ll_estado=4) or (gs_depto='D' and ll_estado=4) then //or (gs_depto='O' and ll_estado=11)
+							messagebox("Advertencia","No es posible Ingresar Gestión Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+', por encontrarse en Estado: '+string(ll_estado)+' - '+ls_descrip)
+						elseif gs_depto<>'O' and ll_estado=8 then 
+							messagebox("Advertencia","No es posible Ingresar Gestión Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+', por encontrarse en Estado: '+string(ll_estado)+' - '+ls_descrip)
+						else
+							ls_string	= gs_base+'~t'+gs_serie+'~t'+string(gi_numero)
+							if isvalid(w_cd_ingresar_control_documentacion) then close(w_cd_ingresar_control_documentacion)
+							openwithparm(w_cd_ingresar_control_documentacion,ls_string)
+						end if
+					else
+						messagebox("Advertencia","No es posible Ingresar Gestión, recuerde Estado Actual por lo menos debe estar en Código 2-Asignado Form.Ag.")
+					end if
+				elseif ll_estado=9 then
+					messagebox("Advertencia","Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+", está Aceptado por Depto. Operaciones")
+				else
+					messagebox("Advertencia","Folio "+gs_base+'-'+gs_serie+'-'+string(gi_numero,"###,###,###,###")+", No está Asignado a su Departamento")
+				end if
+			end if
+		end if
+	end if
+end if
+end event
+

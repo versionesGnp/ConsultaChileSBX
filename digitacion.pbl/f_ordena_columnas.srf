@@ -1,0 +1,23 @@
+﻿global type f_ordena_columnas from function_object
+end type
+
+forward prototypes
+global subroutine f_ordena_columnas (datawindow dw_temp, string as_band_old, string as_band_new, string as_sort)
+end prototypes
+
+global subroutine f_ordena_columnas (datawindow dw_temp, string as_band_old, string as_band_new, string as_sort);IF as_band_old	<> as_band_new THEN
+	/* Deja la anterior columna como estaba */
+	dw_temp.modify(as_band_old+".font.weight='400'")
+	dw_temp.Modify(as_band_old+".Border='6'")
+	dw_temp.Modify(as_band_old+".Color='0'")
+	
+	/* Cambia a bold , a lower y cambia el color del texto */
+	dw_temp.modify(as_band_new+".font.weight='700'")
+	dw_temp.Modify(as_band_new+".Border='5'")
+	dw_temp.Modify(as_band_new+".Color='16776960'")
+	dw_temp.SETSORT(as_sort)
+	dw_temp.SORT()
+
+END IF
+end subroutine
+

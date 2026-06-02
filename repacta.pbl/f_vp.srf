@@ -1,0 +1,28 @@
+﻿global type f_vp from function_object
+end type
+
+forward prototypes
+global function double f_vp (double periodo, double tasa, double valor_cuota)
+end prototypes
+
+global function double f_vp (double periodo, double tasa, double valor_cuota);//calculo valor presente va
+
+double tasa_porc, paso1, paso2, paso3, paso4, paso5, paso6
+
+tasa_porc = tasa/100
+
+paso1 = valor_cuota/tasa_porc
+
+paso2 = 1 + tasa_porc
+
+paso3 = (paso2)^periodo
+
+paso4 = 1/paso3
+
+paso5 = 1 - paso4
+
+paso6 = paso1 * paso5
+
+return paso6
+end function
+

@@ -1,0 +1,42 @@
+﻿global type f_vista_ctto_sap from function_object
+end type
+
+forward prototypes
+global function string f_vista_ctto_sap (string as_mandatario, string as_tipo_ctto, string as_organizacion, string as_origen_vta, string as_uso, string as_folio_consul, string as_tipo_deuda, string as_folio)
+end prototypes
+
+global function string f_vista_ctto_sap (string as_mandatario, string as_tipo_ctto, string as_organizacion, string as_origen_vta, string as_uso, string as_folio_consul, string as_tipo_deuda, string as_folio);string	ls_nro_ctto_sap,ls_nulo
+
+//f_vista_ctto_sap(as_mandatario,as_tipo_ctto,as_organizacion,as_origen_vta,as_uso,as_folio_consul,as_tipo_deuda,as_folio)
+
+setnull(ls_nulo)
+connect using Trans_hana;
+if as_tipo_deuda = 'S' then
+	SELECT DISTINCT	"SAPABAP1"."ZV_CONTRATOS2"."NUM_CONTRATO"
+	INTO		:ls_nro_ctto_sap
+	FROM 	"SAPABAP1"."ZV_CONTRATOS2"
+	WHERE	"SAPABAP1"."ZV_CONTRATOS2"."MANDTE" = :as_mandatario AND
+				"SAPABAP1"."ZV_CONTRATOS2"."TIPO_CCTO" = :as_tipo_ctto AND
+				"SAPABAP1"."ZV_CONTRATOS2"."ORG_VENTAS" = :as_organizacion AND
+				"SAPABAP1"."ZV_CONTRATOS2"."ORIGEN_VTA" = :as_origen_vta AND
+				"SAPABAP1"."ZV_CONTRATOS2"."USO" = :as_uso AND
+				"SAPABAP1"."ZV_CONTRATOS2"."FOLIO_CONSULTA" = :as_folio_consul AND
+				"SAPABAP1"."ZV_CONTRATOS2"."BOLETA" = :as_folio
+	USING	Trans_hana;
+else
+	SELECT DISTINCT	"SAPABAP1"."ZV_CONTRATOS2"."NUM_CONTRATO"
+	INTO		:ls_nro_ctto_sap
+	FROM 	"SAPABAP1"."ZV_CONTRATOS2"
+	WHERE	"SAPABAP1"."ZV_CONTRATOS2"."MANDTE" = :as_mandatario AND
+				"SAPABAP1"."ZV_CONTRATOS2"."TIPO_CCTO" = :as_tipo_ctto AND
+				"SAPABAP1"."ZV_CONTRATOS2"."ORG_VENTAS" = :as_organizacion AND
+				"SAPABAP1"."ZV_CONTRATOS2"."ORIGEN_VTA" = :as_origen_vta AND
+				"SAPABAP1"."ZV_CONTRATOS2"."USO" = :as_uso AND
+				"SAPABAP1"."ZV_CONTRATOS2"."FOLIO_CONSULTA" = :as_folio_consul
+	USING	Trans_hana;
+end if
+if isnull(ls_nro_ctto_sap) or ls_nro_ctto_sap='' then ls_nro_ctto_sap=''
+return		ls_nro_ctto_sap
+disconnect using Trans_hana;
+end function
+

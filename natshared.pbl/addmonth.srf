@@ -1,0 +1,63 @@
+﻿//objectcomments Autor: César Vilela~r~nFunción: Retornar un mes exacto.
+global type addmonth from function_object
+end type
+
+forward prototypes
+global function any addmonth (any anydate, long almonth)
+end prototypes
+
+global function any addmonth (any anydate, long almonth);// AddMonth (any anyDate, Long alMonth )
+
+Boolean	lb_dt
+Date ld_source, ld_invalid = Date (0, 0, 0), ld_ret
+Long ll_month, ll_year, ll_day
+
+
+Choose Case Lower( ClassName( anyDate ) )
+	Case 'date'
+		ld_source = Date( anyDate )
+		lb_dt = False
+		If Not f_IsDate( DateTime( ld_source ) ) Then
+			Return ld_invalid
+		End If
+		
+	Case 'datetime'
+		ld_source = Date( anyDate )
+		lb_dt = True
+		If Not f_IsDate( DateTime( ld_source ) ) Then
+			Return DateTime( ld_invalid )
+		End If
+		
+	Case Else
+		Return ld_invalid
+End Choose
+
+//Add number of months to the base month
+ll_month = Month (ld_source) + alMonth
+
+//calculate year
+ll_year = year (ld_source) + int ((ll_month - 1) / 12)
+
+//calculate month and handle situation when ll_month is negative
+ll_month = mod (mod(ll_month, 12) + 11, 12) + 1
+
+//calculate day
+ll_day = Day(ld_source)
+
+If ll_day > 28 Then 
+	//handle the situation when day is greater than 28
+	Do while date (ll_year, ll_month, ll_day) = ld_invalid
+		ll_day --
+	Loop
+End If
+
+ld_ret = Date (ll_year, ll_month, ll_day)
+
+If lb_dt Then
+	Return DateTime( ld_ret )
+End If
+
+Return ld_ret
+	
+end function
+

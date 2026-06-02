@@ -1,0 +1,73 @@
+﻿//objectcomments Permite desplegar DLG y luego imprimir un DW.
+global type f_printdlg from function_object
+end type
+
+forward prototypes
+global function integer f_printdlg (ref datawindow adw_control, ref s_printdlgattrib astr_printdlg, window aw_window)
+end prototypes
+
+global function integer f_printdlg (ref datawindow adw_control, ref s_printdlgattrib astr_printdlg, window aw_window);INT 		li_ret, li_copies
+LONG 		ll_pagecount
+STRING 	ls_copies,ls_collate,ls_pagecount
+STRING 	ls_pathname, ls_filename
+Boolean	lb_collate
+/******************************  Preparacion del DW ******************************/
+// Initialize printdlg structure with current print values of DW
+astr_printdlg.b_allpages	= true
+ls_copies						= adw_control.object.datawindow.print.copies
+if not IsNumber (ls_copies) then
+	ls_copies = "1"
+end if
+li_copies					= Integer (ls_copies)
+astr_printdlg.l_copies	= li_copies
+ls_collate					= adw_control.object.datawindow.print.collate
+//lb_collate = anv_conversion.of_Boolean (ls_collate)
+astr_printdlg.b_collate	= lb_collate
+astr_printdlg.l_frompage	= 1
+astr_printdlg.l_minpage		= 1
+ls_pagecount = adw_control.Describe ("evaluate ('PageCount()', 1)")
+if IsNumber (ls_pagecount) then
+	ll_pagecount				= Long (ls_pagecount)
+	astr_printdlg.l_maxpage	= ll_pagecount
+	astr_printdlg.l_topage	= ll_pagecount
+end if
+if adw_control.GetSelectedRow (0) = 0 then
+	astr_printdlg.b_disableselection = true
+end if
+/******************************  Despliegue del DLG ******************************/
+li_ret = f_print_dlg (astr_printdlg,aw_window)
+/******************************  Actualización e Impresión de DW *****************/
+IF li_ret = -1 THEN
+	Return -1
+ELSE
+	// Page Range
+	IF astr_printdlg.b_allpages THEN
+		adw_control.object.datawindow.print.page.range = ""
+	ELSEIF astr_printdlg.b_pagenums THEN
+		adw_control.object.datawindow.print.page.range = &
+		String (astr_printdlg.l_frompage) + "-" + String (astr_printdlg.l_topage)
+	ELSEIF astr_printdlg.b_selection THEN
+		adw_control.object.datawindow.print.page.range = "selection"
+	END IF
+	// Collate copies
+	adw_control.object.datawindow.print.collate	= astr_printdlg.b_collate
+	// Number of copies
+	astr_printdlg.l_copies								= 1
+	adw_control.object.datawindow.print.copies	= astr_printdlg.l_copies
+	// Print to file (must prompt user for filename first)
+	long	ll_result
+	IF astr_printdlg.b_printtofile THEN
+		ll_result	= GetFileSaveName ("Print to File", ls_pathname, ls_filename, "prn", &
+												 "Printer Files,*.prn,All Files,*.*")
+		IF ll_result <= 0 then
+			return -1
+		ELSE
+			adw_control.object.datawindow.print.filename = ls_pathname
+		END IF
+	END IF
+	adw_control.Print()
+END IF
+
+Return li_ret
+end function
+

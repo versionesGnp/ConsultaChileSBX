@@ -1,0 +1,108 @@
+﻿global type f_sap_ctto_04_pie from function_object
+end type
+
+forward prototypes
+global function long f_sap_ctto_04_pie (string as_base, string as_serie, double adb_numero, string as_tipo_deuda)
+end prototypes
+
+global function long f_sap_ctto_04_pie (string as_base, string as_serie, double adb_numero, string as_tipo_deuda);string	ls_base,ls_serie,ls_tipo_deuda,ls_moneda,ls_cod_material,ls_centro,ls_centro_benef,ls_nro_cuota,ls_fecha,ls_forma_pago,ls_impto,ls_kap_pie,ls_int_pie,ls_gto_pie,ls_impto_13,ls_impto_3,ls_boleta
+long	ll_estado,ll_posic,ll_cant_material,ll_cta=0,ll_boleta
+double	ldb_numero,ldb_kap_pie,ldb_int_pie,ldb_gto_pie,ldb_impto_13,ldb_impto_3
+
+connect using Trans_1;
+
+DECLARE x04 CURSOR FOR
+SELECT	"SAP_CADENA"."BASE",
+        		"SAP_CADENA"."SERIE",
+        		"SAP_CADENA"."NUMERO",
+        		"SAP_CADENA"."TIPO_DEUDA",
+        		"SAP_CADENA"."MONEDA",
+        		"SAP_MATERIAL_PIE"."CODIGO_MATERIAL_SAP",
+        		1 AS CANT_MATERIAL,
+        		"SAP_CADENA"."CENTRO",
+        		"SAP_CADENA"."CENTRO_BENEF",
+       		trim('P'||trim(TO_CHAR( ROWNUM ,'00'))),
+        		trim(TO_CHAR(( CASE  WHEN "SAP_CADENA"."CTAS_PACTADAS_PIE" = 1 THEN "SAP_CADENA"."FECHA_PIE" ELSE "DETALLE_PAGO_PIE"."FECHA_VENC_CTA" END ),'DD.MM.YYYY')),
+        		"SAP_CADENA"."FORMA_PAGO",
+        		'0',
+        		'ZCAP',
+        		( CASE  WHEN "SAP_CADENA"."CTAS_PACTADAS_PIE" = 1 THEN "SAP_CADENA"."PIE" ELSE "DETALLE_PAGO_PIE"."MONTO_CUOTA" END ),
+        		'ZINT',
+        		0,
+        		'ZGAD',
+        		0,
+        		'ZIB1',
+        		0,
+        		'ZIB2',
+        		0
+FROM		"SAP_CADENA","SAP_MATERIAL_PIE","DETALLE_PAGO_PIE"
+WHERE	"SAP_MATERIAL_PIE"."BASE" = "SAP_CADENA"."BASE" AND
+			"SAP_MATERIAL_PIE"."TIPO_DEUDA" = "SAP_CADENA"."TIPO_DEUDA" AND
+
+			( sap_cadena.base = detalle_pago_pie.base (+)) and  
+       		( sap_cadena.serie = detalle_pago_pie.serie (+)) and  
+        		( sap_cadena.numero = detalle_pago_pie.numero (+)) and
+        		(( "SAP_CADENA"."TIPO_CARGA" = 'H' and detalle_pago_pie.estado = 'P' ) or "SAP_CADENA"."TIPO_CARGA" = 'N') and 
+        		"SAP_CADENA"."ESTADO" = 'V' AND
+        		"SAP_CADENA"."BASE" = :as_base and
+			"SAP_CADENA"."SERIE" = :as_serie and
+			"SAP_CADENA"."NUMERO" = :adb_numero and
+			"SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda
+ORDER BY 10 ASC
+USING	sqlca;
+open x04;
+if sqlca.sqlcode=0 then
+	DO WHILE sqlca.sqlcode=0
+	fetch x04 INTO	:ls_base,:ls_serie,:ldb_numero,:ls_tipo_deuda,:ls_moneda,	:ls_cod_material,:ll_cant_material,:ls_centro,:ls_centro_benef,:ls_nro_cuota,:ls_fecha,:ls_forma_pago,:ls_impto,:ls_kap_pie,:ldb_kap_pie,:ls_int_pie,:ldb_int_pie,:ls_gto_pie,:ldb_gto_pie,:ls_impto_13,:ldb_impto_13,:ls_impto_3,:ldb_impto_3;
+		if not isnull(ls_base) and ls_base<>'' and not isnull(ls_serie) and ls_serie<>'' and  not isnull(ldb_numero) and ldb_numero>0 and not isnull(ls_tipo_deuda) and ls_tipo_deuda<>'' then
+			ll_cta++
+			if ll_cta=1 then
+				SELECT	MAX("NRO_POSIC_UBS")
+				INTO		:ll_posic
+				FROM 	"SAP_CTTO_03_UBS"
+				WHERE	"SAP_CTTO_03_UBS"."BASE" = :ls_base AND
+							"SAP_CTTO_03_UBS"."SERIE" = :ls_serie AND
+							"SAP_CTTO_03_UBS"."NUMERO" = :ldb_numero AND
+							"SAP_CTTO_03_UBS"."TIPO_DEUDA" = :ls_tipo_deuda
+				USING	Trans_1;
+				if isnull(ll_posic) or ll_posic=0 then
+					ll_posic				= 10
+				else
+					ll_posic				= ll_posic + 10
+				end if
+			else
+				ll_posic					= ll_posic + 10	
+			end if	
+			SELECT	"INGRESO"."FOLIO"
+    			INTO  	:ll_boleta        
+    			FROM		"INGRESO"
+    			WHERE	"INGRESO"."BASE" = :ls_base AND
+						"INGRESO"."SERIE" = :ls_serie AND
+						"INGRESO"."CONTRATO" = :ldb_numero AND
+						"INGRESO"."TIPO_MOV" = 'A' AND
+						ROWNUM  = :ll_cta AND
+						"INGRESO"."PAGO_HIST" = 'A' 
+			ORDER BY	"INGRESO"."FECHA_PAGO"
+			USING	Trans_1;
+			if isnull(ll_boleta) then ll_boleta=0
+			ls_boleta			= string(ll_boleta)
+			INSERT INTO "SAP_CTTO_04_PIE"  
+        					( "BASE",		"SERIE",	"NUMERO",		"TIPO_DEUDA",	"MONEDA",	"NRO_POSIC_PIE",	"CODIGO_MATERIAL_SAP",	"CANT_MATERIAL",	"CENTRO",	"CENTRO_BENEF",	"NRO_CUOTA",	"FECHA_VCTO",	"FORMA_PAGO",	"IMPTO_PIE",	"PIE_K",		"MTO_PIE_K",	"PIE_I",		"MTO_PIE_I",	"PIE_G",		"MTO_PIE_G",	"IMPTO_13",	"MTO_IMPTO_13",	"IMPTO_3",	"MTO_IMPTO_3",	"NRO_BOLETA")  
+  			VALUES	( :ls_base,	:ls_serie,	:ldb_numero,	:ls_tipo_deuda,	:ls_moneda,	:ll_posic,				:ls_cod_material,				:ll_cant_material,		:ls_centro,	:ls_centro_benef,	:ls_nro_cuota,	:ls_fecha,			:ls_forma_pago,	:ls_impto,		:ls_kap_pie,	:ldb_kap_pie,	:ls_int_pie,	:ldb_int_pie,		:ls_gto_pie,	:ldb_gto_pie,	:ls_impto_13,	:ldb_impto_13,		:ls_impto_3,	:ldb_impto_3,		:ls_boleta)
+			USING	Trans_1;
+			if sqlca.sqlcode = 0 then
+				commit using Trans_1;
+				ll_estado					= 1
+			else
+				rollback using Trans_1;
+				ll_estado 				= 0
+			end if
+		end if
+		setnull(ls_base);setnull(ls_serie);setnull(ldb_numero);setnull(ls_tipo_deuda);setnull(ls_moneda);setnull(ls_cod_material);setnull(ll_cant_material);setnull(ls_centro);setnull(ls_centro_benef);setnull(ls_nro_cuota);setnull(ls_fecha);setnull(ls_forma_pago);setnull(ls_impto);setnull(ls_kap_pie);setnull(ldb_kap_pie);setnull(ls_int_pie);setnull(ldb_int_pie);setnull(ls_gto_pie);setnull(ldb_gto_pie);setnull(ls_impto_13);setnull(ldb_impto_13);setnull(ls_impto_3);setnull(ldb_impto_3);setnull(ls_boleta)
+	LOOP
+end if
+close x04;
+return ll_estado
+disconnect using Trans_1;
+end function
+

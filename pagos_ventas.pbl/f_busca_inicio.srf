@@ -1,0 +1,19 @@
+﻿global type f_busca_inicio from function_object
+end type
+
+forward prototypes
+global function datetime f_busca_inicio (string serie, double contrato, string base, string t_cob, string t_mov)
+end prototypes
+
+global function datetime f_busca_inicio (string serie, double contrato, string base, string t_cob, string t_mov);datetime fecha
+
+SELECT	MIN("INGRESO"."FECHA_PAGO")  
+INTO 		:fecha  
+FROM 	"INGRESO"  
+WHERE 	"INGRESO"."BASE" = :base AND  
+         	"INGRESO"."SERIE" = :serie AND  
+         	"INGRESO"."CONTRATO" = :contrato and 
+			( "INGRESO"."TIPO_COB" = 'CI' or "INGRESO"."TIPO_COB" = 'C1' or "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'C0' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'BE')  ;
+return fecha
+end function
+

@@ -1,0 +1,180 @@
+﻿global type f_valida_menu_consulta from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_consulta (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_consulta (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_consultas'
+				m_menu_principal.m_consultas.visible															= false
+				m_menu_principal.m_consultas.m_5.m_buscarcontrato.visible								= false
+				m_menu_principal.m_consultas.m_5.m_buscarcontrato.ToolbarItemvisible					= false
+				m_menu_principal.m_consultas.m_5.m_buscarporfallecido.visible							= false
+				m_menu_principal.m_consultas.m_5.m_buscarporfallecido.ToolbarItemvisible			= false
+				m_menu_principal.m_consultas.m_5.m_buscarporsector.visible								= false
+				m_menu_principal.m_consultas.m_5.m_buscarporsector.ToolbarItemvisible				= false
+				m_menu_principal.m_consultas.m_5.m_buscarporubicacin.visible							= false
+				m_menu_principal.m_consultas.m_5.m_buscarporubicacin.ToolbarItemvisible				= false
+				m_menu_principal.m_consultas.m_5.m_-7.visible												= false
+				m_menu_principal.m_consultas.m_5.m_listapagarepromesas.visible							= false
+				m_menu_principal.m_consultas.m_5.m_listapagarepromesas.ToolbarItemvisible			= false
+				m_menu_principal.m_consultas.m_5.m_-.visible													= false
+				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.visible							= false
+				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.m_todos.visible				= false
+				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.m_todos.ToolbarItemvisible	= false
+				m_menu_principal.m_consultas.m_5.m_buscarbeneficiarios.visible							= false
+				m_menu_principal.m_consultas.m_5.m_estadistica.visible									= false
+				m_menu_principal.m_consultas.m_caja.visible													= false
+				m_menu_principal.m_consultas.m_caja.m_comprobantedeingreso.visible					= false
+				m_menu_principal.m_consultas.m_caja.m_0.visible												= false
+				m_menu_principal.m_consultas.m_caja.m_estadisticaporparque.visible					= false
+				m_menu_principal.m_consultas.m_caja.m_informecierrecajafechahora.visible			= false
+				m_menu_principal.m_consultas.m_caja.m_informedecomprobantessinaceptarpagos.visible	= false
+				m_menu_principal.m_consultas.m_general.visible												= false
+				m_menu_principal.m_consultas.m_general.m_ofertas.visible									= false
+				m_menu_principal.m_consultas.m_general.m_contratoisa.visible							= false
+				m_menu_principal.m_consultas.m_general.m_aumentocapacidad5.visible					= false
+				m_menu_principal.m_consultas.m_general.m_pagar.visible									= false
+				m_menu_principal.m_consultas.m_general.m_derechosespeciales.visible					= false
+				m_menu_principal.m_consultas.m_general.m_contratos_isa.visible							= false
+				m_menu_principal.m_consultas.m_general.m_reprogramaciónctasmantención.visible		= false
+				m_menu_principal.m_consultas.m_general.m_rezagos.visible									= false
+				m_menu_principal.m_consultas.m_general.m_rezagos.toolbaritemvisible					= false
+				m_menu_principal.m_consultas.m_parametros.visible											= false
+				m_menu_principal.m_consultas.m_parametros.m_basecomisiones.visible					= false
+				m_menu_principal.m_consultas.m_parametros.m_listaprecios.visible						= false
+				m_menu_principal.m_consultas.m_estadosolicitudes.visible									= false
+				m_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes.visible				= false
+				m_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes.toolbaritemvisible= false
+				m_menu_principal.m_consultas.m_util.visible													= false
+				m_menu_principal.m_consultas.m_util.m_listadeanexosycorreosestado.visible			= false
+				m_menu_principal.m_consultas.m_util.m_antecedenteencargado.visible					= false
+				m_menu_principal.m_consultas.m_util.m_servipag.visible									= false
+				m_menu_principal.m_consultas.m_util.m_imprimircarterarescatable.visible				= false
+				m_menu_principal.m_consultas.m_util.m_validarrut.visible									= false
+				m_menu_principal.m_consultas.m_util.m_pac.visible											= false
+				m_menu_principal.m_consultas.m_util.m_imprimircarterarescatable.visible				= false
+				m_menu_principal.m_consultas.m_util.m_validarcliente.visible							= false
+				
+			CASE 'm_menu_principal.m_consultas.m_5.m_buscarcontrato'
+				m_menu_principal.m_consultas.m_5.m_buscarcontrato.visible								= false
+				m_menu_principal.m_consultas.m_5.m_buscarcontrato.ToolbarItemvisible					= false
+			CASE 'm_menu_principal.m_consultas.m_5.m_buscarporfallecido'
+				m_menu_principal.m_consultas.m_5.m_buscarporfallecido.visible							= false
+				m_menu_principal.m_consultas.m_5.m_buscarporfallecido.ToolbarItemvisible			= false
+			CASE 'm_menu_principal.m_consultas.m_5.m_buscarporsector'
+				m_menu_principal.m_consultas.m_5.m_buscarporsector.visible								= false
+				m_menu_principal.m_consultas.m_5.m_buscarporsector.ToolbarItemvisible				= false
+			CASE 'm_menu_principal.m_consultas.m_5.m_buscarporubicacin'
+				m_menu_principal.m_consultas.m_5.m_buscarporubicacin.visible							= false
+				m_menu_principal.m_consultas.m_5.m_buscarporubicacin.ToolbarItemvisible				= false
+			CASE 'm_menu_principal.m_consultas.m_5.m_listapagarepromesas'
+				m_menu_principal.m_consultas.m_5.m_-7.visible												= false
+				m_menu_principal.m_consultas.m_5.m_listapagarepromesas.visible							= false
+				m_menu_principal.m_consultas.m_5.m_listapagarepromesas.ToolbarItemvisible			= false
+				m_menu_principal.m_consultas.m_5.m_-.visible													= false
+			CASE 'm_menu_principal.m_consultas.m_5.m_buscarcopropietario'
+				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.visible							= false
+			CASE 'm_menu_principal.m_consultas.m_5.m_buscarcopropietario.m_todos'
+				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.m_todos.visible				= false
+				m_menu_principal.m_consultas.m_5.m_buscarcopropietario.m_todos.ToolbarItemvisible	= false
+			CASE 'm_menu_principal.m_consultas.m_5.m_buscarbeneficiarios'
+				m_menu_principal.m_consultas.m_5.m_buscarbeneficiarios.visible							= false
+			CASE 'm_menu_principal.m_consultas.m_5.m_estadistica'
+				m_menu_principal.m_consultas.m_5.m_estadistica.visible									= false
+			CASE 'm_menu_principal.m_consultas.m_caja'
+				m_menu_principal.m_consultas.m_caja.visible													= false
+				m_menu_principal.m_consultas.m_caja.m_comprobantedeingreso.visible					= false
+				m_menu_principal.m_consultas.m_caja.m_0.visible												= false
+				m_menu_principal.m_consultas.m_caja.m_estadisticaporparque.visible					= false
+				m_menu_principal.m_consultas.m_caja.m_informecierrecajafechahora.visible			= false
+				m_menu_principal.m_consultas.m_caja.m_informedecomprobantessinaceptarpagos.visible	= false
+			CASE 'm_menu_principal.m_consultas.m_caja.m_comprobantedeingreso'
+				m_menu_principal.m_consultas.m_caja.m_comprobantedeingreso.visible					= false
+			CASE 'm_menu_principal.m_consultas.m_caja.m_0'
+				m_menu_principal.m_consultas.m_caja.m_0.visible												= false
+			CASE 'm_menu_principal.m_consultas.m_caja.m_estadisticaporparque'
+				m_menu_principal.m_consultas.m_caja.m_estadisticaporparque.visible					= false
+			CASE 'm_menu_principal.m_consultas.m_caja.m_informecierrecajafechahora'
+				m_menu_principal.m_consultas.m_caja.m_informecierrecajafechahora.visible			= false
+			CASE 'm_menu_principal.m_consultas.m_caja.m_informedecomprobantessinaceptarpagos'
+				m_menu_principal.m_consultas.m_caja.m_informedecomprobantessinaceptarpagos.visible	= false
+			CASE 'm_menu_principal.m_consultas.m_general'
+				m_menu_principal.m_consultas.m_general.visible												= false
+				m_menu_principal.m_consultas.m_general.m_ofertas.visible									= false
+				m_menu_principal.m_consultas.m_general.m_contratoisa.visible							= false
+				m_menu_principal.m_consultas.m_general.m_aumentocapacidad5.visible					= false
+				m_menu_principal.m_consultas.m_general.m_pagar.visible									= false
+				m_menu_principal.m_consultas.m_general.m_derechosespeciales.visible					= false
+				m_menu_principal.m_consultas.m_general.m_contratos_isa.visible							= false
+				m_menu_principal.m_consultas.m_general.m_reprogramaciónctasmantención.visible		= false
+				m_menu_principal.m_consultas.m_general.m_rezagos.visible									= false
+				m_menu_principal.m_consultas.m_general.m_rezagos.toolbaritemvisible					= false
+			CASE 'm_menu_principal.m_consultas.m_general.m_ofertas'
+				m_menu_principal.m_consultas.m_general.m_ofertas.visible									= false
+			CASE 'm_menu_principal.m_consultas.m_general.m_contratoisa'
+				m_menu_principal.m_consultas.m_general.m_contratoisa.visible							= false
+			CASE 'm_menu_principal.m_consultas.m_general.m_aumentocapacidad5'
+				m_menu_principal.m_consultas.m_general.m_aumentocapacidad5.visible					= false
+			CASE 'm_menu_principal.m_consultas.m_general.m_pagar'
+				m_menu_principal.m_consultas.m_general.m_pagar.visible									= false
+			CASE 'm_menu_principal.m_consultas.m_general.m_derechosespeciales'
+				m_menu_principal.m_consultas.m_general.m_derechosespeciales.visible					= false
+			CASE 'm_menu_principal.m_consultas.m_general.m_contratos_isa'
+				m_menu_principal.m_consultas.m_general.m_contratos_isa.visible							= false
+			CASE 'm_menu_principal.m_consultas.m_general.m_reprogramaciónctasmantención'
+				m_menu_principal.m_consultas.m_general.m_reprogramaciónctasmantención.visible		= false
+			CASE 'm_menu_principal.m_consultas.m_general.m_rezagos'
+				m_menu_principal.m_consultas.m_general.m_rezagos.visible									= false
+				m_menu_principal.m_consultas.m_general.m_rezagos.toolbaritemvisible					= false
+			CASE 'm_menu_principal.m_consultas.m_parametros'
+				m_menu_principal.m_consultas.m_parametros.visible											= false
+				m_menu_principal.m_consultas.m_parametros.m_basecomisiones.visible					= false
+				m_menu_principal.m_consultas.m_parametros.m_listaprecios.visible						= false
+			CASE 'm_menu_principal.m_consultas.m_parametros.m_basecomisiones'
+				m_menu_principal.m_consultas.m_parametros.m_basecomisiones.visible					= false
+			CASE 'm_menu_principal.m_consultas.m_parametros.m_listaprecios'
+				m_menu_principal.m_consultas.m_parametros.m_listaprecios.visible						= false
+			CASE 'm_menu_principal.m_consultas.m_estadosolicitudes'
+				m_menu_principal.m_consultas.m_estadosolicitudes.visible									= false
+				m_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes.visible				= false
+				m_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes.toolbaritemvisible= false
+			CASE 'm_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes'
+				m_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes.visible				= false
+				m_menu_principal.m_consultas.m_estadosolicitudes.m_solicitudes.toolbaritemvisible= false
+			CASE 'm_menu_principal.m_consultas.m_util'
+				m_menu_principal.m_consultas.m_util.visible													= false
+				m_menu_principal.m_consultas.m_util.m_listadeanexosycorreosestado.visible			= false
+				m_menu_principal.m_consultas.m_util.m_antecedenteencargado.visible					= false
+				m_menu_principal.m_consultas.m_util.m_servipag.visible									= false
+				m_menu_principal.m_consultas.m_util.m_imprimircarterarescatable.visible				= false
+				m_menu_principal.m_consultas.m_util.m_validarrut.visible									= false
+				m_menu_principal.m_consultas.m_util.m_pac.visible											= false
+				m_menu_principal.m_consultas.m_util.m_imprimircarterarescatable.visible				= false
+				m_menu_principal.m_consultas.m_util.m_validarcliente.visible							= false
+
+			CASE 'm_menu_principal.m_consultas.m_util.m_listadeanexosycorreosestado'
+				m_menu_principal.m_consultas.m_util.m_listadeanexosycorreosestado.visible			= false
+			CASE 'm_menu_principal.m_consultas.m_util.m_antecedenteencargado'
+				m_menu_principal.m_consultas.m_util.m_antecedenteencargado.visible					= false
+			CASE 'm_menu_principal.m_consultas.m_util.m_servipag'	
+				m_menu_principal.m_consultas.m_util.m_servipag.visible									= false
+			CASE 'm_menu_principal.m_consultas.m_util.m_imprimircarterarescatable'
+				m_menu_principal.m_consultas.m_util.m_imprimircarterarescatable.visible				= false
+			CASE 'm_menu_principal.m_consultas.m_util.m_validarrut'
+				m_menu_principal.m_consultas.m_util.m_validarrut.visible									= false
+			CASE 'm_menu_principal.m_consultas.m_util.m_pac'
+				m_menu_principal.m_consultas.m_util.m_pac.visible											= false
+			CASE 'm_menu_principal.m_consultas.m_util.m_imprimircarterarescatable'
+				m_menu_principal.m_consultas.m_util.m_imprimircarterarescatable.visible				= false
+			CASE 'm_menu_principal.m_consultas.m_util.m_validarcliente'
+				m_menu_principal.m_consultas.m_util.m_validarcliente.visible							= false
+				
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

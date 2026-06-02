@@ -1,0 +1,19 @@
+﻿global type gf_actualizar_datos from function_object
+end type
+
+forward prototypes
+global function integer gf_actualizar_datos ()
+end prototypes
+
+global function integer gf_actualizar_datos ();INSERT INTO "CUPON" ( 	CODIGO              , SERIE              , NUMERO              , BARRA              , NUM_CUP              , CUOTA                  , FECHA_PAGO              ,USUARIO              ,	FECHA_PRIM              ,	ESTADO               ,   TIPO_MOV              ) 
+                SELECT  "TEM_CUPON"."CODIGO", "TEM_CUPON"."SERIE", "TEM_CUPON"."NUMERO", "TEM_CUPON"."BARRA", "TEM_CUPON"."NUM_CUP", "TEM_CUPON"."NRO_CUOTA", "TEM_CUPON"."FECHA_PAGO","TEM_CUPON"."USUARIO",	"TEM_CUPON"."FECHA_PRIM",	"TEM_CUPON"."ESTADO" ,  "TEM_CUPON"."TIPO_MOV"
+FROM    "TEM_CUPON"
+WHERE ( "TEM_CUPON"."NUMERO" > 0 ) and "TEM_CUPON"."USUARIO" = :gs_user using sqlca;
+if sqlca.sqlcode = 0 then
+	commit;
+else
+	rollback;
+end if
+RETURN 0
+end function
+

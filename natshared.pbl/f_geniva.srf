@@ -1,0 +1,21 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: IVA aplicado en ERP~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_geniva from function_object
+end type
+
+forward prototypes
+global function decimal f_geniva ()
+end prototypes
+
+global function decimal f_geniva ();Dec{4} ldc_iva
+
+
+Select	n_valor_iva
+Into		:ldc_iva
+From		geniva With ( NoLock )
+Where		c_activo_iva = '1' ;
+		
+ldc_iva = f_Zero( ldc_iva )
+
+Return ldc_iva
+end function
+

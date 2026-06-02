@@ -1,0 +1,18 @@
+﻿global type gf_ajustar_a_ventana from function_object
+end type
+
+forward prototypes
+global function integer gf_ajustar_a_ventana (window aw_ventana, ref datawindow aa_objeto)
+end prototypes
+
+global function integer gf_ajustar_a_ventana (window aw_ventana, ref datawindow aa_objeto);
+// ajustar datawindow
+
+//aa_objeto.y = 10
+aa_objeto.x = 10
+aa_objeto.Height  = aw_ventana.Height - 150 - aa_objeto.y
+aa_objeto.Width = aw_ventana.Width - 50
+
+RETURN 0
+end function
+

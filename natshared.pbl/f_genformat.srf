@@ -1,0 +1,32 @@
+﻿//objectcomments Autor: César Vilela~r~nGenera Formato Estándar por Empresa por Columna y Tipo~r~n~r~nRecomendación: Consultar Experto
+global type f_genformat from function_object
+end type
+
+forward prototypes
+global function string f_genformat (datawindow adw_1, string as_col, string as_emp, string as_for)
+end prototypes
+
+global function string f_genformat (datawindow adw_1, string as_col, string as_emp, string as_for);//f_genFormat( adw_1, as_col, as_emp, as_for )
+
+String ls_pai, ls_mod, ls_frm
+
+
+ls_pai = f_GenPais( as_emp )
+as_for = Upper( as_for )
+
+
+Select v_format_frm
+Into	:ls_frm
+From	genFormato With (NoLock)
+Where c_codigo_emp = :as_emp
+And   c_codigo_frm = :as_for
+Using SqlCa ;
+
+
+If Not f_Trim( ls_frm ) = '' Then
+	ls_mod = adw_1.Modify( as_col + '.format="' + ls_frm +'"' )
+End If
+
+Return ls_mod
+end function
+

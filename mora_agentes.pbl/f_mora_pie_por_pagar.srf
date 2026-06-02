@@ -1,0 +1,32 @@
+﻿global type f_mora_pie_por_pagar from function_object
+end type
+
+forward prototypes
+global function integer f_mora_pie_por_pagar (string base, string serie, double numero)
+end prototypes
+
+global function integer f_mora_pie_por_pagar (string base, string serie, double numero);datetime fecha,fecha_pie
+
+SELECT "PAGO_OFERTA"."FECHA_PIE"  
+into :fecha_pie
+ FROM "OFERTA_V",   
+		"PAGO_OFERTA"  
+WHERE ( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+		( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+		( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+		( ( "OFERTA_V"."SERIE" = :serie ) AND  
+		( "OFERTA_V"."NRO_OFERTA" = :numero ) )   ;
+SELECT min("INGRESO"."FECHA_PAGO"  )
+ INTO :fecha  
+ FROM "INGRESO"  
+WHERE ( "INGRESO"."BASE" = :base ) AND  
+		( "INGRESO"."SERIE" = :serie ) AND  
+		( "INGRESO"."CONTRATO" = :numero ) AND  
+		( "INGRESO"."TIPO_MOV" = 'A' )  ;
+if sqlca.sqlcode <> 0 then
+	return DaysAfter(today(),date(fecha) )
+else
+	return 0
+end if
+end function
+

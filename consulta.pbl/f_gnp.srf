@@ -1,0 +1,10 @@
+﻿global type f_gnp from function_object
+end type
+
+forward prototypes
+global subroutine f_gnp (string as_opc)
+end prototypes
+
+global subroutine f_gnp (string as_opc);Return
+end subroutine
+

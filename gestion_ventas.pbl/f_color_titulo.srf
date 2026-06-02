@@ -1,0 +1,115 @@
+﻿global type f_color_titulo from function_object
+end type
+
+forward prototypes
+global subroutine f_color_titulo (datawindow adw_muestra, string as_columna)
+end prototypes
+
+global subroutine f_color_titulo (datawindow adw_muestra, string as_columna);string ls_te
+CHOOSE CASE as_columna
+	CASE 'tot_vtas','c_cien','tot_vtas_t','ts_1'
+		
+		ls_te = "DataWindow.Bands DataWindow.Objects tot_vtas_t.Band"
+		adw_muestra.Describe(ls_te)
+		adw_muestra.object.tot_vtas_t.color			= 2500 //40
+//		adw_muestra.object.tot_vtas_t.background	= 255
+		adw_muestra.object.tot_nulas_n_t.color		= 0
+		adw_muestra.object.tot_resueltas_t.color	= 0
+		adw_muestra.object.tot_nulas_p_t.color		= 0
+		adw_muestra.object.tot_canceladas_t.color	= 0
+		adw_muestra.object.tot_vigentes_t.color	= 0
+		adw_muestra.object.tot_al_dia_t.color		= 0
+		adw_muestra.object.tot_en_mora_t.color		= 0
+		adw_muestra.object.canc_vte_t.color			= 0
+
+	CASE 'tot_nulas_n','c_por_resciliados','tot_nulas_n_t','c_1_resc2','c_1_resc1'
+		adw_muestra.object.tot_vtas_t.color			= 0
+		adw_muestra.object.tot_nulas_n_t.color		= 2500
+		adw_muestra.object.tot_resueltas_t.color	= 0
+		adw_muestra.object.tot_nulas_p_t.color		= 0
+		adw_muestra.object.tot_canceladas_t.color	= 0
+		adw_muestra.object.tot_vigentes_t.color	= 0
+		adw_muestra.object.tot_al_dia_t.color		= 0
+		adw_muestra.object.tot_en_mora_t.color		= 0
+		adw_muestra.object.canc_vte_t.color			= 0
+		
+	CASE 'tot_resueltas','c_tot_resuelta','tot_resueltas_t','c_1_resueltas2','c_1_resueltas1'
+		adw_muestra.object.tot_vtas_t.color			= 0
+		adw_muestra.object.tot_nulas_n_t.color		= 0
+		adw_muestra.object.tot_resueltas_t.color	= 2500
+		adw_muestra.object.tot_nulas_p_t.color		= 0
+		adw_muestra.object.tot_canceladas_t.color	= 0
+		adw_muestra.object.tot_vigentes_t.color	= 0
+		adw_muestra.object.tot_al_dia_t.color		= 0
+		adw_muestra.object.tot_en_mora_t.color		= 0
+		adw_muestra.object.canc_vte_t.color			= 0
+		
+	CASE 'tot_nulas_p','c_por_nulas_p','tot_nulas_p_t','c_1_reprog2','c_1_reprog1'
+		adw_muestra.object.tot_vtas_t.color			= 0
+		adw_muestra.object.tot_nulas_n_t.color		= 0
+		adw_muestra.object.tot_resueltas_t.color	= 0
+		adw_muestra.object.tot_nulas_p_t.color		= 2500
+		adw_muestra.object.tot_canceladas_t.color	= 0
+		adw_muestra.object.tot_vigentes_t.color	= 0
+		adw_muestra.object.tot_al_dia_t.color		= 0
+		adw_muestra.object.tot_en_mora_t.color		= 0
+		adw_muestra.object.canc_vte_t.color			= 0
+		
+	CASE 'tot_canceladas','c_por_canc','tot_canceladas_t','c_1_cancel2','c_1_cancel1'
+		adw_muestra.object.tot_vtas_t.color			= 0
+		adw_muestra.object.tot_nulas_n_t.color		= 0
+		adw_muestra.object.tot_resueltas_t.color	= 0
+		adw_muestra.object.tot_nulas_p_t.color		= 0
+		adw_muestra.object.tot_canceladas_t.color	= 2500
+		adw_muestra.object.tot_vigentes_t.color	= 0
+		adw_muestra.object.tot_al_dia_t.color		= 0
+		adw_muestra.object.tot_en_mora_t.color		= 0
+		adw_muestra.object.canc_vte_t.color			= 0
+		
+	CASE 'tot_vigentes','c_por_vigente','tot_vigentes_t','c_1_vigente2','c_1_vigente1'
+		adw_muestra.object.tot_vtas_t.color			= 0
+		adw_muestra.object.tot_nulas_n_t.color		= 0
+		adw_muestra.object.tot_resueltas_t.color	= 0
+		adw_muestra.object.tot_nulas_p_t.color		= 0
+		adw_muestra.object.tot_canceladas_t.color	= 0
+		adw_muestra.object.tot_vigentes_t.color	= 2500
+		adw_muestra.object.tot_al_dia_t.color		= 0
+		adw_muestra.object.tot_en_mora_t.color		= 0
+		adw_muestra.object.canc_vte_t.color			= 0
+		
+	CASE 'tot_al_dia','porce_vig','tot_al_dia_t','age_al_dia2','age_al_dia1'
+		adw_muestra.object.tot_vtas_t.color			= 0
+		adw_muestra.object.tot_nulas_n_t.color		= 0
+		adw_muestra.object.tot_resueltas_t.color	= 0
+		adw_muestra.object.tot_nulas_p_t.color		= 0
+		adw_muestra.object.tot_canceladas_t.color	= 0
+		adw_muestra.object.tot_vigentes_t.color	= 0
+		adw_muestra.object.tot_al_dia_t.color		= 2500
+		adw_muestra.object.tot_en_mora_t.color		= 0
+		adw_muestra.object.canc_vte_t.color			= 0
+		
+	CASE 'tot_moras','porce_mora','tot_en_mora_t','age_mora2','age_mora1'
+		adw_muestra.object.tot_vtas_t.color			= 0
+		adw_muestra.object.tot_nulas_n_t.color		= 0
+		adw_muestra.object.tot_resueltas_t.color	= 0
+		adw_muestra.object.tot_nulas_p_t.color		= 0
+		adw_muestra.object.tot_canceladas_t.color	= 0
+		adw_muestra.object.tot_vigentes_t.color	= 0
+		adw_muestra.object.tot_al_dia_t.color		= 0
+		adw_muestra.object.tot_en_mora_t.color		= 2500
+		adw_muestra.object.canc_vte_t.color			= 0
+		
+	CASE 'canc_vte_t','tot_porc','porc_canc_vte_t','tot_dia_canc'
+		adw_muestra.object.tot_vtas_t.color			= 0
+		adw_muestra.object.tot_nulas_n_t.color		= 0
+		adw_muestra.object.tot_resueltas_t.color	= 0
+		adw_muestra.object.tot_nulas_p_t.color		= 0
+		adw_muestra.object.tot_canceladas_t.color	= 0
+		adw_muestra.object.tot_vigentes_t.color	= 0
+		adw_muestra.object.tot_al_dia_t.color		= 0
+		adw_muestra.object.tot_en_mora_t.color		= 0
+		adw_muestra.object.canc_vte_t.color			= 2500
+		
+END CHOOSE
+end subroutine
+

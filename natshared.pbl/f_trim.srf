@@ -1,0 +1,21 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Permite la lectura limpia de dwObject BLScript Class~r~n    Recomendación: NO MODIFICAR - AFECTA A TODO EL ERP BL-ECLIPSE~r~n*/
+global type f_trim from function_object
+end type
+
+forward prototypes
+global function string f_trim (any as_data)
+end prototypes
+
+global function string f_trim (any as_data);/* Versión '22
+   Puede Aceptar números
+	Limpia de espacios o null a un dato tipo string 
+	f_trim( as_data )
+
+*/
+
+as_data = Trim( String( as_data ) )
+If IsNull( as_data ) Then as_data = ''
+
+Return as_data
+end function
+

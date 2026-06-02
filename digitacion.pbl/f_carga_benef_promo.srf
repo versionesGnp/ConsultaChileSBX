@@ -1,0 +1,63 @@
+﻿global type f_carga_benef_promo from function_object
+end type
+
+forward prototypes
+global function string f_carga_benef_promo (string as_base, string as_serie, double adb_numero, long al_tipo_producto)
+end prototypes
+
+global function string f_carga_benef_promo (string as_base, string as_serie, double adb_numero, long al_tipo_producto);string		ls_nulo,ls_mensaje
+long		ll_graba=0,ll_correlativo=0,ll_cod_beneficio,ll_cod_benef_detalle,ll_nulo,ll_tipo_promocion,ll_codigo
+datetime	ldt_nulo
+
+connect Using Trans_1;
+
+//f_carga_benef_promo(as_base,as_serie,adb_numero,al_tipo_producto)
+
+setnull(ls_nulo);setnull(ll_nulo);setnull(ldt_nulo)
+
+SELECT	"LISTA_TIPO_PRODUCTO"."CODIGO_BENEFICIO"
+INTO		:ll_codigo
+FROM 	"LISTA_TIPO_PRODUCTO"  
+WHERE 	"LISTA_TIPO_PRODUCTO"."TIPO_PRODUCTO" = :al_tipo_producto AND  
+			"LISTA_TIPO_PRODUCTO"."BENEFICIOS" = 'S'
+USING	sqlca;
+if isnull(ll_codigo) then ll_codigo=0 
+
+if ll_codigo > 0 then
+	DECLARE x1 CURSOR FOR
+	SELECT	"CODIGO",	"CODIGO_BENEFICIO"
+	FROM 	"BENEFICIOS_COMPLEMENTARIO_DET"
+	WHERE	"BENEFICIOS_COMPLEMENTARIO_DET"."CODIGO" = :ll_codigo
+	ORDER BY "CODIGO_BENEFICIO" ASC
+	USING	Trans_1;
+	open x1;
+	if Trans_1.sqlcode=0 then
+		DO WHILE Trans_1.sqlcode=0
+		fetch x1 INTO	:ll_cod_beneficio,	:ll_cod_benef_detalle;
+			if not isnull(ll_cod_beneficio) and ll_cod_beneficio>0 and not isnull(ll_cod_benef_detalle) and ll_cod_benef_detalle>0  then
+				
+				ll_correlativo++
+				INSERT INTO "TIPO_PROMOCION_ASOCIADOS"  
+							( "CORRELATIVO",	"COD_BENEFICIO",	"COD_BENEF_DETALLE",	"ESTADO",	"FECHA_CREACION",	"BASE",		"SERIE",		"NUMERO",		"FECHA_USO",	"TIPO_COB",	"FOLIO",	"COD_CAJA",	"USUARIO",	"USUARIO_MODIFICA",	"FECHA_MODIFICA",	"PIE_PACTADO",	"COD_CONVENIO",		"TIPO_FICHA",	"FOLIO_FICHA" )  
+				VALUES	( :ll_correlativo,	:ll_cod_beneficio,	:ll_cod_benef_detalle,	'P',				:gdt_fec_sistema,		:as_base,	:as_serie,	:adb_numero,	:ldt_nulo,		:ls_nulo,			:ll_nulo,	:ls_nulo,			:ls_nulo,		:ls_nulo,						:ldt_nulo,				:ll_nulo,				:ll_nulo,					:ls_nulo,			:ll_nulo )
+				USING	sqlca;
+				 if sqlca.sqlcode=0 then
+					commit using sqlca;
+					ll_graba++
+				else
+					rollback using sqlca;
+				end if
+			end if
+			setnull(ll_cod_beneficio);setnull(ll_cod_benef_detalle);
+		LOOP
+	end if
+	close x1;
+	if ll_graba=ll_correlativo then
+		ls_mensaje							= 'Grabación Exitosa Beneficios Asociados'
+	end if
+end if
+Disconnect Using Trans_1;
+
+return ls_mensaje
+end function
+

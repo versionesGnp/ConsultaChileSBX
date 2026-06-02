@@ -1,0 +1,103 @@
+﻿release 7;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=144 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=96 color="536870912" )
+table(column=(type=char(1) updatewhereclause=yes name=serie dbname="oferta_v.serie" )
+ column=(type=decimal(4) updatewhereclause=yes name=nro_oferta dbname="oferta_v.nro_oferta" )
+ column=(type=datetime updatewhereclause=yes name=fecha_prim dbname="pago_oferta.fecha_prim" )
+ column=(type=decimal(4) updatewhereclause=yes name=cta_pag_s dbname="oferta_v.cta_pag_s" )
+ column=(type=decimal(4) updatewhereclause=yes name=nro_cuotas dbname="pago_oferta.nro_cuotas" )
+ column=(type=decimal(4) updatewhereclause=yes name=tasa dbname="pago_oferta.tasa" )
+ column=(type=decimal(4) updatewhereclause=yes name=gastos_adm dbname="pago_oferta.gastos_adm" )
+ column=(type=decimal(4) updatewhereclause=yes name=valor_cuota dbname="pago_oferta.valor_cuota" )
+ column=(type=char(1) updatewhereclause=yes name=estado dbname="cadena.estado" )
+ column=(type=char(1) updatewhereclause=yes name=moneda dbname="pago_oferta.moneda" )
+ column=(type=decimal(4) updatewhereclause=yes name=uf_dia dbname="pago_oferta.uf_dia" )
+ column=(type=datetime updatewhereclause=yes name=fecha_of dbname="oferta_v.fecha" )
+ column=(type=datetime updatewhereclause=yes name=fecha_ult dbname="pago_oferta.fecha_ult" )
+ column=(type=decimal(4) updatewhereclause=yes name=pie dbname="pago_oferta.pie" )
+ column=(type=decimal(4) updatewhereclause=yes name=porce_venta dbname="oferta_v.porce_venta" )
+ column=(type=decimal(4) updatewhereclause=yes name=porce_sup dbname="oferta_v.porce_sup" )
+ column=(type=decimal(4) updatewhereclause=yes name=precio dbname="pago_oferta.precio" )
+ column=(type=char(1) updatewhereclause=yes name=estado_comi dbname="oferta_v.estado_comi" )
+ column=(type=decimal(5) updatewhereclause=yes name=ct_pag dbname="compute_0019" )
+ column=(type=decimal(5) updatewhereclause=yes name=monto dbname="compute_0020" )
+ column=(type=char(5) updatewhereclause=yes name=cod_age dbname="oferta_v.cod_age" )
+ column=(type=char(5) updatewhereclause=yes name=cod_sup dbname="oferta_v.cod_sup" )
+ column=(type=datetime updatewhereclause=yes name=fecha_pie dbname="pago_oferta.fecha_pie" )
+ column=(type=decimal(4) updatewhereclause=yes name=rut dbname="oferta_v.rut" )
+ column=(type=char(5) updatewhereclause=yes name=cod_jef dbname="oferta_v.cod_jef" )
+ column=(type=char(1) updatewhereclause=yes name=estado_comi_sup dbname="oferta_v.estado_comi_sup" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"oferta_v~" )  TABLE(NAME=~"pago_oferta~" )  TABLE(NAME=~"cadena~" ) COLUMN(NAME=~"oferta_v.serie~") COLUMN(NAME=~"oferta_v.nro_oferta~") COLUMN(NAME=~"pago_oferta.fecha_prim~") COLUMN(NAME=~"oferta_v.cta_pag_s~") COLUMN(NAME=~"pago_oferta.nro_cuotas~") COLUMN(NAME=~"pago_oferta.tasa~") COLUMN(NAME=~"pago_oferta.gastos_adm~") COLUMN(NAME=~"pago_oferta.valor_cuota~") COLUMN(NAME=~"cadena.estado~") COLUMN(NAME=~"pago_oferta.moneda~") COLUMN(NAME=~"pago_oferta.uf_dia~") COLUMN(NAME=~"oferta_v.fecha~") COLUMN(NAME=~"pago_oferta.fecha_ult~") COLUMN(NAME=~"pago_oferta.pie~") COLUMN(NAME=~"oferta_v.porce_venta~") COLUMN(NAME=~"oferta_v.porce_sup~") COLUMN(NAME=~"pago_oferta.precio~") COLUMN(NAME=~"oferta_v.estado_comi~") COMPUTE(NAME=~"0~") COMPUTE(NAME=~"0~") COLUMN(NAME=~"oferta_v.cod_age~") COLUMN(NAME=~"oferta_v.cod_sup~") COLUMN(NAME=~"pago_oferta.fecha_pie~") COLUMN(NAME=~"oferta_v.rut~") COLUMN(NAME=~"oferta_v.cod_jef~") COLUMN(NAME=~"oferta_v.estado_comi_sup~")    JOIN (LEFT=~"oferta_v.serie~"    OP =~"=~"RIGHT=~"pago_oferta.serie~" )    JOIN (LEFT=~"oferta_v.nro_oferta~"    OP =~"=~"RIGHT=~"pago_oferta.nro_oferta~" )    JOIN (LEFT=~"oferta_v.ult_folio~"    OP =~"=~"RIGHT=~"pago_oferta.folio~" )    JOIN (LEFT=~"pago_oferta.serie~"    OP =~"=~"RIGHT=~"cadena.serie~" )    JOIN (LEFT=~"pago_oferta.nro_oferta~"    OP =~"=~"RIGHT=~"cadena.numero~" )WHERE(    EXP1 =~"( ~~~"PAGO_OFERTA~~~".~~~"TASA~~~"~"   OP =~">=~"    EXP2 =~"0 )~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"CADENA~~~".~~~"ESTADO_CONTABLE~~~"~"   OP =~"<>~"    EXP2 =~"'C'~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"CADENA~~~".~~~"CODIGO~~~"~"   OP =~"=~"    EXP2 =~"'O'~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"(~~~"CADENA~~~".~~~"ESTADO~~~"~"   OP =~"=~"    EXP2 =~"'V'~"    LOGIC =~"or~" ) WHERE(    EXP1 =~"~~~"CADENA~~~".~~~"ESTADO~~~"~"   OP =~"=~"    EXP2 =~"'C'~"    LOGIC =~"or~" ) WHERE(    EXP1 =~"~~~"CADENA~~~".~~~"ESTADO~~~"~"   OP =~"=~"    EXP2 =~"'S'~"    LOGIC =~"or~" ) WHERE(    EXP1 =~"~~~"CADENA~~~".~~~"ESTADO~~~"~"   OP =~"=~"    EXP2 =~"'T')~" ) ) "  sort="estado A " )
+text(band=header alignment="2" text="Oferta V
+Serie" border="6" color="0" x="247" y="8" height="128" width="219"  name=oferta_v_serie_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Oferta
+Fecha Prim" border="6" color="0" x="841" y="8" height="128" width="379"  name=pago_oferta_fecha_prim_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Oferta
+Nro Cuotas" border="6" color="0" x="1600" y="8" height="128" width="329"  name=pago_oferta_nro_cuotas_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Oferta
+Tasa" border="6" color="0" x="1952" y="8" height="128" width="329"  name=pago_oferta_tasa_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Oferta
+Gastos Adm" border="6" color="0" x="2304" y="8" height="128" width="334"  name=pago_oferta_gastos_adm_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Oferta
+Valor Cuota" border="6" color="0" x="2656" y="8" height="128" width="334"  name=pago_oferta_valor_cuota_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Oferta V
+Cta Pag S" border="6" color="0" x="1243" y="8" height="128" width="334"  name=oferta_v_cta_pag_s_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadena
+Estado" border="6" color="0" x="3013" y="8" height="128" width="334"  name=t_1  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pago Oferta
+Moneda" border="6" color="0" x="3369" y="8" height="128" width="334"  name=t_2  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Oferta V
+Nro Oferta" border="6" color="0" x="489" y="8" height="128" width="329"  name=oferta_v_nro_oferta_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Uf dia
+" border="6" color="0" x="4439" y="8" height="128" width="334"  name=t_3  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fec.Ofe.
+" border="6" color="0" x="4795" y="8" height="128" width="334"  name=t_4  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha_ult
+" border="6" color="0" x="5152" y="8" height="128" width="334"  name=t_5  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Pie
+" border="6" color="0" x="5509" y="8" height="128" width="334"  name=t_6  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="porce_venta
+" border="6" color="0" x="5865" y="8" height="128" width="334"  name=t_7  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="porce_sup
+" border="6" color="0" x="6222" y="8" height="128" width="334"  name=t_8  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="precio
+" border="6" color="0" x="6578" y="8" height="128" width="334"  name=t_9  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="estado_comi
+" border="6" color="0" x="6935" y="8" height="128" width="334"  name=t_10  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text=" ct_pag
+" border="6" color="0" x="3726" y="8" height="128" width="334"  name=t_11  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="monto
+" border="6" color="0" x="4082" y="8" height="128" width="334"  name=t_12  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="0" x="247" y="4" height="76" width="219" format="[general]"  name=serie edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="5" color="0" x="1600" y="4" height="76" width="329" format="[general]"  name=nro_cuotas edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="5" color="0" x="1952" y="4" height="76" width="329" format="[general]"  name=tasa edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="5" color="0" x="2304" y="4" height="76" width="329" format="[general]"  name=gastos_adm edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="5" color="0" x="1243" y="4" height="76" width="334" format="[general]"  name=cta_pag_s edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="5" color="0" x="841" y="4" height="76" width="379" format="dd/mm/yyyy"  name=fecha_prim edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="5" color="0" x="2656" y="4" height="76" width="334" format="[general]"  name=valor_cuota edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="2" tabsequence=32766 border="5" color="0" x="3013" y="4" height="76" width="334" format="[general]"  name=estado edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="5" color="0" x="489" y="4" height="76" width="329" format="[general]"  name=nro_oferta edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="1" expression="getrow()"border="0" color="16711680" x="14" y="12" height="64" width="215" format="[general]"  name=compute_1  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="5" color="0" x="4439" y="4" height="76" width="334" format="###,###,##0.0###"  name=uf_dia edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="5" color="0" x="4795" y="4" height="76" width="334" format="[shortdate] [time]"  name=fecha_of edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="5" color="0" x="5152" y="4" height="76" width="334" format="[shortdate] [time]"  name=fecha_ult edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="5" color="0" x="5509" y="4" height="76" width="334" format="[general]"  name=pie edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="5" color="0" x="5865" y="4" height="76" width="334" format="[general]"  name=porce_venta edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="5" color="0" x="6222" y="4" height="76" width="334" format="[general]"  name=porce_sup edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="5" color="0" x="6578" y="4" height="76" width="334" format="[general]"  name=precio edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=18 alignment="0" tabsequence=32766 border="5" color="0" x="6935" y="4" height="76" width="334" format="[general]"  name=estado_comi edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="2" tabsequence=32766 border="5" color="0" x="3369" y="4" height="76" width="334" format="[general]"  name=moneda edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="5" color="0" x="3726" y="4" height="76" width="334" format="[general]"  name=ct_pag edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=20 alignment="0" tabsequence=32766 border="5" color="0" x="4082" y="4" height="76" width="334" format="[general]"  name=monto edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="0" color="0" x="7323" y="4" height="64" width="137" format="[general]"  name=cod_age edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=22 alignment="0" tabsequence=32766 border="0" color="0" x="7497" y="4" height="64" width="142" format="[general]"  name=cod_sup edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=23 alignment="0" tabsequence=32766 border="0" color="0" x="7982" y="4" height="64" width="169" format="[shortdate] [time]"  name=fecha_pie edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=24 alignment="0" tabsequence=32766 border="0" color="0" x="8242" y="16" height="64" width="1202" format="[general]"  name=rut edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=25 alignment="0" tabsequence=32766 border="0" color="0" x="7662" y="8" height="64" width="146" format="[general]"  name=cod_jef edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=26 alignment="0" tabsequence=32766 border="0" color="0" x="9518" y="16" height="64" width="366" format="[general]"  name=estado_comi_sup edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="0" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
+  

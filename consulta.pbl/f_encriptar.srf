@@ -1,0 +1,19 @@
+﻿global type f_encriptar from function_object
+end type
+
+forward prototypes
+global function string f_encriptar (string as_pass)
+end prototypes
+
+global function string f_encriptar (string as_pass);//F_ENCRIPTAR
+integer li_cont,li_operador
+string ls_encry,ls_temp
+for li_cont = 1 to len(as_pass)
+    ls_temp=mid(as_pass,li_cont,1)
+    li_operador=asc(ls_temp) - 32 + 12
+    ls_encry = ls_encry + char(li_operador)
+next
+return(ls_encry)
+//*******
+end function
+

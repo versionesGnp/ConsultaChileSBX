@@ -1,0 +1,250 @@
+﻿global type f_validar_mensaje_mod_antece from function_object
+end type
+
+forward prototypes
+global subroutine f_validar_mensaje_mod_antece (string ls_base, string ls_serie, double ll_numero, long ll_rut)
+end prototypes
+
+global subroutine f_validar_mensaje_mod_antece (string ls_base, string ls_serie, double ll_numero, long ll_rut);string	ls_string_1,ls_mensaje,ls_ver_msj = 'S'
+long	ll_max_corr,ll_dia,ll_mes,ll_anno,ll_dias_mes,ll_dia_ingre,ll_mes_ingre,ll_anno_ingre,ll_dia_log,ll_mes_log,ll_anno_log,ll_estado_mod_msj,ll_dias_msj
+date	ld_fecha_solicitud,ls_fec_sistema,ld_fec_ingreso_cli,ld_fecha_log
+datetime	ldt_fecha_log
+Boolean lb_LeapYear
+
+if ll_numero > 0 and ll_rut > 0 then
+	SELECT "LOG_MOD_ANTECE_MENSAJE"."FECHA_SISTEMA","LOG_MOD_ANTECE_MENSAJE"."MODIFICA_SOLICITUD"
+	INTO		:ldt_fecha_log,:ll_estado_mod_msj
+	FROM 	"LOG_MOD_ANTECE_MENSAJE"
+	WHERE	"LOG_MOD_ANTECE_MENSAJE"."FECHA_SISTEMA" = ( SELECT max("LOG_MOD_ANTECE_MENSAJE"."FECHA_SISTEMA")
+																						FROM "LOG_MOD_ANTECE_MENSAJE"  
+																							WHERE "LOG_MOD_ANTECE_MENSAJE"."RUT" = :gi_rut );
+	ld_fecha_log	= date(ldt_fecha_log)
+																							
+	ll_dia_log		= day(ld_fecha_log)
+	ll_mes_log		= month(ld_fecha_log)
+	ll_anno_log		= year(ld_fecha_log)
+	
+	if isnull(ll_estado_mod_msj) then ll_estado_mod_msj = 0 
+	
+	SELECT 	"LOG_MOD_ANTECE_MSJ_ESTADO"."DIAS"
+	INTO		:ll_dias_msj
+	FROM 	"LOG_MOD_ANTECE_MENSAJE",   
+				"LOG_MOD_ANTECE_MSJ_ESTADO"  
+	WHERE 	( "LOG_MOD_ANTECE_MENSAJE"."MODIFICA_SOLICITUD" = "LOG_MOD_ANTECE_MSJ_ESTADO"."MODIFICA_SOLICITUD" ) and  
+				( ( "LOG_MOD_ANTECE_MENSAJE"."RUT" = :ll_rut ) AND  
+				( "LOG_MOD_ANTECE_MENSAJE"."MODIFICA_SOLICITUD" = :ll_estado_mod_msj ) )   ;
+	
+	
+	if isnull(ll_dias_msj) then ll_dias_msj = 0
+		
+	CHOOSE CASE ll_mes_log
+		CASE 1, 3, 5, 7, 8, 10, 12
+			ll_dias_mes = 31
+		CASE 4, 6, 9, 11
+			ll_dias_mes = 30
+		CASE 2
+			If Mod(ll_anno,4) = 0 then 
+				lb_LeapYear = True
+			elseIf Mod(ll_anno,100) = 0 then
+				lb_LeapYear = False
+			Else 
+				lb_LeapYear = False
+			End If
+			If lb_LeapYear then
+				ll_dias_mes = 29
+			Else
+				ll_dias_mes = 28
+			End If
+	END CHOOSE
+	if ll_mes_log = 4 or ll_mes_log = 6 or ll_mes_log = 9 or ll_mes_log = 11 then
+			//if ll_dia_log + 30 > ll_dias_mes then
+			if ll_dia_log + ll_dias_msj > ll_dias_mes then
+				ll_mes_log 	= ll_mes_log+1
+				if ll_mes_log > 12 then
+					ll_mes_log	= 1
+					ll_anno_log	= ll_anno_log +1
+				end if
+			else
+				ll_dia_log	= ll_dia_log+ll_dias_msj
+			end if
+	elseif ll_mes_log = 1 or ll_mes_log = 3 or ll_mes_log = 5 or ll_mes_log = 7 or ll_mes_log = 8 or ll_mes_log = 10 or ll_mes_log = 12  then 
+		if ll_dia_log + ll_dias_msj > ll_dias_mes then
+			ll_dia_log		= ll_dia_log -1
+			ll_mes_log	= ll_mes_log+1
+			if ll_mes_log > 12 then
+				ll_mes_log	= 1
+				ll_anno_log	= ll_anno_log+1
+			end if
+		else
+			ll_dia_log	= ll_dia_log+ll_dias_msj
+		end if		
+	elseif ll_mes_log = 2 then 
+		if ll_dia_log + ll_dias_msj > ll_dias_mes then
+			ll_mes_log = ll_mes_log+1
+			if ll_mes_log > 12 then
+				ll_mes_log	= 1
+				ll_anno_log	= ll_anno_log+1
+			end if
+		else
+			ll_dia_log	= ll_dia_log+ll_dias_msj
+		end if
+	end if
+	ld_fecha_log		= date(string(ll_dia_log)+'/'+string(ll_mes_log)+'/'+string(ll_anno_log))
+	if ld_fecha_log <= date(gdt_fec_sistema) then
+		SELECT 	"CLIENTE"."FECHA_INGR"  
+		INTO 		:ld_fec_ingreso_cli  
+		FROM 	"CLIENTE"  
+		WHERE 	"CLIENTE"."RUT" = :ll_rut
+		USING	sqlca;
+		
+		SELECT 	MAX("SOL_MOD_ANTECE"."CORRELATIVO")
+		INTO		:ll_max_corr
+		FROM 	"SOL_MOD_ANTECE"  
+		WHERE 	"SOL_MOD_ANTECE"."RUT" = :ll_rut 
+		Using		sqlca;
+		
+		if ll_max_corr = 0 or isnull(ll_max_corr) then 
+			ll_max_corr 			= 0
+			ld_fecha_solicitud	= date(gdt_fec_sistema)
+			ls_mensaje			= 'N'
+		else	
+			SELECT 	"SOL_MOD_ANTECE"."FECHA",   
+						"SOL_MOD_ANTECE"."MOD_ANTECE_MENSAJE"  
+			INTO 		:ld_fecha_solicitud,:ls_mensaje
+			FROM 	"SOL_MOD_ANTECE"  
+			WHERE 	"SOL_MOD_ANTECE"."RUT" = :ll_rut and
+						"SOL_MOD_ANTECE"."CORRELATIVO" = :ll_max_corr
+			Using		sqlca;
+		end if
+		ll_dia		= day(ld_fecha_solicitud)
+		ll_mes	= month(ld_fecha_solicitud)
+		ll_anno	= year(ld_fecha_solicitud)
+		
+		ll_dia_ingre		= day(ld_fec_ingreso_cli)
+		ll_mes_ingre	= month(ld_fec_ingreso_cli)
+		ll_anno_ingre	= year(ld_fec_ingreso_cli)
+		
+		CHOOSE CASE ll_mes
+			CASE 1, 3, 5, 7, 8, 10, 12
+				ll_dias_mes = 31
+			CASE 4, 6, 9, 11
+				ll_dias_mes = 30
+			CASE 2
+				If Mod(ll_anno,4) = 0 then 
+					lb_LeapYear = True
+				elseIf Mod(ll_anno,100) = 0 then
+					lb_LeapYear = False
+				Else 
+					lb_LeapYear = False
+				End If
+				If lb_LeapYear then
+					ll_dias_mes = 29
+				Else
+					ll_dias_mes = 28
+				End If
+		END CHOOSE
+		if ll_mes = 4 or ll_mes = 6 or ll_mes = 9 or ll_mes = 11 then
+				if ll_dia + ll_dias_msj > ll_dias_mes then
+					ll_mes 	= ll_mes+1
+					if ll_mes > 12 then
+						ll_mes	= 1
+						ll_anno	= +1
+					end if
+				else
+					ll_dia	= ll_dia+ll_dias_msj
+				end if
+		elseif ll_mes = 1 or ll_mes = 3 or ll_mes = 5 or ll_mes = 7 or ll_mes = 8 or ll_mes = 10 or ll_mes = 12  then 
+			if ll_dia + ll_dias_msj > ll_dias_mes then
+				ll_dia		= ll_dia -1
+				ll_mes	= ll_mes+1
+				if ll_mes > 12 then
+					ll_mes	= 1
+					ll_anno	= +1
+				end if
+			else
+				ll_dia	= ll_dia+ll_dias_msj
+			end if		
+		elseif ll_mes = 2 then 
+			if ll_dia + ll_dias_msj > ll_dias_mes then
+				ll_mes = ll_mes+1
+				if ll_mes > 12 then
+					ll_mes	= 1
+					ll_anno	= +1
+				end if
+			else
+				ll_dia	= ll_dia+ll_dias_msj
+			end if
+		end if
+		
+		if ll_mes_ingre = 4 or ll_mes_ingre = 6 or ll_mes_ingre = 9 or ll_mes_ingre = 11 then
+				if ll_dia_ingre + ll_dias_msj > ll_dias_mes then
+					ll_mes_ingre 	= ll_mes_ingre+1
+					if ll_mes_ingre > 12 then
+						ll_mes_ingre	= 1
+						ll_anno	= +1
+					end if
+				else
+					ll_dia_ingre	= ll_dia_ingre+ll_dias_msj
+				end if
+		elseif ll_mes_ingre = 1 or ll_mes_ingre = 3 or ll_mes_ingre = 5 or ll_mes_ingre = 7 or ll_mes_ingre = 8 or ll_mes_ingre = 10 or ll_mes_ingre = 12  then 
+			if ll_dia_ingre + ll_dias_msj > ll_dias_mes then
+				ll_dia_ingre		= ll_dia_ingre -1
+				ll_mes_ingre	= ll_mes_ingre+1
+				if ll_mes_ingre > 12 then
+					ll_mes_ingre	= 1
+					ll_anno	= +1
+				end if
+			else
+				ll_dia_ingre	= ll_dia_ingre+ll_dias_msj
+			end if		
+		elseif ll_mes_ingre = 2 then 
+			if ll_dia_ingre + ll_dias_msj > ll_dias_mes then
+				ll_mes_ingre = ll_mes_ingre+1
+				if ll_mes_ingre > 12 then
+					ll_mes_ingre	= 1
+					ll_anno	= +1
+				end if
+			else
+				ll_dia_ingre	= ll_dia_ingre+ll_dias_msj
+			end if
+		end if
+		
+		ld_fecha_solicitud		= date(string(ll_dia)+'/'+string(ll_mes)+'/'+string(ll_anno))
+		ld_fec_ingreso_cli		= date(string(ll_dia_ingre)+'/'+string(ll_mes_ingre)+'/'+string(ll_anno_ingre))
+		
+		if ld_fec_ingreso_cli > date(gdt_fec_sistema) and  ll_max_corr = 0 then
+			ls_ver_msj	= 'N'	
+		else
+			if ls_mensaje = 'N' then
+				ls_ver_msj	= 'S'
+				if ld_fecha_solicitud > date(gdt_fec_sistema) and ll_max_corr > 0 then
+					ls_ver_msj	= 'N'
+				elseif ld_fec_ingreso_cli > date(gdt_fec_sistema) and ll_max_corr = 0 then
+					ls_ver_msj	= 'N'
+				else
+					ls_ver_msj	= 'S'
+				end if	
+			elseif 	ls_mensaje = 'S' then
+				ls_ver_msj	= 'N'
+				if ld_fecha_solicitud > date(gdt_fec_sistema) then
+					ls_ver_msj	= 'N'
+				else
+					ls_ver_msj	= 'S'
+				end if
+			else
+				ls_ver_msj	= 'S'
+			end if
+		end if	
+	else
+		ls_ver_msj	= 'N'
+	end if	
+	if ls_ver_msj = 'S' then
+	//	gs_base			= ls_base
+	//	gs_serie			= ls_serie
+	////	gi_numero		= ll_numero 
+	//	gi_rut				= ll_rut
+		open(w_actualiza_antece_cliente_msj)
+	end if	
+end if
+end subroutine
+

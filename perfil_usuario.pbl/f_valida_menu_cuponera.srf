@@ -1,0 +1,95 @@
+﻿global type f_valida_menu_cuponera from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_cuponera (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_cuponera (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_cuponera'
+				m_menu_principal.m_cuponera.m_cupones.visible												= false
+				m_menu_principal.m_cuponera.m_cupones.m_crearcuponeras.visible							= false
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.visible								= false
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_promesas2.visible				= false
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_pagaré0.visible					= false
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_liberadores1.visible			= false
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_derechoespecial0.visible		= false
+				m_menu_principal.m_cuponera.m_etiquetas.visible												= false
+				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetas.visible						= false
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.visible										= false
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_promesas3.visible						= false
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_liberadores2.visible					= false
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_pagaré1.visible						= false
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.visible							= false
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_promesas4.visible			= false
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_liberadores3.visible		= false
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_pagaré2.visible				= false
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.visible								= false
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_promesas5.visible				= false
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_liberadores4.visible			= false
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_pagaré3.visible				= false
+				m_menu_principal.m_cuponera.visible																= false
+			CASE 'm_menu_principal.m_cuponera.m_cupones'
+				m_menu_principal.m_cuponera.m_cupones.visible												= false
+				m_menu_principal.m_cuponera.m_cupones.m_crearcuponeras.visible							= false
+			CASE 'm_menu_principal.m_cuponera.m_cupones.m_crearcuponeras'
+				m_menu_principal.m_cuponera.m_cupones.m_crearcuponeras.visible							= false
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.visible								= false
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_promesas2.visible				= false
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_pagaré0.visible					= false
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_liberadores1.visible			= false
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_derechoespecial0.visible		= false
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras.m_promesas2'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_promesas2.visible				= false
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras.m_pagaré0'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_pagaré0.visible					= false
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras.m_liberadores1'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_liberadores1.visible			= false
+			CASE 'm_menu_principal.m_cuponera.m_analisisdecuponeras.m_derechoespecial0'
+				m_menu_principal.m_cuponera.m_analisisdecuponeras.m_derechoespecial0.visible		= false
+			CASE 'm_menu_principal.m_cuponera.m_etiquetas'
+				m_menu_principal.m_cuponera.m_etiquetas.visible												= false
+				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetas.visible						= false
+			CASE 'm_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetas'
+				m_menu_principal.m_cuponera.m_etiquetas.m_crearetiquetas.visible						= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuevas'
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.visible										= false
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_promesas3.visible						= false
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_liberadores2.visible					= false
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_pagaré1.visible						= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuevas.m_promesas3'
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_promesas3.visible						= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuevas.m_liberadores2'
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_liberadores2.visible					= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuevas.m_pagaré1'
+				m_menu_principal.m_cuponera.m_cuponerasnuevas.m_pagaré1.visible						= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuncaemitidas'
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.visible							= false
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_promesas4.visible			= false
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_liberadores3.visible		= false
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_pagaré2.visible				= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_promesas4'
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_promesas4.visible			= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_liberadores3'
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_liberadores3.visible		= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_pagaré2'
+				m_menu_principal.m_cuponera.m_cuponerasnuncaemitidas.m_pagaré2.visible				= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnofacturadas'
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.visible								= false
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_promesas5.visible				= false
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_liberadores4.visible			= false
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_pagaré3.visible				= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_promesas5'
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_promesas5.visible				= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_liberadores4'
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_liberadores4.visible			= false
+			CASE 'm_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_pagaré3'
+				m_menu_principal.m_cuponera.m_cuponerasnofacturadas.m_pagaré3.visible				= false
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

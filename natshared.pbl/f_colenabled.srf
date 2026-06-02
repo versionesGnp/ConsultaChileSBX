@@ -1,0 +1,57 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Activar = 0/1 columnas de DW~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_colenabled from function_object
+end type
+
+forward prototypes
+global subroutine f_colenabled (datawindow adw_mod, string as_col, boolean ab_enabled)
+end prototypes
+
+global subroutine f_colenabled (datawindow adw_mod, string as_col, boolean ab_enabled);/* Autor: Cesar Vilela v. BL-Eclipse 30/10/2015
+	f_ColEnabled( adw_mod, as_col, ab_enabled )  */
+
+// CVILELA: 12/Jul/2017 - Soporte fondo para Compute
+
+String ls_color, ls_modo, ls_protect, ls_err, ls_cbon, ls_cboff, ls_textc
+
+If ab_enabled Then
+	ls_protect = '0'
+Else
+	ls_protect = '1'
+End If	
+	
+ls_cbon = adw_mod.Describe( as_col + '.checkbox.on' )
+ls_cboff = adw_mod.Describe( as_col + '.checkbox.off' )
+
+If ls_cbon = '!' Then ls_cbon = '?' 
+If ls_cboff = '!' Then ls_cboff = '?' 
+
+If ab_enabled Then
+	ls_color = String( f_Gen_Color('backenabled') )
+	ls_color = as_col + '.Background.Color = ' + ls_color //String( RGB(255,255,255) )
+	ls_protect = as_col + '.Protect = 0 '
+	ls_textc = String( f_Gen_Color('t') )
+	ls_textc = as_col + '.Color = ' + ls_textc //0 ' 
+Else
+	ls_color = String( f_Gen_Color('backdisabled') )
+	//ls_color = String( f_Gen_Color('cromado2') )
+	ls_color = as_col + '.Background.Color = ' + ls_color //String( '67108864' )
+	ls_protect = as_col + '.Protect = 1 '
+	ls_textc = as_col + '.Color = ' + String( RGB( 128, 128, 128) )
+End If
+
+ls_modo = as_col + '.Background.Mode = 0'
+
+ls_err = adw_mod.Modify( ls_protect )
+
+If ( ls_cbon = '' Or ls_cboff = '' ) Or ( ls_cbon = '?' Or ls_cboff = '?' ) Then
+	ls_err = adw_mod.Modify( ls_color )
+	ls_err = adw_mod.Modify( ls_modo )
+End If
+
+/* En el caso de ser checkbox */
+If Not ( ls_cbon = '' And ls_cboff = '' ) And Not ( ls_cbon = '?' And ls_cboff = '?' ) Then
+	ls_err = adw_mod.Modify( ls_textc )
+End If
+
+end subroutine
+

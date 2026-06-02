@@ -1,0 +1,42 @@
+﻿global type f_retorna_ultimo_dia_mes from function_object
+end type
+
+forward prototypes
+global function date f_retorna_ultimo_dia_mes (long al_mes, long al_anno)
+end prototypes
+
+global function date f_retorna_ultimo_dia_mes (long al_mes, long al_anno);Date		ldt_fecha_fin
+String		ls_fecha
+if al_mes = 1 then
+	ls_fecha			= '31/01/'+string(al_anno)
+elseif al_mes=2 then
+	if al_anno / 4 = int(al_anno / 4) then
+		ls_fecha		= '29/02/'+string(al_anno)
+	else
+		ls_fecha		= '28/02/'+string(al_anno)
+	end if
+elseif al_mes=3 then
+	ls_fecha			= '31/03/'+string(al_anno)
+elseif al_mes=4 then
+	ls_fecha			= '30/04/'+string(al_anno)
+elseif al_mes=5 then
+	ls_fecha			= '31/05/'+string(al_anno)
+elseif al_mes=6 then
+	ls_fecha			= '30/06/'+string(al_anno)
+elseif al_mes=7 then
+	ls_fecha			= '31/07/'+string(al_anno)
+elseif al_mes=8 then
+	ls_fecha			= '31/08/'+string(al_anno)
+elseif al_mes=9 then
+	ls_fecha			= '30/09/'+string(al_anno)
+elseif al_mes=10 then
+	ls_fecha			= '31/10/'+string(al_anno)
+elseif al_mes=11 then
+	ls_fecha			= '30/11/'+string(al_anno)
+elseif al_mes=12 then
+	ls_fecha			= '31/12/'+string(al_anno)
+end if
+ldt_fecha_fin		= Date(ls_fecha)
+Return ldt_fecha_fin
+end function
+

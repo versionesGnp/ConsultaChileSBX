@@ -1,0 +1,46 @@
+﻿global type f_desarrollo_cta from function_object
+end type
+
+forward prototypes
+global subroutine f_desarrollo_cta (string as_base, string as_serie, double adb_numero)
+end prototypes
+
+global subroutine f_desarrollo_cta (string as_base, string as_serie, double adb_numero);string		ls_moneda
+long		ll_plazo,ll_count_reg
+double	ldb_precio,ldb_pie,ldb_tasa,ldb_val_cta,ldb_gto_adm,ldb_saldo_finan,ldb_tasa_interes
+datetime	ldt_fec_prim
+
+//wf_desarrollo_cta(as_base,as_serie,adb_numero)
+
+SELECT	"PLAZO",	"PRECIO",	"PIE",		"TASA",		"VALOR_CUOTA",	"GASTOS_ADM",	"FECHA_PRIM", "TASA_INTERES_CUOTA", "MONEDA"  		 
+INTO		:ll_plazo,	:ldb_precio,	:ldb_pie,	:ldb_tasa,	:ldb_val_cta,		:ldb_gto_adm,		:ldt_fec_prim,	:ldb_tasa_interes,				:ls_moneda
+FROM 	"VISTA_LISTADO_CTTOS_CALCULO" 
+WHERE  	"VISTA_LISTADO_CTTOS_CALCULO"."BASE" = :as_base AND   
+			"VISTA_LISTADO_CTTOS_CALCULO"."SERIE"	= :as_serie AND   
+			"VISTA_LISTADO_CTTOS_CALCULO"."NUMERO" = :adb_numero
+USING	sqlca;
+
+SELECT 	Count("DESARROLLO_CUOTA"."BASE")
+INTO 		:ll_count_reg  
+FROM 	"DESARROLLO_CUOTA"  
+WHERE ( "DESARROLLO_CUOTA"."BASE" = :as_base ) AND  
+		  ( "DESARROLLO_CUOTA"."SERIE" = :as_serie ) AND  
+		  ( "DESARROLLO_CUOTA"."NUMERO" = :adb_numero )   ;
+if ll_count_reg > 0 then
+	DELETE FROM 	  "DESARROLLO_CUOTA"  
+	WHERE 		( "DESARROLLO_CUOTA"."BASE" = :as_base ) AND  
+					( "DESARROLLO_CUOTA"."SERIE" = :as_serie ) AND  
+					( "DESARROLLO_CUOTA"."NUMERO" = :adb_numero )   
+	USING	sqlca;
+	if sqlca.sqlcode=0 then
+		commit;
+	else
+		rollback;
+	end if
+end if
+
+DECLARE SP_DESARROLLO_CUOTA PROCEDURE FOR SP_DESARROLLO_CUOTA( :as_base, :as_serie, :adb_numero, :ll_plazo, :ldb_precio, :ldb_pie, :ldb_tasa, :ldb_val_cta, :ldb_gto_adm, :ldt_fec_prim,:ls_moneda,:ldb_tasa_interes);
+EXECUTE SP_DESARROLLO_CUOTA;
+
+end subroutine
+

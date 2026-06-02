@@ -1,0 +1,36 @@
+﻿global type f_sap_cadena from function_object
+end type
+
+forward prototypes
+global function long f_sap_cadena (string as_tipo_deuda, string as_base, string as_serie, double adb_numero, long al_folio)
+end prototypes
+
+global function long f_sap_cadena (string as_tipo_deuda, string as_base, string as_serie, double adb_numero, long al_folio);long	ll_cta
+
+//wf_sap_cadena(as_tipo_deuda,as_base,as_serie,adb_numero,al_folio)
+if as_tipo_deuda<>'S' then
+	SELECT	 count("BASE")
+	INTO		:ll_cta
+	FROM		"SAP_CADENA"
+	WHERE	"SAP_CADENA"."BASE" = :as_base AND
+				"SAP_CADENA"."SERIE" = :as_serie AND
+				"SAP_CADENA"."NUMERO" = :adb_numero AND
+				"SAP_CADENA"."TIPO_DEUDA" =:as_tipo_deuda and
+				"SAP_CADENA"."ESTADO" = 'V'
+	USING	sqlca;
+elseif as_tipo_deuda='S' then
+	SELECT	 count("BASE")
+	INTO		:ll_cta
+	FROM		"SAP_CADENA_SERVICIO"
+	WHERE	"SAP_CADENA_SERVICIO"."BASE" = :as_base AND
+				"SAP_CADENA_SERVICIO"."SERIE" = :as_serie AND
+				"SAP_CADENA_SERVICIO"."NUMERO" = :adb_numero AND
+				"SAP_CADENA_SERVICIO"."TIPO_DEUDA" =:as_tipo_deuda and
+				"SAP_CADENA_SERVICIO"."FOLIO_COMPROBANTE" =:al_folio and
+				"SAP_CADENA_SERVICIO"."ESTADO" = 'V'
+	USING	sqlca;
+end if
+if isnull(ll_cta) then ll_cta=0
+return	ll_cta
+end function
+

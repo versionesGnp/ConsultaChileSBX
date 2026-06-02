@@ -1,0 +1,22 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Mostrar mensaje mientras se hace un proceso~r~n    Recomendación: NO MODIFICAR - APLICA A TODO ERP~r~n*/
+global type f_genprocesando from function_object
+end type
+
+forward prototypes
+global subroutine f_genprocesando (string as_msg)
+end prototypes
+
+global subroutine f_genprocesando (string as_msg);/* f_GenProcesando( as_msg ) */
+
+SetPointer( Arrow! )
+
+If IsValid( w_arch_gen_procesando ) Then 
+	Close ( w_arch_gen_procesando )
+End If
+If as_msg = '' Then
+	Return
+Else
+	OpenWithParm( w_arch_gen_procesando, as_msg )
+End If
+end subroutine
+

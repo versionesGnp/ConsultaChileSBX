@@ -1,0 +1,32 @@
+﻿global type f_mora from function_object
+end type
+
+forward prototypes
+global function integer f_mora (datetime primer, double pag, double cuotas, date fecha)
+end prototypes
+
+global function integer f_mora (datetime primer, double pag, double cuotas, date fecha);double vmes,vano,vcuo_venc,vmora
+	  
+vano = year(fecha) - year(DATE(primer))
+vano = vano*12	 
+vmes = month(fecha) - month(DATE(primer))
+vcuo_venc = vano + vmes
+if (day(fecha) > day(DATE(Primer))+5) then
+	vcuo_venc = vcuo_venc + 1
+end if
+if vcuo_venc < 0 then
+	vcuo_venc = 0
+end if
+if vcuo_venc > cuotas then
+	vcuo_venc = cuotas
+end if
+vmora = vcuo_venc - pag
+if vmora < 0 then vmora = 0
+return(vmora)
+
+
+
+               
+
+end function
+

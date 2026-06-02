@@ -1,0 +1,108 @@
+﻿global type f_cero_venta_inter from function_object
+end type
+
+forward prototypes
+global function long f_cero_venta_inter (string as_codigo, datetime adt_fec_ini, datetime adt_fec_fin, long al_cod_parque)
+end prototypes
+
+global function long f_cero_venta_inter (string as_codigo, datetime adt_fec_ini, datetime adt_fec_fin, long al_cod_parque);long		ll_cta,ll_cta2,ll_cta_cie,ll_cta_cie2
+datetime	ldt_fec_ini,ldt_fec_cierre
+
+if adt_fec_ini>=datetime(date(string('31/10/2013')),time('00:00:00')) then
+	ldt_fec_ini								= adt_fec_ini
+else
+	ldt_fec_ini								= datetime(date(string('31/10/2013')),time('00:00:00')) 
+end if
+//wf_cero_venta(as_codigo,adt_fec_fin,al_cod_parque)
+if al_cod_parque = 11 then
+	DECLARE x1 CURSOR FOR
+	SELECT		"FORESTA"."CIERRE_VENTA"."CIERRE_VENTA",count("FORESTA"."CIERRE_VENTA"."PERIODO")
+	FROM			"FORESTA"."CIERRE_VENTA"  
+	WHERE		"FORESTA"."CIERRE_VENTA"."CIERRE_VENTA" >= :ldt_fec_ini AND  
+					"FORESTA"."CIERRE_VENTA"."CIERRE_VENTA" <= :adt_fec_fin
+	GROUP BY	"FORESTA"."CIERRE_VENTA"."CIERRE_VENTA"
+	USING	sqlca;
+	open x1;
+	if sqlca.sqlcode=0 then
+		DO WHILE sqlca.sqlcode=0
+		fetch x1 INTO	:ldt_fec_cierre,:ll_cta_cie;
+			if not isnull(ldt_fec_cierre) then
+				if isnull(ll_cta_cie) then
+					ll_cta_cie			= 0
+				end if
+				SELECT	count("FORESTA"."OFERTA_V"."SERIE")  
+				INTO		:ll_cta
+				FROM 	"FORESTA"."OFERTA_V"  
+				WHERE	"FORESTA"."OFERTA_V"."COD_AGE" = :as_codigo AND  
+							"FORESTA"."OFERTA_V"."CIERRE_VENTA" = :ldt_fec_cierre
+				USING	sqlca;
+				if sqlca.sqlcode=0 then
+					if ll_cta>0 then
+						ll_cta			= 1
+					else
+						ll_cta			= 0
+					end if
+				else
+					ll_cta				= 0
+				end if
+				ll_cta2				= ll_cta2 + ll_cta
+				ll_cta_cie2			= ll_cta_cie2 + ll_cta_cie
+			end if
+			setnull(ldt_fec_cierre);setnull(ll_cta_cie)
+		LOOP
+	end if
+	close x1;
+	if ll_cta2=ll_cta_cie2 then
+		ll_cta2						= 1
+	else
+		ll_cta2						= 0
+	end if
+else
+	DECLARE x2 CURSOR FOR
+	SELECT		"PRADO"."CIERRE_VENTA"."CIERRE_VENTA",count("PRADO"."CIERRE_VENTA"."PERIODO")
+	FROM			"PRADO"."CIERRE_VENTA"  
+	WHERE		"PRADO"."CIERRE_VENTA"."CIERRE_VENTA" >= :ldt_fec_ini AND  
+					"PRADO"."CIERRE_VENTA"."CIERRE_VENTA" <= :adt_fec_fin
+	GROUP BY	"PRADO"."CIERRE_VENTA"."CIERRE_VENTA"
+	USING	sqlca;
+	open x2;
+	if sqlca.sqlcode=0 then
+		DO WHILE sqlca.sqlcode=0
+		fetch x2 INTO	:ldt_fec_cierre,:ll_cta_cie;
+			if not isnull(ldt_fec_cierre) then
+				if isnull(ll_cta_cie) then
+					ll_cta_cie			= 0
+				end if
+				SELECT	count("PRADO"."OFERTA_V"."SERIE")  
+				INTO		:ll_cta
+				FROM 	"PRADO"."OFERTA_V"  
+				WHERE	"PRADO"."OFERTA_V"."COD_AGE" = :as_codigo AND  
+							"PRADO"."OFERTA_V"."CIERRE_VENTA" = :ldt_fec_cierre
+				USING	sqlca;
+				if sqlca.sqlcode=0 then
+					if ll_cta>0 then
+						ll_cta			= 1
+					else
+						ll_cta			= 0
+					end if
+				else
+					ll_cta				= 0
+				end if
+				ll_cta2				= ll_cta2 + ll_cta
+				ll_cta_cie2			= ll_cta_cie2 + ll_cta_cie
+			end if
+			setnull(ldt_fec_cierre);setnull(ll_cta_cie)
+		LOOP
+	end if
+	close x2;
+	if ll_cta2=ll_cta_cie2 then
+		ll_cta2						= 1
+	else
+		ll_cta2						= 0
+	end if
+end if
+if isnull(ll_cta2) or ll_cta2=0 then ll_cta2=0
+Return ll_cta2
+
+end function
+

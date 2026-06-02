@@ -1,0 +1,206 @@
+﻿release 22;
+datawindow(units=0 data.export.format=1 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )
+header(height=676 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=4612 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=decimal(4) updatewhereclause=yes name=fc_cabecera_folio_crematorio dbname="fc_cabecera.folio_crematorio" )
+ column=(type=datetime updatewhereclause=yes name=fc_cabecera_fecha_ingreso_cinerario dbname="fc_cabecera.fecha_ingreso_cinerario" )
+ column=(type=decimal(4) updatewhereclause=yes name=fc_cabecera_hora_ingreso_cinerario dbname="fc_cabecera.hora_ingreso_cinerario" )
+ column=(type=decimal(4) updatewhereclause=yes name=fc_cabecera_minuto_ingreso_cinerario dbname="fc_cabecera.minuto_ingreso_cinerario" )
+ column=(type=decimal(4) updatewhereclause=yes name=fc_responsable_retiro_rut_responsable dbname="fc_responsable_retiro.rut_responsable" )
+ column=(type=char(1) updatewhereclause=yes name=fc_responsable_retiro_dv_responsable dbname="fc_responsable_retiro.dv_responsable" )
+ column=(type=char(50) updatewhereclause=yes name=fc_responsable_retiro_nombre dbname="fc_responsable_retiro.nombre" )
+ column=(type=char(50) updatewhereclause=yes name=fc_responsable_retiro_apellido_paterno dbname="fc_responsable_retiro.apellido_paterno" )
+ column=(type=char(50) updatewhereclause=yes name=fc_responsable_retiro_apellido_materno dbname="fc_responsable_retiro.apellido_materno" )
+ column=(type=char(30) updatewhereclause=yes name=fc_responsable_retiro_nro_resol_cremacion dbname="fc_responsable_retiro.nro_resol_cremacion" )
+ column=(type=char(100) updatewhereclause=yes name=fc_responsable_retiro_numero_anfora dbname="fc_responsable_retiro.numero_anfora" )
+ column=(type=datetime updatewhereclause=yes name=fc_responsable_retiro_fecha_retiro_ceniza dbname="fc_responsable_retiro.fecha_retiro_ceniza" )
+ column=(type=decimal(4) updatewhereclause=yes name=fc_responsable_retiro_hora_retiro_ceniza dbname="fc_responsable_retiro.hora_retiro_ceniza" )
+ column=(type=decimal(4) updatewhereclause=yes name=fc_responsable_retiro_minuto_retiro_ceniza dbname="fc_responsable_retiro.minuto_retiro_ceniza" )
+ column=(type=char(50) updatewhereclause=yes name=fc_fallecido_nombres dbname="fc_fallecido.nombres" )
+ column=(type=char(50) updatewhereclause=yes name=fc_fallecido_apellido_paterno dbname="fc_fallecido.apellido_paterno" )
+ column=(type=char(50) updatewhereclause=yes name=fc_fallecido_apellido_materno dbname="fc_fallecido.apellido_materno" )
+ column=(type=datetime updatewhereclause=yes name=fc_fallecido_fecha_defuncion dbname="fc_fallecido.fecha_defuncion" )
+ column=(type=char(50) updatewhereclause=yes name=fc_responsable_parque_nombre dbname="fc_responsable_parque.nombre" )
+ column=(type=char(50) updatewhereclause=yes name=fc_responsable_parque_apellido_paterno dbname="fc_responsable_parque.apellido_paterno" )
+ column=(type=char(50) updatewhereclause=yes name=fc_responsable_parque_apellido_materno dbname="fc_responsable_parque.apellido_materno" )
+ column=(type=char(9) updatewhereclause=yes name=fc_responsable_retiro_fono_1 dbname="fc_responsable_retiro.fono_1" )
+ column=(type=char(9) updatewhereclause=yes name=fc_responsable_retiro_fono_2 dbname="fc_responsable_retiro.fono_2" )
+ column=(type=char(90) updatewhereclause=yes name=ciudad_sigla_ciudad dbname="ciudad.sigla_ciudad" )
+ column=(type=char(90) updatewhereclause=yes name=comuna_comuna dbname="comuna.comuna" )
+ column=(type=char(100) updatewhereclause=yes name=tipo_via_descripcion dbname="tipo_via.descripcion" )
+ column=(type=char(500) updatewhereclause=yes name=fc_fallecido_direccion_fallecido dbname="fc_fallecido.direccion_fallecido" )
+ column=(type=char(15) updatewhereclause=yes name=fc_fallecido_numero_fallecido dbname="fc_fallecido.numero_fallecido" )
+ column=(type=char(15) updatewhereclause=yes name=fc_fallecido_depto_fallecido dbname="fc_fallecido.depto_fallecido" )
+ column=(type=char(15) updatewhereclause=yes name=fc_fallecido_block_fallecido dbname="fc_fallecido.block_fallecido" )
+ column=(type=decimal(4) updatewhereclause=yes name=fc_prelacion_rut_pre dbname="fc_prelacion.rut_pre" )
+ column=(type=char(1) updatewhereclause=yes name=fc_prelacion_dv_pre dbname="fc_prelacion.dv_pre" )
+ column=(type=char(45) updatewhereclause=yes name=fc_prelacion_nombres_pre dbname="fc_prelacion.nombres_pre" )
+ column=(type=char(45) updatewhereclause=yes name=fc_prelacion_apellido_paterno_pre dbname="fc_prelacion.apellido_paterno_pre" )
+ column=(type=char(45) updatewhereclause=yes name=fc_prelacion_apellido_materno_pre dbname="fc_prelacion.apellido_materno_pre" )
+ column=(type=char(100) updatewhereclause=yes name=fc_prelacion_direccion dbname="fc_prelacion.direccion" )
+ column=(type=char(15) updatewhereclause=yes name=fc_prelacion_numero_direc dbname="fc_prelacion.numero_direc" )
+ column=(type=char(10) updatewhereclause=yes name=fc_prelacion_comuna dbname="fc_prelacion.comuna" )
+ column=(type=char(10) updatewhereclause=yes name=fc_prelacion_ciudad dbname="fc_prelacion.ciudad" )
+ column=(type=char(50) updatewhereclause=yes name=fc_titular_nombres_t dbname="fc_titular.nombres_t" )
+ column=(type=char(50) updatewhereclause=yes name=fc_titular_apellido_paterno_t dbname="fc_titular.apellido_paterno_t" )
+ column=(type=char(50) updatewhereclause=yes name=fc_titular_apellido_materno_t dbname="fc_titular.apellido_materno_t" )
+ column=(type=decimal(4) updatewhereclause=yes name=fc_titular_rut_titular dbname="fc_titular.rut_titular" )
+ column=(type=char(1) updatewhereclause=yes name=fc_titular_dv_titular dbname="fc_titular.dv_titular" )
+ column=(type=datetime updatewhereclause=yes name=fc_responsable_retiro_fecha_resolucion dbname="fc_responsable_retiro.fecha_resolucion" )
+ retrieve="  SELECT ~"FC_CABECERA~".~"FOLIO_CREMATORIO~",   
+         ~"FC_CABECERA~".~"FECHA_INGRESO_CINERARIO~",   
+         ~"FC_CABECERA~".~"HORA_INGRESO_CINERARIO~",   
+         ~"FC_CABECERA~".~"MINUTO_INGRESO_CINERARIO~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"RUT_RESPONSABLE~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"DV_RESPONSABLE~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"NOMBRE~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"APELLIDO_PATERNO~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"APELLIDO_MATERNO~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"NRO_RESOL_CREMACION~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"NUMERO_ANFORA~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"FECHA_RETIRO_CENIZA~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"HORA_RETIRO_CENIZA~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"MINUTO_RETIRO_CENIZA~",   
+         ~"FC_FALLECIDO~".~"NOMBRES~",   
+         ~"FC_FALLECIDO~".~"APELLIDO_PATERNO~",   
+         ~"FC_FALLECIDO~".~"APELLIDO_MATERNO~",   
+         ~"FC_FALLECIDO~".~"FECHA_DEFUNCION~",   
+         ~"FC_RESPONSABLE_PARQUE~".~"NOMBRE~",   
+         ~"FC_RESPONSABLE_PARQUE~".~"APELLIDO_PATERNO~",   
+         ~"FC_RESPONSABLE_PARQUE~".~"APELLIDO_MATERNO~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"FONO_1~",   
+         ~"FC_RESPONSABLE_RETIRO~".~"FONO_2~",   
+         ~"CIUDAD~".~"SIGLA_CIUDAD~",   
+         ~"COMUNA~".~"COMUNA~",   
+         ~"TIPO_VIA~".~"DESCRIPCION~",   
+         ~"FC_FALLECIDO~".~"DIRECCION_FALLECIDO~",   
+         ~"FC_FALLECIDO~".~"NUMERO_FALLECIDO~",   
+         ~"FC_FALLECIDO~".~"DEPTO_FALLECIDO~",   
+         ~"FC_FALLECIDO~".~"BLOCK_FALLECIDO~",  
+         ~"FC_PRELACION~".~"RUT~" RUT_PRE,   
+         ~"FC_PRELACION~".~"DV~" DV_PRE,   
+         ~"FC_PRELACION~".~"NOMBRES~" NOMBRES_PRE,   
+         ~"FC_PRELACION~".~"APELLIDO_PATERNO~" APELLIDO_PATERNO_PRE,   
+         ~"FC_PRELACION~".~"APELLIDO_MATERNO~" APELLIDO_MATERNO_PRE,    
+         ~"FC_PRELACION~".~"DIRECCION~",   
+         ~"FC_PRELACION~".~"NUMERO_DIREC~",   
+         ~"FC_PRELACION~".~"COMUNA~",   
+         ~"FC_PRELACION~".~"CIUDAD~" ,
+         ~"FC_TITULAR~".~"NOMBRES~" NOMBRES_T,   
+         ~"FC_TITULAR~".~"APELLIDO_PATERNO~" APELLIDO_PATERNO_T,   
+         ~"FC_TITULAR~".~"APELLIDO_MATERNO~" APELLIDO_MATERNO_T,   
+         ~"FC_TITULAR~".~"RUT_TITULAR~",   
+         ~"FC_TITULAR~".~"DV_TITULAR~",
+         ~"FC_RESPONSABLE_RETIRO~".~"FECHA_RESOLUCION~"
+    FROM ~"FC_CABECERA~",   
+         ~"FC_FALLECIDO~",   
+         ~"FC_RESPONSABLE_PARQUE~",   
+         ~"FC_RESPONSABLE_RETIRO~",   
+         ~"CIUDAD~",   
+         ~"COMUNA~",   
+         ~"TIPO_VIA~",   
+         ~"FC_PRELACION~",
+         ~"FC_TITULAR~"
+   WHERE ( ~"FC_FALLECIDO~".~"FOLIO_CREMATORIO~" = ~"FC_RESPONSABLE_RETIRO~".~"FOLIO_CREMATORIO~" ) and  
+         ( ~"FC_CABECERA~".~"FOLIO_CREMATORIO~" = ~"FC_RESPONSABLE_RETIRO~".~"FOLIO_CREMATORIO~" ) and  
+
+         ( ~"FC_FALLECIDO~".~"COMUNA_FALLECIMIENTO~" = ~"COMUNA~".~"CODIGO_COMUNA~" ) and  
+      -- ( ~"FC_FALLECIDO~".~"COMUNA_FALLECIMIENTO~" = ~"COMUNA~".~"CODIGO_COMUNA~" ) and  
+         ( ~"FC_PRELACION~".~"COMUNA~" = ~"COMUNA~".~"CODIGO_COMUNA~" ) and  
+
+
+         ( ~"FC_FALLECIDO~".~"CIUDAD_FALLECIMIENTO~" = ~"CIUDAD~".~"CODIGO_CIUDAD~" ) and  
+         ( ~"FC_FALLECIDO~".~"TIPO_VIA_FALLECIDO~" = ~"TIPO_VIA~".~"TIPO_VIA~" ) and  
+         ( ~"FC_PRELACION~".~"FOLIO_CREMATORIO~" = ~"FC_RESPONSABLE_RETIRO~".~"FOLIO_CREMATORIO~" ) and  
+         ( ~"FC_PRELACION~".~"BASE~" = ~"FC_RESPONSABLE_RETIRO~".~"BASE~" ) and  
+         ( ~"FC_PRELACION~".~"SERIE~" = ~"FC_RESPONSABLE_RETIRO~".~"SERIE~" ) and  
+         ( ~"FC_PRELACION~".~"NUMERO~" = ~"FC_RESPONSABLE_RETIRO~".~"NUMERO~" ) and  
+         ( ~"FC_PRELACION~".~"RUT~" = ~"FC_RESPONSABLE_RETIRO~".~"RUT_RESPONSABLE~" ) and  
+         ( ~"FC_TITULAR~".~"FOLIO_CREMATORIO~" = ~"FC_CABECERA~".~"FOLIO_CREMATORIO~" ) AND
+         ( ( ~"FC_CABECERA~".~"FOLIO_CREMATORIO~" = :folio ) AND  
+         ( ~"FC_RESPONSABLE_PARQUE~".~"JEFE_CREMATORIO~" = 'S' ) )    
+" arguments=(("folio", number)) )
+compute(band=header alignment="2" expression="'ACTA DE ENTREGA DE COPIA DE RESOLUCIÓN 
+SANITARIA Y DE ANFORA CON CENIZAS.'"border="0" color="0" x="297" y="276" height="300" width="2949" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-18" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="3" expression="'En Santiago de Chile, con fecha '+day( fc_cabecera_fecha_ingreso_cinerario )+ ' de '+case( month( fc_cabecera_fecha_ingreso_cinerario ) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre') +' de '+year( fc_cabecera_fecha_ingreso_cinerario ) + ', siendo las '+string( fc_cabecera_hora_ingreso_cinerario ,'00')+':'+string( fc_cabecera_minuto_ingreso_cinerario ,'00')+' horas, se procede con la cremación del señor(a), '+  fc_fallecido_nombres + ' ' + fc_fallecido_apellido_paterno  +' '+  fc_fallecido_apellido_materno +' quien falleció el día '+  day(  fc_fallecido_fecha_defuncion  )+ ' de '+case( month(  fc_fallecido_fecha_defuncion  ) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre') +' de '+year(  fc_fallecido_fecha_defuncion  )+'.'"border="0" color="0" x="165" y="132" height="296" width="3214" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0"  height.autosize=yes)
+compute(band=detail alignment="3" expression="
+'La cremación fue solicitada por el (la) señor(a), '+   fc_prelacion_nombres_pre +' '+   fc_prelacion_apellido_paterno_pre +' '+   fc_prelacion_apellido_materno_pre +
+', con cédula de identidad nacional N° '+
+
+Replace(
+Replace(string(  fc_prelacion_rut_pre  ,'###,###,###,###'), Pos(string(  fc_prelacion_rut_pre  ,'###,###,###,###'), ','), 1, '.')
+, Pos(
+Replace(string(  fc_prelacion_rut_pre  ,'###,###,###,###'), Pos(string(  fc_prelacion_rut_pre  ,'###,###,###,###'), ','), 1, '.')
+, ','), 1, '.')
+
+
++'-'+  fc_prelacion_dv_pre  +
+', según la resolución N° '+ string(fc_responsable_retiro_nro_resol_cremacion) +', de fecha '+ 
+
+if(
+isnull( fc_responsable_retiro_fecha_resolucion ),'S/D',
+day(  fc_responsable_retiro_fecha_resolucion  )+ ' de '+case( month(  fc_responsable_retiro_fecha_resolucion  ) when 1 then 'Enero' when 2 then 'Febrero' when 3 then 'Marzo' when 4 then 'Abril' when 5 then 'Mayo' when 6 then 'Junio' when 7 then 'Julio' when 8 then 'Agosto' when 9 then 'Septiembre' when 10 then 'Octubre' when 11 then 'Noviembre' when 12 then 'Diciembre') +' de '+year( fc_responsable_retiro_fecha_resolucion )
+)+
+
+' suscrita por el Secretario Regional del Ministerio de Salud de la Región Metropolitana, según consta en dicha Resolución. '
+
+"border="0" color="0" x="165" y="416" height="380" width="3214" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="3" expression="'En este acto se hace entrega al cliente de copia de la resolución  N° '+ 
+
+if(isnull(
+fc_responsable_retiro_nro_resol_cremacion),'S/D',string(fc_responsable_retiro_nro_resol_cremacion)
+)
++
+' quien declara en este acto recibirla.'
+"border="0" color="0" x="165" y="844" height="212" width="3214" format="[GENERAL]" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+line(band=detail x1="2025" y1="1188" x2="3374" y2="1188"  name=l_3 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" )
+compute(band=detail alignment="3" expression="
+'Las cenizas son entregadas en este acto al señor(a) , '+
+trim( fc_prelacion_nombres_pre ) +' '+ trim( fc_prelacion_apellido_paterno_pre ) +' '+ trim( fc_prelacion_apellido_materno_pre ) +
+
+', cédula nacional de identidad N° '+
+
+Replace(
+Replace(string(  fc_responsable_retiro_rut_responsable ,'###,###,###,###'), Pos(string(  fc_responsable_retiro_rut_responsable ,'###,###,###,###'), ','), 1, '.')
+, Pos(
+Replace(string(  fc_responsable_retiro_rut_responsable ,'###,###,###,###'), Pos(string(  fc_responsable_retiro_rut_responsable ,'###,###,###,###'), ','), 1, '.')
+, ','), 1, '.')
+
+
++'-'+ fc_responsable_retiro_dv_responsable +
+' con domicilio en ' + 
+trim(tipo_via_descripcion) +' '+   trim(fc_prelacion_direccion) +' # '+  fc_prelacion_numero_direc +
+', comuna de '+   comuna_comuna +', Región '+ ciudad_sigla_ciudad +'. En cofre sellado quien en este acto declara recibirlo a su entera satisfacción.'
+"border="0" color="0" x="165" y="1460" height="320" width="3214" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="2" expression="'Nombre'"border="0" color="33554432" x="1929" y="1216" height="88" width="1504" format="[GENERAL]" html.valueishtml="0"  name=compute_13 visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+line(band=detail x1="2025" y1="1944" x2="3374" y2="1944"  name=l_4 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" )
+compute(band=detail alignment="2" expression="'Nombre'"border="0" color="33554432" x="1947" y="1964" height="88" width="1504" format="[GENERAL]" html.valueishtml="0"  name=compute_14 visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="3" expression="'Comparece en este acto, en representación del  Cinerario del parque cementerio El Manantial, Don '+
+trim(fc_responsable_parque_nombre) +' '+ trim(fc_responsable_parque_apellido_paterno) +' '+ trim(fc_responsable_parque_apellido_materno) +
+' en su carácter de Jefe de Cinerario.'"border="0" color="0" x="165" y="2252" height="196" width="3214" format="[GENERAL]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="3" expression="'La presente Acta de Cremación se levanta en cumplimiento con lo dispuesto en el Artículo 69 del Reglamento General de Cementerios, en dos copias de igual contenido, quedando una de ellas en poder de la persona que recibe las cenizas, previamente individualizado y la otra, suscrita por dicha persona en señal de recepción, en poder de Inmobiliaria Parque La Florida SpA. '"border="0" color="0" x="165" y="2448" height="528" width="3214" format="[GENERAL]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="3" expression="'En caso que retire un apoderado: El poder de don ________________________, cédula nacional de identidad__________________-__ , para actuar en representación del familiar autorizado para el retiro de cenizas en la Resolución sanitaria ya referida, consta de poder especial de fecha ________________cuya firma se encuentra autorizada ante notario público ___________________ ____________, copia del cual se exhibe en este acto y  que se agrega  junto a esta Acta en la carpeta con documentación del fallecido.'"border="0" color="0" x="165" y="2996" height="528" width="3214" format="[GENERAL]" html.valueishtml="0"  name=compute_12 visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="2" expression="fc_responsable_parque_nombre +' '+ fc_responsable_parque_apellido_paterno +' '+ fc_responsable_parque_apellido_materno "border="0" color="33554432" x="443" y="4396" height="148" width="1225" format="[GENERAL]" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+line(band=detail x1="434" y1="4276" x2="1669" y2="4276"  name=l_1 visible="1" pen.style="0" pen.width="14" pen.color="0"  background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" )
+text(band=detail alignment="2" text="Jefe de Cinerario" border="0" color="33554432" x="434" y="4296" height="76" width="1234" html.valueishtml="0"  name=t_1 visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+bitmap(band=detail filename="Firma_Luis_Vazquez_Salazar.png" x="434" y="3692" height="572" width="1234" border="0" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0"  name=p_2 visible="1" transparency="0" )
+line(band=detail x1="1998" y1="4260" x2="3232" y2="4260"  name=l_2 visible="1" pen.style="0" pen.width="14" pen.color="0"  background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" )
+compute(band=detail alignment="2" expression="fc_responsable_retiro_nombre +' '+ fc_responsable_retiro_apellido_paterno +' '+ fc_responsable_retiro_apellido_materno "border="0" color="33554432" x="1847" y="4380" height="88" width="1504" format="[GENERAL]" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="2" expression="day(   today() )+' de '+
+case( month(   today() ) when 1 then 'Enero ' when 2 then 'Febrero ' when 3 then 'Marzo ' when 4 then 'Abril ' when 5 then 'Mayo ' when 6 then 'Junio ' when 7 then 'Julio ' when 8 then 'Agosto ' when 9 then 'Septiembre ' when 10 then 'Octubre ' when 11 then 'Noviembre ' when 12 then 'Diciembre ')+
+' de '+
+year(   today() )"border="0" color="33554432" x="1861" y="4472" height="88" width="1504" format="[GENERAL]" html.valueishtml="0"  name=compute_9 visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=detail alignment="2" text="Cliente (Firma y Huella)" border="0" color="33554432" x="1861" y="4280" height="76" width="1504" html.valueishtml="0"  name=t_2 visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=2 distill.custompostscript="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no )
+export.xhtml()
+ 

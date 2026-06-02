@@ -1,0 +1,37 @@
+﻿global type f_valida_pie_pagado from function_object
+end type
+
+forward prototypes
+global function double f_valida_pie_pagado (string as_base, string as_serie, double al_numero, string as_moneda)
+end prototypes
+
+global function double f_valida_pie_pagado (string as_base, string as_serie, double al_numero, string as_moneda);Double	ldb_valor=0,ldb_monto_uf,ldb_suma=0,ldb_uf,ldb_monto
+
+IF al_numero > 0 THEN
+	DECLARE x1 CURSOR FOR  
+	SELECT	"INGRESO"."MONTO",		"INGRESO"."VALOR_UF"
+	FROM 	"INGRESO"  
+	WHERE ( "INGRESO"."BASE" = :as_base ) AND  ( "INGRESO"."SERIE" = :as_serie ) AND  ( "INGRESO"."CONTRATO" = :al_numero ) AND  ( "INGRESO"."PAGO_HIST" = 'A' ) AND  
+			  ( "INGRESO"."TIPO_MOV" = 'A' OR  "INGRESO"."TIPO_MOV" = 'Q')   
+	USING	sqlca;
+	open x1;
+	if sqlca.sqlcode=0 then
+		do while sqlca.sqlcode=0
+			fetch x1 into :ldb_monto, :ldb_uf;
+			if not isnull(ldb_monto) and ldb_monto > 0 then
+				if as_moneda = '2' then
+					ldb_monto_uf	= round(ldb_monto / ldb_uf,4)
+				elseif as_moneda = '1' then
+					ldb_monto_uf	= round(ldb_monto,0)
+				end if
+				ldb_suma			= ldb_suma + ldb_monto_uf
+			end if
+			Setnull(ldb_monto)
+		loop
+	end if
+	if ldb_suma > 0 then ldb_valor = ldb_suma
+	close x1;
+END IF
+Return ldb_valor
+end function
+

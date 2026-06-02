@@ -1,0 +1,308 @@
+﻿forward
+global type mn_principal_etiqueta from menu
+end type
+type m_proceso from menu within mn_principal_etiqueta
+end type
+type m_abonosofertas from menu within m_proceso
+end type
+type m_ofertas_nuevas from menu within m_proceso
+end type
+type m_q from menu within m_proceso
+end type
+type m_imprimieetiquetaspagars from menu within m_proceso
+end type
+type m_imprimiretiquetasaumentocapacidad from menu within m_proceso
+end type
+type m_imprimiretiquetascontratos from menu within m_proceso
+end type
+type m_- from menu within m_proceso
+end type
+type m_c0nfigurarimpresora from menu within m_proceso
+end type
+type m_calculadora from menu within m_proceso
+end type
+type m_-1 from menu within m_proceso
+end type
+type m_salir from menu within m_proceso
+end type
+type m_proceso from menu within mn_principal_etiqueta
+m_abonosofertas m_abonosofertas
+m_ofertas_nuevas m_ofertas_nuevas
+m_q m_q
+m_imprimieetiquetaspagars m_imprimieetiquetaspagars
+m_imprimiretiquetasaumentocapacidad m_imprimiretiquetasaumentocapacidad
+m_imprimiretiquetascontratos m_imprimiretiquetascontratos
+m_- m_-
+m_c0nfigurarimpresora m_c0nfigurarimpresora
+m_calculadora m_calculadora
+m_-1 m_-1
+m_salir m_salir
+end type
+global type mn_principal_etiqueta from menu
+m_proceso m_proceso
+end type
+end forward
+
+global type mn_principal_etiqueta from menu
+m_proceso m_proceso
+end type
+global mn_principal_etiqueta mn_principal_etiqueta
+
+on mn_principal_etiqueta.create
+mn_principal_etiqueta=this
+call super::create
+this.m_proceso=create m_proceso
+this.Item[UpperBound(this.Item)+1]=this.m_proceso
+end on
+
+on mn_principal_etiqueta.destroy
+call super::destroy
+destroy(this.m_proceso)
+end on
+
+type m_proceso from menu within mn_principal_etiqueta
+m_abonosofertas m_abonosofertas
+m_ofertas_nuevas m_ofertas_nuevas
+m_q m_q
+m_imprimieetiquetaspagars m_imprimieetiquetaspagars
+m_imprimiretiquetasaumentocapacidad m_imprimiretiquetasaumentocapacidad
+m_imprimiretiquetascontratos m_imprimiretiquetascontratos
+m_- m_-
+m_c0nfigurarimpresora m_c0nfigurarimpresora
+m_calculadora m_calculadora
+m_-1 m_-1
+m_salir m_salir
+end type
+
+on m_proceso.create
+call super::create
+this.text = "&Ofertas        "
+this.m_abonosofertas=create m_abonosofertas
+this.m_ofertas_nuevas=create m_ofertas_nuevas
+this.m_q=create m_q
+this.m_imprimieetiquetaspagars=create m_imprimieetiquetaspagars
+this.m_imprimiretiquetasaumentocapacidad=create m_imprimiretiquetasaumentocapacidad
+this.m_imprimiretiquetascontratos=create m_imprimiretiquetascontratos
+this.m_-=create m_-
+this.m_c0nfigurarimpresora=create m_c0nfigurarimpresora
+this.m_calculadora=create m_calculadora
+this.m_-1=create m_-1
+this.m_salir=create m_salir
+this.Item[UpperBound(this.Item)+1]=this.m_abonosofertas
+this.Item[UpperBound(this.Item)+1]=this.m_ofertas_nuevas
+this.Item[UpperBound(this.Item)+1]=this.m_q
+this.Item[UpperBound(this.Item)+1]=this.m_imprimieetiquetaspagars
+this.Item[UpperBound(this.Item)+1]=this.m_imprimiretiquetasaumentocapacidad
+this.Item[UpperBound(this.Item)+1]=this.m_imprimiretiquetascontratos
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_c0nfigurarimpresora
+this.Item[UpperBound(this.Item)+1]=this.m_calculadora
+this.Item[UpperBound(this.Item)+1]=this.m_-1
+this.Item[UpperBound(this.Item)+1]=this.m_salir
+end on
+
+on m_proceso.destroy
+call super::destroy
+destroy(this.m_abonosofertas)
+destroy(this.m_ofertas_nuevas)
+destroy(this.m_q)
+destroy(this.m_imprimieetiquetaspagars)
+destroy(this.m_imprimiretiquetasaumentocapacidad)
+destroy(this.m_imprimiretiquetascontratos)
+destroy(this.m_-)
+destroy(this.m_c0nfigurarimpresora)
+destroy(this.m_calculadora)
+destroy(this.m_-1)
+destroy(this.m_salir)
+end on
+
+type m_abonosofertas from menu within m_proceso
+end type
+
+on m_abonosofertas.create
+call super::create
+this.text = "&Actualizar Etiquetas"
+this.microhelp = "Actualizar Etiquetas de Promesas y Liberadores"
+this.toolbaritemname = "Structure!"
+this.toolbaritemtext = "Actualizar Etiquetas de Promesas y Liberadores"
+this.toolbaritemorder = 1
+end on
+
+event clicked;open(w_promesas_lib)
+end event
+
+on m_abonosofertas.destroy
+call super::destroy
+end on
+
+type m_ofertas_nuevas from menu within m_proceso
+end type
+
+on m_ofertas_nuevas.create
+call super::create
+this.text = "&Imprimir Etiquetas Promesas"
+this.microhelp = "Imprime Etiquetas Promesas"
+this.toolbaritemname = "Watcom!"
+this.toolbaritemtext = "Imprime Etiquetas Promesas"
+this.toolbaritemorder = 3
+this.toolbaritemspace = 2
+end on
+
+event clicked;open(w_imprime_promesas)
+end event
+
+on m_ofertas_nuevas.destroy
+call super::destroy
+end on
+
+type m_q from menu within m_proceso
+end type
+
+on m_q.create
+call super::create
+this.text = "I&mprimir Etiquetas Liberadores"
+this.microhelp = "Imprime Etiquetas Liberadores"
+this.toolbaritemname = "Database!"
+this.toolbaritemtext = "Imprime Etiquetas Liberadores"
+this.toolbaritemorder = 4
+end on
+
+event clicked;open(w_imprime_liberadores)
+end event
+
+on m_q.destroy
+call super::destroy
+end on
+
+type m_imprimieetiquetaspagars from menu within m_proceso
+end type
+
+event clicked;open(w_imprime_pagare)
+end event
+
+on m_imprimieetiquetaspagars.create
+call super::create
+this.text = "Im&primir Etiquetas Pagarés"
+this.microhelp = "Imprime Etiquetas Pagaré"
+this.toolbaritemname = "Preferences!"
+this.toolbaritemtext = "Imprime Etiquetas Pagaré"
+this.toolbaritemorder = 5
+end on
+
+on m_imprimieetiquetaspagars.destroy
+call super::destroy
+end on
+
+type m_imprimiretiquetasaumentocapacidad from menu within m_proceso
+end type
+
+event clicked;open(w_imprime_aumento_capacidad)
+end event
+
+on m_imprimiretiquetasaumentocapacidad.create
+call super::create
+this.text = "Impri&mir Etiquetas Aumento Capacidad"
+this.microhelp = "Imprime Etiquetas Aumento Capacidad"
+this.toolbaritemname = "Insert5!"
+this.toolbaritemtext = "Imprimir Etiquetas Aumento Capacidad"
+this.toolbaritemorder = 6
+end on
+
+on m_imprimiretiquetasaumentocapacidad.destroy
+call super::destroy
+end on
+
+type m_imprimiretiquetascontratos from menu within m_proceso
+end type
+
+event clicked;open(w_imprime_etiqueta_contrato)
+end event
+
+on m_imprimiretiquetascontratos.create
+call super::create
+this.text = "imprimir Etiquetas Contratos"
+this.microhelp = "Imprime Etiquetas Contratos"
+this.toolbaritemname = "Insert!"
+this.toolbaritemtext = "Imprimir Etiquetas Contratos"
+this.toolbaritemorder = 7
+end on
+
+on m_imprimiretiquetascontratos.destroy
+call super::destroy
+end on
+
+type m_- from menu within m_proceso
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_c0nfigurarimpresora from menu within m_proceso
+end type
+
+event clicked;PrintSetup( )
+end event
+
+on m_c0nfigurarimpresora.create
+call super::create
+this.text = "C&onfigurar Impresora"
+end on
+
+on m_c0nfigurarimpresora.destroy
+call super::destroy
+end on
+
+type m_calculadora from menu within m_proceso
+end type
+
+event clicked;Run("Calc",Maximized!)
+end event
+
+on m_calculadora.create
+call super::create
+this.text = "C&alculadora"
+end on
+
+on m_calculadora.destroy
+call super::destroy
+end on
+
+type m_-1 from menu within m_proceso
+end type
+
+on m_-1.create
+call super::create
+this.text = "-"
+end on
+
+on m_-1.destroy
+call super::destroy
+end on
+
+type m_salir from menu within m_proceso
+end type
+
+on m_salir.create
+call super::create
+this.text = "&Salir"
+this.microhelp = "Salir del Sistema"
+this.toolbaritemname = "Exit!"
+this.toolbaritemtext = "Salir del Sistema"
+this.toolbaritemorder = 99
+this.toolbaritemspace = 10
+end on
+
+event clicked;
+Close(w_principal_etiqueta)
+end event
+
+on m_salir.destroy
+call super::destroy
+end on
+

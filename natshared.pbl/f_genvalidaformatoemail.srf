@@ -1,0 +1,128 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Revisa la integridad del dato de correo elctrónico~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genvalidaformatoemail from function_object
+end type
+
+forward prototypes
+global function boolean f_genvalidaformatoemail (string as_email)
+end prototypes
+
+global function boolean f_genvalidaformatoemail (string as_email);
+/* f_GenValidaFormatoemail( as_email ) */
+Integer	li_posA, li_posP, li_Right, li_PosX, li_len, li_posAMas, i, li_char
+String	ls_invalid, ls_charInv, ls_reverse, ls_charReverse, ls_char
+
+
+as_email = f_Trim( as_email )
+
+//Revisa si hay caracteres no válidos
+ls_invalid = ',;:ºª!|"·#$%&¬/()=?¡><^[*+]¨´{Çç}áéíóúñäëïöüàèìòùâêîôû '
+i = 1
+Do While i <= Len(ls_invalid)
+	ls_charInv = Mid( ls_invalid, i, 1 )
+	If Pos(as_email, ls_charInv ) > 0 Then
+		Return False
+	End If
+	i ++
+Loop
+
+ls_charInv = "'"
+If Pos(as_email, ls_charInv ) > 0 Then
+	Return False
+End If
+
+If Len(as_email) < 6 Then
+	Return False
+End If
+
+//Pueden existir - y _ pero no como primer caracter ni como último
+li_posX = Pos(as_email, '-') 
+If li_posX = 1 Or li_posX = Len(as_email) Then
+	Return False
+End If
+li_posX = Pos(as_email, '_') 
+If li_posX = 1 Or li_posX = Len(as_email) Then
+	Return False
+End If
+
+//Debe existir el @
+li_posA = Pos(as_email, '@') 
+If li_posA < 2 Then
+	Return False
+End If
+
+//Debe existir el .
+li_posP = Pos(as_email, '.') 
+If li_posP < 2 Then
+	Return False
+End If
+
+//el @ y el . no pueden ir juntos
+If Pos(as_email, '@.') > 0 Or Pos(as_email, '.@') > 0 Then
+	Return False
+End If
+
+li_Right = Len( Mid( as_email, li_PosA + 1) ) 
+
+If li_Right < 4 Then
+	Return False
+End If
+
+li_posX = Pos( as_email, '.', li_posA ) 
+If li_posX < 2 Then
+	Return False
+End If
+
+//no dos puntos continuos
+li_posX = Pos( as_email, '..' ) 
+If li_posX > 0 Then
+	Return False
+End If
+
+//Solo Puede haber un @
+i = 1
+Do While i <= Len(as_email)
+	If Pos(as_email, '@', i) > 0 Then
+		i = Pos(as_email, '@', i)
+		li_posAMas ++ 
+	End If
+	i ++
+Loop
+If li_posAMas > 1 Then
+	Return False
+End If
+
+i = 1
+Do While i < Pos(as_email, '@' )
+	ls_Char = Upper( Mid( as_email, i, 1 ) )
+	If Asc(ls_Char) > 64 And Asc(ls_Char) < 91 Then
+		li_char ++ 
+	End If
+	i ++
+Loop
+If li_char < 1 Then
+	Return False
+End If
+
+
+
+//Invertir la cadena para siguientes verificaciones
+i = 1
+li_len = Len(as_email)
+Do While i <= Len(as_email)
+	ls_CharReverse = Mid( as_email, li_len, 1 )
+	ls_Reverse = ls_Reverse + ls_CharReverse
+	li_len = li_len -1
+	i ++
+Loop
+
+//El dominio debe tener al menos dos caracteres después del punto
+li_posP = Pos(ls_reverse, '.') 
+If li_posP < 3 Then
+	Return False
+End If
+
+
+Return True
+
+end function
+

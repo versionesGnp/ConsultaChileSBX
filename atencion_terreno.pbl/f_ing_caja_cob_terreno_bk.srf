@@ -1,0 +1,107 @@
+﻿global type f_ing_caja_cob_terreno_bk from function_object
+end type
+
+forward prototypes
+global function long f_ing_caja_cob_terreno_bk (string as_base, string as_serie, double al_numero, datetime adt_fec_ini, datetime adt_fec_fin, string as_tipo_cob)
+end prototypes
+
+global function long f_ing_caja_cob_terreno_bk (string as_base, string as_serie, double al_numero, datetime adt_fec_ini, datetime adt_fec_fin, string as_tipo_cob);string		ls_repac,ls_base,ls_serie,ls_serie_p
+long		ll_monto,ll_monto2,ll_monto3
+Double	ll_numero,ll_numero_p
+
+//f_ing_caja_cob_terreno(as_base,as_serie,al_numero,adt_fec_ini,adt_fec_fin,as_tipo_cob)
+SELECT	sum("INGRESO"."MONTO")
+INTO		:ll_monto
+FROM		"INGRESO"  
+WHERE	"INGRESO"."BASE" = :as_base  AND  
+      		"INGRESO"."SERIE" = :as_serie AND  
+         	"INGRESO"."CONTRATO" = :al_numero and
+			("INGRESO"."TIPO_MOV" = 'S' or "INGRESO"."TIPO_MOV" = 'J' or "INGRESO"."TIPO_MOV" = 'R' or "INGRESO"."TIPO_MOV" = 'G' or "INGRESO"."TIPO_MOV" = 'P' or "INGRESO"."TIPO_MOV" = 'F' or "INGRESO"."TIPO_MOV" = 'E' or "INGRESO"."TIPO_MOV" = 'A' or "INGRESO"."TIPO_MOV" = '6' or "INGRESO"."TIPO_MOV" = '4' or ("INGRESO"."TIPO_MOV" = 'L' and ( "INGRESO"."CODIGO_OTRO" = '51' OR "INGRESO"."CODIGO_OTRO" = '3' ) ) ) AND
+			"INGRESO"."PAGO_HIST" = 'A' and
+			"INGRESO"."FECHA_PAGO" >= :adt_fec_ini and
+			"INGRESO"."FECHA_PAGO" <= :adt_fec_fin
+USING	sqlca;
+if isnull(ll_monto) then ll_monto=0 
+if as_tipo_cob='M' then	
+	if as_base='O' then
+		SELECT	"OFERTA_V"."ANEXO_REPACTA"  
+    		INTO 		:ls_repac  
+    		FROM		"OFERTA_V"  
+   		WHERE	( "OFERTA_V"."SERIE" = :as_serie ) AND  
+         			( "OFERTA_V"."NRO_OFERTA" = :al_numero )
+		USING	sqlca;
+	elseif as_tipo_cob='C' then
+		SELECT	"CONTRATO"."ANEXO_REPACTA"  
+    		INTO 		:ls_repac  
+   		FROM		"CONTRATO"  
+   		WHERE	( "CONTRATO"."SERIE_C" = :as_serie ) AND  
+         			( "CONTRATO"."NRO_CONTRATO" = :al_numero)
+		USING	sqlca;
+	end if
+	if isnull(ls_repac) then ls_repac=''
+	if not isnull(ls_repac) and ls_repac<>'' then
+		SELECT	"CODIGO",	"SERIE",	"NUMERO"  
+   		INTO 		:ls_base,		:ls_serie,	:ll_numero  
+    		FROM		"CADENA"  
+   		WHERE	"CADENA"."BARRA" = :ls_repac
+		USING	sqlca;
+		if isnull(ls_base) then ls_base=''
+		if isnull(ls_serie) then ls_serie=''
+		if isnull(ll_numero) then ll_numero=0
+	end if
+elseif as_tipo_cob='C' or as_tipo_cob='E' then	
+	SELECT	"BASE_ORIGINAL",	"SERIE_ORIGINAL",	"NUMERO_ORIGINAL"  
+   	INTO 		:ls_base,				:ls_serie,					:ll_numero  
+   	FROM		"REPACTA_CREDITO"  
+   	WHERE	( "REPACTA_CREDITO"."BASE" = :as_serie ) AND
+				( "REPACTA_CREDITO"."SERIE" = :as_serie ) AND  
+        			( "REPACTA_CREDITO"."NUMERO" = :al_numero )
+	USING	sqlca;
+	if isnull(ls_base) then ls_base=''
+	if isnull(ls_serie) then ls_serie=''
+	if isnull(ll_numero) then ll_numero=0
+	if not isnull(ls_base) and ls_base<>'' and not isnull(ls_serie) and ls_serie<>'' and not isnull(ll_numero) and ll_numero>0 then
+		SELECT	sum("INGRESO"."MONTO")
+		INTO		:ll_monto2
+		FROM		"INGRESO"  
+		WHERE	"INGRESO"."BASE" = :ls_base  AND  
+					"INGRESO"."SERIE" = :ls_serie AND  
+					"INGRESO"."CONTRATO" = :ll_numero and
+					("INGRESO"."TIPO_MOV" = 'S' or "INGRESO"."TIPO_MOV" = 'J' or "INGRESO"."TIPO_MOV" = 'G' or "INGRESO"."TIPO_MOV" = 'F' or "INGRESO"."TIPO_MOV" = 'E' or "INGRESO"."TIPO_MOV" = 'A' or "INGRESO"."TIPO_MOV" = '6' or "INGRESO"."TIPO_MOV" = 'L' or "INGRESO"."TIPO_MOV" = 'Q') AND
+					"INGRESO"."PAGO_HIST" = 'A' and
+					"INGRESO"."FECHA_PAGO" >= :adt_fec_ini and
+					"INGRESO"."FECHA_PAGO" <= :adt_fec_fin
+		USING	sqlca;
+		if isnull(ll_monto2) then ll_monto2=0
+	end if
+	if as_base= 'P' then
+		SELECT	distinct "PAGARE"."SERIE",	"PAGARE"."NRO_OFERTA"  
+		INTO 		:ls_serie_p,				:ll_numero_p  
+		FROM		"PAGARE"  
+		WHERE	( "PAGARE"."SERIE_P" = :as_serie ) AND  
+					( "PAGARE"."NRO_PAGARE" = :al_numero )
+		USING	sqlca;
+		if isnull(ls_serie_p) then ls_serie_p=''
+		if isnull(ll_numero_p) then ll_numero_p=0
+		if not isnull(ls_serie_p) and ls_serie_p<>'' and not isnull(ll_numero_p) and ll_numero_p>0 then
+			SELECT	sum("INGRESO"."MONTO")
+			INTO		:ll_monto3
+			FROM		"INGRESO"  
+			WHERE	"INGRESO"."BASE" = 'C' AND  
+						"INGRESO"."SERIE" = :ls_serie_p AND  
+						"INGRESO"."CONTRATO" = :ll_numero_p and
+						("INGRESO"."TIPO_MOV" = 'S' or "INGRESO"."TIPO_MOV" = 'J' or "INGRESO"."TIPO_MOV" = 'G' or "INGRESO"."TIPO_MOV" = 'F' or "INGRESO"."TIPO_MOV" = 'E' or "INGRESO"."TIPO_MOV" = 'A' or "INGRESO"."TIPO_MOV" = '6' or "INGRESO"."TIPO_MOV" = 'L' or "INGRESO"."TIPO_MOV" = 'Q') AND
+						"INGRESO"."PAGO_HIST" = 'A' and
+						"INGRESO"."FECHA_PAGO" >= :adt_fec_ini and
+						"INGRESO"."FECHA_PAGO" <= :adt_fec_fin
+			USING	sqlca;
+			if isnull(ll_monto3) then ll_monto3=0
+		end if
+	end if
+end if
+ll_monto					= ll_monto + ll_monto2 + ll_monto3
+if isnull(ll_monto) then ll_monto=0 
+return ll_monto
+
+end function
+

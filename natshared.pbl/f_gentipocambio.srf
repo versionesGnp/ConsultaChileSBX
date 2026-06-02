@@ -1,0 +1,36 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: TC~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_gentipocambio from function_object
+end type
+
+forward prototypes
+global function decimal f_gentipocambio (datetime ad_tc)
+end prototypes
+
+global function decimal f_gentipocambio (datetime ad_tc);/* f_GenTipoCambio( ad_tc ) */
+Decimal	ldc_tc
+String	ls_pai
+
+
+If f_IsOracle( ) Then
+	Select fn_gen_bltipocambio( :gs_emp, 'USD', :ad_tc ) Into :ldc_tc From Dual ;
+	ldc_tc = f_Zero( ldc_tc )	
+	Return ldc_tc
+End If
+
+Select c_codigo_pai
+Into  :ls_pai
+From  genEmpresa
+Where c_codigo_emp = :gs_emp ;
+
+ls_pai = f_Trim( ls_pai )
+
+Select	n_factor_tic
+Into		:ldc_tc
+From		gentipocambio With ( NoLock )
+Where		d_trabajo_tic = :ad_tc 
+And		c_codigo_pai = :ls_pai ;
+ldc_tc = f_Zero( ldc_tc )
+
+Return ldc_tc
+end function
+

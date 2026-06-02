@@ -1,0 +1,20 @@
+﻿global type f_meses_sum from function_object
+end type
+
+forward prototypes
+global function datetime f_meses_sum (datetime adt_fecha, long al_meses)
+end prototypes
+
+global function datetime f_meses_sum (datetime adt_fecha, long al_meses);string		ls_fecha
+datetime	ldt_fecha,ldt_nulo
+
+setnull(ldt_nulo)
+SELECT	to_char(add_months( to_date(:adt_fecha), -:al_meses ),'dd/mm/yyyy')  
+INTO		:ls_fecha
+FROM 	dual;
+ldt_fecha			= datetime(date(string(ls_fecha)),time('00:00:00'))
+
+if isnull(ldt_fecha) then ldt_fecha=ldt_nulo
+Return ldt_fecha
+end function
+

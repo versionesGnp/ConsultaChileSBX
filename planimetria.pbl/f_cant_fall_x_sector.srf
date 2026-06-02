@@ -1,0 +1,31 @@
+﻿global type f_cant_fall_x_sector from function_object
+end type
+
+forward prototypes
+global function integer f_cant_fall (string sector, string sep)
+global function integer f_cant_fall_x_sector (string sector, string sep)
+end prototypes
+
+global function integer f_cant_fall (string sector, string sep);integer ret
+ SELECT count("FALLECIDOS"."FOLIO")  
+ into : ret
+    FROM "FALLECIDOS"  
+   WHERE ( "FALLECIDOS"."SECTOR" = :sector ) AND  
+         ( "FALLECIDOS"."N_SEP" = :sep )   ;
+			
+			
+return ret
+end function
+
+global function integer f_cant_fall_x_sector (string sector, string sep);integer ret
+ SELECT count("FALLECIDOS"."FOLIO")  
+ into : ret
+    FROM "FALLECIDOS"  
+   WHERE ( "FALLECIDOS"."SECTOR" = :sector ) AND  
+         ( "FALLECIDOS"."N_SEP" = :sep )  AND
+		( "FALLECIDOS"."ESTADO_REG" = 'A' )	;
+			
+			
+return ret
+end function
+

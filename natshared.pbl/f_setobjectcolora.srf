@@ -1,0 +1,23 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Configura colores a objeto x array~r~n    Recomendación: NO MODIFICAR - EXPERTO~r~n*/
+global type f_setobjectcolora from function_object
+end type
+
+forward prototypes
+global subroutine f_setobjectcolora (datawindow adw_1, string as_obj[], string as_type, string as_color)
+end prototypes
+
+global subroutine f_setobjectcolora (datawindow adw_1, string as_obj[], string as_type, string as_color);/* f_SetObjectColorA( adw_1, as_obj[], as_type, as_color )
+	Autor: César Vilela Requena 21-02-2022
+	Cambia de color a un tipo de objeto de un DW */
+
+
+Integer	i
+
+For i = 1 To UpperBound( as_obj[] )
+	f_SetObjectColor( adw_1, as_obj[ i], as_type, String( f_Gen_Color( as_color ) ) )
+Next
+
+
+Return  
+end subroutine
+

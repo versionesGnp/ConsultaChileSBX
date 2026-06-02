@@ -1,0 +1,21 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Envía popup con mensaje. BLScript Class~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_messagebox from function_object
+end type
+
+forward prototypes
+global function integer f_messagebox (string as_title, string as_message, integer ai_icon)
+end prototypes
+
+global function integer f_messagebox (string as_title, string as_message, integer ai_icon);Integer	li_ret
+s_parm	lstr_parm
+
+lstr_parm.s_cad[ 1] = as_title
+lstr_parm.s_cad[ 2] = as_message
+lstr_parm.s_cad[ 3] = String( ai_icon )
+
+OpenWithParm( w_gen_MessageBox, lstr_parm )
+li_ret = Message.DoubleParm
+
+Return li_ret
+end function
+

@@ -1,0 +1,33 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: retorna descripcion día (modo texto)~r~n    Recomendación:Consultar Experto~r~n*/
+global type f_dia from function_object
+end type
+
+forward prototypes
+global function string f_dia (integer ai_dia)
+end prototypes
+
+global function string f_dia (integer ai_dia);String ls_dia
+
+
+Choose Case ai_dia
+	Case 1
+		ls_dia = "Domingo"
+	Case 2
+		ls_dia = "Lunes"
+	Case 3
+		ls_dia = "Martes"
+	Case 4
+		ls_dia = "Miércoles"
+	Case 5
+		ls_dia = "Jueves"
+	Case 6
+		ls_dia = "Viernes"
+	Case 7
+		ls_dia = "Sábado"
+End Choose
+
+Return ls_dia 
+
+
+end function
+

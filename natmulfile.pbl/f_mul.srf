@@ -1,0 +1,41 @@
+﻿//objectcomments Autor: César Vilela R.~r~nFunción: Procesa las opciones de  menú del módulo GNP~r~nRecomendación: Consutar Nivel Experto, puede afectar el funcionamiento de abrir ventanas.
+global type f_mul from function_object
+end type
+
+forward prototypes
+global subroutine f_mul (string as_opc)
+end prototypes
+
+global subroutine f_mul (string as_opc);/* Llamado a Módulo MultiProducto
+	f_Mul( as_opc ) */
+String	ls_doc
+
+
+Choose Case as_opc		
+	// MultiProducto
+	Case '15410'
+		OpenSheet( w_arch_mul_contrato_consulta, gw_frame, 1, Original! )
+
+	Case '15445'
+		OpenSheet( w_arch_mul_Digitacion, gw_frame, 1, Original! )
+
+	Case '15450'
+		OpenSheet( w_arch_mul_Revision, gw_frame, 1, Original! )
+
+	Case '15490'
+		OpenSheet( w_arch_mul_PrecioLista, gw_frame, 1, Original! )
+		
+	Case '15491'
+		OpenSheet( w_arch_mul_PrecioLista_Consulta, gw_frame, 1, Original! )
+		
+	Case '15492'
+		OpenSheet( w_arch_mul_RangoNumero, gw_frame, 1, Original! )
+		
+	Case '15493'
+		OpenSheet( w_arch_mul_Factor, gw_frame, 1, Original! )
+		
+End Choose
+
+Return
+end subroutine
+

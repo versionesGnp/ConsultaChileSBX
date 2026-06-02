@@ -1,0 +1,30 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Reduce spacios~r~n    Recomendación: Consultar~r~n*/
+global type f_spaceword from function_object
+end type
+
+forward prototypes
+global function string f_spaceword (string as_word)
+end prototypes
+
+global function string f_spaceword (string as_word);/* f_SpaceWord( as_word ) */
+Long		i, ll_len
+String	ls_spaceword, ls_char, ls_space
+
+
+as_word = f_Trim( as_word )
+ll_len = Len( as_word )
+
+For i = 1 To ll_len
+	ls_char = Mid( as_word, i, 1 )
+	ls_space = ' '
+	If ls_char = ' ' Then ls_space = '   '
+	
+	ls_spaceword = ls_spaceword + ls_char + ls_space
+Next
+
+ls_spaceword = f_Trim( ls_spaceword )
+
+Return ls_spaceword
+
+end function
+

@@ -1,0 +1,33 @@
+﻿global type f_mant_bkp from function_object
+end type
+
+forward prototypes
+global function double f_mant_bkp (datetime fec1, double cta_pag_m)
+end prototypes
+
+global function double f_mant_bkp (datetime fec1, double cta_pag_m);double vvano,vvmora
+IF month(today()) < month(DATE(fec1))  THEN
+	vvano=year(today())-(year(DATE(fec1)))
+END IF
+IF  month(today()) = month(DATE(fec1))  AND day(today()) > day(DATE(fec1))THEN
+	vvano=year(today())-(year(DATE(fec1)))+1
+END IF
+IF  month(today()) > month(DATE(fec1)) THEN
+	vvano=year(today())-(year(DATE(fec1))-1)
+END IF
+IF ISNULL(cta_pag_m) THEN cta_pag_m =0
+
+
+//vvano		= year(today())-(year(DATE(fec1)))
+//vvano++
+//IF YEAR(today()) >= YEAR(DATE(fec1)) AND month(today()) > month(DATE(fec1)) THEN
+//	vvano++ 
+//ELSE
+//	IF YEAR(today()) >= YEAR(DATE(fec1)) AND month(today()) = month(DATE(fec1)) AND day(today()) > day(DATE(fec1))THEN
+//		vvano++
+//	END IF
+//END IF
+//vvmora	= vvano - cta_pag_m
+return(vvmora)
+end function
+

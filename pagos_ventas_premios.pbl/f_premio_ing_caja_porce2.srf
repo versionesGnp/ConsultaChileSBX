@@ -1,0 +1,141 @@
+﻿global type f_premio_ing_caja_porce2 from function_object
+end type
+
+forward prototypes
+global function long f_premio_ing_caja_porce2 (string as_base, string as_serie, double adb_numero, datetime adt_fecha_ini, datetime adt_fecha_fin, long al_n_paso)
+end prototypes
+
+global function long f_premio_ing_caja_porce2 (string as_base, string as_serie, double adb_numero, datetime adt_fecha_ini, datetime adt_fecha_fin, long al_n_paso);long		ll_indi=0,ll_folio,ll_folio_rev,ll_folio_con
+datetime	ldt_fec_ven,ldt_fec_ini,ldt_fec_fin ,ldt_fec_pag
+double	ldb_der_esp=0,ldb_sum_ef=0,ldb_sum_ta=0,ldb_sum_ch=0,ldb_sum_tot=0,ldb_sum_mto=0,ldb_sum_tipo=0
+
+if al_n_paso=1 then
+	DECLARE x1 CURSOR FOR
+	SELECT		"INGRESO"."FOLIO",
+					( 	SELECT	MIN("DOCUMENTOS"."FECHA_VENC")
+						FROM		"DOCUMENTOS"  
+						WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO"  AND  
+									"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" ) 
+	FROM 		"INGRESO"
+	WHERE		"INGRESO"."BASE" = :as_base AND
+					"INGRESO"."SERIE" = :as_serie AND
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND
+					( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'BE') AND
+					( "INGRESO"."TIPO_MOV" = 'A' OR "INGRESO"."TIPO_MOV" = 'E')
+	ORDER BY	(	SELECT	MIN("DOCUMENTOS"."FECHA_VENC")
+						FROM		"DOCUMENTOS"  
+						WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO"  AND  
+									"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" ) ASC
+	USING	sqlca;
+else
+	DECLARE x2 CURSOR FOR
+	SELECT		"INGRESO"."FOLIO",
+					( 	SELECT	MIN("DOCUMENTOS"."FECHA_VENC")
+						FROM		"DOCUMENTOS"  
+						WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO"  AND  
+									"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and
+									"DOCUMENTOS"."FECHA_VENC" > :gdt_fec_ini_pag) 
+	FROM 		"INGRESO"
+	WHERE		"INGRESO"."BASE" = :as_base AND
+					"INGRESO"."SERIE" = :as_serie AND
+					"INGRESO"."CONTRATO" = :adb_numero AND
+					"INGRESO"."PAGO_HIST" = 'A' AND  
+					( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'BE') AND
+					( "INGRESO"."TIPO_MOV" = 'A' OR "INGRESO"."TIPO_MOV" = 'E')
+	ORDER BY	(	SELECT	MIN("DOCUMENTOS"."FECHA_VENC")
+						FROM		"DOCUMENTOS"  
+						WHERE	"DOCUMENTOS"."FOLIO" = "INGRESO"."FOLIO"  AND  
+									"DOCUMENTOS"."TIPO_COB" = "INGRESO"."TIPO_COB" and
+									"DOCUMENTOS"."FECHA_VENC" > :gdt_fec_ini_pag ) ASC
+	USING	sqlca;
+end if
+if al_n_paso = 1 then
+	open x1;
+else
+	open x2;
+end if
+if sqlca.sqlcode=0 then
+	DO WHILE sqlca.sqlcode=0
+		if al_n_paso = 1 then
+			fetch x1 INTO	:ll_folio,	:ldt_fec_ven;
+		else
+			fetch x2 INTO	:ll_folio,	:ldt_fec_ven;
+		end if
+		if not isnull(ll_folio) and ll_folio>0 and not isnull(ldt_fec_ven) then
+			ldb_sum_ef											= 0
+			ldb_sum_ta											= 0
+			ldb_sum_ch											= 0
+			ldb_sum_tipo										= 0
+			ll_indi++
+			
+			if ll_indi=1 then
+				SELECT DISTINCT	"FECHA_INICIO",	"FECHA_TERMINO"
+				INTO		:ldt_fec_ini,	:ldt_fec_fin 
+				FROM		"CIERRE_PAGOS_VENTAS"  
+				WHERE	"CIERRE_PAGOS_VENTAS"."FECHA_INICIO" <= :ldt_fec_ven AND  
+							"CIERRE_PAGOS_VENTAS"."FECHA_TERMINO" >= :ldt_fec_ven AND
+							"CIERRE_PAGOS_VENTAS"."TIPO_PREMIO" = 3
+				USING	sqlca;
+				if sqlca.sqlcode=0 then
+					ldt_fec_ini								= ldt_fec_ini
+					ldt_fec_fin								= ldt_fec_fin
+				else
+					ldt_fec_ini 								= adt_fecha_ini
+					ldt_fec_fin 								= adt_fecha_fin
+				end if
+				
+				ldt_fec_pag									= ldt_fec_ven
+				gdt_fec_ini_pag							= ldt_fec_ven
+				gl_prim_folio								= ll_folio
+			end if
+			ldb_sum_ef										= f_pre_ingr_sum_docto('EF','EF',ll_folio,ldt_fec_ini,ldt_fec_fin)
+			if ll_folio_con<>ll_folio and ldt_fec_ven > ldt_fec_fin then
+				ldb_sum_ta									= 0
+			else
+				ldb_sum_ta									= f_pre_ingr_sum_docto('TD','TC',ll_folio,ldt_fec_ini,ldt_fec_fin)
+			end if
+			ldb_sum_ch										= f_pre_ingr_sum_docto('CH','CH',ll_folio,ldt_fec_ini,ldt_fec_fin)
+			ldb_sum_tipo									= ldb_sum_ef + ldb_sum_ta + ldb_sum_ch
+			if ll_folio_con<>ll_folio then
+				ldb_sum_tot									= ldb_sum_tot + ldb_sum_tipo
+			else
+				if ldb_sum_tipo>0 then
+					ldb_sum_tot								= ldb_sum_tipo
+				else
+					ldb_sum_tot								= ldb_sum_tot + ldb_sum_tipo
+				end if
+			end if
+		end if
+		ll_folio_con											= ll_folio
+		setnull(ll_folio);setnull(ldt_fec_ven)
+	LOOP
+end if
+if al_n_paso = 1 then
+	close x1;
+else
+	close x2;
+end if
+
+SELECT	SUM("INGRESO"."MONTO")  
+INTO		:ldb_der_esp
+FROM 	"INGRESO"  
+WHERE	( "INGRESO"."BASE" = :as_base ) AND  
+			( "INGRESO"."SERIE" = :as_serie ) AND  
+			( "INGRESO"."CONTRATO" = :adb_numero  ) AND
+			"INGRESO"."PAGO_HIST" = 'A' AND  
+			( "INGRESO"."FOLIO" = :ll_folio  ) AND
+			( "INGRESO"."FECHA_PAGO" >= :ldt_fec_ini) AND 
+			( "INGRESO"."FECHA_PAGO" <= :ldt_fec_fin ) AND
+			( "INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'BE') AND  
+			("INGRESO"."TIPO_MOV" = 'M')
+USING	sqlca;
+if isnull(ldb_der_esp) then ldb_der_esp= 0
+
+ldb_sum_tot							= ldb_sum_tot - ldb_der_esp
+ldb_sum_mto						= ldb_sum_mto + ldb_sum_tot
+
+if isnull(ldb_sum_mto) then ldb_sum_mto = 0
+Return ldb_sum_mto
+end function
+

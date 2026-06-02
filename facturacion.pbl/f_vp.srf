@@ -1,0 +1,50 @@
+﻿global type f_vp from function_object
+end type
+
+forward prototypes
+global function double f_vp (double periodo, double tasa, double valor_cuota)
+end prototypes
+
+global function double f_vp (double periodo, double tasa, double valor_cuota);double tasa_porc, paso1, paso2, paso3, paso4, paso5, paso6
+
+//if tasa <= 0 then tasa = 0.0000001
+
+tasa_porc = tasa/100
+
+paso1 = valor_cuota/tasa_porc
+
+paso2 = 1 + tasa_porc
+
+paso3 = (paso2)^periodo
+
+paso4 = 1/paso3
+
+paso5 = 1 - paso4
+
+paso6 = paso1 * paso5
+
+
+return paso6
+
+
+//long		adb_plazo
+//double	ldb_va,adb_tasa,adb_valor_cuota
+//
+//adb_tasa				= tasa
+//adb_valor_cuota	= valor_cuota
+//adb_plazo			= periodo
+//
+//
+//if adb_tasa=0.0000 or adb_tasa=0 then
+//	ldb_va			= adb_valor_cuota * adb_plazo
+//else
+//	ldb_va			= adb_valor_cuota * ((((1 + adb_tasa) ^ adb_plazo) - 1 ) / ( adb_tasa * ((1 + adb_tasa) ^ adb_plazo)))
+//end if
+//return(ldb_va)
+//
+////ldb_va			= round(f_valor_presente(adb_tasa,adb_plazo,adb_valor_cuota),0)
+//
+//
+
+end function
+

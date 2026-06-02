@@ -1,0 +1,49 @@
+﻿global type f_buscar_estado_vendedor from function_object
+end type
+
+forward prototypes
+global function string f_buscar_estado_venta (string as_opcion, string as_codigo)
+global function string f_buscar_estado_vendedor (string as_opcion, string as_codigo)
+end prototypes
+
+global function string f_buscar_estado_venta (string as_opcion, string as_codigo);String	ls_estado
+
+
+return	ls_estado
+end function
+
+global function string f_buscar_estado_vendedor (string as_opcion, string as_codigo);String	ls_estado
+
+CHOOSE CASE as_opcion
+	CASE 'S'
+		SELECT	"SUPERVISOR"."ESTADO"  
+		INTO 		:ls_estado  
+		FROM 		"SUPERVISOR"  
+		WHERE 	"SUPERVISOR"."COD_SUP" = :as_codigo   
+		USING		sqlca;
+		if sqlca.sqlcode=0 then
+			if ls_estado='A' then
+				ls_estado	= 'Estado Supervisor:  Activo'
+			else
+				ls_estado	= 'Estado Supervisor:  Inactivo'
+			end if
+		end if
+
+	CASE 'J'
+		SELECT	"JEFE_VENTAS"."ESTADO"  
+		INTO 		:ls_estado  
+		FROM 		"JEFE_VENTAS"  
+		WHERE 	"JEFE_VENTAS"."JEFE_VENTAS" = :as_codigo   
+		USING		sqlca;
+		if sqlca.sqlcode=0 then
+			if ls_estado='A' then
+				ls_estado	= 'Estado Jefe Venta:  Activo'
+			else
+				ls_estado	= 'Estado Jefe Venta:  Inactivo'
+			end if
+		end if
+
+END CHOOSE
+return	ls_estado
+end function
+

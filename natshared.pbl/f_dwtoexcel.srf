@@ -1,0 +1,43 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Exportar a XLS~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_dwtoexcel from function_object
+end type
+
+forward prototypes
+global function integer f_dwtoexcel (datawindow adw_export)
+end prototypes
+
+global function integer f_dwtoexcel (datawindow adw_export);/* Exporta los datos del DW adw_export a una hoja de cálculo XLS
+	f_DWToExcel( adw_export )
+	BL - 2013
+*/
+Integer	li_rc, li_ret
+String	ls_path, ls_file, ls_dir
+
+// Guardamos ruta actual
+ls_dir = GetCurrentDirectory()
+gs_file = ''
+
+
+ls_file = adw_export.Describe( 'DataWindow.Print.DocumentName' )
+
+If ls_file = '' Then 
+	ls_file = 'Documento'
+End If
+
+ls_file = gs_aplicacion + ' - ' + ls_file + '.xls'
+
+// Tomamos nombre del archivo a generar
+li_rc = GetFileSaveName( "Seleccione Archivo", ls_path, ls_file, "xls", "Archivos Excel(*.xls),*.xls", "Documentos", 32770 )
+// Verificamos si dimos nombre al archivo a generar
+If li_rc = 1 then
+	ChangeDirectory( ls_dir )
+	//li_ret = adw_export.SaveAs( ) //ls_path, XLSX!, True )
+	li_ret = uf_save_dw_as_excel( adw_export, ls_path )
+	gs_file = ls_path
+End If
+
+ChangeDirectory( ls_dir )
+
+Return li_ret
+end function
+

@@ -1,0 +1,103 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Generación de Chart~r~n    Recomendación: Nivel Experto~r~n*/
+global type f_visualizationchart from function_object
+end type
+
+forward prototypes
+global function string f_visualizationchart (string as_gra, string as_tit, string as_pos, string as_json, ref string as_file)
+end prototypes
+
+global function string f_visualizationchart (string as_gra, string as_tit, string as_pos, string as_json, ref string as_file);
+/* f_VisualizationChart( as_gram as_tit, as_pos, as_json, as_file ) */
+
+String	ls_html, ls_header, ls_data, ls_footer, ls_chart, ls_ops
+
+
+ls_header = '<html>' + Char(13) + &  
+    '  <head>' + Char(13) + &
+    '    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>' + Char(13) + &
+    '    <script type="text/javascript">' + Char(13) + &
+    '      google.charts.load("current", {"packages":["corechart"]});' + Char(13) + &
+    '      google.charts.setOnLoadCallback(drawChart);' + Char(13) + &
+	 '      function drawChart() {' + Char(13) 
+ls_data = '        var data = google.visualization.arrayToDataTable( '
+ls_data = ls_data + as_json + ');'
+
+If as_gra = '' Then as_gra = 'donut'
+If as_pos = '' Then as_pos = 'bottom'
+
+as_gra = Lower( as_gra )
+
+Choose Case as_gra
+	Case 'donut'
+		as_gra = 'donutchart'
+		ls_chart = "   var chart = new google.visualization.PieChart(document.getElementById('" + as_gra + "'));" + Char(13)  
+		ls_ops = ',pieHole: 0.4'
+		
+	Case 'pie'
+		as_gra = 'piechart'
+		ls_chart = "   var chart = new google.visualization.PieChart(document.getElementById('" + as_gra + "'));" + Char(13)  
+		
+	Case 'pie3d'
+		as_gra = 'piechart_3d'
+		ls_chart = "   var chart = new google.visualization.PieChart(document.getElementById('" + as_gra + "'));" + Char(13)  
+		ls_ops = ',is3D: true'
+		
+	Case 'column'
+		as_gra = 'columnchart_values'
+		ls_chart = "   var chart = new google.visualization.ColumnChart(document.getElementById('" + as_gra + "'));" + Char(13)   
+		ls_ops = ',bar: {groupWidth: "95%"}'
+		
+	Case 'bar'
+		as_gra = 'barchart_values'
+		ls_chart = "   var chart = new google.visualization.BarChart(document.getElementById('" + as_gra + "'));" + Char(13)
+		ls_ops = ',bar: {groupWidth: "95%"}'
+		
+End Choose
+
+ls_footer =  Char(13) + 'var options = { ' + &
+            '  title: "' + as_tit + '", ' + &
+            Char(13) + &
+           '   curveType: "function", ' + &
+           '   legend: { position: "' + as_pos + '" }' + &
+			  ls_ops + Char(13) + &
+           ' };' + Char(13) + Char(13) + &				  
+           ls_chart + &             
+			  '   chart.draw(data, options);' +  Char(13) + &
+          '}' +  Char(13) + &
+    '    </script>' +  Char(13) + &
+    '  </head>' +  Char(13) + &
+    '  <body>' +  Char(13) + &
+    '    <div id="' + as_gra + '" style="width: 800px; height: 600px"></div>' +  Char(13) + &
+    '  </body>' +  Char(13) + &
+    '</html>' +  Char(13) 
+
+
+
+ls_html = ls_header + ls_data + ls_footer
+
+
+// Sección Creación de Archivo para HTML
+Integer	li_fileNum
+String	ls_dir, ls_path, ls_file
+
+ls_file = as_file
+
+If ls_file = '' Then
+	ls_dir = GetCurrentDirectory()
+	ls_path = ls_dir + '\' + 'TmpChart'
+	CreateDirectory ( ls_path )
+	ls_file = f_GetPCName( ) + String( Today() , 'yymmdd') + String( Now(), 'hhmm' ) + '.html'
+	ls_file = ls_path + '\' + ls_file	
+End If
+
+FileDelete( ls_file )
+
+li_FileNum = FileOpen(ls_file, TextMode!, Write!, LockWrite!, Replace!)
+FileWriteEx( li_FileNum, ls_html )
+FileClose( li_FileNum )
+
+as_file = ls_file
+
+Return ls_html
+end function
+

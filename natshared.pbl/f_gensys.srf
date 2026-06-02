@@ -1,0 +1,11 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Global de Sistema.~r~n    Recomendación: NO MODIFICAR - Puede Afectar el arranque de sistema~r~n*/
+global type f_gensys from function_object
+end type
+
+forward prototypes
+global function string f_gensys ()
+end prototypes
+
+global function string f_gensys ();Return gs_sys
+end function
+

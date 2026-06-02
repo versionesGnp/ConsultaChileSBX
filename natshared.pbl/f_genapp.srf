@@ -1,0 +1,12 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Return APP~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genapp from function_object
+end type
+
+forward prototypes
+global function string f_genapp ()
+end prototypes
+
+global function string f_genapp ();Return gs_aplicacion
+
+end function
+

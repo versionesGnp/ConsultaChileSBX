@@ -1,0 +1,17 @@
+﻿global type f_fechas from function_object
+end type
+
+forward prototypes
+global function integer f_fechas (string fecha1, string fecha2)
+end prototypes
+
+global function integer f_fechas (string fecha1, string fecha2);if date(fecha1) > date(fecha2) then
+	messagebox('Error','La fecha inicial debe ser manor al fecha final.',stopsign!)
+	return -1
+else
+	return 0
+end if
+
+
+end function
+

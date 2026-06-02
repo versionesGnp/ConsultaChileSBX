@@ -1,0 +1,22 @@
+﻿global type f_pertenece_parque from function_object
+end type
+
+forward prototypes
+global function boolean f_pertenece_parque (string base, string serie, double numero, integer cod_parque)
+end prototypes
+
+global function boolean f_pertenece_parque (string base, string serie, double numero, integer cod_parque);integer parque
+
+SELECT "CADENA"."COD_PARQUE"  into :parque
+FROM "CADENA"  
+WHERE ( "CADENA"."SERIE" = :base ) AND ( "CADENA"."NUMERO" = :serie ) AND ( "CADENA"."CODIGO" = :numero ) ;
+
+if sqlca.sqlcode <> 0 then
+	return true
+elseif sqlca.sqlcode = 0 AND cod_parque = parque then
+	return true
+elseif sqlca.sqlcode = 0 AND cod_parque <> parque then
+	return false
+end if
+end function
+

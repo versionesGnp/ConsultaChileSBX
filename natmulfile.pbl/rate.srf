@@ -1,0 +1,24 @@
+﻿global type rate from function_object
+end type
+
+forward prototypes
+global function decimal rate (integer plazo, decimal valorcuota, decimal saldoafinanciar)
+end prototypes
+
+global function decimal rate (integer plazo, decimal valorcuota, decimal saldoafinanciar);
+/* Rate( Plazo, ValorCuota, SaldoaFinanciar )
+   CVilela Abril/2025
+*/
+
+Dec	ln_rate
+
+
+Select Rate( :Plazo, :ValorCuota, :SaldoaFinanciar ) As rate 
+Into   :ln_rate
+From   Dual; 
+
+Return ln_rate
+
+
+end function
+

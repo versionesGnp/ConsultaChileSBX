@@ -1,0 +1,145 @@
+﻿forward
+global type w_datos_contrato_pagare from window
+end type
+type dw_seguro from datawindow within w_datos_contrato_pagare
+end type
+type st_1 from statictext within w_datos_contrato_pagare
+end type
+type dw_datos_contrato from datawindow within w_datos_contrato_pagare
+end type
+type cb_cerrar from commandbutton within w_datos_contrato_pagare
+end type
+type ln_1 from line within w_datos_contrato_pagare
+end type
+type ln_2 from line within w_datos_contrato_pagare
+end type
+end forward
+
+global type w_datos_contrato_pagare from window
+integer x = 1637
+integer y = 1048
+integer width = 2683
+integer height = 1572
+boolean titlebar = true
+string title = "Datos Contrato"
+boolean controlmenu = true
+boolean minbox = true
+long backcolor = 79741120
+dw_seguro dw_seguro
+st_1 st_1
+dw_datos_contrato dw_datos_contrato
+cb_cerrar cb_cerrar
+ln_1 ln_1
+ln_2 ln_2
+end type
+global w_datos_contrato_pagare w_datos_contrato_pagare
+
+on w_datos_contrato_pagare.create
+this.dw_seguro=create dw_seguro
+this.st_1=create st_1
+this.dw_datos_contrato=create dw_datos_contrato
+this.cb_cerrar=create cb_cerrar
+this.ln_1=create ln_1
+this.ln_2=create ln_2
+this.Control[]={this.dw_seguro,&
+this.st_1,&
+this.dw_datos_contrato,&
+this.cb_cerrar,&
+this.ln_1,&
+this.ln_2}
+end on
+
+on w_datos_contrato_pagare.destroy
+destroy(this.dw_seguro)
+destroy(this.st_1)
+destroy(this.dw_datos_contrato)
+destroy(this.cb_cerrar)
+destroy(this.ln_1)
+destroy(this.ln_2)
+end on
+
+event open;gf_centrar(w_datos_contrato_pagare)
+dw_datos_contrato.SetTransObject(SQLCA)
+dw_datos_contrato.Retrieve(gs_serie, gi_numero)
+dw_seguro.SetTransObject(SQLCA)
+dw_seguro.retrieve('P',gs_serie, gi_numero)
+end event
+
+type dw_seguro from datawindow within w_datos_contrato_pagare
+integer x = 1591
+integer y = 140
+integer width = 1019
+integer height = 1172
+integer taborder = 20
+string title = "none"
+string dataobject = "dw_listado_seguros_asoc_retrieve"
+boolean border = false
+boolean livescroll = true
+end type
+
+type st_1 from statictext within w_datos_contrato_pagare
+integer x = 27
+integer y = 28
+integer width = 1029
+integer height = 100
+integer textsize = -12
+integer weight = 700
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+boolean underline = true
+long textcolor = 33554432
+long backcolor = 67108864
+boolean enabled = false
+string text = "Datos del Contrato Pagare"
+boolean focusrectangle = false
+end type
+
+type dw_datos_contrato from datawindow within w_datos_contrato_pagare
+integer x = 23
+integer y = 144
+integer width = 1481
+integer height = 1188
+integer taborder = 10
+string dataobject = "dw_datos_pagares"
+boolean border = false
+boolean livescroll = true
+end type
+
+type cb_cerrar from commandbutton within w_datos_contrato_pagare
+integer x = 2318
+integer y = 1340
+integer width = 297
+integer height = 100
+integer taborder = 30
+integer textsize = -10
+integer weight = 400
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "&Cerrar"
+end type
+
+event clicked;
+Close(w_datos_contrato_pagare)
+end event
+
+type ln_1 from line within w_datos_contrato_pagare
+long linecolor = 8421504
+integer linethickness = 4
+integer beginx = 1536
+integer beginy = 116
+integer endx = 1536
+integer endy = 1332
+end type
+
+type ln_2 from line within w_datos_contrato_pagare
+long linecolor = 16777215
+integer linethickness = 4
+integer beginx = 1541
+integer beginy = 116
+integer endx = 1541
+integer endy = 1332
+end type
+

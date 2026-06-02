@@ -1,0 +1,18 @@
+﻿//objectcomments /* Autor: PBResource/BlueLight~r~n    Función: Convierte en palabras (español) un número formato MX~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_numbertoword from function_object
+end type
+
+forward prototypes
+global function string f_numbertoword (decimal ad_number)
+end prototypes
+
+global function string f_numbertoword (decimal ad_number);/* f_NumberToWord( ad_number ) */
+
+String	ls_numbertoword
+
+
+ls_numbertoword = fx_grl_montomill( ad_number )
+
+Return ls_numbertoword 
+end function
+

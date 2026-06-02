@@ -1,0 +1,17 @@
+﻿global type fecha_max_carta_log from function_object
+end type
+
+forward prototypes
+global function datetime fecha_max_carta_log (string base, string serie, double numero)
+end prototypes
+
+global function datetime fecha_max_carta_log (string base, string serie, double numero);datetime fecha
+
+SELECT max("CARTA_LOG"."FECHA_CARTA")  
+INTO :fecha  
+FROM "CARTA_LOG"  
+WHERE ( "CARTA_LOG"."BASE" = :base ) AND ( "CARTA_LOG"."SERIE" = :serie ) AND ( "CARTA_LOG"."NUMERO" = :numero ) AND  
+      ("CARTA_LOG"."COD_ACCION" = 1 OR "CARTA_LOG"."COD_ACCION" = 2 OR "CARTA_LOG"."COD_ACCION" = 3 ) ;
+return fecha
+end function
+

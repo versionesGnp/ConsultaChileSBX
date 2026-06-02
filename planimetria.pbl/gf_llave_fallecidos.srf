@@ -1,0 +1,21 @@
+﻿global type gf_llave_fallecidos from function_object
+end type
+
+forward prototypes
+global function long gf_llave_fallecidos ()
+end prototypes
+
+global function long gf_llave_fallecidos ();Long	al_llave
+
+SELECT	MAX("FALLECIDOS"."LLAVE")
+INTO 		:al_llave
+FROM 		"FALLECIDOS"  
+USING		sqlca;
+if al_llave > 0 then
+	al_llave		= al_llave + 1
+else
+	al_llave		= 1
+end if
+RETURN al_llave
+end function
+

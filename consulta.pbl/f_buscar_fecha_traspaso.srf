@@ -1,0 +1,23 @@
+﻿global type f_buscar_fecha_traspaso from function_object
+end type
+
+forward prototypes
+global function datetime f_buscar_fecha_traspaso (string as_tipo_cob, long al_folio)
+end prototypes
+
+global function datetime f_buscar_fecha_traspaso (string as_tipo_cob, long al_folio);datetime	ldt_fecha
+SELECT	MAX("CLIENTE_REZAGO"."FECHA_TRASPASO_REZAGO")  
+INTO 		:ldt_fecha  
+FROM 		"CLIENTE_REZAGO",   
+			"INGRESO"  
+WHERE  ( "CLIENTE_REZAGO"."COD_PAGO" = "INGRESO"."TIPO_COB" ) and  
+		 ( "CLIENTE_REZAGO"."FOLIO" = "INGRESO"."FOLIO" ) and  
+		 (("INGRESO"."TIPO_COB" = :as_tipo_cob ) AND  
+		 ( "INGRESO"."FOLIO" = :al_folio ) )   
+USING		sqlca;
+if sqlca.sqlcode<>0 then
+	setnull(ldt_fecha)
+end if
+return(ldt_fecha)
+end function
+

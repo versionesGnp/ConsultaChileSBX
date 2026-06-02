@@ -1,0 +1,106 @@
+﻿global type f_tot_pag_prem_comi from function_object
+end type
+
+forward prototypes
+global function long f_tot_pag_prem_comi (string as_base, string as_serie, double adb_numero, datetime adt_fecha_term)
+end prototypes
+
+global function long f_tot_pag_prem_comi (string as_base, string as_serie, double adb_numero, datetime adt_fecha_term);long	ll_ef_doc,ll_ef_ing,ll_ch,ll_comp_sist,ll_tot_pag
+//efectivo_doc
+SELECT	SUM("DOCUMENTOS"."MONTO")
+INTO		:ll_ef_doc
+FROM		"DOCUMENTOS",	"INGRESO"  
+WHERE		( "INGRESO"."FOLIO" = "DOCUMENTOS"."FOLIO" ) and  
+			( "INGRESO"."TIPO_COB" = "DOCUMENTOS"."TIPO_COB" ) and  
+			( "INGRESO"."FECHA_PAGO" = "DOCUMENTOS"."FECHA_PAGO" ) AND  
+			(	"INGRESO"."TIPO_COB"	= "DOCUMENTOS"."TIPO_COB" ) AND  
+			(	"INGRESO"."TIPO_MOV"	= 'E' OR "INGRESO"."TIPO_MOV"	= 'A' ) AND  
+			((	"INGRESO"."BASE" = :as_base ) AND
+			(	"INGRESO"."SERIE" = :as_serie ) AND
+			(	"INGRESO"."CONTRATO" = :adb_numero ) AND
+			(	"INGRESO"."PAGO_HIST" = 'A' ) AND
+			(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0' OR "INGRESO"."TIPO_COB" = 'BE') AND 
+				"INGRESO"."FECHA_PAGO"  <= :adt_fecha_term) AND 
+			(	"DOCUMENTOS"."COD_PAGO" = 'EF' OR "DOCUMENTOS"."COD_PAGO"= 'TD' OR "DOCUMENTOS"."COD_PAGO"='TC')
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull (ll_ef_doc) or ll_ef_doc=0 then
+		ll_ef_doc			= ll_ef_doc
+	else
+		ll_ef_doc			= 0
+	end if
+end if
+
+//efectivo_ing
+SELECT	SUM("INGRESO"."MONTO")
+INTO		:ll_ef_ing
+FROM		"INGRESO"  
+WHERE	"INGRESO"."BASE" = :as_base AND
+			"INGRESO"."SERIE" = :as_serie AND
+			"INGRESO"."CONTRATO" = :adb_numero AND
+			"INGRESO"."FECHA_PAGO"  <= :adt_fecha_term AND
+			"INGRESO"."PAGO_HIST" = 'A' AND
+			(	"INGRESO"."TIPO_MOV"	= 'E' OR "INGRESO"."TIPO_MOV"	= 'A' ) AND   
+			(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0' OR "INGRESO"."TIPO_COB" = 'BE') AND 
+			(	"INGRESO"."COD_CAJA" = 'XX' OR "INGRESO"."COD_CAJA" = 'XY' OR "INGRESO"."COD_CAJA" = 'XZ' OR "INGRESO"."COD_CAJA" = 'X5')
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull (ll_ef_ing) or ll_ef_ing=0 then
+		ll_ef_ing			= ll_ef_ing
+	else
+		ll_ef_ing			= 0
+	end if
+end if
+
+//cheque
+SELECT	SUM("DOCUMENTOS"."MONTO")
+INTO		:ll_ch
+FROM		"DOCUMENTOS",	"INGRESO"  
+WHERE		( "INGRESO"."FOLIO" = "DOCUMENTOS"."FOLIO" ) and  
+			( "INGRESO"."TIPO_COB" = "DOCUMENTOS"."TIPO_COB" ) and  
+			( "INGRESO"."FECHA_PAGO" = "DOCUMENTOS"."FECHA_PAGO" ) AND  
+			(	"INGRESO"."TIPO_COB"	= "DOCUMENTOS"."TIPO_COB" ) AND  
+			(	"INGRESO"."TIPO_MOV"	= 'E' OR "INGRESO"."TIPO_MOV"	= 'A' ) AND  
+			((	"INGRESO"."BASE" = :as_base ) AND
+			(	"INGRESO"."SERIE" = :as_serie ) AND
+			(	"INGRESO"."CONTRATO" = :adb_numero ) AND
+			(	"INGRESO"."PAGO_HIST" = 'A' ) AND
+			(	"INGRESO"."TIPO_COB" = 'CI' OR "INGRESO"."TIPO_COB" = 'CU' OR "INGRESO"."TIPO_COB" = 'CC' OR "INGRESO"."TIPO_COB" = 'C0' OR "INGRESO"."TIPO_COB" = 'BE') AND 
+				"INGRESO"."FECHA_PAGO"  <= :adt_fecha_term) AND 
+			(	"DOCUMENTOS"."COD_PAGO" = 'CH') AND
+			(	"DOCUMENTOS"."ESTADO_CH" = 'V' OR "DOCUMENTOS"."ESTADO_CH" = 'C')
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull (ll_ch) or ll_ch=0 then
+		ll_ch					= ll_ch
+	else
+		ll_ch					= 0
+	end if
+end if
+
+//comp_sistema
+SELECT	SUM("INGRESO"."MONTO")
+INTO		:ll_comp_sist
+FROM		"INGRESO"  
+WHERE	"INGRESO"."BASE" = :as_base AND
+			"INGRESO"."SERIE" = :as_serie AND
+			"INGRESO"."CONTRATO" = :adb_numero AND
+			"INGRESO"."FECHA_PAGO"  <= :adt_fecha_term AND
+			"INGRESO"."PAGO_HIST" = 'A' AND
+			"INGRESO"."TIPO_COB" = 'CS'
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull (ll_comp_sist) or ll_comp_sist=0 then
+		ll_comp_sist			= ll_comp_sist
+	else
+		ll_comp_sist			= 0
+	end if
+end if
+
+ll_tot_pag					= ll_ef_doc + ll_ef_ing + ll_ch + ll_comp_sist
+
+if isnull(ll_tot_pag) then ll_tot_pag=0
+Return ll_tot_pag
+
+end function
+

@@ -1,0 +1,29 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Retorna TRUE si login es de admin~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_isadmin from function_object
+end type
+
+forward prototypes
+global function boolean f_isadmin (string as_usu)
+end prototypes
+
+global function boolean f_isadmin (string as_usu);
+/* f_IsAdmin( as_usu )
+	César Vilela R. 
+	Determina si el usuario buscado es de tipo administrador o no, Boolean */
+
+String	ls_adm
+
+
+Select	Coalesce( c_admin_usu, '0' ) 
+Into		:ls_adm
+From		genlogin
+Where		c_codigo_usu = :as_usu 
+Using		SqlCa ;
+
+ls_adm = f_Trim( ls_adm )
+
+If Not ls_adm = '1' Then Return False
+
+Return True
+end function
+

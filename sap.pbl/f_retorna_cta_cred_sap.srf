@@ -1,0 +1,22 @@
+﻿global type f_retorna_cta_cred_sap from function_object
+end type
+
+forward prototypes
+global function double f_retorna_cta_cred_sap (string as_base, string as_serie, double al_numero, string as_tipo_mov, string as_tipo_deuda, long al_nro_cuota)
+end prototypes
+
+global function double f_retorna_cta_cred_sap (string as_base, string as_serie, double al_numero, string as_tipo_mov, string as_tipo_deuda, long al_nro_cuota);double	ldb_valor_cuota
+
+//wf_valor_cuota(ls_base,ls_serie,ll_numero,ls_tipo_mov,ls_tipo_deuda,ll_nro_cuota)
+
+DECLARE funcion_cuota PROCEDURE FOR F_SAP_VALIDA_CTAS_PAG (:as_base,:as_serie,:al_numero,:as_tipo_mov,:as_tipo_deuda,:al_nro_cuota);
+EXECUTE funcion_cuota;
+if sqlca.sqlcode=0 then
+	fetch funcion_cuota into :ldb_valor_cuota;
+	close funcion_cuota;
+end if
+
+if isnull(ldb_valor_cuota) then ldb_valor_cuota=0
+return	ldb_valor_cuota
+end function
+

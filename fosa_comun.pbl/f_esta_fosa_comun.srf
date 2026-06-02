@@ -1,0 +1,30 @@
+﻿global type f_esta_fosa_comun from function_object
+end type
+
+forward prototypes
+global function string f_esta_fosa_comun (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function string f_esta_fosa_comun (string as_base, string as_serie, double al_numero);String		ls_string,ls_area,ls_sector,ls_sepultura  
+Long		ll_count
+
+SELECT	Count("FOSA_COMUN"."AREA")
+INTO 		:ll_count
+FROM 		"FOSA_COMUN"  
+WHERE  ( "FOSA_COMUN"."BASE" = :as_base ) AND  
+		 ( "FOSA_COMUN"."SERIE" = :as_serie ) AND  
+		 ( "FOSA_COMUN"."NUMERO" = :al_numero ) AND  
+		 ( "FOSA_COMUN"."CORRELATIVO" = (	SELECT	MIN("FOSA_COMUN"."CORRELATIVO") 
+		 												FROM 		"FOSA_COMUN" 
+														WHERE  ( "FOSA_COMUN"."BASE" = :as_base ) AND 
+																 ( "FOSA_COMUN"."SERIE" = :as_serie ) AND 
+																 ( "FOSA_COMUN"."NUMERO" = :al_numero ) ) )   
+USING		sqlca;
+if ll_count > 0 then
+	ls_string		= 'FOSA COMUN'
+else
+	ls_string		= ''
+end if
+Return	ls_string
+end function
+

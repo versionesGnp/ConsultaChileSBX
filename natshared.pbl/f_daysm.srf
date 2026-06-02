@@ -1,0 +1,27 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Retornar cantidad de días x mes~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_daysm from function_object
+end type
+
+forward prototypes
+global function integer f_daysm (integer ai_mes, integer ai_anio)
+end prototypes
+
+global function integer f_daysm (integer ai_mes, integer ai_anio);/* Funcion que retorna el la cantidad de dias de un mes, si el año es Biciesto
+	y el mes es febrero lo procesa */
+
+Integer	li_daysm, li_days[12] = {31,28,31,30,31,30,31,31,30,31,30,31}
+
+// dias por mes 
+li_daysm = li_Days[ ai_mes ]
+
+// Check for a leap year.
+If ai_mes = 2 Then
+	//	Year divisible by 4, but not by 100, unless it is also divisible by 400
+	If ( (Mod(ai_anio,4) = 0 And Mod(ai_anio,100) <> 0) Or (Mod(ai_anio,400) = 0) ) Then
+		li_daysm = 29
+	End If
+End If
+
+Return li_daysm
+end function
+

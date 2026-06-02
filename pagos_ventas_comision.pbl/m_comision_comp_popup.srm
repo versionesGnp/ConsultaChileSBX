@@ -1,0 +1,227 @@
+﻿forward
+global type m_comision_comp_popup from menu
+end type
+type m_popup from menu within m_comision_comp_popup
+end type
+type m_cuentacorriente from menu within m_popup
+end type
+type m_pagosventas from menu within m_popup
+end type
+type m_- from menu within m_popup
+end type
+type m_ordenar from menu within m_popup
+end type
+type m_filtrar from menu within m_popup
+end type
+type m_exportar from menu within m_popup
+end type
+type m_popup from menu within m_comision_comp_popup
+m_cuentacorriente m_cuentacorriente
+m_pagosventas m_pagosventas
+m_- m_-
+m_ordenar m_ordenar
+m_filtrar m_filtrar
+m_exportar m_exportar
+end type
+global type m_comision_comp_popup from menu
+m_popup m_popup
+end type
+end forward
+
+global type m_comision_comp_popup from menu
+m_popup m_popup
+end type
+global m_comision_comp_popup m_comision_comp_popup
+
+on m_comision_comp_popup.create
+m_comision_comp_popup=this
+call super::create
+this.m_popup=create m_popup
+this.Item[UpperBound(this.Item)+1]=this.m_popup
+end on
+
+on m_comision_comp_popup.destroy
+call super::destroy
+destroy(this.m_popup)
+end on
+
+type m_popup from menu within m_comision_comp_popup
+m_cuentacorriente m_cuentacorriente
+m_pagosventas m_pagosventas
+m_- m_-
+m_ordenar m_ordenar
+m_filtrar m_filtrar
+m_exportar m_exportar
+end type
+
+on m_popup.create
+call super::create
+this.text = "Popup"
+this.m_cuentacorriente=create m_cuentacorriente
+this.m_pagosventas=create m_pagosventas
+this.m_-=create m_-
+this.m_ordenar=create m_ordenar
+this.m_filtrar=create m_filtrar
+this.m_exportar=create m_exportar
+this.Item[UpperBound(this.Item)+1]=this.m_cuentacorriente
+this.Item[UpperBound(this.Item)+1]=this.m_pagosventas
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_ordenar
+this.Item[UpperBound(this.Item)+1]=this.m_filtrar
+this.Item[UpperBound(this.Item)+1]=this.m_exportar
+end on
+
+on m_popup.destroy
+call super::destroy
+destroy(this.m_cuentacorriente)
+destroy(this.m_pagosventas)
+destroy(this.m_-)
+destroy(this.m_ordenar)
+destroy(this.m_filtrar)
+destroy(this.m_exportar)
+end on
+
+type m_cuentacorriente from menu within m_popup
+end type
+
+on m_cuentacorriente.create
+call super::create
+this.text = "&Cuenta Corriente"
+end on
+
+on m_cuentacorriente.destroy
+call super::destroy
+end on
+
+event clicked;long		ll_cd_estado_promesa,ll_fila
+
+if w_comision_compartida.dw_lista.rowcount() > 0 then
+	ll_fila							= w_comision_compartida.dw_lista.getrow()
+	if ll_fila > 0 then
+		gi_numero 					= w_comision_compartida.dw_lista.getitemnumber(ll_fila,'oferta_v_nro_oferta')
+		gs_base						= w_comision_compartida.dw_lista.getitemstring(ll_fila,'cadena_codigo')
+		gs_serie						= w_comision_compartida.dw_lista.getitemstring(ll_fila,'oferta_v_serie')
+		gi_rut						= w_comision_compartida.dw_lista.getitemnumber(ll_fila,'cadena_rut')
+		CHOOSE CASE gs_base
+			CASE "O" // Oferta
+				if isvalid(w_cuenta_corriente_oferta) then close(w_cuenta_corriente_oferta)
+				Open(w_cuenta_corriente_oferta)
+			CASE "L" // Anexo Liberador
+				if isvalid(w_cuenta_corriente_liberador) then close(w_cuenta_corriente_liberador)
+				Open(w_cuenta_corriente_liberador)
+			CASE "A" // Aumento Capacidad
+				if isvalid(w_cuenta_corriente_aumento_capacidad) then close(w_cuenta_corriente_aumento_capacidad)
+				Open(w_cuenta_corriente_aumento_capacidad)
+			CASE "P" // Pagaré
+				if isvalid(w_cuenta_corriente_pagare) then close(w_cuenta_corriente_pagare)
+				Open(w_cuenta_corriente_pagare)
+			CASE "C" // Contrato ISA	
+				if isvalid(w_cuenta_corriente_contrato_isa) then close(w_cuenta_corriente_contrato_isa)
+				Open(w_cuenta_corriente_contrato_isa)
+			CASE "D" // Derecho Especial
+				if isvalid(w_cuenta_corriente_derecho) then close(w_cuenta_corriente_derecho)
+				Open(w_cuenta_corriente_derecho)
+			CASE "R" //Repactación Ctas.Mantencion
+				if isvalid(w_cuenta_corriente_repactar_cta_mant) then close(w_cuenta_corriente_repactar_cta_mant)
+				Open(w_cuenta_corriente_repactar_cta_mant)
+		END CHOOSE
+	end if
+end if
+end event
+
+type m_pagosventas from menu within m_popup
+end type
+
+on m_pagosventas.create
+call super::create
+this.text = "&Pagos Ventas"
+end on
+
+on m_pagosventas.destroy
+call super::destroy
+end on
+
+event clicked;string	ls_base,ls_serie,ls_string
+long		ll_numero,ll_row
+
+w_comision_compartida.dw_lista.accepttext()
+ll_row					= w_comision_compartida.dw_lista.getrow()
+if w_comision_compartida.dw_lista.rowcount() > 0 and ll_row > 0 then
+	ls_base				= w_comision_compartida.dw_lista.getitemstring(ll_row,'cadena_codigo')
+	ls_serie				= w_comision_compartida.dw_lista.getitemstring(ll_row,'oferta_v_serie')
+	ll_numero			= w_comision_compartida.dw_lista.getitemnumber(ll_row,'oferta_v_nro_oferta')
+	if not isnull(ls_base) and ls_base<>'' and not isnull(ls_serie) and ls_serie<>'' and ll_numero>0 then
+		ls_string		= ls_base+'~t'+ls_serie+'~t'+string(ll_numero)
+		if isvalid(w_rescomi_ventas) then close(w_rescomi_ventas)
+		OpenWithParm (w_rescomi_ventas,ls_string)
+	end if
+end if
+end event
+
+type m_- from menu within m_popup
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_ordenar from menu within m_popup
+end type
+
+event clicked;if w_comision_compartida.dw_lista.rowcount() > 0 then
+	string nulo
+	setnull (nulo)
+	w_comision_compartida.dw_lista.SETSORT(NULO)
+	w_comision_compartida.dw_lista.SORT()
+end if
+end event
+
+on m_ordenar.create
+call super::create
+this.text = "&Ordenar"
+end on
+
+on m_ordenar.destroy
+call super::destroy
+end on
+
+type m_filtrar from menu within m_popup
+end type
+
+on m_filtrar.create
+call super::create
+this.text = "&Filtrar"
+end on
+
+on m_filtrar.destroy
+call super::destroy
+end on
+
+event clicked;string nulo
+setnull (nulo)
+w_comision_compartida.dw_lista.SETfilter(NULO)
+w_comision_compartida.dw_lista.filter()
+end event
+
+type m_exportar from menu within m_popup
+end type
+
+event clicked;datawindow dw_paso
+dw_paso	= w_comision_compartida.dw_lista
+if w_comision_compartida.dw_lista.rowcount() > 0 then OpenWithParm(w_exportar, dw_paso)
+end event
+
+on m_exportar.create
+call super::create
+this.text = "&Exportar"
+end on
+
+on m_exportar.destroy
+call super::destroy
+end on
+

@@ -1,0 +1,27 @@
+﻿global type f_mant from function_object
+end type
+
+forward prototypes
+global function double f_mant (datetime fec1, double cta_pag_m)
+end prototypes
+
+global function double f_mant (datetime fec1, double cta_pag_m);double vvano,vvmora
+
+vvano	= year(today())-year(DATE(fec1))  
+if month(today()) > month(DATE(fec1)) then
+	vvano = vvano + 1
+end if
+if month(today()) = month(DATE(fec1)) and day(today()) > day(DATE(fec1)) then
+	vvano = vvano + 1
+end if
+vvmora= vvano - cta_pag_m
+return(vvmora)
+
+
+//PARAMETROS DE ENTRADA FAC1 DATETIME
+//                      CTA_PAG_M DOUBLE
+//PARAMETROS DE SALIDA DOUBLE
+               
+
+end function
+

@@ -1,0 +1,50 @@
+﻿global type f_buscar_fecha_prox_comi from function_object
+end type
+
+forward prototypes
+global function string f_buscar_fecha_prox_comi (string as_serie, double al_numero, string as_base)
+end prototypes
+
+global function string f_buscar_fecha_prox_comi (string as_serie, double al_numero, string as_base);String			ls_fecha, ls_contab
+Long			ll_count_reg_ing, ll_count_reg_rescomi, ll_dia, ll_mes,ll_anno
+DateTime	ldt_fec_pago
+Date			ld_fecha
+setnull(ls_fecha)
+if as_base='O' then
+	ls_contab='037'
+else
+	ls_contab='036'
+end if 
+
+SELECT	count("RES_COMI"."COD_AGE_SUP")
+INTO 		:ll_count_reg_rescomi  
+FROM 		"RES_COMI"  
+WHERE 	( "RES_COMI"."SERIE" = :as_serie ) AND  
+			( "RES_COMI"."CONTRATO" = :al_numero ) AND
+			( "RES_COMI"."COD_CONTABLE" = :ls_contab )
+USING		sqlca ;
+if sqlca.sqlcode = 0 then
+	if ll_count_reg_rescomi<= 0 then ll_count_reg_rescomi=0
+else
+	ll_count_reg_rescomi	= 0
+end if
+
+SELECT	count("INGRESO"."FOLIO")
+INTO 		:ll_count_reg_ing  
+FROM 		"INGRESO"  
+WHERE 	( "INGRESO"."BASE" = :as_base ) AND  
+			( "INGRESO"."SERIE" = :as_serie ) AND  
+			( "INGRESO"."CONTRATO" = :al_numero ) AND  
+			( "INGRESO"."TIPO_MOV" = 'E' )   
+USING		sqlca  ;
+if sqlca.sqlcode = 0 then
+	if ll_count_reg_ing<= 0 then ll_count_reg_ing=0
+else
+	ll_count_reg_ing	= 0
+end if
+if ll_count_reg_ing > ll_count_reg_rescomi then 
+	ls_fecha	= 'S'
+end if
+return(ls_fecha)
+end function
+

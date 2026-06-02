@@ -1,0 +1,20 @@
+﻿global type f_buscar_sol_tipo_contrato from function_object
+end type
+
+forward prototypes
+global function string f_buscar_sol_tipo_contrato (string as_codigo)
+end prototypes
+
+global function string f_buscar_sol_tipo_contrato (string as_codigo);String		ls_string
+
+SELECT 	"SOL_ESTADO_CONTRATO"."DESCRIPCION"  
+INTO 		:ls_string  
+FROM 	"SOL_ESTADO_CONTRATO"  
+WHERE 	"SOL_ESTADO_CONTRATO"."ESTADO_CONTRATO" = :as_codigo
+USING	sqlca;
+if sqlca.sqlcode<>0 then
+	ls_string		= '-'
+end if
+Return ls_string
+end function
+

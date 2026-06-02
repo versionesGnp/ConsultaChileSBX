@@ -1,0 +1,55 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Periodos~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_genmesanio from function_object
+end type
+
+forward prototypes
+global function string f_genmesanio (datetime ad_fec)
+end prototypes
+
+global function string f_genmesanio (datetime ad_fec);/* f_GenMesanio( ad_fech )
+	Marco A. Ortiz 2013/12/26, 
+	Funcion que retorna el mes + año (4 digitos) segun la fecha enviada
+	para ubicacino del QR cfdi
+*/
+
+Integer	li_mes
+String	ls_resp, ls_year
+
+li_mes  = Month( Date( ad_fec ) )
+ls_year = String( Year( Date( ad_fec ) ) )
+
+
+Choose Case li_mes
+	  Case 1
+		 ls_resp = "ENERO"
+	Case 2
+		 ls_resp = "FEBRERO"
+	Case 3
+		 ls_resp = "MARZO"
+	Case 4
+		 ls_resp = "ABRIL"
+	Case 5
+		 ls_resp = "MAYO"
+	Case 6
+		 ls_resp = "JUNIO"
+	Case 7
+		 ls_resp = "JULIO"
+	Case 8
+		 ls_resp = "AGOSTO"
+	Case 9
+		 ls_resp = "SEPTIEMBRE"
+	Case 10
+		 ls_resp = "OCTUBRE"
+	Case 11
+		 ls_resp = "NOVIEMBRE"
+	Case 12
+		 ls_resp = "DICIEMBRE"
+End Choose
+
+ls_resp = ls_resp + ls_year
+
+Return ls_resp
+	
+	
+end function
+

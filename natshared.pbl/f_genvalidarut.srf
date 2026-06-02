@@ -1,0 +1,20 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Valida si es correcto el RUT~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genvalidarut from function_object
+end type
+
+forward prototypes
+global function boolean f_genvalidarut (string as_rut)
+end prototypes
+
+global function boolean f_genvalidarut (string as_rut);Int	li_ret
+
+
+Select fn_genRutValida( :as_Rut )
+Into   :li_ret
+From	 dual ;
+
+li_ret = f_Zero( li_ret )
+
+Return ( li_ret = 1 )
+end function
+

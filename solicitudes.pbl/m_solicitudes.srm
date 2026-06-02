@@ -1,0 +1,659 @@
+﻿forward
+global type m_solicitudes from menu
+end type
+type m_mantenedor from menu within m_solicitudes
+end type
+type m_nuevasolicitud from menu within m_mantenedor
+end type
+type m_rechazarsolicitud from menu within m_mantenedor
+end type
+type m_- from menu within m_mantenedor
+end type
+type m_autorizarsolicitud from menu within m_mantenedor
+end type
+type m_-0 from menu within m_mantenedor
+end type
+type m_actualizarsolicitud from menu within m_mantenedor
+end type
+type m_mantenedor from menu within m_solicitudes
+m_nuevasolicitud m_nuevasolicitud
+m_rechazarsolicitud m_rechazarsolicitud
+m_- m_-
+m_autorizarsolicitud m_autorizarsolicitud
+m_-0 m_-0
+m_actualizarsolicitud m_actualizarsolicitud
+end type
+type m_imprimir from menu within m_solicitudes
+end type
+type m_lista from menu within m_imprimir
+end type
+type m_contratoresciliado from menu within m_imprimir
+end type
+type m_títulodedominio from menu within m_imprimir
+end type
+type m_imprimir from menu within m_solicitudes
+m_lista m_lista
+m_contratoresciliado m_contratoresciliado
+m_títulodedominio m_títulodedominio
+end type
+type m_herramienta from menu within m_solicitudes
+end type
+type m_exportar from menu within m_herramienta
+end type
+type m_ordenar from menu within m_herramienta
+end type
+type m_filtrar from menu within m_herramienta
+end type
+type m_herramienta from menu within m_solicitudes
+m_exportar m_exportar
+m_ordenar m_ordenar
+m_filtrar m_filtrar
+end type
+type m_salir from menu within m_solicitudes
+end type
+global type m_solicitudes from menu
+m_mantenedor m_mantenedor
+m_imprimir m_imprimir
+m_herramienta m_herramienta
+m_salir m_salir
+end type
+end forward
+
+global type m_solicitudes from menu
+m_mantenedor m_mantenedor
+m_imprimir m_imprimir
+m_herramienta m_herramienta
+m_salir m_salir
+end type
+global m_solicitudes m_solicitudes
+
+on m_solicitudes.create
+m_solicitudes=this
+call super::create
+this.text = "m_solicitudes"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_mantenedor=create m_mantenedor
+this.m_imprimir=create m_imprimir
+this.m_herramienta=create m_herramienta
+this.m_salir=create m_salir
+this.Item[UpperBound(this.Item)+1]=this.m_mantenedor
+this.Item[UpperBound(this.Item)+1]=this.m_imprimir
+this.Item[UpperBound(this.Item)+1]=this.m_herramienta
+this.Item[UpperBound(this.Item)+1]=this.m_salir
+end on
+
+on m_solicitudes.destroy
+call super::destroy
+destroy(this.m_mantenedor)
+destroy(this.m_imprimir)
+destroy(this.m_herramienta)
+destroy(this.m_salir)
+end on
+
+type m_mantenedor from menu within m_solicitudes
+m_nuevasolicitud m_nuevasolicitud
+m_rechazarsolicitud m_rechazarsolicitud
+m_- m_-
+m_autorizarsolicitud m_autorizarsolicitud
+m_-0 m_-0
+m_actualizarsolicitud m_actualizarsolicitud
+end type
+
+on m_mantenedor.create
+call super::create
+this.text = "&Mantenedor"
+this.microhelp = "Modulo Mantenedor de Solicitudes"
+this.toolbaritemtext = "Mantenedor de Solicitudes"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_nuevasolicitud=create m_nuevasolicitud
+this.m_rechazarsolicitud=create m_rechazarsolicitud
+this.m_-=create m_-
+this.m_autorizarsolicitud=create m_autorizarsolicitud
+this.m_-0=create m_-0
+this.m_actualizarsolicitud=create m_actualizarsolicitud
+this.Item[UpperBound(this.Item)+1]=this.m_nuevasolicitud
+this.Item[UpperBound(this.Item)+1]=this.m_rechazarsolicitud
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_autorizarsolicitud
+this.Item[UpperBound(this.Item)+1]=this.m_-0
+this.Item[UpperBound(this.Item)+1]=this.m_actualizarsolicitud
+end on
+
+on m_mantenedor.destroy
+call super::destroy
+destroy(this.m_nuevasolicitud)
+destroy(this.m_rechazarsolicitud)
+destroy(this.m_-)
+destroy(this.m_autorizarsolicitud)
+destroy(this.m_-0)
+destroy(this.m_actualizarsolicitud)
+end on
+
+type m_nuevasolicitud from menu within m_mantenedor
+end type
+
+on m_nuevasolicitud.create
+call super::create
+this.text = "&Nueva Solicitud"
+this.microhelp = "Nueva Solicitud"
+this.toolbaritemname = "selectscript!"
+this.toolbaritemtext = "Nueva Solicitud"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_nuevasolicitud.destroy
+call super::destroy
+end on
+
+event clicked;w_detalle_solicitudes.cb_nuevo.triggerevent(clicked!)
+end event
+
+type m_rechazarsolicitud from menu within m_mantenedor
+end type
+
+on m_rechazarsolicitud.create
+call super::create
+this.text = "&Rechazar Solicitud"
+this.microhelp = "Rechazar Solicitud"
+this.toolbaritemname = "StopSign!"
+this.toolbaritemtext = "Rechazar Solicitud"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_rechazarsolicitud.destroy
+call super::destroy
+end on
+
+event clicked;w_detalle_solicitudes.cb_eliminar.triggerevent(clicked!)
+end event
+
+type m_- from menu within m_mantenedor
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+this.microhelp = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_autorizarsolicitud from menu within m_mantenedor
+end type
+
+on m_autorizarsolicitud.create
+call super::create
+this.text = "&Autorizar Solicitud"
+this.microhelp = "Autorizar Solicitud generada por Atención Cliente"
+this.toolbaritemname = "custom026!"
+this.toolbaritemtext = "Autorizar Solicitud por Parte Operaciones"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_autorizarsolicitud.destroy
+call super::destroy
+end on
+
+event clicked;w_detalle_solicitudes.cb_aceptar_operaciones.triggerevent(clicked!)
+end event
+
+type m_-0 from menu within m_mantenedor
+end type
+
+on m_-0.create
+call super::create
+this.text = "-"
+this.microhelp = "-"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_actualizarsolicitud from menu within m_mantenedor
+end type
+
+on m_actualizarsolicitud.create
+call super::create
+this.text = "ACTUALIZAR &Solicitud"
+this.microhelp = "ACTUALIZAR Solicitud, aceptada por Operaciones"
+this.toolbaritemname = "custom038!"
+this.toolbaritemtext = "Autorizar Solicitud por Parte Informática"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_actualizarsolicitud.destroy
+call super::destroy
+end on
+
+event clicked;w_detalle_solicitudes.cb_aceptar_informatica.triggerevent(clicked!)
+end event
+
+type m_imprimir from menu within m_solicitudes
+m_lista m_lista
+m_contratoresciliado m_contratoresciliado
+m_títulodedominio m_títulodedominio
+end type
+
+on m_imprimir.create
+call super::create
+this.text = "&Imprimir"
+this.microhelp = "Modulo Imprimir"
+this.toolbaritemtext = "Imprimir Solicitudes"
+this.toolbaritemspace = 3
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_lista=create m_lista
+this.m_contratoresciliado=create m_contratoresciliado
+this.m_títulodedominio=create m_títulodedominio
+this.Item[UpperBound(this.Item)+1]=this.m_lista
+this.Item[UpperBound(this.Item)+1]=this.m_contratoresciliado
+this.Item[UpperBound(this.Item)+1]=this.m_títulodedominio
+end on
+
+on m_imprimir.destroy
+call super::destroy
+destroy(this.m_lista)
+destroy(this.m_contratoresciliado)
+destroy(this.m_títulodedominio)
+end on
+
+type m_lista from menu within m_imprimir
+end type
+
+on m_lista.create
+call super::create
+this.text = "&Lista"
+this.microhelp = "Imprimir Lista"
+this.toolbaritemname = "print!"
+this.toolbaritemtext = "Imprimir Lista en Pantalla"
+this.toolbaritemspace = 3
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_lista.destroy
+call super::destroy
+end on
+
+event clicked;w_detalle_solicitudes.cb_imprimir.triggerevent(clicked!)
+end event
+
+type m_contratoresciliado from menu within m_imprimir
+end type
+
+on m_contratoresciliado.create
+call super::create
+this.text = "&Contrato Resciliado"
+this.microhelp = "Imprimir Contrato Resciliado"
+this.toolbaritemtext = "Imprimir Contrato Resciliado"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_contratoresciliado.destroy
+call super::destroy
+end on
+
+event clicked;w_detalle_solicitudes.cb_print_ctto.triggerevent(clicked!)
+end event
+
+type m_títulodedominio from menu within m_imprimir
+end type
+
+on m_títulodedominio.create
+call super::create
+this.text = "&Título de Dominio"
+this.microhelp = "Imprimir Título de Dominio"
+this.toolbaritemtext = "Imprimir Titulo de Dominio"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_títulodedominio.destroy
+call super::destroy
+end on
+
+type m_herramienta from menu within m_solicitudes
+m_exportar m_exportar
+m_ordenar m_ordenar
+m_filtrar m_filtrar
+end type
+
+on m_herramienta.create
+call super::create
+this.text = "&Herramienta"
+this.microhelp = "Modulo Herramienta"
+this.toolbaritemspace = 3
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_exportar=create m_exportar
+this.m_ordenar=create m_ordenar
+this.m_filtrar=create m_filtrar
+this.Item[UpperBound(this.Item)+1]=this.m_exportar
+this.Item[UpperBound(this.Item)+1]=this.m_ordenar
+this.Item[UpperBound(this.Item)+1]=this.m_filtrar
+end on
+
+on m_herramienta.destroy
+call super::destroy
+destroy(this.m_exportar)
+destroy(this.m_ordenar)
+destroy(this.m_filtrar)
+end on
+
+type m_exportar from menu within m_herramienta
+end type
+
+on m_exportar.create
+call super::create
+this.text = "&Exportar"
+this.microhelp = "Exportar Lista"
+this.toolbaritemname = "grabar_como.bmp"
+this.toolbaritemtext = "Exportar Lista"
+this.toolbaritemspace = 3
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_exportar.destroy
+call super::destroy
+end on
+
+event clicked;w_detalle_solicitudes.cb_exportar.triggerevent(clicked!)
+end event
+
+type m_ordenar from menu within m_herramienta
+end type
+
+on m_ordenar.create
+call super::create
+this.text = "&Ordenar"
+this.microhelp = "Ordenar Lista"
+this.toolbaritemname = "ordenar.bmp"
+this.toolbaritemtext = "Ordenar Lista"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ordenar.destroy
+call super::destroy
+end on
+
+event clicked;w_detalle_solicitudes.cb_sort.triggerevent(clicked!)
+end event
+
+type m_filtrar from menu within m_herramienta
+end type
+
+on m_filtrar.create
+call super::create
+this.text = "&Filtrar"
+this.microhelp = "Filtrar Lista"
+this.toolbaritemname = "filtrar.bmp"
+this.toolbaritemtext = "Filtrar Lista"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_filtrar.destroy
+call super::destroy
+end on
+
+event clicked;w_detalle_solicitudes.cb_filtrar.triggerevent(clicked!)
+end event
+
+type m_salir from menu within m_solicitudes
+end type
+
+on m_salir.create
+call super::create
+this.text = "&Salir"
+this.microhelp = "Cerrar Ventana Solicitudes"
+this.toolbaritemname = "exit!"
+this.toolbaritemtext = "Cerrar Ventana Solicitudes"
+this.toolbaritemspace = 3
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_salir.destroy
+call super::destroy
+end on
+
+event clicked;w_detalle_solicitudes.cb_cerrar.triggerevent(clicked!)
+end event
+

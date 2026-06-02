@@ -1,0 +1,544 @@
+﻿global type f_valida_menu_adm_venta from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_adm_venta (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_adm_venta (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_admventa'
+				m_menu_principal.m_admventa.visible																				= false
+				m_menu_principal.m_admventa.m_asignacióncontrato.visible													= false
+				m_menu_principal.m_admventa.m_asignacióncontrato.m_ingresaraagentesdeventa.visible				= false
+				m_menu_principal.m_admventa.m_asignacióncontrato.m_cambiodeestado.visible							= false
+				m_menu_principal.m_admventa.m_asignacióncontrato.m_listareimprimircontratos.visible				= false
+				m_menu_principal.m_admventa.m_digitación.visible															= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.visible												= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresooferta.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_anexoliberador.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_derechoespecial.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_pagaré.visible									= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresocontratoisa.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_aumentocapacidad.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.visible											= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactaroferta.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos1.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarliberadores.visible			= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_traspasoderezago.visible				= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_cambiopromesapagoenrezago.visible	= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_resciliación.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_actualizaci.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_beneficiariossegurocomplementario.visible	= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_41.visible									= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_consultartítulodedominiocontratodefinit.visible										= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_revisiónpromesas.visible				= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.visible				= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_titulodedominio.visible		= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_contratodefinitivo.visible	= false
+				m_menu_principal.m_admventa.m_mantenedor.visible															= false
+				m_menu_principal.m_admventa.m_mantenedor.m_agente.visible												= false
+				m_menu_principal.m_admventa.m_mantenedor.m_supervisor.visible											= false
+				m_menu_principal.m_admventa.m_mantenedor.m_jefeventa.visible											= false
+				m_menu_principal.m_admventa.m_mantenedor.m_cambiarestado.visible										= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.visible											= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_agente1.visible								= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_supervisor1.visible						= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_jefeventas.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.visible												= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_asignarfolio.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_entregade_folios_a_departamento.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_asignaragente.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_gestionardocumento.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_controldocumentaciónpendientes.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.visible									= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_porrangodefecha.visible			= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_1.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estado1.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estado0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_agente0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_supervisor0.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_jefeventa0.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_referenciamemorandum.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_foliosnoregistrados.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_6.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estadísticadefechayestado.visible										= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_documentospendientes.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_documentosrechazados.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.visible								= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_generar4.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_consultar5.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_generar.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_consultar.visible			= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_generar5.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_consultar6.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.visible									= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_generar0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_consultar0.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.visible											= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_generar1.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_consultar1.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_generar2.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_consultar2.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_generar3.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_consultar3.visible	= false
+				
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.m_generar6.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.m_consultar7.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.visible						= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.m_generar7.visible			= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.m_consultar8.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.m_generar8.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.m_consultar9.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.m_generar9.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.m_consultar10.visible= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.m_generar10.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.m_consultar11.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.m_generar11.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.m_consultar12.visible	= false
+																
+				m_menu_principal.m_admventa.m_controldocumentario.m_modificarcontroldocumento.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_pre-cierreventa.visible										= false
+				m_menu_principal.m_admventa.m_pagosventas.visible																			= false
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.visible															= false
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.m_proceso.visible											= false
+				m_menu_principal.m_admventa.m_pagosventas.m_comisiones.m_informes4.visible											= false
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.visible													= false
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.m_proceso0.visible									= false
+				m_menu_principal.m_admventa.m_pagosventas.m_clasificaciones.m_informes5.visible									= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.visible																= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.visible									= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_proceso1.visible					= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_producciónmensual.m_informes6.visible					= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.visible											= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_proceso2.visible							= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ingresoacaja.m_informes7.visible							= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_proceso3.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semanales.m_informes8.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_proceso4.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_mensuales0.m_informes9.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_proceso5.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_semestrales.m_informes10.visible	= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_proceso6.visible			= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_mejoresagentesysupervisores.m_anuales.m_informes11.visible		= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.visible										= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_proceso7.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_calidadcartera.m_informes12.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.visible										= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_proceso8.visible						= false
+				m_menu_principal.m_admventa.m_pagosventas.m_premios.m_ventasdirectas.m_informes13.visible						= false
+				m_menu_principal.m_admventa.m_comisiónfuneraria.visible													= false
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_creaciónsolicitud.visible						= false
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_estadosolicitud.visible							= false
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_informes15.visible									= false
+				m_menu_principal.m_admventa.m_comisiónfuneraria.m_informes15.m_detallepagos.visible				= false
+				
+			CASE 'm_menu_principal.m_admventa.m_asignacióncontrato'
+				m_menu_principal.m_admventa.m_asignacióncontrato.visible													= false
+				m_menu_principal.m_admventa.m_asignacióncontrato.m_ingresaraagentesdeventa.visible				= false
+				m_menu_principal.m_admventa.m_asignacióncontrato.m_cambiodeestado.visible							= false
+				m_menu_principal.m_admventa.m_asignacióncontrato.m_listareimprimircontratos.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_asignacióncontrato.m_ingresaraagentesdeventa'
+				m_menu_principal.m_admventa.m_asignacióncontrato.m_ingresaraagentesdeventa.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_asignacióncontrato.m_cambiodeestado'
+				m_menu_principal.m_admventa.m_asignacióncontrato.m_cambiodeestado.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_asignacióncontrato.m_listareimprimircontratos'
+				m_menu_principal.m_admventa.m_asignacióncontrato.m_listareimprimircontratos.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_digitación'
+				m_menu_principal.m_admventa.m_digitación.visible															= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.visible												= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresooferta.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_anexoliberador.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_derechoespecial.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_pagaré.visible									= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresocontratoisa.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_aumentocapacidad.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.visible											= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactaroferta.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos1.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarliberadores.visible			= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_traspasoderezago.visible				= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_cambiopromesapagoenrezago.visible	= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_resciliación.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_actualizaci.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_beneficiariossegurocomplementario.visible	= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_41.visible									= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_consultartítulodedominiocontratodefinit.visible										= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_revisiónpromesas.visible				= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.visible				= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_titulodedominio.visible		= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_contratodefinitivo.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar'
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.visible												= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresooferta.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_anexoliberador.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_derechoespecial.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_pagaré.visible									= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresocontratoisa.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_aumentocapacidad.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresooferta'
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresooferta.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_anexoliberador'
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_anexoliberador.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_derechoespecial'
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_derechoespecial.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_pagaré'
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_pagaré.visible									= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresocontratoisa'
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_ingresocontratoisa.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_ingresar.m_aumentocapacidad'
+				m_menu_principal.m_admventa.m_digitación.m_ingresar.m_aumentocapacidad.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.visible											= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactaroferta.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos1.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarliberadores.visible			= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos.visible					= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_traspasoderezago.visible				= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_cambiopromesapagoenrezago.visible	= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_resciliación.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_actualizaci.visible						= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_beneficiariossegurocomplementario.visible	= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_41.visible									= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_consultartítulodedominiocontratodefinit.visible										= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_revisiónpromesas.visible				= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.visible				= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_titulodedominio.visible		= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_contratodefinitivo.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactaroferta'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactaroferta.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos1'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos1.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarliberadores'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarliberadores.visible			= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_repactarpagos.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_traspasoderezago'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_traspasoderezago.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_cambiopromesapagoenrezago'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_cambiopromesapagoenrezago.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_resciliación'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_resciliación.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_actualizaci'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_actualizaci.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_beneficiariossegurocomplementario'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_beneficiariossegurocomplementario.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_41'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_41.visible									= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_consultartítulodedominiocontratodefinit'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_consultartítulodedominiocontratodefinit.visible										= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_revisiónpromesas'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_revisiónpromesas.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.visible				= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_titulodedominio.visible		= false
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_contratodefinitivo.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_titulodedominio'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_titulodedominio.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_contratodefinitivo'
+				m_menu_principal.m_admventa.m_digitación.m_operaciones.m_entregardocumento.m_contratodefinitivo.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_mantenedor'
+				m_menu_principal.m_admventa.m_mantenedor.visible															= false
+				m_menu_principal.m_admventa.m_mantenedor.m_agente.visible												= false
+				m_menu_principal.m_admventa.m_mantenedor.m_supervisor.visible											= false
+				m_menu_principal.m_admventa.m_mantenedor.m_jefeventa.visible											= false
+				m_menu_principal.m_admventa.m_mantenedor.m_cambiarestado.visible										= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.visible											= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_agente1.visible								= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_supervisor1.visible						= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_jefeventas.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_agente'
+				m_menu_principal.m_admventa.m_mantenedor.m_agente.visible												= false
+			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_supervisor'
+				m_menu_principal.m_admventa.m_mantenedor.m_supervisor.visible											= false
+			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_jefeventa'
+				m_menu_principal.m_admventa.m_mantenedor.m_jefeventa.visible											= false
+			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_cambiarestado'
+				m_menu_principal.m_admventa.m_mantenedor.m_cambiarestado.visible										= false
+			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_listadores'
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.visible											= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_agente1.visible								= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_supervisor1.visible						= false
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_jefeventas.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_listadores.m_agente1'
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_agente1.visible								= false
+			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_listadores.m_supervisor1'
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_supervisor1.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_mantenedor.m_listadores.m_jefeventas'
+				m_menu_principal.m_admventa.m_mantenedor.m_listadores.m_jefeventas.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario'
+				m_menu_principal.m_admventa.m_controldocumentario.visible												= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_asignarfolio.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_entregade_folios_a_departamento.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_asignaragente.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_gestionardocumento.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_controldocumentaciónpendientes.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.visible									= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_porrangodefecha.visible			= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_1.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estado1.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estado0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_agente0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_supervisor0.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_jefeventa0.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_referenciamemorandum.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_foliosnoregistrados.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_6.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estadísticadefechayestado.visible										= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_documentospendientes.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_documentosrechazados.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.visible								= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_generar4.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_consultar5.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_generar.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_consultar.visible			= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_generar5.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_consultar6.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.visible									= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_generar0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_consultar0.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.visible											= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_generar1.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_consultar1.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_generar2.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_consultar2.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_generar3.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_consultar3.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.m_generar6.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.m_consultar7.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.visible						= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.m_generar7.visible			= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.m_consultar8.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.m_generar8.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.m_consultar9.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.m_generar9.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.m_consultar10.visible= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.m_generar10.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.m_consultar11.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.m_generar11.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.m_consultar12.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_modificarcontroldocumento.visible			= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_pre-cierreventa.visible						= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_asignarfolio'
+				m_menu_principal.m_admventa.m_controldocumentario.m_asignarfolio.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_entregade_folios_a_departamento'
+				m_menu_principal.m_admventa.m_controldocumentario.m_entregade_folios_a_departamento.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_asignaragente'
+				m_menu_principal.m_admventa.m_controldocumentario.m_asignaragente.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_gestionardocumento'
+				m_menu_principal.m_admventa.m_controldocumentario.m_gestionardocumento.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_controldocumentaciónpendientes'
+				m_menu_principal.m_admventa.m_controldocumentario.m_controldocumentaciónpendientes.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.visible									= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_porrangodefecha.visible			= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_1.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estado1.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estado0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_agente0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_supervisor0.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_jefeventa0.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_referenciamemorandum.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_foliosnoregistrados.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_6.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estadísticadefechayestado.visible										= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_documentospendientes.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_documentosrechazados.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_porrangodefecha'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_porrangodefecha.visible			= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_1'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_1.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estado1'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estado1.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estado0'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estado0.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_agente0'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_agente0.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_supervisor0'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_supervisor0.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_jefeventa0'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_jefeventa0.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_referenciamemorandum'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_referenciamemorandum.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_foliosnoregistrados'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_foliosnoregistrados.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_6'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_6.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estadísticadefechayestado'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_estadísticadefechayestado.visible										= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_documentospendientes'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_documentospendientes.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_documentosrechazados'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informe0.m_documentosrechazados.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.visible								= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_generar4.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_consultar5.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_generar.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_consultar.visible			= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_generar5.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_consultar6.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.visible									= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_generar0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_consultar0.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.visible											= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_generar1.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_consultar1.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_generar2.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_consultar2.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_generar3.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_consultar3.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_generar4.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_consultar5.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_generar4'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_generar4.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_consultar5'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalagenteestado1estado2.m_consultar5.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_generar.visible				= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_consultar.visible			= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_generar'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_generar.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_consultar'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosdeptooperaciones.m_consultar.visible			= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_generar5.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_consultar6.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_generar5'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_generar5.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_consultar6'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese.m_consultar6.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.visible									= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_generar0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_consultar0.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_generar0'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_generar0.visible					= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_consultar0'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentossupervisores.m_consultar0.visible				= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.visible											= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_generar1.visible							= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_consultar1.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_generar1'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_generar1.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_consultar1'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentos.m_consultar1.visible							= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_generar2.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_consultar2.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_generar2'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_generar2.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_consultar2'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoadeptoadmventasest.m_consultar2.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_generar3.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_consultar3.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_generar3'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_generar3.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_consultar3'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatclienteestado17.m_consultar3.visible	= false
+				
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.m_generar6.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.m_consultar7.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.m_generar6'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.m_generar6.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.m_consultar7'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentoaatterrenoestado27.m_consultar7.visible	= false
+				
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.visible						= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.m_generar7.visible			= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.m_consultar8.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.m_generar7'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.m_generar7.visible			= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.m_consultar8'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosalejecutivoestado21.m_consultar8.visible		= false
+			
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.m_generar8.visible		= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.m_consultar9.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.m_generar8'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.m_generar8.visible		= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.m_consultar9'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentodeptooperacionesestado2.m_consultar9.visible	= false
+				
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.m_generar9.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.m_consultar10.visible= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.m_generar9'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.m_generar9.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.m_consultar10'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_entregadocumentosnuloadeptooperacionese0.m_consultar10.visible= false
+				
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.m_generar10.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.m_consultar11.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.m_generar10'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.m_generar10.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.m_consultar11'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_recepcióndocumentosdelejecutivoestado22.m_consultar11.visible	= false
+				
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.visible					= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.m_generar11.visible	= false
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.m_consultar12.visible	= false				
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.m_generar11'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.m_generar11.visible	= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.m_consultar12'
+				m_menu_principal.m_admventa.m_controldocumentario.m_informes1.m_devolucióndedocumentosalejecutivoestado.m_consultar12.visible	= false				
+				
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_modificarcontroldocumento'
+				m_menu_principal.m_admventa.m_controldocumentario.m_modificarcontroldocumento.visible			= false
+			CASE 'm_menu_principal.m_admventa.m_controldocumentario.m_pre-cierreventa'
+				m_menu_principal.m_admventa.m_controldocumentario.m_pre-cierreventa.visible						= false
+
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

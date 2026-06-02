@@ -1,0 +1,362 @@
+﻿//objectcomments Menu PopUp que se levanta con un click sobre el boton derecho
+forward
+global type m_menu from menu
+end type
+type m_popup from menu within m_menu
+end type
+type m_buscar from menu within m_popup
+end type
+type m_ordenar from menu within m_popup
+end type
+type m_condicionar from menu within m_popup
+end type
+type m_resetear from menu within m_popup
+end type
+type m_agrupar from menu within m_popup
+end type
+type m_exportar from menu within m_popup
+end type
+type m_importar from menu within m_popup
+end type
+type m_popup from menu within m_menu
+m_buscar m_buscar
+m_ordenar m_ordenar
+m_condicionar m_condicionar
+m_resetear m_resetear
+m_agrupar m_agrupar
+m_exportar m_exportar
+m_importar m_importar
+end type
+global type m_menu from menu
+m_popup m_popup
+end type
+end forward
+
+global type m_menu from menu
+m_popup m_popup
+end type
+global m_menu m_menu
+
+type variables
+datawindow dw_paso
+end variables
+
+on m_menu.create
+m_menu=this
+call super::create
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_popup=create m_popup
+this.Item[UpperBound(this.Item)+1]=this.m_popup
+end on
+
+on m_menu.destroy
+call super::destroy
+destroy(this.m_popup)
+end on
+
+type m_popup from menu within m_menu
+m_buscar m_buscar
+m_ordenar m_ordenar
+m_condicionar m_condicionar
+m_resetear m_resetear
+m_agrupar m_agrupar
+m_exportar m_exportar
+m_importar m_importar
+end type
+
+on m_popup.create
+call super::create
+this.text = "PopUp"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+this.m_buscar=create m_buscar
+this.m_ordenar=create m_ordenar
+this.m_condicionar=create m_condicionar
+this.m_resetear=create m_resetear
+this.m_agrupar=create m_agrupar
+this.m_exportar=create m_exportar
+this.m_importar=create m_importar
+this.Item[UpperBound(this.Item)+1]=this.m_buscar
+this.Item[UpperBound(this.Item)+1]=this.m_ordenar
+this.Item[UpperBound(this.Item)+1]=this.m_condicionar
+this.Item[UpperBound(this.Item)+1]=this.m_resetear
+this.Item[UpperBound(this.Item)+1]=this.m_agrupar
+this.Item[UpperBound(this.Item)+1]=this.m_exportar
+this.Item[UpperBound(this.Item)+1]=this.m_importar
+end on
+
+on m_popup.destroy
+call super::destroy
+destroy(this.m_buscar)
+destroy(this.m_ordenar)
+destroy(this.m_condicionar)
+destroy(this.m_resetear)
+destroy(this.m_agrupar)
+destroy(this.m_exportar)
+destroy(this.m_importar)
+end on
+
+type m_buscar from menu within m_popup
+end type
+
+event clicked;String Argumento
+
+SETNULL(Argumento)
+dw_paso.Setfilter(Argumento)
+dw_paso.filter()
+end event
+
+on m_buscar.create
+call super::create
+this.text = "&Filtrar"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_buscar.destroy
+call super::destroy
+end on
+
+type m_ordenar from menu within m_popup
+end type
+
+event clicked;String Orden
+
+setnull(Orden)
+dw_paso.SetSort(Orden)
+dw_paso.Sort()
+end event
+
+on m_ordenar.create
+call super::create
+this.text = "&Ordenar"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_ordenar.destroy
+call super::destroy
+end on
+
+type m_condicionar from menu within m_popup
+end type
+
+event clicked;//String Filtro
+//
+//// Abre Ventana para Ingresar Filtro, y luego filtra
+//	OpenWithParm(w_filtro, dw_paso)
+//	Filtro = Message.StringParm
+//	If Filtro <> "cancelado" Then
+//		dw_paso.SetFilter(Filtro)
+//		dw_paso.Filter()
+//		dw_paso.Sort()
+//	End If
+//
+end event
+
+on m_condicionar.create
+call super::create
+this.text = "&Condicionar"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_condicionar.destroy
+call super::destroy
+end on
+
+type m_resetear from menu within m_popup
+end type
+
+event clicked;//// Reseta la DataWindow
+//	dw_paso.Reset()
+//
+end event
+
+on m_resetear.create
+call super::create
+this.text = "&Resetear"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_resetear.destroy
+call super::destroy
+end on
+
+type m_agrupar from menu within m_popup
+end type
+
+on m_agrupar.create
+call super::create
+this.text = "&Agrupar"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_agrupar.destroy
+call super::destroy
+end on
+
+type m_exportar from menu within m_popup
+end type
+
+event clicked;//OpenWithParm(w_exportar, dw_paso)
+f_DWToExcel( dw_paso)
+end event
+
+on m_exportar.create
+call super::create
+this.text = "&Exportar"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_exportar.destroy
+call super::destroy
+end on
+
+type m_importar from menu within m_popup
+end type
+
+event clicked;//String Archivo, Nombre
+//Integer Ret
+//
+//Archivo = ""
+//Nombre = ""
+//Ret = GetFileOpenName("Importar Archivo", Archivo, Nombre, "DBF", "Archivo DBase (*.DBF), *.DBF, Archivo Texto (*.TXT), *.TXT")
+//If Ret = 1 Then
+//	Ret = dw_paso.ImportFile(Archivo)
+//End If
+//
+end event
+
+on m_importar.create
+call super::create
+this.text = "&Importar"
+this.menutextcolor = 134217735
+this.menubackcolor = 134217732
+this.menuhighlightcolor = 134217741
+this.textsize = 8
+this.weight = 400
+this.facename = "Tahoma"
+this.titlebackcolor = 134217730
+this.bitmapbackcolor = 12632256
+this.menubitmaps = true
+this.titlegradient = true
+this.toolbartextcolor = 134217746
+this.toolbarbackcolor = 67108864
+this.toolbarhighlightcolor = 134217741
+this.toolbargradient = true
+this.bitmapgradient = true
+end on
+
+on m_importar.destroy
+call super::destroy
+end on
+

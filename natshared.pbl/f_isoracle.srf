@@ -1,0 +1,17 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Si DB es ORACLE return True, vea archivos INI~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_isoracle from function_object
+end type
+
+forward prototypes
+global function boolean f_isoracle ()
+end prototypes
+
+global function boolean f_isoracle ();String			ls_ora
+
+
+ls_ora = ProfileString (gs_ini, gs_iniProfile, 'ORACLE', '0')
+
+Return ( ls_ora = '1' )
+
+end function
+

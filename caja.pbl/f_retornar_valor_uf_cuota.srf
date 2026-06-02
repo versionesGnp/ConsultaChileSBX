@@ -1,0 +1,210 @@
+﻿global type f_retornar_valor_uf_cuota from function_object
+end type
+
+forward prototypes
+global function double f_retornar_valor_uf_cuota (string as_base, string as_serie, double al_numero, double al_monto, string as_tipo_cob, string as_tipo_mov, double adb_uf_dia, double adb_uf_calculada)
+end prototypes
+
+global function double f_retornar_valor_uf_cuota (string as_base, string as_serie, double al_numero, double al_monto, string as_tipo_cob, string as_tipo_mov, double adb_uf_dia, double adb_uf_calculada);Double	ldb_uf,ldb_valor_cuota_cred,ldb_valor_cuota_mant,ldb_monto_uf,ldb_cuota_uf
+String		ls_moneda
+
+//if isnull(adb_uf_calculada) or adb_uf_calculada	= 0 then 
+	if as_tipo_cob='C' then			//Credito
+		if as_base='O' then
+			SELECT 	"PAGO_OFERTA"."VALOR_CUOTA",	"OFERTA_V"."VALOR_CUOTA_M", 	"PAGO_OFERTA"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"CADENA",	"OFERTA_V",	"PAGO_OFERTA"  
+			WHERE 	( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+						( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+						( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+						( "CADENA"."CODIGO" = "OFERTA_V"."BASE" ) and  
+						( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+						( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )  
+			USING	sqlca;
+		elseif as_base='P' then
+			SELECT 	"PAGARE"."VALOR_CUO",	0,		"PAGARE"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"CADENA",	"PAGARE"  
+			WHERE 	( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+						( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )  
+			USING	sqlca;
+		elseif as_base='C' then
+			SELECT	 "CONTRATO"."VALOR_CUO",  	"CONTRATO"."VALOR_CUOTA_M",   "CONTRATO"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"CADENA",  	"CONTRATO"  
+			WHERE ( "CADENA"."SERIE" = "CONTRATO"."SERIE_C" ) and  
+						( "CADENA"."NUMERO" = "CONTRATO"."NRO_CONTRATO" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) ) 
+			USING	sqlca;
+		elseif as_base='L' then
+			SELECT	"PAGO_LIBERADOR"."VALOR_CUOTA", 	0,		"PAGO_LIBERADOR"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"ANEXO_LIBERADOR", 	"CADENA", 	"PAGO_LIBERADOR"  
+			WHERE 	( "ANEXO_LIBERADOR"."SERIE_M" = "PAGO_LIBERADOR"."SERIE_M" ) and  
+						( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "PAGO_LIBERADOR"."NRO_LIBERADOR" ) and  
+						( "ANEXO_LIBERADOR"."ULT_FOLIO" = "PAGO_LIBERADOR"."FOLIO" ) and  
+						( "CADENA"."CODIGO" = "ANEXO_LIBERADOR"."BASE_LIBERADOR" ) and  
+						( "CADENA"."SERIE" = "ANEXO_LIBERADOR"."SERIE_M" ) and  
+						( "CADENA"."NUMERO" = "ANEXO_LIBERADOR"."NRO_LIBERADOR" )   and
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) ) 
+			USING	sqlca;
+		elseif as_base='A' then
+			SELECT 	"PAGO_AUMENTO"."VALOR_CUOTA",		0,		"PAGO_AUMENTO"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"ANEXO_AUMENTO",	"CADENA",	"PAGO_AUMENTO"  
+			WHERE 	( "ANEXO_AUMENTO"."SERIE_M" = "PAGO_AUMENTO"."SERIE_M" ) and  
+						( "ANEXO_AUMENTO"."NRO_AUMENTO" = "PAGO_AUMENTO"."NRO_AUMENTO" ) and  
+						( "ANEXO_AUMENTO"."ULT_FOLIO" = "PAGO_AUMENTO"."FOLIO" ) and  
+						( "CADENA"."SERIE" = "ANEXO_AUMENTO"."SERIE_M" ) and  
+						( "CADENA"."NUMERO" = "ANEXO_AUMENTO"."NRO_AUMENTO" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )
+			USING	sqlca;
+		elseif as_base='D' then
+			SELECT 	"DERECHO"."VALOR_CUO",	0,		"DERECHO"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"CADENA",	"DERECHO"  
+			WHERE 	( "CADENA"."SERIE" = "DERECHO"."SERIE_P" ) and  
+						( "CADENA"."NUMERO" = "DERECHO"."NRO_PAGARE" ) and  
+						( "CADENA"."CODIGO" = "DERECHO"."BASE" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )  
+			USING	sqlca;
+		elseif as_base='R' then
+			SELECT 	"REPACTA_MANTENCION"."VALOR_CUOTA_UF", 	0, 	"REPACTA_MANTENCION"."TIPO_MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"CADENA", 	"REPACTA_MANTENCION"  
+			WHERE 	( "CADENA"."SERIE" = "REPACTA_MANTENCION"."SERIE" ) and  
+						( "CADENA"."NUMERO" = "REPACTA_MANTENCION"."NUMERO" ) and  
+						( "CADENA"."CODIGO" = "REPACTA_MANTENCION"."BASE" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) ) 
+			USING	sqlca;
+		end if
+		if sqlca.sqlcode=0 then
+			if ls_moneda='1' then 	//peso
+				ldb_uf					= adb_uf_dia
+			elseif ls_moneda='2' then  	//UF
+				ldb_uf					= al_monto / ldb_valor_cuota_cred
+			else  	//UF
+				ldb_uf					= al_monto / ldb_valor_cuota_cred
+			end if
+		else
+			ldb_uf						= adb_uf_dia
+		end if
+	elseif as_tipo_cob='M' then		//Mantencion
+		if as_base = 'O' then
+			SELECT 	"PAGO_OFERTA"."VALOR_CUOTA",	"OFERTA_V"."VALOR_CUOTA_M", 	"PAGO_OFERTA"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"CADENA",	"OFERTA_V",	"PAGO_OFERTA"  
+			WHERE 	( "OFERTA_V"."SERIE" = "PAGO_OFERTA"."SERIE" ) and  
+						( "OFERTA_V"."NRO_OFERTA" = "PAGO_OFERTA"."NRO_OFERTA" ) and  
+						( "OFERTA_V"."ULT_FOLIO" = "PAGO_OFERTA"."FOLIO" ) and  
+						( "CADENA"."CODIGO" = "OFERTA_V"."BASE" ) and  
+						( "CADENA"."SERIE" = "OFERTA_V"."SERIE" ) and  
+						( "CADENA"."NUMERO" = "OFERTA_V"."NRO_OFERTA" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )   
+			USING	sqlca;
+		elseif as_base = 'P' then   
+			SELECT 	"PAGARE"."VALOR_CUO",	0,		"PAGARE"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"CADENA",	"PAGARE"  
+			WHERE 	( "CADENA"."SERIE" = "PAGARE"."SERIE_P" ) and  
+						( "CADENA"."NUMERO" = "PAGARE"."NRO_PAGARE" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )   
+			USING	sqlca;
+		elseif as_base = 'C' then   
+			SELECT	 "CONTRATO"."VALOR_CUO",  	"CONTRATO"."VALOR_CUOTA_M",   "CONTRATO"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"CADENA",  	"CONTRATO"  
+			WHERE ( "CADENA"."SERIE" = "CONTRATO"."SERIE_C" ) and  
+						( "CADENA"."NUMERO" = "CONTRATO"."NRO_CONTRATO" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )   
+			USING	sqlca;
+		elseif as_base = 'L' then   
+			SELECT	"PAGO_LIBERADOR"."VALOR_CUOTA", 	0,		"PAGO_LIBERADOR"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"ANEXO_LIBERADOR", 	"CADENA", 	"PAGO_LIBERADOR"  
+			WHERE 	( "ANEXO_LIBERADOR"."SERIE_M" = "PAGO_LIBERADOR"."SERIE_M" ) and  
+						( "ANEXO_LIBERADOR"."NRO_LIBERADOR" = "PAGO_LIBERADOR"."NRO_LIBERADOR" ) and  
+						( "ANEXO_LIBERADOR"."ULT_FOLIO" = "PAGO_LIBERADOR"."FOLIO" ) and  
+						( "CADENA"."CODIGO" = "ANEXO_LIBERADOR"."BASE_LIBERADOR" ) and  
+						( "CADENA"."SERIE" = "ANEXO_LIBERADOR"."SERIE_M" ) and  
+						( "CADENA"."NUMERO" = "ANEXO_LIBERADOR"."NRO_LIBERADOR" )   and
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )  
+			USING	sqlca;
+		elseif as_base = 'A' then      
+			SELECT 	"PAGO_AUMENTO"."VALOR_CUOTA",		0,		"PAGO_AUMENTO"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"ANEXO_AUMENTO",	"CADENA",	"PAGO_AUMENTO"  
+			WHERE 	( "ANEXO_AUMENTO"."SERIE_M" = "PAGO_AUMENTO"."SERIE_M" ) and  
+						( "ANEXO_AUMENTO"."NRO_AUMENTO" = "PAGO_AUMENTO"."NRO_AUMENTO" ) and  
+						( "ANEXO_AUMENTO"."ULT_FOLIO" = "PAGO_AUMENTO"."FOLIO" ) and  
+						( "CADENA"."SERIE" = "ANEXO_AUMENTO"."SERIE_M" ) and  
+						( "CADENA"."NUMERO" = "ANEXO_AUMENTO"."NRO_AUMENTO" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )   
+			USING	sqlca;
+		elseif as_base = 'D' then      
+			SELECT 	"DERECHO"."VALOR_CUO",	0,		"DERECHO"."MONEDA"  
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"CADENA",	"DERECHO"  
+			WHERE 	( "CADENA"."SERIE" = "DERECHO"."SERIE_P" ) and  
+						( "CADENA"."NUMERO" = "DERECHO"."NRO_PAGARE" ) and  
+						( "CADENA"."CODIGO" = "DERECHO"."BASE" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )   
+			USING	sqlca;
+		elseif as_base = 'R' then      
+			SELECT 	"REPACTA_MANTENCION"."VALOR_CUOTA_UF", 	0, 	"REPACTA_MANTENCION"."TIPO_MONEDA"
+			INTO 		:ldb_valor_cuota_cred,					:ldb_valor_cuota_mant,					:ls_moneda
+			FROM 	"CADENA", 	"REPACTA_MANTENCION"  
+			WHERE 	( "CADENA"."SERIE" = "REPACTA_MANTENCION"."SERIE" ) and  
+						( "CADENA"."NUMERO" = "REPACTA_MANTENCION"."NUMERO" ) and  
+						( "CADENA"."CODIGO" = "REPACTA_MANTENCION"."BASE" ) and  
+						( ( "CADENA"."CODIGO" = :as_base ) AND  
+						( "CADENA"."SERIE" = :as_serie ) AND  
+						( "CADENA"."NUMERO" = :al_numero ) )  
+			USING	sqlca;
+		end if
+		if sqlca.sqlcode=0 then
+			if ls_moneda='1' then 	//peso
+				ldb_uf					= adb_uf_dia
+			elseif ls_moneda='2' then  	//UF
+				ldb_uf					= al_monto / ldb_valor_cuota_mant
+			else	//UF
+				ldb_uf					= al_monto / ldb_valor_cuota_mant
+			end if
+		else
+			ldb_uf						= adb_uf_dia
+		end if
+	end if
+//else
+//	ldb_uf								= adb_uf_calculada
+//end if
+Return round(ldb_uf,2)
+end function
+

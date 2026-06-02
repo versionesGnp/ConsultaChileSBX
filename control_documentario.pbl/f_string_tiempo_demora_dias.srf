@@ -1,0 +1,67 @@
+﻿global type f_string_tiempo_demora_dias from function_object
+end type
+
+forward prototypes
+global function long f_string_tiempo_demora_dias (datetime adt_fecha_crea, string as_base, string as_serie, double al_numero, string as_opcion)
+end prototypes
+
+global function long f_string_tiempo_demora_dias (datetime adt_fecha_crea, string as_base, string as_serie, double al_numero, string as_opcion);Long		ll_numero,ll_count_fila,ll_dias,ll_segundos,ll_cal1,ll_cal2,ll_cal3,ll_cal4,ll_segundos_ult,&
+			ll_segundos_hoy,ll_seg_24,ll_seg
+datetime	ldt_fecha1,ldt_fecha2
+time		lh_hora_ult,lh_hora_hoy
+date		ld_fecha_hoy,ld_fecha_ult
+
+ldt_fecha2				= datetime(today(),now())
+SELECT	max("CD_FOLIO_DETALLE"."FECHA_CREA")  
+INTO 		:ldt_fecha1  
+FROM 		"CD_FOLIO_DETALLE"  
+WHERE  ( "CD_FOLIO_DETALLE"."BASE" = :as_base ) AND  
+		 ( "CD_FOLIO_DETALLE"."SERIE" = :as_serie ) AND  
+		 ( "CD_FOLIO_DETALLE"."NUMERO" = :al_numero )   
+USING		sqlca;
+
+if not isnull(ldt_fecha1) AND string(ldt_fecha1)<>"01/01/1900 00:00:00" then
+	ld_fecha_hoy			= date(ldt_fecha2)
+	ld_fecha_ult				= date(ldt_fecha1)
+	ll_dias					= DaysAfter(ld_fecha_ult,ld_fecha_hoy )
+	lh_hora_ult				= time(ldt_fecha1)
+	lh_hora_hoy				= time(ldt_fecha2)
+	if ld_fecha_hoy >= ld_fecha_ult and lh_hora_hoy < lh_hora_ult then
+		ll_dias				= ll_dias - 1
+		ll_seg_24			= 24 * 3600
+		ll_segundos			= (hour(lh_hora_hoy) * 3600) + (minute(lh_hora_hoy) * 60) + second(lh_hora_hoy)
+		ll_segundos_ult		= (hour(lh_hora_ult) * 3600) + (minute(lh_hora_ult) * 60) + second(lh_hora_ult)
+		ll_seg					= ll_seg_24 - ll_segundos_ult
+		ll_cal1				= ((ll_segundos + ll_seg) / 60)
+		ll_cal2				= (ll_cal1 / 60) //horas
+		ll_cal3				= (ll_cal2 * 60) 
+		ll_cal4				= (ll_cal1 - ll_cal3) //minutos
+		if ll_cal4<0 then
+			ll_cal2	= ll_cal2 - 1
+			ll_cal4	= 60 + ll_cal4
+		end if
+	elseif ld_fecha_hoy >= ld_fecha_ult and lh_hora_hoy > lh_hora_ult then
+		ll_segundos_hoy	= (hour(lh_hora_hoy) * 3600) + (minute(lh_hora_hoy) * 60) + second(lh_hora_hoy)
+		ll_segundos_ult	= (hour(lh_hora_ult) * 3600) + (minute(lh_hora_ult) * 60) + second(lh_hora_ult)
+		ll_segundos			= ll_segundos_hoy - ll_segundos_ult
+		ll_cal1				= (ll_segundos / 60)
+		ll_cal2				= (ll_cal1 / 60) //horas
+		ll_cal3				= (ll_cal2 * 60) 
+		ll_cal4				= (ll_cal1 - ll_cal3) //minutos
+		if ll_cal4<0 then
+			ll_cal2	= ll_cal2 - 1
+			ll_cal4	= 60 + ll_cal4
+		end if
+	elseif ld_fecha_hoy >= ld_fecha_ult and lh_hora_hoy = lh_hora_ult then
+		ll_cal2				= 0
+		ll_cal4				= 0
+	else
+		ll_dias				= 0
+	end if
+end if
+if as_opcion='D' then ll_dias=ll_dias
+if as_opcion='H' then ll_dias=ll_cal2
+if as_opcion='M' then ll_dias=ll_cal4
+return ll_dias
+end function
+

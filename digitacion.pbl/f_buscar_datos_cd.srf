@@ -1,0 +1,60 @@
+﻿global type f_buscar_datos_cd from function_object
+end type
+
+forward prototypes
+global function string f_buscar_datos_cd (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function string f_buscar_datos_cd (string as_base, string as_serie, double al_numero);String		ls_string,ls_base,ls_serie,ls_age,ls_sup,ls_jefe,ls_fecha
+Long		ll_mes,ll_ano
+Double	ll_numero
+
+ls_string				= ''
+SELECT	"CD_FOLIO"."COD_AGENTE",	"CD_FOLIO"."COD_SUPERVISOR",	"CD_FOLIO"."COD_JEFE_VENTA",	"CD_FOLIO"."MES_CIERRE",	"CD_FOLIO"."ANO_CIERRE"  
+INTO 		:ls_age,							:ls_sup,								:ls_jefe,							:ll_mes,							:ll_ano  
+FROM 		"CD_FOLIO"  
+WHERE  ( "CD_FOLIO"."BASE" = :as_base ) AND  
+		 ( "CD_FOLIO"."SERIE" = :as_serie ) AND  
+		 ( "CD_FOLIO"."NUMERO" = :al_numero )   
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if isnull(ls_age) or ls_age='' then ls_age='Sin Asignar'
+	if isnull(ls_sup) or ls_sup='' then ls_sup='Sin Asignar'
+	if isnull(ls_jefe) or ls_jefe='' then ls_jefe='Sin Asignar'
+	ls_string			= 'Agente: '+ls_age+'   Superv.: '+ls_sup+'   Jefe Vta.: '+ls_jefe
+	if isnull(ll_mes) or ll_mes=0 or isnull(ll_ano) or ll_ano=0 then 
+		ls_fecha			= 'Periodo Cierre: Sin Asignar'
+	else
+		CHOOSE CASE ll_mes
+			CASE 1
+				ls_fecha	= 'ENE.'
+			CASE 2
+				ls_fecha	= 'FEB.'
+			CASE 3 
+				ls_fecha	= 'MAR.'
+			CASE 4
+				ls_fecha	= 'ABR.'
+			CASE 5
+				ls_fecha	= 'MAY.'
+			CASE 6
+				ls_fecha	= 'JUN.'
+			CASE 7
+				ls_fecha	= 'JUL.'
+			CASE 8
+				ls_fecha	= 'AGO.'
+			CASE 9
+				ls_fecha	= 'SEP.'
+			CASE 10
+				ls_fecha	= 'OCT.'
+			CASE 11
+				ls_fecha	= 'NOV.'
+			CASE 12
+				ls_fecha	= 'DIC.'
+		END CHOOSE
+		ls_fecha			= 'Periodo Cierre: '+ls_fecha+' de '+string( ll_ano )
+	end if
+	ls_string			= ls_string +'    '+ls_fecha
+end if
+return ls_string;
+end function
+

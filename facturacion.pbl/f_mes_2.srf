@@ -1,0 +1,43 @@
+﻿global type f_mes_2 from function_object
+end type
+
+forward prototypes
+global function string f_mes_2 (date fecha)
+end prototypes
+
+global function string f_mes_2 (date fecha);integer nro_mes
+string mes
+
+nro_mes = Month(fecha)
+
+CHOOSE CASE nro_mes
+	CASE 1
+		mes = 'Enero'
+	CASE 2
+		mes = 'Febrero'
+	CASE 3
+		mes = 'Marzo'
+	CASE 4
+		mes = 'Abril'
+	CASE 5
+		mes = 'Mayo'
+	CASE 6
+		mes = 'Junio'
+	CASE 7
+		mes = 'Julio'
+	CASE 8
+		mes = 'Agosto'
+	CASE 9
+		mes = 'Septiembre'
+	CASE 10
+		mes = 'Octubre'
+	CASE 11
+		mes = 'Noviembre'
+	CASE 12
+		mes = 'Diciembre'
+	CASE ELSE
+		mes = ''
+END CHOOSE
+return mes
+end function
+

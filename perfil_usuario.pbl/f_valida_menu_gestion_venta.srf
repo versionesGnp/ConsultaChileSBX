@@ -1,0 +1,253 @@
+﻿global type f_valida_menu_gestion_venta from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_gestion_venta (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_gestion_venta (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_gestionventa'
+				m_menu_principal.m_gestionventa.visible														= false
+				m_menu_principal.m_gestionventa.m_promesas.visible											= false
+				m_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo.visible				= false
+				m_menu_principal.m_gestionventa.m_promesas.m_calculohistorico.visible				= false
+				m_menu_principal.m_gestionventa.m_liberadores.visible										= false
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0.visible			= false
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0.visible			= false
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.visible								= false
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculodelperiodo1.visible	= false
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculohistorico1.visible	= false
+				m_menu_principal.m_gestionventa.m_informegestiónactual.visible							= false
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_8.visible					= false
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_9.visible					= false
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente.visible			= false
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10.visible				= false
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11.visible				= false
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12.visible				= false
+				m_menu_principal.m_gestionventa.m_estructuradeventa.visible								= false
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_13.visible						= false
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_14.visible						= false
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_15.visible						= false
+				m_menu_principal.m_gestionventa.m_cierreventas.visible									= false
+				m_menu_principal.m_gestionventa.m_cierreventas.m_16.visible								= false
+				m_menu_principal.m_gestionventa.m_cierreventas.m_17.visible								= false
+				m_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor.visible	= false
+				m_menu_principal.m_gestionventa.m_cierreventas.m_18.visible								= false
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.visible								= false
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_19.visible						= false
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_20.visible						= false
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_21.visible						= false
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_22.visible						= false
+				m_menu_principal.m_gestionventa.m_consultas0.visible										= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.visible								= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.visible								= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.visible				= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.visible										= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesnuevas.visible	= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_sindefinición.visible					= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_definición00.visible					= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesantiguas.visible	= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.visible								= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.visible							= false
+				m_menu_principal.m_gestionventa.m_estadocartera.visible									= false
+				m_menu_principal.m_gestionventa.m_estadocartera.m_36.visible							= false
+				m_menu_principal.m_gestionventa.m_estadocartera.m_37.visible							= false
+				m_menu_principal.m_gestionventa.m_estadocartera.m_38.visible							= false
+				m_menu_principal.m_gestionventa.m_estadocartera.m_39.visible							= false
+				m_menu_principal.m_gestionventa.m_promesasperiodo.visible								= false
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo.visible							= false
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodocontratosbaseola.visible	= false
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor.visible	= false
+				m_menu_principal.m_gestionventa.m_moraagente.visible										= false
+			CASE 'm_menu_principal.m_gestionventa.m_promesas'
+				m_menu_principal.m_gestionventa.m_promesas.visible											= false
+				m_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo.visible				= false
+				m_menu_principal.m_gestionventa.m_promesas.m_calculohistorico.visible				= false
+			CASE 'm_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo'
+				m_menu_principal.m_gestionventa.m_promesas.m_calculodelperiodo.visible				= false
+			CASE 'm_menu_principal.m_gestionventa.m_promesas.m_calculohistorico'
+				m_menu_principal.m_gestionventa.m_promesas.m_calculohistorico.visible				= false
+			CASE 'm_menu_principal.m_gestionventa.m_liberadores'
+				m_menu_principal.m_gestionventa.m_liberadores.visible										= false
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0.visible			= false
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0.visible			= false
+			CASE 'm_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0'
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculodelperiodo0.visible			= false
+			CASE 'm_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0'
+				m_menu_principal.m_gestionventa.m_liberadores.m_calculohistorico0.visible			= false
+			CASE 'm_menu_principal.m_gestionventa.m_aumentocapacidad4'
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.visible								= false
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculodelperiodo1.visible	= false
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculohistorico1.visible	= false
+			CASE 'm_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculodelperiodo1'
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculodelperiodo1.visible	= false
+			CASE 'm_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculohistorico1'
+				m_menu_principal.m_gestionventa.m_aumentocapacidad4.m_calculohistorico1.visible	= false
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual'
+				m_menu_principal.m_gestionventa.m_informegestiónactual.visible							= false
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_8.visible					= false
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_9.visible					= false
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente.visible			= false
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual.m_8'
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_8.visible					= false
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual.m_9'
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_9.visible					= false
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente'
+				m_menu_principal.m_gestionventa.m_informegestiónactual.m_poragente.visible			= false
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica'
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.visible						= false
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10.visible				= false
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11.visible				= false
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12.visible				= false
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10'
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_10.visible				= false
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11'
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_11.visible				= false
+			CASE 'm_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12'
+				m_menu_principal.m_gestionventa.m_informegestiónhistórica.m_12.visible				= false
+			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa.'				
+				m_menu_principal.m_gestionventa.m_estructuradeventa.visible								= false
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_13.visible						= false
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_14.visible						= false
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_15.visible						= false
+			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa.m_13'
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_13.visible						= false
+			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa.m_14'
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_14.visible						= false
+			CASE 'm_menu_principal.m_gestionventa.m_estructuradeventa.m_15'
+				m_menu_principal.m_gestionventa.m_estructuradeventa.m_15.visible						= false
+			CASE 'm_menu_principal.m_gestionventa.m_cierreventas'
+				m_menu_principal.m_gestionventa.m_cierreventas.visible									= false
+				m_menu_principal.m_gestionventa.m_cierreventas.m_16.visible								= false
+				m_menu_principal.m_gestionventa.m_cierreventas.m_17.visible								= false
+				m_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor.visible	= false
+				m_menu_principal.m_gestionventa.m_cierreventas.m_18.visible								= false
+			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_16'
+				m_menu_principal.m_gestionventa.m_cierreventas.m_16.visible								= false
+			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_17'
+				m_menu_principal.m_gestionventa.m_cierreventas.m_17.visible								= false
+			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor'
+				m_menu_principal.m_gestionventa.m_cierreventas.m_producciónporsupervisor.visible	= false
+			CASE 'm_menu_principal.m_gestionventa.m_cierreventas.m_18'
+				m_menu_principal.m_gestionventa.m_cierreventas.m_18.visible								= false
+			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas'
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.visible								= false
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_19.visible						= false
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_20.visible						= false
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_21.visible						= false
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_22.visible						= false
+			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_19'
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_19.visible						= false
+			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_20'
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_20.visible						= false
+			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_21'
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_21.visible						= false
+			CASE 'm_menu_principal.m_gestionventa.m_licenciasmédicas.m_22'
+				m_menu_principal.m_gestionventa.m_licenciasmédicas.m_22.visible						= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0'
+				m_menu_principal.m_gestionventa.m_consultas0.visible										= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.visible								= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.visible								= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.visible				= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.visible								= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23'
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.visible								= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_24'
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_24.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_25'
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_25.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_26'
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_26.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_23.m_27'
+				m_menu_principal.m_gestionventa.m_consultas0.m_23.m_27.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28'
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.visible								= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.visible				= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_29'
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_29.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_30'
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_30.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0'
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_definición0.visible				= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_28.m_32'
+				m_menu_principal.m_gestionventa.m_consultas0.m_28.m_32.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad'
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.visible										= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesnuevas.visible	= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_sindefinición.visible					= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_definición00.visible					= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesantiguas.visible	= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesnuevas'
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesnuevas.visible	= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_sindefinición'
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_sindefinición.visible					= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_definición00'
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_definición00.visible					= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesantiguas'
+				m_menu_principal.m_gestionventa.m_consultas0.m_comisionesaumentocapacidad.m_anticipocomisionesantiguas.visible	= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_33'
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.visible								= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.visible							= false
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_33.m_34'
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_34.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_consultas0.m_33.m_35'
+				m_menu_principal.m_gestionventa.m_consultas0.m_33.m_35.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_estadocartera'
+				m_menu_principal.m_gestionventa.m_estadocartera.visible									= false
+				m_menu_principal.m_gestionventa.m_estadocartera.m_36.visible							= false
+				m_menu_principal.m_gestionventa.m_estadocartera.m_37.visible							= false
+				m_menu_principal.m_gestionventa.m_estadocartera.m_38.visible							= false
+				m_menu_principal.m_gestionventa.m_estadocartera.m_39.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_36'
+				m_menu_principal.m_gestionventa.m_estadocartera.m_36.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_37'
+				m_menu_principal.m_gestionventa.m_estadocartera.m_37.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_38'
+				m_menu_principal.m_gestionventa.m_estadocartera.m_38.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_estadocartera.m_39'
+				m_menu_principal.m_gestionventa.m_estadocartera.m_39.visible							= false
+			CASE 'm_menu_principal.m_gestionventa.m_promesasperiodo'
+				m_menu_principal.m_gestionventa.m_promesasperiodo.visible								= false
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo.visible			= false
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodocontratosbaseola.visible	= false
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor.visible	= false
+			CASE 'm_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo'
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodo.visible			= false
+			CASE 'm_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodocontratosbaseola'
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_calculoperiodocontratosbaseola.visible	= false
+			CASE 'm_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor'
+				m_menu_principal.m_gestionventa.m_promesasperiodo.m_clasificaciónhistóricasupervisor.visible	= false
+			CASE 'm_menu_principal.m_gestionventa.m_moraagente'
+				m_menu_principal.m_gestionventa.m_moraagente.visible										= false
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

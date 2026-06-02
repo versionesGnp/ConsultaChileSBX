@@ -1,0 +1,21 @@
+﻿global type f_consulta_cheque_dw from function_object
+end type
+
+forward prototypes
+global function integer f_consulta_cheque_dw (string base, string serie, double numero, long folio)
+end prototypes
+
+global function integer f_consulta_cheque_dw (string base, string serie, double numero, long folio);integer protesto
+//-------------------------------Protesto-------------------------------//
+SELECT DISTINCT count("DOCUMENTOS"."FOLIO")  
+INTO :protesto  
+FROM "DOCUMENTOS"   
+WHERE ( "DOCUMENTOS"."FOLIO" = :folio)   and
+   		( "DOCUMENTOS"."ESTADO_CH" = 'P' ) ;
+if sqlca.sqlcode <> 0 then
+	return 0
+else
+	return protesto
+end if
+end function
+

@@ -1,0 +1,306 @@
+﻿global type f_buscar_datos_solicitudes from function_object
+end type
+
+forward prototypes
+global function string f_buscar_datos_solicitudes (string as_base, string as_serie, double al_numero, long al_corr, string as_tipo_sol)
+end prototypes
+
+global function string f_buscar_datos_solicitudes (string as_base, string as_serie, double al_numero, long al_corr, string as_tipo_sol);long		ll_rut,ll_est_ope,ll_est_inf
+String	ls_mod_cliente,ls_usu_ope,ls_usu_inf,ls_string
+Date		ld_fec_ope,ld_fec_inf
+CHOOSE CASE as_tipo_sol
+	CASE '1' // resciliacion por parte del cliente
+		SELECT	"SOL_RESCILIA_CLIENTE"."RUT_TITULAR",   
+					"SOL_RESCILIA_CLIENTE"."ESTATUS_OPERACION",   
+					"SOL_RESCILIA_CLIENTE"."ESTATUS_INFORMATICA",   
+					"SOL_RESCILIA_CLIENTE"."MOD_ANT_CLIENTE",   
+					"SOL_RESCILIA_CLIENTE"."USUARIO_OPERA",   
+					"SOL_RESCILIA_CLIENTE"."FECHA_OPERA",   
+					"SOL_RESCILIA_CLIENTE"."USUARIO_INFOR",   
+					"SOL_RESCILIA_CLIENTE"."FECHA_INFOR"  
+		INTO 		:ll_rut,   
+					:ll_est_ope,   
+					:ll_est_inf,   
+					:ls_mod_cliente,   
+					:ls_usu_ope,   
+					:ld_fec_ope,   
+					:ls_usu_inf,   
+					:ld_fec_inf  
+		FROM 		"SOL_RESCILIA_CLIENTE",   
+					"SOL_ESTATUS"  
+		WHERE 	( "SOL_RESCILIA_CLIENTE"."BASE" = "SOL_ESTATUS"."BASE" ) and  
+					( "SOL_RESCILIA_CLIENTE"."SERIE" = "SOL_ESTATUS"."SERIE" ) and  
+					( "SOL_RESCILIA_CLIENTE"."NUMERO" = "SOL_ESTATUS"."NUMERO" ) and  
+					( "SOL_RESCILIA_CLIENTE"."CORRELATIVO" = "SOL_ESTATUS"."CORRELATIVO" ) and  
+					( ( "SOL_ESTATUS"."BASE" = :as_base ) AND  
+					( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) AND
+					( "SOL_ESTATUS"."SERIE" = :as_serie ) AND  
+					( "SOL_ESTATUS"."NUMERO" = :al_numero ) AND  
+					( "SOL_ESTATUS"."CORRELATIVO" = :al_corr ) AND  
+					( "SOL_ESTATUS"."CODIGO_SOLICITUD" = :as_tipo_sol ) )   
+		Using		sqlca;
+
+	CASE '2' // resciliacion por reprogramar
+		SELECT	"SOL_RESCILIA_REPROG"."RUT_TITULAR",   
+					"SOL_RESCILIA_REPROG"."ESTATUS_OPERACION",   
+					"SOL_RESCILIA_REPROG"."ESTATUS_INFORMATICA",   
+					"SOL_RESCILIA_REPROG"."MOD_ANT_CLIENTE",   
+					"SOL_RESCILIA_REPROG"."USUARIO_OPERA",   
+					"SOL_RESCILIA_REPROG"."FECHA_OPERA",   
+					"SOL_RESCILIA_REPROG"."USUARIO_INFOR",   
+					"SOL_RESCILIA_REPROG"."FECHA_INFOR"  
+		INTO 		:ll_rut,   
+					:ll_est_ope,   
+					:ll_est_inf,   
+					:ls_mod_cliente,   
+					:ls_usu_ope,   
+					:ld_fec_ope,   
+					:ls_usu_inf,   
+					:ld_fec_inf  
+		FROM 		"SOL_RESCILIA_REPROG",   
+					"SOL_ESTATUS"  
+		WHERE 	( "SOL_RESCILIA_REPROG"."BASE" = "SOL_ESTATUS"."BASE" ) and  
+					( "SOL_RESCILIA_REPROG"."SERIE" = "SOL_ESTATUS"."SERIE" ) and  
+					( "SOL_RESCILIA_REPROG"."NUMERO" = "SOL_ESTATUS"."NUMERO" ) and  
+					( "SOL_RESCILIA_REPROG"."CORRELATIVO" = "SOL_ESTATUS"."CORRELATIVO" ) and  
+					( ( "SOL_ESTATUS"."BASE" = :as_base ) AND  
+					( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) AND
+					( "SOL_ESTATUS"."SERIE" = :as_serie ) AND  
+					( "SOL_ESTATUS"."NUMERO" = :al_numero ) AND  
+					( "SOL_ESTATUS"."CORRELATIVO" = :al_corr ) AND  
+					( "SOL_ESTATUS"."CODIGO_SOLICITUD" = :as_tipo_sol ) )   
+		Using		sqlca;
+
+	CASE '3' // reactivacion
+		SELECT	"SOL_REACTIVA"."RUT_TITULAR",   
+					"SOL_REACTIVA"."ESTATUS_OPERACION",   
+					"SOL_REACTIVA"."ESTATUS_INFORMATICA",   
+					"SOL_REACTIVA"."MOD_ANT_CLIENTE",   
+					"SOL_REACTIVA"."USUARIO_OPERA",   
+					"SOL_REACTIVA"."FECHA_OPERA",   
+					"SOL_REACTIVA"."USUARIO_INFOR",   
+					"SOL_REACTIVA"."FECHA_INFOR"  
+		INTO 		:ll_rut,   
+					:ll_est_ope,   
+					:ll_est_inf,   
+					:ls_mod_cliente,   
+					:ls_usu_ope,   
+					:ld_fec_ope,   
+					:ls_usu_inf,   
+					:ld_fec_inf  
+		FROM 		"SOL_ESTATUS",   
+					"SOL_REACTIVA"  
+		WHERE 	( "SOL_ESTATUS"."BASE" = "SOL_REACTIVA"."BASE" ) and  
+					( "SOL_ESTATUS"."SERIE" = "SOL_REACTIVA"."SERIE" ) and  
+					( "SOL_ESTATUS"."NUMERO" = "SOL_REACTIVA"."NUMERO" ) and  
+					( "SOL_ESTATUS"."CORRELATIVO" = "SOL_REACTIVA"."CORRELATIVO" ) and  
+					( ( "SOL_ESTATUS"."BASE" = :as_base ) AND  
+					( "SOL_ESTATUS"."SERIE" = :as_serie ) AND  
+					( "SOL_ESTATUS"."NUMERO" = :al_numero ) AND  
+					( "SOL_ESTATUS"."CORRELATIVO" = :al_corr ) AND  
+					( "SOL_ESTATUS"."CODIGO_SOLICITUD" = :as_tipo_sol ) AND  
+					( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) )   
+		Using		sqlca;
+		
+	CASE '4' // seguro desgravamen
+		SELECT	"SOL_SEGURO_DESG"."RUT_TITULAR",   
+					"SOL_SEGURO_DESG"."ESTATUS_OPERACIONES",   
+					"SOL_SEGURO_DESG"."ESTATUS_INFORMATICA",   
+					"SOL_SEGURO_DESG"."MOD_ANT_CLIENTE",   
+					"SOL_SEGURO_DESG"."USUARIO_OPERA",   
+					"SOL_SEGURO_DESG"."FECHA_OPERA",   
+					"SOL_SEGURO_DESG"."USUARIO_INFOR",   
+					"SOL_SEGURO_DESG"."FECHA_INFOR"  
+		INTO 		:ll_rut,   
+					:ll_est_ope,   
+					:ll_est_inf,   
+					:ls_mod_cliente,   
+					:ls_usu_ope,   
+					:ld_fec_ope,   
+					:ls_usu_inf,   
+					:ld_fec_inf  
+		FROM 		"SOL_ESTATUS",   
+					"SOL_SEGURO_DESG"  
+		WHERE 	( "SOL_ESTATUS"."BASE" = "SOL_SEGURO_DESG"."BASE" ) and  
+					( "SOL_ESTATUS"."SERIE" = "SOL_SEGURO_DESG"."SERIE" ) and  
+					( "SOL_ESTATUS"."NUMERO" = "SOL_SEGURO_DESG"."NUMERO" ) and  
+					( "SOL_ESTATUS"."CORRELATIVO" = "SOL_SEGURO_DESG"."CORRELATIVO" ) and  
+					( ( "SOL_ESTATUS"."BASE" = :as_base ) AND  
+					( "SOL_ESTATUS"."SERIE" = :as_serie ) AND  
+					( "SOL_ESTATUS"."NUMERO" = :al_numero ) AND  
+					( "SOL_ESTATUS"."CORRELATIVO" = :al_corr ) AND  
+					( "SOL_ESTATUS"."CODIGO_SOLICITUD" = :as_tipo_sol ) AND  
+					( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) )   
+		Using		sqlca;
+
+	CASE '5' // repacta compraventa
+		SELECT	"SOL_REPACTA_CVTA"."RUT_TITULAR",   
+					"SOL_REPACTA_CVTA"."ESTATUS_OPERACION",   
+					"SOL_REPACTA_CVTA"."ESTATUS_INFORMATICA",   
+					"SOL_REPACTA_CVTA"."MOD_ANT_CLIENTE",   
+					"SOL_REPACTA_CVTA"."USUARIO_OPERA",   
+					"SOL_REPACTA_CVTA"."FECHA_OPERA",   
+					"SOL_REPACTA_CVTA"."USUARIO_INFOR",   
+					"SOL_REPACTA_CVTA"."FECHA_INFOR"  
+		INTO 		:ll_rut,   
+					:ll_est_ope,   
+					:ll_est_inf,   
+					:ls_mod_cliente,   
+					:ls_usu_ope,   
+					:ld_fec_ope,   
+					:ls_usu_inf,   
+					:ld_fec_inf  
+		FROM 		"SOL_ESTATUS",   
+					"SOL_REPACTA_CVTA"  
+		WHERE 	( "SOL_ESTATUS"."BASE" = "SOL_REPACTA_CVTA"."BASE" ) and  
+					( "SOL_ESTATUS"."SERIE" = "SOL_REPACTA_CVTA"."SERIE" ) and  
+					( "SOL_ESTATUS"."NUMERO" = "SOL_REPACTA_CVTA"."NUMERO" ) and  
+					( "SOL_ESTATUS"."CORRELATIVO" = "SOL_REPACTA_CVTA"."CORRELATIVO" ) and  
+					( ( "SOL_ESTATUS"."BASE" = :as_base ) AND  
+					( "SOL_ESTATUS"."SERIE" = :as_serie ) AND  
+					( "SOL_ESTATUS"."NUMERO" = :al_numero ) AND  
+					( "SOL_ESTATUS"."CORRELATIVO" = :al_corr ) AND  
+					( "SOL_ESTATUS"."CODIGO_SOLICITUD" = :as_tipo_sol ) AND  
+					( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) )   
+		Using		sqlca;
+
+	CASE '6' // titulo de dominio
+		SELECT	"SOL_TIT_DOMINIO"."RUT_TITULAR",   
+					"SOL_TIT_DOMINIO"."ESTATUS_OPERACIONES",   
+					"SOL_TIT_DOMINIO"."ESTATUS_INFORMATICA",   
+					"SOL_TIT_DOMINIO"."MOD_ANT_CLIENTE",   
+					"SOL_TIT_DOMINIO"."USUARIO_OPERA",   
+					"SOL_TIT_DOMINIO"."FECHA_OPERA",   
+					"SOL_TIT_DOMINIO"."USUARIO_INFOR",   
+					"SOL_TIT_DOMINIO"."FECHA_INFOR"  
+		INTO 		:ll_rut,   
+					:ll_est_ope,   
+					:ll_est_inf,   
+					:ls_mod_cliente,   
+					:ls_usu_ope,   
+					:ld_fec_ope,   
+					:ls_usu_inf,   
+					:ld_fec_inf  
+		FROM 		"SOL_ESTATUS",   
+					"SOL_TIT_DOMINIO"  
+		WHERE 	( "SOL_ESTATUS"."BASE" = "SOL_TIT_DOMINIO"."BASE" ) and  
+					( "SOL_ESTATUS"."SERIE" = "SOL_TIT_DOMINIO"."SERIE" ) and  
+					( "SOL_ESTATUS"."NUMERO" = "SOL_TIT_DOMINIO"."NUMERO" ) and  
+					( "SOL_ESTATUS"."CORRELATIVO" = "SOL_TIT_DOMINIO"."CORRELATIVO" ) and  
+					(("SOL_ESTATUS"."BASE" = :as_base ) AND  
+					( "SOL_ESTATUS"."SERIE" = :as_serie ) AND  
+					( "SOL_ESTATUS"."NUMERO" = :al_numero ) AND  
+					( "SOL_ESTATUS"."CORRELATIVO" = :al_corr ) AND  
+					( "SOL_ESTATUS"."CODIGO_SOLICITUD" = :as_tipo_sol ) AND  
+					( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) )   
+		Using		sqlca;
+		
+	CASE '7' // contrato definitivo
+		SELECT	"SOL_CONTRATO_DEF"."RUT_TITULAR",   
+					"SOL_CONTRATO_DEF"."ESTATUS_OPERACIONES",   
+					"SOL_CONTRATO_DEF"."ESTATUS_INFORMATICA",   
+					"SOL_CONTRATO_DEF"."MOD_ANT_CLIENTE",   
+					"SOL_CONTRATO_DEF"."USUARIO_OPERA",   
+					"SOL_CONTRATO_DEF"."FECHA_OPERA",   
+					"SOL_CONTRATO_DEF"."USUARIO_INFOR",   
+					"SOL_CONTRATO_DEF"."FECHA_INFOR"  
+		INTO 		:ll_rut,   
+					:ll_est_ope,   
+					:ll_est_inf,   
+					:ls_mod_cliente,   
+					:ls_usu_ope,   
+					:ld_fec_ope,   
+					:ls_usu_inf,   
+					:ld_fec_inf  
+		FROM 		"SOL_ESTATUS",   
+					"SOL_CONTRATO_DEF"  
+		WHERE 	( "SOL_ESTATUS"."BASE" = "SOL_CONTRATO_DEF"."BASE" ) and  
+					( "SOL_ESTATUS"."SERIE" = "SOL_CONTRATO_DEF"."SERIE" ) and  
+					( "SOL_ESTATUS"."NUMERO" = "SOL_CONTRATO_DEF"."NUMERO" ) and  
+					( "SOL_ESTATUS"."CORRELATIVO" = "SOL_CONTRATO_DEF"."CORRELATIVO" ) and  
+					(("SOL_ESTATUS"."BASE" = :as_base ) AND  
+					( "SOL_ESTATUS"."SERIE" = :as_serie ) AND  
+					( "SOL_ESTATUS"."NUMERO" = :al_numero ) AND  
+					( "SOL_ESTATUS"."CORRELATIVO" = :al_corr ) AND  
+					( "SOL_ESTATUS"."CODIGO_SOLICITUD" = :as_tipo_sol ) AND  
+					( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) )   
+		Using		sqlca;
+		
+	CASE '8' // ENTREGA PAGARE
+		SELECT	"SOL_ENTREGA_PAG"."RUT_TITULAR",   
+					"SOL_ENTREGA_PAG"."ESTATUS_OPERACIONES",   
+					"SOL_ENTREGA_PAG"."ESTATUS_INFORMATICA",   
+					"SOL_ENTREGA_PAG"."MOD_ANT_CLIENTE",   
+					"SOL_ENTREGA_PAG"."USUARIO_OPERA",   
+					"SOL_ENTREGA_PAG"."FECHA_OPERA",   
+					"SOL_ENTREGA_PAG"."USUARIO_INFOR",   
+					"SOL_ENTREGA_PAG"."FECHA_INFOR"  
+		INTO 		:ll_rut,   
+					:ll_est_ope,   
+					:ll_est_inf,   
+					:ls_mod_cliente,   
+					:ls_usu_ope,   
+					:ld_fec_ope,   
+					:ls_usu_inf,   
+					:ld_fec_inf  
+		FROM 		"SOL_ESTATUS",   
+					"SOL_ENTREGA_PAG"  
+		WHERE 	( "SOL_ESTATUS"."BASE" = "SOL_ENTREGA_PAG"."BASE" ) and  
+					( "SOL_ESTATUS"."SERIE" = "SOL_ENTREGA_PAG"."SERIE" ) and  
+					( "SOL_ESTATUS"."NUMERO" = "SOL_ENTREGA_PAG"."NUMERO" ) and  
+					( "SOL_ESTATUS"."CORRELATIVO" = "SOL_ENTREGA_PAG"."CORRELATIVO" ) and  
+					(("SOL_ESTATUS"."BASE" = :as_base ) AND  
+					( "SOL_ESTATUS"."SERIE" = :as_serie ) AND  
+					( "SOL_ESTATUS"."NUMERO" = :al_numero ) AND  
+					( "SOL_ESTATUS"."CORRELATIVO" = :al_corr ) AND  
+					( "SOL_ESTATUS"."CODIGO_SOLICITUD" = :as_tipo_sol ) AND  
+					( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) )   
+		Using		sqlca;
+		
+	CASE '10' // TRANSFERENCIA
+		SELECT	"SOL_TRANSFERENCIA"."RUT_TITULAR",   
+					"SOL_TRANSFERENCIA"."ESTATUS_OPERACIONES",   
+					"SOL_TRANSFERENCIA"."ESTATUS_INFORMATICA",   
+					"SOL_TRANSFERENCIA"."MOD_ANT_CLIENTE",   
+					"SOL_TRANSFERENCIA"."USUARIO_OPERA",   
+					"SOL_TRANSFERENCIA"."FECHA_OPERA",   
+					"SOL_TRANSFERENCIA"."USUARIO_INFOR",   
+					"SOL_TRANSFERENCIA"."FECHA_INFOR"  
+		INTO 		:ll_rut,   
+					:ll_est_ope,   
+					:ll_est_inf,   
+					:ls_mod_cliente,   
+					:ls_usu_ope,   
+					:ld_fec_ope,   
+					:ls_usu_inf,   
+					:ld_fec_inf  
+		FROM 		"SOL_ESTATUS",   
+					"SOL_TRANSFERENCIA"  
+		WHERE 	( "SOL_ESTATUS"."BASE" = "SOL_TRANSFERENCIA"."BASE" ) and  
+					( "SOL_ESTATUS"."SERIE" = "SOL_TRANSFERENCIA"."SERIE" ) and  
+					( "SOL_ESTATUS"."NUMERO" = "SOL_TRANSFERENCIA"."NUMERO" ) and  
+					( "SOL_ESTATUS"."CORRELATIVO" = "SOL_TRANSFERENCIA"."CORRELATIVO" ) and  
+					(("SOL_ESTATUS"."BASE" = :as_base ) AND  
+					( "SOL_ESTATUS"."SERIE" = :as_serie ) AND  
+					( "SOL_ESTATUS"."NUMERO" = :al_numero ) AND  
+					( "SOL_ESTATUS"."CORRELATIVO" = :al_corr ) AND  
+					( "SOL_ESTATUS"."CODIGO_SOLICITUD" = :as_tipo_sol ) AND  
+					( "SOL_ESTATUS"."ESTADO_REG" = 'A' ) )   
+		Using		sqlca;
+END CHOOSE
+ls_string	= string(ll_rut)+'~t'+string(ll_est_ope)+'~t'+string(ll_est_inf)+'~t'+ls_usu_ope+'~t'+&
+				  string(ld_fec_ope,"dd/mm/yyyy")+'~t'+ls_usu_inf+'~t'+string(ld_fec_inf,"dd/mm/yyyy")+'~t'+&
+				  ls_mod_cliente
+//		if sqlca.sqlcode=0 then
+//			dw_lista.setitem(ll_indi,'rut_titular',ll_rut)
+//			dw_lista.setitem(ll_indi,'estatus_operacion',ll_est_ope)
+//			dw_lista.setitem(ll_indi,'estatus_informatica',ll_est_inf)
+//			dw_lista.setitem(ll_indi,'usuario_opera',ls_usu_ope)
+//			dw_lista.setitem(ll_indi,'fecha_opera',string(ld_fec_ope,"dd/mm/yyyy"))
+//			dw_lista.setitem(ll_indi,'usuario_infor',ls_usu_inf)
+//			dw_lista.setitem(ll_indi,'fecha_infor',string(ld_fec_inf,"dd/mm/yyyy"))
+//			dw_lista.setitem(ll_indi,'mod_ant_cliente',ls_mod_cliente)
+//		end if
+return(ls_string)
+end function
+

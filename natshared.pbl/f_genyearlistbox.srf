@@ -1,0 +1,57 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Años en que se aplica la contabilidad en ERP~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genyearlistbox from function_object
+end type
+
+forward prototypes
+global function string f_genyearlistbox ()
+end prototypes
+
+global function string f_genyearlistbox ();/* Autor: César Vilela
+	Retorna la cadena para seleccionar un año en un DDListBox
+	Usa el <TAB> no espacios
+	f_GenYearListBox( ) */
+
+Integer	li_year, li_max, i
+String	ls_year, ls_values
+
+
+Select	Min( n_ejercicio_sdo ),
+			Max( n_ejercicio_sdo )
+Into		:li_year,
+			:li_max
+From		conejercicio 
+Where		c_codigo_emp = :gs_emp ;
+
+li_year = f_Zero( li_year )
+If li_year <= 0 Then
+	li_year = Year (Today ()) - 1
+End If
+
+li_max = f_Zero( li_max )
+If li_max <= 0 Then
+	li_max = Year (Today ())
+End If
+
+li_max = li_max + 1
+
+/*	ls_year = f_Trim(String( li_year - 1))
+	ls_values = ls_year + "	" + ls_year + "/"
+	ls_year = f_Trim(String( li_year + 1 ))
+	ls_values = ls_values + ls_year + "	" + ls_year + "/"
+	
+*/
+
+For i = li_year To li_max
+	ls_year = f_Trim(String( i ))
+	ls_values = ls_values + ls_year + "	" + ls_year + "/"
+Next
+
+/* Modo de Uso */
+
+//ls_values = f_GenYearListBox( )
+//dw_1.Object.n_year.Values = ls_values   <-- debe ser DDListBox
+
+Return ls_values
+
+end function
+

@@ -1,0 +1,245 @@
+﻿global type f_sap_ctto_05_cuota from function_object
+end type
+
+forward prototypes
+global function long f_sap_ctto_05_cuota (string as_base, string as_serie, double adb_numero, string as_tipo_deuda, long al_folio, datetime adt_fecha_pago)
+end prototypes
+
+global function long f_sap_ctto_05_cuota (string as_base, string as_serie, double adb_numero, string as_tipo_deuda, long al_folio, datetime adt_fecha_pago);string	ls_base,ls_serie,ls_tipo_deuda,ls_nro_cuota,ls_cod_material,ls_centro,ls_centro_benef,ls_fecha,ls_forma_pago,ls_impto,ls_kap_cta,ls_int_cta,ls_gto_cta,ls_impto_13,ls_impto_3,ls_boleta
+long	ll_estado,ll_indice,ll_cant_material,ll_boleta,ll_periodo_mant,ll_cod_parque,ll_cta,ll_posic,ll_nro_cuota,ll_mora_mant
+double	ldb_numero,ldb_kap_cta,ldb_int_cta,ldb_gto_cta,ldb_impto_13,ldb_impto_3
+
+connect using Trans_1;
+
+if as_tipo_deuda='M' then
+	SELECT	"SAP_CADENA"."MORA_MANT_RECON"  
+	INTO 		:ll_mora_mant  
+	FROM 	"SAP_CADENA"  
+	WHERE	( "SAP_CADENA"."BASE" = :as_base ) AND  
+				( "SAP_CADENA"."SERIE" = :as_serie ) AND  
+				( "SAP_CADENA"."NUMERO" = :adb_numero ) AND  
+				( "SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda ) 
+	USING	sqlca;
+	if isnull(ll_mora_mant) then ll_mora_mant=0
+end if
+
+DECLARE x05 CURSOR FOR
+SELECT	"SAP_CADENA"."BASE",
+        		"SAP_CADENA"."SERIE",
+        		"SAP_CADENA"."NUMERO",
+        		"SAP_CADENA"."TIPO_DEUDA",
+		    "DESARROLLO_CUOTA"."NRO_CUOTA",
+             TRIM(TO_CHAR( "DESARROLLO_CUOTA"."NRO_CUOTA",'000')),
+        		0,
+        		"SAP_TIPO_CONTRATO"."COD_MATERIAL_SAP",
+        		1,
+        		"SAP_CADENA"."CENTRO",
+        		"SAP_CADENA"."CENTRO_BENEF",
+       		TRIM(TO_CHAR( "DESARROLLO_CUOTA"."FECHA_VCTO",'DD.MM.YYYY')),
+        		"SAP_CADENA"."FORMA_PAGO",
+        		'0',
+        		'ZCAP',
+        		TRUNC(("DESARROLLO_CUOTA"."AMORTIZACION"),4),
+        		'ZINT',
+        		TRUNC("DESARROLLO_CUOTA"."INTERESES",4),
+        		'ZGAD',
+        		TRUNC("DESARROLLO_CUOTA"."GASTO",4),
+        		'ZIB1',	
+        		0,
+        		'ZIB2',
+        		0,
+			0,	  
+        		0,
+        		0
+FROM		"DESARROLLO_CUOTA","SAP_CADENA","SAP_TIPO_CONTRATO"
+WHERE   "SAP_CADENA"."BASE" = "DESARROLLO_CUOTA"."BASE" AND  
+        		"SAP_CADENA"."SERIE" = "DESARROLLO_CUOTA"."SERIE" AND  
+       		"SAP_CADENA"."NUMERO" = "DESARROLLO_CUOTA"."NUMERO" AND
+        		(( "SAP_CADENA"."TIPO_CARGA" = 'H' and "DESARROLLO_CUOTA"."NRO_CUOTA" > "SAP_CADENA"."CTA_PAG_S" ) or "SAP_CADENA"."TIPO_CARGA" = 'N') and
+        		"SAP_TIPO_CONTRATO"."BASE" = "SAP_CADENA"."BASE"  AND
+        		"SAP_TIPO_CONTRATO"."TIPO_DEUDA" = "SAP_CADENA"."TIPO_DEUDA" AND
+        		("SAP_CADENA"."TIPO_DEUDA" = 'C' OR "SAP_CADENA"."TIPO_DEUDA" = 'E') AND
+        		"DESARROLLO_CUOTA"."NRO_CUOTA" > 0 and
+        		"SAP_CADENA"."BASE" = "SAP_TIPO_CONTRATO"."BASE" AND
+        		"SAP_CADENA"."TIPO_DEUDA" = "SAP_TIPO_CONTRATO"."TIPO_DEUDA" AND
+        		"SAP_CADENA"."TIPO_CONTRATO" = "SAP_TIPO_CONTRATO"."CODIGO" AND
+        		"SAP_CADENA"."ESTADO" = 'V' AND
+			"SAP_CADENA"."BASE" = :as_base and
+			"SAP_CADENA"."SERIE" = :as_serie and
+			"SAP_CADENA"."NUMERO" = :adb_numero and
+			"SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda
+UNION ALL
+
+SELECT	"SAP_CADENA"."BASE",
+        		"SAP_CADENA"."SERIE",
+        		"SAP_CADENA"."NUMERO",
+        		"SAP_CADENA"."TIPO_DEUDA",
+			(NRO_CUOTA + "SAP_CADENA"."CTA_PAG_S"),
+              TRIM(TO_CHAR((NRO_CUOTA+ "SAP_CADENA"."CTA_PAG_S"),'000')),
+        		"SAP_PERIODO_MANT"."INDICE",
+         	"SAP_TIPO_CONTRATO"."COD_MATERIAL_SAP",
+        		1,
+        		"SAP_CADENA"."CENTRO",
+        		"SAP_CADENA"."CENTRO_BENEF",
+        		TRIM(TO_CHAR((SELECT add_months(to_date("SAP_CADENA"."FECHA_M",'DD/MM/YY'),(( NRO_CUOTA  * "SAP_CADENA"."PERIODO_MANT") - ((2 * "SAP_CADENA"."PERIODO_MANT") - "SAP_PERIODO_MANT"."INDICE"))) FROM dual),'DD.MM.YYYY')),
+        		"SAP_CADENA"."FORMA_PAGO",
+        		'0',
+        		'ZCAP',
+			"SAP_CADENA"."VALOR_CUOTA_M",	  
+			'ZINT',
+        		0,
+        		'ZGAD',
+        		0,
+        		'ZIB1',
+         	0,
+        		'ZIB2',
+        		0,
+        		0,
+        		"SAP_CADENA"."PERIODO_MANT",
+        		"CADENA"."COD_PARQUE"
+        
+FROM		"SAP_CADENA","SAP_TIPO_CONTRATO","CADENA","SAP_PERIODO_MANT",
+        		( SELECT LEVEL NRO_CUOTA  FROM DUAL CONNECT BY LEVEL<= (:ll_mora_mant + 1) )
+WHERE   "SAP_CADENA"."TIPO_DEUDA" = 'M' AND
+        		"SAP_CADENA"."BASE" = "CADENA"."CODIGO" AND
+        		"SAP_CADENA"."SERIE" = "CADENA"."SERIE" AND
+        		"SAP_CADENA"."NUMERO" = "CADENA"."NUMERO" AND
+        		"SAP_TIPO_CONTRATO"."BASE" = "SAP_CADENA"."BASE"  AND
+        		"SAP_TIPO_CONTRATO"."TIPO_DEUDA" = "SAP_CADENA"."TIPO_DEUDA" AND
+       		"SAP_CADENA"."PERIODO_MANT" = "SAP_PERIODO_MANT"."PERIODO_MANTEN" AND
+        		"SAP_CADENA"."ESTADO" = 'V' AND
+			"SAP_CADENA"."BASE" = :as_base and
+			"SAP_CADENA"."SERIE" = :as_serie and
+			"SAP_CADENA"."NUMERO" = :adb_numero and
+			"SAP_CADENA"."TIPO_DEUDA" = :as_tipo_deuda 
+
+UNION ALL
+SELECT	"SAP_CADENA_SERVICIO"."BASE",
+			"SAP_CADENA_SERVICIO"."SERIE",
+			"SAP_CADENA_SERVICIO"."NUMERO",
+			"SAP_CADENA_SERVICIO"."TIPO_DEUDA",
+        		1,
+        		TRIM(TO_CHAR(1,'000')),
+        		0,
+        		"SAP_SERVICIOS_CREACION"."COD_MATERIAL_SAP",
+        		1,
+       		"VISTA_SAP_ESTRUCTURA_NEGOCIO"."CENTRO",
+        		"VISTA_SAP_ESTRUCTURA_NEGOCIO"."CENTRO_BENEF",
+        		TRIM(TO_CHAR("INGRESO"."FECHA_PAGO",'DD.MM.YYYY')),
+        		"SAP_CADENA_SERVICIO"."FORMA_PAGO",
+       		'0',
+        		'ZCAP',
+			(	CASE WHEN "INGRESO"."COD_PARQUE" = 104 THEN ( "INGRESO"."MONTO" - ( "INGRESO"."MONTO" * 0.13 )) 
+						WHEN "INGRESO"."COD_PARQUE" <> 104 AND ("INGRESO"."TIPO_COB" = 'BA' OR "INGRESO"."TIPO_COB" = 'FA') THEN ROUND((("INGRESO"."MONTO" / "TAB_UF"."VALOR_UF") / 1.19) ,4) 
+				ELSE ROUND(("INGRESO"."MONTO" / "TAB_UF"."VALOR_UF"),4) END ) ,
+       		'ZINT',
+        		0,
+        		'ZGAD',
+        		0,
+        		(	CASE WHEN "INGRESO"."COD_PARQUE" <> 104 AND ("INGRESO"."TIPO_COB" = 'BA' OR "INGRESO"."TIPO_COB" = 'FA') THEN 'ZIVA' ELSE 'ZIB1' END ),
+        		(	CASE WHEN "INGRESO"."COD_PARQUE" = 104 THEN ( "INGRESO"."MONTO" * 0.13 ) 
+						WHEN "INGRESO"."COD_PARQUE" <> 104 AND ("INGRESO"."TIPO_COB" = 'BA' OR  "INGRESO"."TIPO_COB" = 'FA' ) THEN round(((("INGRESO"."MONTO" / "TAB_UF"."VALOR_UF") / 1.19) * 0.19),4 )
+				ELSE 0 END ),
+       		'ZIB2',
+        		0,
+        		"SAP_CADENA_SERVICIO"."FOLIO_COMPROBANTE",
+       		0,
+        		0
+        
+FROM		"SAP_CADENA_SERVICIO","INGRESO","TAB_UF","SAP_SERVICIOS_CREACION","VISTA_SAP_ESTRUCTURA_NEGOCIO","SAP_EMPRESA"
+WHERE   "INGRESO"."FOLIO" = "SAP_CADENA_SERVICIO"."FOLIO_COMPROBANTE" AND  
+			"INGRESO"."TIPO_COB" = "SAP_CADENA_SERVICIO"."TIPO_COB_COMPROBANTE" AND
+			"INGRESO"."FECHA_PAGO" = "SAP_CADENA_SERVICIO"."FECHA_PAGO_COMPROBANTE" AND
+			"INGRESO"."BASE" = "SAP_CADENA_SERVICIO"."BASE" AND
+			"INGRESO"."FECHA_PAGO" = "TAB_UF"."FECHA_UF" AND
+			"INGRESO"."TIPO_MOV" = "SAP_SERVICIOS_CREACION"."TIPO_MOV" AND
+			"INGRESO"."TIPO_COB" = "SAP_SERVICIOS_CREACION"."TIPO_COB" AND
+			"INGRESO"."CODIGO_OTRO" = "SAP_SERVICIOS_CREACION"."CODIGO_OTRO" AND
+			"INGRESO"."COD_PARQUE" = "VISTA_SAP_ESTRUCTURA_NEGOCIO"."COD_PARQUE" AND
+			"INGRESO"."FOLIO" = :al_folio  and
+			"INGRESO"."FECHA_PAGO" = :adt_fecha_pago  and
+			("INGRESO"."TIPO_MOV" = 'M' or ( "INGRESO"."TIPO_MOV" = 'L' and "INGRESO"."CODIGO_OTRO"<>'3' and "INGRESO"."CODIGO_OTRO"<>'76' )  ) AND
+			"VISTA_SAP_ESTRUCTURA_NEGOCIO"."SOCIEDAD" = "SAP_EMPRESA"."SOCIEDAD" and
+			"SAP_EMPRESA"."ESTADO" = 'V' AND
+			"VISTA_SAP_ESTRUCTURA_NEGOCIO"."TIPO_VENTA" = "SAP_SERVICIOS_CREACION"."BASE" AND
+			"VISTA_SAP_ESTRUCTURA_NEGOCIO"."DESCRIP_ALMACEN" = 'Sarcófagos' AND
+			"SAP_CADENA_SERVICIO"."TIPO_DEUDA" = :as_tipo_deuda AND
+			"SAP_CADENA_SERVICIO"."ESTADO" = 'V' 
+ORDER BY 5 ASC, 7 ASC
+USING	sqlca;
+open x05;
+if sqlca.sqlcode=0 then
+	DO WHILE sqlca.sqlcode=0
+	fetch x05 INTO	:ls_base,:ls_serie,:ldb_numero,:ls_tipo_deuda,:ll_nro_cuota,:ls_nro_cuota,:ll_indice,:ls_cod_material,:ll_cant_material,:ls_centro,:ls_centro_benef,:ls_fecha,:ls_forma_pago,:ls_impto,:ls_kap_cta,:ldb_kap_cta,:ls_int_cta,:ldb_int_cta,:ls_gto_cta,:ldb_gto_cta,:ls_impto_13,:ldb_impto_13,:ls_impto_3,:ldb_impto_3,:ll_boleta,:ll_periodo_mant,:ll_cod_parque;
+		if not isnull(ls_base) and ls_base<>'' and not isnull(ls_serie) and ls_serie<>'' and  not isnull(ldb_numero) and ldb_numero>0 and not isnull(ls_tipo_deuda) and ls_tipo_deuda<>'' then
+			ll_cta++
+			if ls_tipo_deuda<>'M' then
+				if ll_cta=1 then
+					SELECT	MAX("NRO_POSIC_PIE")
+					INTO		:ll_posic
+					FROM 	"SAP_CTTO_04_PIE"
+					WHERE	"SAP_CTTO_04_PIE"."BASE" = :ls_base AND
+								"SAP_CTTO_04_PIE"."SERIE" = :ls_serie AND
+								"SAP_CTTO_04_PIE"."NUMERO" = :ldb_numero AND
+								"SAP_CTTO_04_PIE"."TIPO_DEUDA" = :ls_tipo_deuda
+					USING	Trans_1;
+					if isnull(ll_posic) or ll_posic=0 then
+						SELECT	MAX("NRO_POSIC_UBS")
+						INTO		:ll_posic
+						FROM 	"SAP_CTTO_03_UBS"
+						WHERE	"SAP_CTTO_03_UBS"."BASE" = :ls_base AND
+									"SAP_CTTO_03_UBS"."SERIE" = :ls_serie AND
+									"SAP_CTTO_03_UBS"."NUMERO" = :ldb_numero AND
+									"SAP_CTTO_03_UBS"."TIPO_DEUDA" = :ls_tipo_deuda
+						USING	Trans_1;
+						if isnull(ll_posic) or ll_posic=0 then
+							ll_posic				= 10
+						else
+							ll_posic				= ll_posic + 10
+						end if
+					else
+						ll_posic					= ll_posic + 10	
+					end if
+				else
+					ll_posic						= ll_posic + 10	
+				end if
+				if ls_tipo_deuda = 'C' then
+					SELECT	"INGRESO"."FOLIO"
+					INTO  	:ll_boleta        
+					FROM		"INGRESO"
+					WHERE	"INGRESO"."BASE" = :ls_base AND
+								"INGRESO"."SERIE" = :ls_serie AND
+								"INGRESO"."CONTRATO" = :ldb_numero AND
+								"INGRESO"."TIPO_MOV" = 'E' AND
+								ROWNUM  = :ll_cta AND
+								"INGRESO"."PAGO_HIST" = 'A' 
+					ORDER BY	"INGRESO"."FECHA_PAGO"
+					USING	Trans_1;
+					if isnull(ll_boleta) then ll_boleta=0
+				end if
+			else
+				ldb_kap_cta						= round(f_cta_mant_posic(ldb_kap_cta,ll_cta,ll_periodo_mant),4)	  
+				ll_posic							= ll_cta * 10
+			end if
+			ls_boleta								= string(ll_boleta)
+			
+			INSERT INTO "SAP_CTTO_05_CUOTA"  
+         				( "BASE",		"SERIE",	"NUMERO",		"TIPO_DEUDA","NRO_POSIC_CTA",	"CODIGO_MATERIAL_SAP",	"CANT_MATERIAL",	"CENTRO",	"CENTRO_BENEF",	"FECHA_VCTO",	"NRO_CUOTA",	"FORMA_PAGO",	"IMPTO_CTA",	"CUOTA_K",	"MTO_CTA_K",	"CUOTA_I",	"MTO_CTA_I",	"CUOTA_G",	"MTO_CTA_G",	"IMPTO_13",	"MTO_IMPTO_13",	"IMPTO_3",	"MTO_IMPTO_3",	"NRO_BOLETA")
+			VALUES	( :ls_base,	:ls_serie,	:ldb_numero,	:ls_tipo_deuda,	:ll_posic,					:ls_cod_material,				:ll_cant_material,		:ls_centro,	:ls_centro_benef,	:ls_fecha,			:ls_nro_cuota,	:ls_forma_pago,	:ls_impto,		:ls_kap_cta,	:ldb_kap_cta,	:ls_int_cta,	:ldb_int_cta,		:ls_gto_cta,	:ldb_gto_cta,	:ls_impto_13,	:ldb_impto_13,		:ls_impto_3,	:ldb_impto_3,		:ls_boleta)
+			USING	Trans_1;
+			if Trans_1.sqlcode = 0 then
+				commit using Trans_1;
+				ll_estado					= 1
+			else
+				rollback using Trans_1;
+				ll_estado 				= 0
+			end if
+		end if
+		setnull(ls_base);setnull(ls_serie);setnull(ldb_numero);setnull(ls_tipo_deuda);setnull(ls_nro_cuota);setnull(ll_indice);setnull(ls_cod_material);setnull(ll_cant_material);setnull(ls_centro);setnull(ls_centro_benef);setnull(ls_fecha);setnull(ls_forma_pago);setnull(ls_impto);setnull(ls_kap_cta);setnull(ldb_kap_cta);setnull(ls_int_cta);setnull(ldb_int_cta);setnull(ls_gto_cta);setnull(ldb_gto_cta);setnull(ls_impto_13);setnull(ldb_impto_13);setnull(ls_impto_3);setnull(ldb_impto_3);setnull(ll_boleta);setnull(ll_periodo_mant);setnull(ll_cod_parque)
+	LOOP
+end if
+close x05;
+return ll_estado
+disconnect using Trans_1;
+end function
+

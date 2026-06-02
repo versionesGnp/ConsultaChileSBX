@@ -1,0 +1,1165 @@
+﻿release 7;
+datawindow(units=0 timer_interval=0 color=80269524 processing=0 HTMLDW=yes print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=108 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=108 color="536870912" )
+table(column=(type=decimal(4) updatewhereclause=yes name=plano_parque_correlativo dbname="plano_parque.correlativo" )
+ column=(type=char(10) updatewhereclause=yes name=plano_parque_sector dbname="plano_parque.sector" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo1 dbname="plano_parque.campo1" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo2 dbname="plano_parque.campo2" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo3 dbname="plano_parque.campo3" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo4 dbname="plano_parque.campo4" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo5 dbname="plano_parque.campo5" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo6 dbname="plano_parque.campo6" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo7 dbname="plano_parque.campo7" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo8 dbname="plano_parque.campo8" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo9 dbname="plano_parque.campo9" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo10 dbname="plano_parque.campo10" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo11 dbname="plano_parque.campo11" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo12 dbname="plano_parque.campo12" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo13 dbname="plano_parque.campo13" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo14 dbname="plano_parque.campo14" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo15 dbname="plano_parque.campo15" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo16 dbname="plano_parque.campo16" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo17 dbname="plano_parque.campo17" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo18 dbname="plano_parque.campo18" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo19 dbname="plano_parque.campo19" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo20 dbname="plano_parque.campo20" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo21 dbname="plano_parque.campo21" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo22 dbname="plano_parque.campo22" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo23 dbname="plano_parque.campo23" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo24 dbname="plano_parque.campo24" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo25 dbname="plano_parque.campo25" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo26 dbname="plano_parque.campo26" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo27 dbname="plano_parque.campo27" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo28 dbname="plano_parque.campo28" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo29 dbname="plano_parque.campo29" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo30 dbname="plano_parque.campo30" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo31 dbname="plano_parque.campo31" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo32 dbname="plano_parque.campo32" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo33 dbname="plano_parque.campo33" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo34 dbname="plano_parque.campo34" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo35 dbname="plano_parque.campo35" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo36 dbname="plano_parque.campo36" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo37 dbname="plano_parque.campo37" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo38 dbname="plano_parque.campo38" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo39 dbname="plano_parque.campo39" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo40 dbname="plano_parque.campo40" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo41 dbname="plano_parque.campo41" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo42 dbname="plano_parque.campo42" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo43 dbname="plano_parque.campo43" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo44 dbname="plano_parque.campo44" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo45 dbname="plano_parque.campo45" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo46 dbname="plano_parque.campo46" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo47 dbname="plano_parque.campo47" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo48 dbname="plano_parque.campo48" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo49 dbname="plano_parque.campo49" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo50 dbname="plano_parque.campo50" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo51 dbname="plano_parque.campo51" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo52 dbname="plano_parque.campo52" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo53 dbname="plano_parque.campo53" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo54 dbname="plano_parque.campo54" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo55 dbname="plano_parque.campo55" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo56 dbname="plano_parque.campo56" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo57 dbname="plano_parque.campo57" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo58 dbname="plano_parque.campo58" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo59 dbname="plano_parque.campo59" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo60 dbname="plano_parque.campo60" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo61 dbname="plano_parque.campo61" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo62 dbname="plano_parque.campo62" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo63 dbname="plano_parque.campo63" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo64 dbname="plano_parque.campo64" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo65 dbname="plano_parque.campo65" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo66 dbname="plano_parque.campo66" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo67 dbname="plano_parque.campo67" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo68 dbname="plano_parque.campo68" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo69 dbname="plano_parque.campo69" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo70 dbname="plano_parque.campo70" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo71 dbname="plano_parque.campo71" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo72 dbname="plano_parque.campo72" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo73 dbname="plano_parque.campo73" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo74 dbname="plano_parque.campo74" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo75 dbname="plano_parque.campo75" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo76 dbname="plano_parque.campo76" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo77 dbname="plano_parque.campo77" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo78 dbname="plano_parque.campo78" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo79 dbname="plano_parque.campo79" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_campo80 dbname="plano_parque.campo80" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_correlativo dbname="plano_parque_paint.correlativo" )
+ column=(type=char(10) updatewhereclause=yes name=plano_parque_paint_sector dbname="plano_parque_paint.sector" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo1 dbname="plano_parque_paint.campo1" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo2 dbname="plano_parque_paint.campo2" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo3 dbname="plano_parque_paint.campo3" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo4 dbname="plano_parque_paint.campo4" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo5 dbname="plano_parque_paint.campo5" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo6 dbname="plano_parque_paint.campo6" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo7 dbname="plano_parque_paint.campo7" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo8 dbname="plano_parque_paint.campo8" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo9 dbname="plano_parque_paint.campo9" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo10 dbname="plano_parque_paint.campo10" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo11 dbname="plano_parque_paint.campo11" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo12 dbname="plano_parque_paint.campo12" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo13 dbname="plano_parque_paint.campo13" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo14 dbname="plano_parque_paint.campo14" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo15 dbname="plano_parque_paint.campo15" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo16 dbname="plano_parque_paint.campo16" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo17 dbname="plano_parque_paint.campo17" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo18 dbname="plano_parque_paint.campo18" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo19 dbname="plano_parque_paint.campo19" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo20 dbname="plano_parque_paint.campo20" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo21 dbname="plano_parque_paint.campo21" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo22 dbname="plano_parque_paint.campo22" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo23 dbname="plano_parque_paint.campo23" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo24 dbname="plano_parque_paint.campo24" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo25 dbname="plano_parque_paint.campo25" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo26 dbname="plano_parque_paint.campo26" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo27 dbname="plano_parque_paint.campo27" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo28 dbname="plano_parque_paint.campo28" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo29 dbname="plano_parque_paint.campo29" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo30 dbname="plano_parque_paint.campo30" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo31 dbname="plano_parque_paint.campo31" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo32 dbname="plano_parque_paint.campo32" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo33 dbname="plano_parque_paint.campo33" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo34 dbname="plano_parque_paint.campo34" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo35 dbname="plano_parque_paint.campo35" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo36 dbname="plano_parque_paint.campo36" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo37 dbname="plano_parque_paint.campo37" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo38 dbname="plano_parque_paint.campo38" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo39 dbname="plano_parque_paint.campo39" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo40 dbname="plano_parque_paint.campo40" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo41 dbname="plano_parque_paint.campo41" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo42 dbname="plano_parque_paint.campo42" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo43 dbname="plano_parque_paint.campo43" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo44 dbname="plano_parque_paint.campo44" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo45 dbname="plano_parque_paint.campo45" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo46 dbname="plano_parque_paint.campo46" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo47 dbname="plano_parque_paint.campo47" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo48 dbname="plano_parque_paint.campo48" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo49 dbname="plano_parque_paint.campo49" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo50 dbname="plano_parque_paint.campo50" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo51 dbname="plano_parque_paint.campo51" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo52 dbname="plano_parque_paint.campo52" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo53 dbname="plano_parque_paint.campo53" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo54 dbname="plano_parque_paint.campo54" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo55 dbname="plano_parque_paint.campo55" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo56 dbname="plano_parque_paint.campo56" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo57 dbname="plano_parque_paint.campo57" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo58 dbname="plano_parque_paint.campo58" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo59 dbname="plano_parque_paint.campo59" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo60 dbname="plano_parque_paint.campo60" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo61 dbname="plano_parque_paint.campo61" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo62 dbname="plano_parque_paint.campo62" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo63 dbname="plano_parque_paint.campo63" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo64 dbname="plano_parque_paint.campo64" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo65 dbname="plano_parque_paint.campo65" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo66 dbname="plano_parque_paint.campo66" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo67 dbname="plano_parque_paint.campo67" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo68 dbname="plano_parque_paint.campo68" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo69 dbname="plano_parque_paint.campo69" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo70 dbname="plano_parque_paint.campo70" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo71 dbname="plano_parque_paint.campo71" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo72 dbname="plano_parque_paint.campo72" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo73 dbname="plano_parque_paint.campo73" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo74 dbname="plano_parque_paint.campo74" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo75 dbname="plano_parque_paint.campo75" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo76 dbname="plano_parque_paint.campo76" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo77 dbname="plano_parque_paint.campo77" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo78 dbname="plano_parque_paint.campo78" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo79 dbname="plano_parque_paint.campo79" )
+ column=(type=decimal(4) updatewhereclause=yes name=plano_parque_paint_campo80 dbname="plano_parque_paint.campo80" )
+ column=(type=decimal(5) updatewhereclause=yes name=boton dbname="compute_0165" )
+ column=(type=decimal(5) updatewhereclause=yes name=boton_1 dbname="compute_0166" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"plano_parque~" )  TABLE(NAME=~"plano_parque_paint~" ) COLUMN(NAME=~"plano_parque.correlativo~") COLUMN(NAME=~"plano_parque.sector~") COLUMN(NAME=~"plano_parque.campo1~") COLUMN(NAME=~"plano_parque.campo2~") COLUMN(NAME=~"plano_parque.campo3~") COLUMN(NAME=~"plano_parque.campo4~") COLUMN(NAME=~"plano_parque.campo5~") COLUMN(NAME=~"plano_parque.campo6~") COLUMN(NAME=~"plano_parque.campo7~") COLUMN(NAME=~"plano_parque.campo8~") COLUMN(NAME=~"plano_parque.campo9~") COLUMN(NAME=~"plano_parque.campo10~") COLUMN(NAME=~"plano_parque.campo11~") COLUMN(NAME=~"plano_parque.campo12~") COLUMN(NAME=~"plano_parque.campo13~") COLUMN(NAME=~"plano_parque.campo14~") COLUMN(NAME=~"plano_parque.campo15~") COLUMN(NAME=~"plano_parque.campo16~") COLUMN(NAME=~"plano_parque.campo17~") COLUMN(NAME=~"plano_parque.campo18~") COLUMN(NAME=~"plano_parque.campo19~") COLUMN(NAME=~"plano_parque.campo20~") COLUMN(NAME=~"plano_parque.campo21~") COLUMN(NAME=~"plano_parque.campo22~") COLUMN(NAME=~"plano_parque.campo23~") COLUMN(NAME=~"plano_parque.campo24~") COLUMN(NAME=~"plano_parque.campo25~") COLUMN(NAME=~"plano_parque.campo26~") COLUMN(NAME=~"plano_parque.campo27~") COLUMN(NAME=~"plano_parque.campo28~") COLUMN(NAME=~"plano_parque.campo29~") COLUMN(NAME=~"plano_parque.campo30~") COLUMN(NAME=~"plano_parque.campo31~") COLUMN(NAME=~"plano_parque.campo32~") COLUMN(NAME=~"plano_parque.campo33~") COLUMN(NAME=~"plano_parque.campo34~") COLUMN(NAME=~"plano_parque.campo35~") COLUMN(NAME=~"plano_parque.campo36~") COLUMN(NAME=~"plano_parque.campo37~") COLUMN(NAME=~"plano_parque.campo38~") COLUMN(NAME=~"plano_parque.campo39~") COLUMN(NAME=~"plano_parque.campo40~") COLUMN(NAME=~"plano_parque.campo41~") COLUMN(NAME=~"plano_parque.campo42~") COLUMN(NAME=~"plano_parque.campo43~") COLUMN(NAME=~"plano_parque.campo44~") COLUMN(NAME=~"plano_parque.campo45~") COLUMN(NAME=~"plano_parque.campo46~") COLUMN(NAME=~"plano_parque.campo47~") COLUMN(NAME=~"plano_parque.campo48~") COLUMN(NAME=~"plano_parque.campo49~") COLUMN(NAME=~"plano_parque.campo50~") COLUMN(NAME=~"plano_parque.campo51~") COLUMN(NAME=~"plano_parque.campo52~") COLUMN(NAME=~"plano_parque.campo53~") COLUMN(NAME=~"plano_parque.campo54~") COLUMN(NAME=~"plano_parque.campo55~") COLUMN(NAME=~"plano_parque.campo56~") COLUMN(NAME=~"plano_parque.campo57~") COLUMN(NAME=~"plano_parque.campo58~") COLUMN(NAME=~"plano_parque.campo59~") COLUMN(NAME=~"plano_parque.campo60~") COLUMN(NAME=~"plano_parque.campo61~") COLUMN(NAME=~"plano_parque.campo62~") COLUMN(NAME=~"plano_parque.campo63~") COLUMN(NAME=~"plano_parque.campo64~") COLUMN(NAME=~"plano_parque.campo65~") COLUMN(NAME=~"plano_parque.campo66~") COLUMN(NAME=~"plano_parque.campo67~") COLUMN(NAME=~"plano_parque.campo68~") COLUMN(NAME=~"plano_parque.campo69~") COLUMN(NAME=~"plano_parque.campo70~") COLUMN(NAME=~"plano_parque.campo71~") COLUMN(NAME=~"plano_parque.campo72~") COLUMN(NAME=~"plano_parque.campo73~") COLUMN(NAME=~"plano_parque.campo74~") COLUMN(NAME=~"plano_parque.campo75~") COLUMN(NAME=~"plano_parque.campo76~") COLUMN(NAME=~"plano_parque.campo77~") COLUMN(NAME=~"plano_parque.campo78~") COLUMN(NAME=~"plano_parque.campo79~") COLUMN(NAME=~"plano_parque.campo80~") COLUMN(NAME=~"plano_parque_paint.correlativo~") COLUMN(NAME=~"plano_parque_paint.sector~") COLUMN(NAME=~"plano_parque_paint.campo1~") COLUMN(NAME=~"plano_parque_paint.campo2~") COLUMN(NAME=~"plano_parque_paint.campo3~") COLUMN(NAME=~"plano_parque_paint.campo4~") COLUMN(NAME=~"plano_parque_paint.campo5~") COLUMN(NAME=~"plano_parque_paint.campo6~") COLUMN(NAME=~"plano_parque_paint.campo7~") COLUMN(NAME=~"plano_parque_paint.campo8~") COLUMN(NAME=~"plano_parque_paint.campo9~") COLUMN(NAME=~"plano_parque_paint.campo10~") COLUMN(NAME=~"plano_parque_paint.campo11~") COLUMN(NAME=~"plano_parque_paint.campo12~") COLUMN(NAME=~"plano_parque_paint.campo13~") COLUMN(NAME=~"plano_parque_paint.campo14~") COLUMN(NAME=~"plano_parque_paint.campo15~") COLUMN(NAME=~"plano_parque_paint.campo16~") COLUMN(NAME=~"plano_parque_paint.campo17~") COLUMN(NAME=~"plano_parque_paint.campo18~") COLUMN(NAME=~"plano_parque_paint.campo19~") COLUMN(NAME=~"plano_parque_paint.campo20~") COLUMN(NAME=~"plano_parque_paint.campo21~") COLUMN(NAME=~"plano_parque_paint.campo22~") COLUMN(NAME=~"plano_parque_paint.campo23~") COLUMN(NAME=~"plano_parque_paint.campo24~") COLUMN(NAME=~"plano_parque_paint.campo25~") COLUMN(NAME=~"plano_parque_paint.campo26~") COLUMN(NAME=~"plano_parque_paint.campo27~") COLUMN(NAME=~"plano_parque_paint.campo28~") COLUMN(NAME=~"plano_parque_paint.campo29~") COLUMN(NAME=~"plano_parque_paint.campo30~") COLUMN(NAME=~"plano_parque_paint.campo31~") COLUMN(NAME=~"plano_parque_paint.campo32~") COLUMN(NAME=~"plano_parque_paint.campo33~") COLUMN(NAME=~"plano_parque_paint.campo34~") COLUMN(NAME=~"plano_parque_paint.campo35~") COLUMN(NAME=~"plano_parque_paint.campo36~") COLUMN(NAME=~"plano_parque_paint.campo37~") COLUMN(NAME=~"plano_parque_paint.campo38~") COLUMN(NAME=~"plano_parque_paint.campo39~") COLUMN(NAME=~"plano_parque_paint.campo40~") COLUMN(NAME=~"plano_parque_paint.campo41~") COLUMN(NAME=~"plano_parque_paint.campo42~") COLUMN(NAME=~"plano_parque_paint.campo43~") COLUMN(NAME=~"plano_parque_paint.campo44~") COLUMN(NAME=~"plano_parque_paint.campo45~") COLUMN(NAME=~"plano_parque_paint.campo46~") COLUMN(NAME=~"plano_parque_paint.campo47~") COLUMN(NAME=~"plano_parque_paint.campo48~") COLUMN(NAME=~"plano_parque_paint.campo49~") COLUMN(NAME=~"plano_parque_paint.campo50~") COLUMN(NAME=~"plano_parque_paint.campo51~") COLUMN(NAME=~"plano_parque_paint.campo52~") COLUMN(NAME=~"plano_parque_paint.campo53~") COLUMN(NAME=~"plano_parque_paint.campo54~") COLUMN(NAME=~"plano_parque_paint.campo55~") COLUMN(NAME=~"plano_parque_paint.campo56~") COLUMN(NAME=~"plano_parque_paint.campo57~") COLUMN(NAME=~"plano_parque_paint.campo58~") COLUMN(NAME=~"plano_parque_paint.campo59~") COLUMN(NAME=~"plano_parque_paint.campo60~") COLUMN(NAME=~"plano_parque_paint.campo61~") COLUMN(NAME=~"plano_parque_paint.campo62~") COLUMN(NAME=~"plano_parque_paint.campo63~") COLUMN(NAME=~"plano_parque_paint.campo64~") COLUMN(NAME=~"plano_parque_paint.campo65~") COLUMN(NAME=~"plano_parque_paint.campo66~") COLUMN(NAME=~"plano_parque_paint.campo67~") COLUMN(NAME=~"plano_parque_paint.campo68~") COLUMN(NAME=~"plano_parque_paint.campo69~") COLUMN(NAME=~"plano_parque_paint.campo70~") COLUMN(NAME=~"plano_parque_paint.campo71~") COLUMN(NAME=~"plano_parque_paint.campo72~") COLUMN(NAME=~"plano_parque_paint.campo73~") COLUMN(NAME=~"plano_parque_paint.campo74~") COLUMN(NAME=~"plano_parque_paint.campo75~") COLUMN(NAME=~"plano_parque_paint.campo76~") COLUMN(NAME=~"plano_parque_paint.campo77~") COLUMN(NAME=~"plano_parque_paint.campo78~") COLUMN(NAME=~"plano_parque_paint.campo79~") COLUMN(NAME=~"plano_parque_paint.campo80~") COMPUTE(NAME=~"0,0~")    JOIN (LEFT=~"plano_parque.correlativo~"    OP =~"=~"RIGHT=~"plano_parque_paint.correlativo~" )    JOIN (LEFT=~"plano_parque.sector~"    OP =~"=~"RIGHT=~"plano_parque_paint.sector~" )    JOIN (LEFT=~"plano_parque.cod_parque~"    OP =~"=~"RIGHT=~"plano_parque_paint.cod_parque~" )WHERE(    EXP1 =~"~~~"PLANO_PARQUE~~~".~~~"SECTOR~~~"~"   OP =~"=~"    EXP2 =~":SECTOR~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"PLANO_PARQUE~~~".~~~"COD_PARQUE~~~"~"   OP =~"=~"    EXP2 =~":cod_parque~" ) ) ORDER(NAME=~"plano_parque.correlativo~" ASC=yes ) ARG(NAME = ~"SECTOR~" TYPE = string)  ARG(NAME = ~"cod_parque~" TYPE = number) " arguments=(("SECTOR", string),("cod_parque", number)) )
+text(band=header alignment="2" text="Sector:" border="0" color="0" x="951" y="8" height="92" width="311"  name=sector_t  font.face="Arial" font.height="-14" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=2 alignment="0" tabsequence=20 border="0" color="0" x="1275" y="8" height="92" width="507" format="[general]"  name=titulo_sector edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-14" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="" border="0" color="255" x="1797" y="8" height="92" width="1975"  name=t_20  font.face="Georgia" font.height="-14" font.weight="700"  font.family="0" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="" border="0" color="0" x="9" y="44" height="56" width="923"  name=t_21  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=detail x="14~tif ( boton_1 =  plano_parque_campo1  ,(1*160) -135, 
+if ( boton_1 =  plano_parque_campo2  ,(2*160) -135,
+if ( boton_1 =  plano_parque_campo3  ,(3*160) -135,
+if ( boton_1 =  plano_parque_campo4  ,(4*160) -135, 
+if ( boton_1 =  plano_parque_campo5  ,(5*160) -135,
+if ( boton_1 =  plano_parque_campo6  ,(6*160) -135,
+if ( boton_1 =  plano_parque_campo7  ,(7*160) -135, 
+if ( boton_1 =  plano_parque_campo8  ,(8*160) -135,
+if ( boton_1 =  plano_parque_campo9  ,(9*160) -135,
+if ( boton_1 =  plano_parque_campo10 ,(10*160)-135,
+if ( boton_1 =  plano_parque_campo11 ,(11*160)-135,
+if ( boton_1 =  plano_parque_campo12 ,(12*160)-135,
+if ( boton_1 =  plano_parque_campo13 ,(13*160)-135,
+if ( boton_1 =  plano_parque_campo14 ,(14*160)-135,
+if ( boton_1 =  plano_parque_campo15 ,(15*160)-135,
+if ( boton_1 =  plano_parque_campo16 ,(16*160)-135,
+if ( boton_1 =  plano_parque_campo17 ,(17*160)-135,
+if ( boton_1 =  plano_parque_campo18 ,(18*160)-135,
+if ( boton_1 =  plano_parque_campo19 ,(19*160)-135,
+if ( boton_1 =  plano_parque_campo20 ,(20*160)-135,
+if ( boton_1 =  plano_parque_campo21 ,(21*160)-135,
+if ( boton_1 =  plano_parque_campo22 ,(22*160)-135,
+if ( boton_1 =  plano_parque_campo23 ,(23*160)-135,
+if ( boton_1 =  plano_parque_campo24 ,(24*160)-135,
+if ( boton_1 =  plano_parque_campo25 ,(25*160)-135,
+if ( boton_1 =  plano_parque_campo26 ,(26*160)-135,
+if ( boton_1 =  plano_parque_campo27 ,(27*160)-135,
+if ( boton_1 =  plano_parque_campo28 ,(28*160)-135,
+if ( boton_1 =  plano_parque_campo29 ,(29*160)-135,
+if ( boton_1 =  plano_parque_campo30 ,(30*160)-135,
+if ( boton_1 =  plano_parque_campo31 ,(31*160)-135,
+if ( boton_1 =  plano_parque_campo32 ,(32*160)-135,
+if ( boton_1 =  plano_parque_campo33 ,(33*160)-135,
+if ( boton_1 =  plano_parque_campo34 ,(34*160)-135,
+if ( boton_1 =  plano_parque_campo35 ,(35*160)-135,
+if ( boton_1 =  plano_parque_campo36 ,(36*160)-135,
+if ( boton_1 =  plano_parque_campo37 ,(37*160)-135,
+if ( boton_1 =  plano_parque_campo38 ,(38*160)-135,
+if ( boton_1 =  plano_parque_campo39 ,(39*160)-135,
+if ( boton_1 =  plano_parque_campo40 ,(40*160)-135,
+if ( boton_1 =  plano_parque_campo41 ,(41*160)-135,
+if ( boton_1 =  plano_parque_campo42 ,(42*160)-135,
+if ( boton_1 =  plano_parque_campo43 ,(43*160)-135,
+if ( boton_1 =  plano_parque_campo44 ,(44*160)-135,
+if ( boton_1 =  plano_parque_campo45 ,(45*160)-135,
+if ( boton_1 =  plano_parque_campo46 ,(46*160)-135,
+if ( boton_1 =  plano_parque_campo47 ,(47*160)-135,
+if ( boton_1 =  plano_parque_campo48 ,(48*160)-135,
+if ( boton_1 =  plano_parque_campo49 ,(49*160)-135,
+if ( boton_1 =  plano_parque_campo50 ,(50*160)-135,
+if ( boton_1 =  plano_parque_campo51 ,(51*160)-135,
+if ( boton_1 =  plano_parque_campo52 ,(52*160)-135,
+if ( boton_1 =  plano_parque_campo53 ,(53*160)-135,
+if ( boton_1 =  plano_parque_campo54 ,(54*160)-135,
+if ( boton_1 =  plano_parque_campo55 ,(55*160)-135,
+if ( boton_1 =  plano_parque_campo56 ,(56*160)-135,
+if ( boton_1 =  plano_parque_campo57 ,(57*160)-135,
+if ( boton_1 =  plano_parque_campo58 ,(58*160)-135,
+if ( boton_1 =  plano_parque_campo59 ,(59*160)-135,
+if ( boton_1 =  plano_parque_campo60 ,(60*160)-135,
+if ( boton_1 =  plano_parque_campo61 ,(61*160)-135,
+if ( boton_1 =  plano_parque_campo62 ,(62*160)-135,
+if ( boton_1 =  plano_parque_campo63 ,(63*160)-135,
+if ( boton_1 =  plano_parque_campo64 ,(64*160)-135,
+if ( boton_1 =  plano_parque_campo65 ,(65*160)-135,
+if ( boton_1 =  plano_parque_campo66 ,(66*160)-135,
+if ( boton_1 =  plano_parque_campo67 ,(67*160)-135,
+if ( boton_1 =  plano_parque_campo68 ,(68*160)-135,
+if ( boton_1 =  plano_parque_campo69 ,(69*160)-135,
+if ( boton_1 =  plano_parque_campo70 ,(70*160)-135,
+if ( boton_1 =  plano_parque_campo71 ,(71*160)-135,
+if ( boton_1 =  plano_parque_campo72 ,(72*160)-135,
+if ( boton_1 =  plano_parque_campo73 ,(73*160)-135,
+if ( boton_1 =  plano_parque_campo74 ,(74*160)-135,
+if ( boton_1 =  plano_parque_campo75 ,(75*160)-135,
+if ( boton_1 =  plano_parque_campo76 ,(76*160)-135,
+if ( boton_1 =  plano_parque_campo77 ,(77*160)-135,
+if ( boton_1 =  plano_parque_campo78 ,(78*160)-135,  
+if ( boton_1 =  plano_parque_campo79 ,(79*160)-135,
+if ( boton_1 =  plano_parque_campo80 ,(80*160)-135,15000   ))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))" y="0" height="96" width="165"  name=r_1 visible="1~t0" brush.hatch="7" brush.color="536936447" pen.style="0" pen.width="18" pen.color="65535"  background.mode="1" background.color="553648127" )
+column(band=detail id=85 alignment="1" tabsequence=32766 border="2" color="0" x="37" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo1 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=86 alignment="1" tabsequence=32766 border="2" color="0" x="197" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo2 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=87 alignment="1" tabsequence=32766 border="2" color="0" x="357" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo3 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=88 alignment="1" tabsequence=32766 border="2" color="0" x="517" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo4 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=89 alignment="1" tabsequence=32766 border="2" color="0" x="677" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo5 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=90 alignment="1" tabsequence=32766 border="2" color="0" x="837" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo6 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=91 alignment="1" tabsequence=32766 border="2" color="0" x="997" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo7 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=92 alignment="1" tabsequence=32766 border="2" color="0" x="1157" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo8 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=93 alignment="1" tabsequence=32766 border="2" color="0" x="1317" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo9 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=95 alignment="1" tabsequence=32766 border="2" color="0" x="1637" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo11 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=96 alignment="1" tabsequence=32766 border="2" color="0" x="1797" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo12 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=97 alignment="1" tabsequence=32766 border="2" color="0" x="1957" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo13 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=98 alignment="1" tabsequence=32766 border="2" color="0" x="2117" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo14 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=99 alignment="1" tabsequence=32766 border="2" color="0" x="2277" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo15 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=100 alignment="1" tabsequence=32766 border="2" color="0" x="2437" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo16 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=101 alignment="1" tabsequence=32766 border="2" color="0" x="2597" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo17 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=102 alignment="1" tabsequence=32766 border="2" color="0" x="2757" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo18 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=103 alignment="1" tabsequence=32766 border="2" color="0" x="2917" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo19 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=104 alignment="1" tabsequence=32766 border="2" color="0" x="3077" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo20 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=105 alignment="1" tabsequence=32766 border="2" color="0" x="3237" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo21 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=106 alignment="1" tabsequence=32766 border="2" color="0" x="3397" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo22 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=107 alignment="1" tabsequence=32766 border="2" color="0" x="3557" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo23 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=108 alignment="1" tabsequence=32766 border="2" color="0" x="3717" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo24 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=109 alignment="1" tabsequence=32766 border="2" color="0" x="3877" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo25 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=110 alignment="1" tabsequence=32766 border="2" color="0" x="4037" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo26 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=111 alignment="1" tabsequence=32766 border="2" color="0" x="4197" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo27 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=112 alignment="1" tabsequence=32766 border="2" color="0" x="4357" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo28 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=113 alignment="1" tabsequence=32766 border="2" color="0" x="4517" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo29 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=114 alignment="1" tabsequence=32766 border="2" color="0" x="4677" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo30 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=115 alignment="1" tabsequence=32766 border="2" color="0" x="4837" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo31 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=116 alignment="1" tabsequence=32766 border="2" color="0" x="4997" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo32 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=117 alignment="1" tabsequence=32766 border="2" color="0" x="5157" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo33 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=118 alignment="1" tabsequence=32766 border="2" color="0" x="5317" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo34 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=119 alignment="1" tabsequence=32766 border="2" color="0" x="5477" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo35 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=120 alignment="1" tabsequence=32766 border="2" color="0" x="5637" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo36 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=121 alignment="1" tabsequence=32766 border="2" color="0" x="5797" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo37 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=122 alignment="1" tabsequence=32766 border="2" color="0" x="5957" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo38 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=123 alignment="1" tabsequence=32766 border="2" color="0" x="6117~tIF ( plano_parque_campo39 =0,0,6117)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo39 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=124 alignment="1" tabsequence=32766 border="2" color="0" x="6277~tIF ( plano_parque_campo40 =0,0,6277)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo40 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=125 alignment="1" tabsequence=32766 border="2" color="0" x="6437~tIF ( plano_parque_campo41 =0,0,6437)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo41 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=126 alignment="1" tabsequence=32766 border="2" color="0" x="6597~tIF ( plano_parque_campo42 =0,0,6597)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo42 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=127 alignment="1" tabsequence=32766 border="2" color="0" x="6757~tIF ( plano_parque_campo43 =0,0,6757)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo43 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=128 alignment="1" tabsequence=32766 border="2" color="0" x="6917~tIF ( plano_parque_campo44 =0,0,6917)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo44 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=129 alignment="1" tabsequence=32766 border="2" color="0" x="7077~tIF ( plano_parque_campo45 =0,0,7077)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo45 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=130 alignment="1" tabsequence=32766 border="2" color="0" x="7237~tIF ( plano_parque_campo46 =0,0,7237)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo46 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=131 alignment="1" tabsequence=32766 border="2" color="0" x="7397~tIF ( plano_parque_campo47 =0,0,7397)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo47 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=132 alignment="1" tabsequence=32766 border="2" color="0" x="7557~tIF ( plano_parque_campo48 =0,0,7557)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo48 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=133 alignment="1" tabsequence=32766 border="2" color="0" x="7717~tIF ( plano_parque_campo49 =0,0,7717)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo49 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=134 alignment="1" tabsequence=32766 border="2" color="0" x="7877~tIF ( plano_parque_campo50 =0,0,7877)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo50 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=135 alignment="1" tabsequence=32766 border="2" color="0" x="8037~tIF ( plano_parque_campo51 =0,0,8037)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo51 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=136 alignment="1" tabsequence=32766 border="2" color="0" x="8197~tIF ( plano_parque_campo52 =0,0,8197)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo52 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=137 alignment="1" tabsequence=32766 border="2" color="0" x="8357~tIF ( plano_parque_campo53 =0,0,8357)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo53 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=138 alignment="1" tabsequence=32766 border="2" color="0" x="8517~tIF ( plano_parque_campo54 =0,0,8517)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo54 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=139 alignment="1" tabsequence=32766 border="2" color="0" x="8677~tIF ( plano_parque_campo55 =0,0,8677)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo55 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=140 alignment="1" tabsequence=32766 border="2" color="0" x="8837~tIF ( plano_parque_campo56 =0,0,8837)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo56 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=141 alignment="1" tabsequence=32766 border="2" color="0" x="8997~tIF ( plano_parque_campo57 =0,0,8997)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo57 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=142 alignment="1" tabsequence=32766 border="2" color="0" x="9157~tIF ( plano_parque_campo58 =0,0,9157)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo58 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=143 alignment="1" tabsequence=32766 border="2" color="0" x="9317~tIF ( plano_parque_campo59 =0,0,9317)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo59 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=144 alignment="1" tabsequence=32766 border="2" color="0" x="9477~tIF ( plano_parque_campo60 =0,0,9477)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo60 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=145 alignment="1" tabsequence=32766 border="2" color="0" x="9637~tIF ( plano_parque_campo61 =0,0,9637)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo61 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=146 alignment="1" tabsequence=32766 border="2" color="0" x="9797~tIF ( plano_parque_campo62 =0,0,9797)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo62 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=147 alignment="1" tabsequence=32766 border="2" color="0" x="9957~tIF ( plano_parque_campo63 =0,0,9957)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo63 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=148 alignment="1" tabsequence=32766 border="2" color="0" x="10117~tIF ( plano_parque_campo64 =0,0,10117)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo64 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=149 alignment="1" tabsequence=32766 border="2" color="0" x="10277~tIF ( plano_parque_campo65 =0,0,10277)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo65 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=150 alignment="1" tabsequence=32766 border="2" color="0" x="10437~tIF ( plano_parque_campo66 =0,0,10437)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo66 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=151 alignment="1" tabsequence=32766 border="2" color="0" x="10597~tIF ( plano_parque_campo67 =0,0,10597)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo67 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=152 alignment="1" tabsequence=32766 border="2" color="0" x="10757~tIF ( plano_parque_campo68 =0,0,10757)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo68 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=153 alignment="1" tabsequence=32766 border="2" color="0" x="10917~tIF ( plano_parque_campo69 =0,0,10917)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo69 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=154 alignment="1" tabsequence=32766 border="2" color="0" x="11077~tIF ( plano_parque_campo70 =0,0,11077)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo70 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=155 alignment="1" tabsequence=32766 border="2" color="0" x="11237~tIF ( plano_parque_campo71 =0,0,11237)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo71 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=156 alignment="1" tabsequence=32766 border="2" color="0" x="11397~tIF ( plano_parque_campo72 =0,0,11397)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo72 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=157 alignment="1" tabsequence=32766 border="2" color="0" x="11557~tIF ( plano_parque_campo73 =0,0,11557)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo73 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=158 alignment="1" tabsequence=32766 border="2" color="0" x="11717~tIF ( plano_parque_campo74 =0,0,11717)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo74 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=159 alignment="1" tabsequence=32766 border="2" color="0" x="11877~tIF ( plano_parque_campo75 =0,0,11877)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo75 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=160 alignment="1" tabsequence=32766 border="2" color="0" x="12037~tIF ( plano_parque_campo76 =0,0,12037)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo76 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=161 alignment="1" tabsequence=32766 border="2" color="0" x="12197~tIF ( plano_parque_campo77 =0,0,12197)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo77 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=162 alignment="1" tabsequence=32766 border="2" color="0" x="12357~tIF ( plano_parque_campo78 =0,0,12357)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo78 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=163 alignment="1" tabsequence=32766 border="2" color="0" x="12517~tIF ( plano_parque_campo79 =0,0,12517)" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo79 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=94 alignment="1" tabsequence=32766 border="2" color="0" x="1477" y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo10 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=164 alignment="1" tabsequence=32766 border="2" color="0" x="12677~tIF ( plano_parque_campo80 =0,0,12677)          " y="116" height="60" width="128" format="[general]"  name=plano_parque_paint_campo80 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=166 alignment="0" tabsequence=32766 border="5" color="16777215" x="23" y="204" height="56" width="370" format="[general]"  name=boton_1 edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="32768" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="425" y="208" height="76" width="329" format="[general]"  name=plano_parque_correlativo edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="768" y="208" height="76" width="302" format="[general]"  name=plano_parque_sector edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=83 alignment="1" tabsequence=32766 border="0" color="0" x="1408" y="208" height="76" width="329" format="[general]"  name=plano_parque_paint_correlativo edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=84 alignment="0" tabsequence=32766 border="0" color="0" x="1088" y="208" height="76" width="302" format="[general]"  name=plano_parque_paint_sector edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=165 alignment="0" tabsequence=32766 border="6" color="0" x="1755" y="212" height="60" width="210" format="[general]"  name=boton edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo1 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo1 = 1 or  plano_parque_paint_campo1 = 3 or  plano_parque_paint_campo1 = 5 or  plano_parque_paint_campo1 = 7 or  plano_parque_paint_campo1 = 9 or  plano_parque_paint_campo1 = 12,rgb(255,255,255),  if ( plano_parque_paint_campo1 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="37" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo1 visible="1~tif( plano_parque_campo1 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo1 = 7 or  plano_parque_paint_campo1 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo1 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo1	=	1	or
+	plano_parque_paint_campo1	=	2	or
+	plano_parque_paint_campo1	=	7	or
+	plano_parque_paint_campo1	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo1	=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo1	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo1	=	5	or
+	plano_parque_paint_campo1	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo1	=	9	or
+	plano_parque_paint_campo1	=	10	,rgb(255,0,0),	rgb(0,0,0)	)       )	)	)	) )
+" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo2 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo2 = 1 or  plano_parque_paint_campo2 = 3 or  plano_parque_paint_campo2 = 5 or  plano_parque_paint_campo2 = 7 or  plano_parque_paint_campo2 = 9 or  plano_parque_paint_campo2 = 12,rgb(255,255,255),  if ( plano_parque_paint_campo2 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="197" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo2 visible="1~tif( plano_parque_campo2 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo2 = 7 or  plano_parque_paint_campo2 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo2 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo2	=	1	or
+	plano_parque_paint_campo2	=	2	or
+	plano_parque_paint_campo2	=	7	or
+	plano_parque_paint_campo2	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo2	=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo2	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo2	=	5	or
+	plano_parque_paint_campo2	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo2	=	9	or
+	plano_parque_paint_campo2	=	10	,rgb(255,0,0),	rgb(0,0,0)	)  )	)	)	) )
+" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo3 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo3 = 1 or  plano_parque_paint_campo3 = 3 or  plano_parque_paint_campo3 = 5 or  plano_parque_paint_campo3 = 7 or  plano_parque_paint_campo3 = 9 or plano_parque_paint_campo3 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo3 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="357" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo3 visible="1~tif( plano_parque_campo3 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo3 = 7 or  plano_parque_paint_campo3 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo3 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo3	=	1	or
+	plano_parque_paint_campo3	=	2	or
+	plano_parque_paint_campo3	=	7	or
+	plano_parque_paint_campo3	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo3	=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo3	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo3	=	5	or
+	plano_parque_paint_campo3	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo3	=	9	or
+	plano_parque_paint_campo3	=	10	,rgb(255,0,0),	rgb(0,0,0)	)  )	)	)	))
+" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo4 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo4 = 1 or  plano_parque_paint_campo4 = 3 or  plano_parque_paint_campo4 = 5 or  plano_parque_paint_campo4 = 7 or  plano_parque_paint_campo4 = 9 or plano_parque_paint_campo4 = 12  ,rgb(255,255,255),  if ( plano_parque_paint_campo4 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="517" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo4 visible="1~tif( plano_parque_campo4 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo4 = 7 or  plano_parque_paint_campo4 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo4 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo4	=	1	or
+	plano_parque_paint_campo4	=	2	or
+	plano_parque_paint_campo4	=	7	or
+	plano_parque_paint_campo4	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo4	=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo4	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo4	=	5	or
+	plano_parque_paint_campo4	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo4	=	9	or
+	plano_parque_paint_campo4	=	10	,rgb(255,0,0),	rgb(0,0,0)	)  )	)	)	))
+" )
+column(band=detail id=7 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo5 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo5 = 1 or  plano_parque_paint_campo5 = 3 or  plano_parque_paint_campo5 = 5 or  plano_parque_paint_campo5 = 7 or  plano_parque_paint_campo5 = 9 or plano_parque_paint_campo5 = 12  ,rgb(255,255,255),  if ( plano_parque_paint_campo5 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="677" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo5 visible="1~tif( plano_parque_campo5 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo5 = 7 or  plano_parque_paint_campo5 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo5 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo5	=	1	or
+	plano_parque_paint_campo5	=	2	or
+	plano_parque_paint_campo5	=	7	or
+	plano_parque_paint_campo5	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo5	=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo5	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo5	=	5	or
+	plano_parque_paint_campo5	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo5	=	9	or
+	plano_parque_paint_campo5	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=8 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo6 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo6 = 1 or  plano_parque_paint_campo6 = 3 or  plano_parque_paint_campo6 = 5 or  plano_parque_paint_campo6 = 7 or  plano_parque_paint_campo6 = 9  or plano_parque_paint_campo6 = 12  ,rgb(255,255,255),  if ( plano_parque_paint_campo6 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="837" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo6 visible="1~tif( plano_parque_campo6 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo6 = 7 or  plano_parque_paint_campo6 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo6 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo6	=	1	or
+	plano_parque_paint_campo6	=	2	or
+	plano_parque_paint_campo6	=	7	or
+	plano_parque_paint_campo6	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo6	=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo6	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo6	=	5	or
+	plano_parque_paint_campo6	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo6	=	9	or
+	plano_parque_paint_campo6	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=9 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo7 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo7 = 1 or  plano_parque_paint_campo7 = 3 or  plano_parque_paint_campo7 = 5 or  plano_parque_paint_campo7 = 7 or  plano_parque_paint_campo7 = 9  or plano_parque_paint_campo7 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo7 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="992" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo7 visible="1~tif( plano_parque_campo7 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo7 = 7 or  plano_parque_paint_campo7 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo7 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo7	=	1	or
+	plano_parque_paint_campo7	=	2	or
+	plano_parque_paint_campo7	=	7	or
+	plano_parque_paint_campo7	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo7	=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo7	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo7	=	5	or
+	plano_parque_paint_campo7  =	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo7	=	9	or
+	plano_parque_paint_campo7	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=10 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo8 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo8 = 1 or  plano_parque_paint_campo8 = 3 or  plano_parque_paint_campo8 = 5 or  plano_parque_paint_campo8 = 7 or plano_parque_paint_campo8 = 9  or plano_parque_paint_campo8 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo8 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="1157" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo8 visible="1~tif( plano_parque_campo8 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo8 = 7 or  plano_parque_paint_campo8 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo8 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo8	=	1	or
+	plano_parque_paint_campo8	=	2	or
+	plano_parque_paint_campo8	=	7	or
+	plano_parque_paint_campo8	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo8	=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo8	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo8	=	5	or
+	plano_parque_paint_campo8	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo8	=	9	or
+	plano_parque_paint_campo8	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=11 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo9 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo9 = 1 or  plano_parque_paint_campo9 = 3 or  plano_parque_paint_campo9 = 5 or  plano_parque_paint_campo9 = 7 or  plano_parque_paint_campo9 = 9 or plano_parque_paint_campo9 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo9 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="1317" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo9 visible="1~tif( plano_parque_campo9 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo9 = 7 or  plano_parque_paint_campo9 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo9 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo9	=	1	or
+	plano_parque_paint_campo9	=	2	or
+	plano_parque_paint_campo9	=	7	or
+	plano_parque_paint_campo9	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo9	=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo9	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo9	=	5	or
+	plano_parque_paint_campo9	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo9	=	9	or
+	plano_parque_paint_campo9	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=12 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo10 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo10 = 1 or  plano_parque_paint_campo10 = 3 or  plano_parque_paint_campo10 = 5 or  plano_parque_paint_campo10 = 7 or  plano_parque_paint_campo10 = 9 or plano_parque_paint_campo10 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo10 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="1477" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo10 visible="1~tif( plano_parque_campo10 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo10 = 7 or  plano_parque_paint_campo10 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo10 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo10	=	1	or
+	plano_parque_paint_campo10	=	2	or
+	plano_parque_paint_campo10	=	7	or
+	plano_parque_paint_campo10	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo10=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo10	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo10	=	5	or
+	plano_parque_paint_campo10	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo10	=	9	or
+	plano_parque_paint_campo10	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=13 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo11 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo11 = 1 or  plano_parque_paint_campo11 = 3 or  plano_parque_paint_campo11 = 5 or  plano_parque_paint_campo11 = 7 or  plano_parque_paint_campo11 = 9 or plano_parque_paint_campo11 = 12,rgb(255,255,255),  if ( plano_parque_paint_campo11 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="1637" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo11 visible="1~tif( plano_parque_campo11 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo11 = 7 or  plano_parque_paint_campo11 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo11 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo11	=	1	or
+	plano_parque_paint_campo11	=	2	or
+	plano_parque_paint_campo11	=	7	or
+	plano_parque_paint_campo11	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo11=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo11	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo11	=	5	or
+	plano_parque_paint_campo11	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo11	=	9	or
+	plano_parque_paint_campo11	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=14 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo12 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo12 = 1 or  plano_parque_paint_campo12 = 3 or  plano_parque_paint_campo12 = 5 or  plano_parque_paint_campo12 = 7 or  plano_parque_paint_campo12 = 9 or plano_parque_paint_campo12 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo12 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="1797" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo12 visible="1~tif( plano_parque_campo12 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo12 = 7 or  plano_parque_paint_campo12 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo12 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo12	=	1	or
+	plano_parque_paint_campo12	=	2	or
+	plano_parque_paint_campo12	=	7	or
+	plano_parque_paint_campo12	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo12=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo12	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo12	=	5	or
+	plano_parque_paint_campo12	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo12	=	9	or
+	plano_parque_paint_campo12	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=15 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo13 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo13 = 1 or  plano_parque_paint_campo13 = 3 or  plano_parque_paint_campo13 = 5 or  plano_parque_paint_campo13 = 7 or  plano_parque_paint_campo13 = 9 or plano_parque_paint_campo13 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo13 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="1957" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo13 visible="1~tif( plano_parque_campo13 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo13 = 7 or  plano_parque_paint_campo13 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo13 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo13	=	1	or
+	plano_parque_paint_campo13	=	2	or
+	plano_parque_paint_campo13	=	7	or
+	plano_parque_paint_campo13	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo13=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo13=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo13	=	5	or
+	plano_parque_paint_campo13	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo13	=	9	or
+	plano_parque_paint_campo13	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=16 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo14 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo14 = 1 or  plano_parque_paint_campo14 = 3 or  plano_parque_paint_campo14 = 5 or  plano_parque_paint_campo14 = 7 or  plano_parque_paint_campo14 = 9  or plano_parque_paint_campo14 = 12,rgb(255,255,255),  if ( plano_parque_paint_campo14 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="2117" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo14 visible="1~tif( plano_parque_campo14 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo14 = 7 or  plano_parque_paint_campo14 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo14 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo14	=	1	or
+	plano_parque_paint_campo14	=	2	or
+	plano_parque_paint_campo14	=	7	or
+	plano_parque_paint_campo14	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo14=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo14=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo14	=	5	or
+	plano_parque_paint_campo14	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo14	=	9	or
+	plano_parque_paint_campo14	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=17 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo15 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo15 = 1 or  plano_parque_paint_campo15 = 3 or  plano_parque_paint_campo15 = 5 or  plano_parque_paint_campo15 = 7 or  plano_parque_paint_campo15 = 9  or plano_parque_paint_campo15 = 12,rgb(255,255,255),  if ( plano_parque_paint_campo15 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="2277" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo15 visible="1~tif( plano_parque_campo15 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo15 = 7 or  plano_parque_paint_campo15 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo15 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo15 =	1	or
+	plano_parque_paint_campo15	=	2	or
+	plano_parque_paint_campo15	=	7	or
+	plano_parque_paint_campo15	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo15=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo15=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo15	=	5	or
+	plano_parque_paint_campo15	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo15	=	9	or
+	plano_parque_paint_campo15	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=18 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo16 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo16 = 1 or  plano_parque_paint_campo16 = 3 or  plano_parque_paint_campo16 = 5 or  plano_parque_paint_campo16 = 7 or  plano_parque_paint_campo16 = 9  or plano_parque_paint_campo16 = 12,rgb(255,255,255),  if ( plano_parque_paint_campo16 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="2437" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo16 visible="1~tif( plano_parque_campo16 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo16 = 7 or  plano_parque_paint_campo16 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo16 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo16	=	1	or
+	plano_parque_paint_campo16	=	2	or
+	plano_parque_paint_campo16	=	7	or
+	plano_parque_paint_campo16	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo16=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo16=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo16	=	5	or
+	plano_parque_paint_campo16	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo16	=	9	or
+	plano_parque_paint_campo16	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=19 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo17 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo17 = 1 or  plano_parque_paint_campo17 = 3 or  plano_parque_paint_campo17 = 5 or  plano_parque_paint_campo17 = 7 or  plano_parque_paint_campo17 = 9 or plano_parque_paint_campo17 = 12,rgb(255,255,255),  if ( plano_parque_paint_campo17 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="2597" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo17 visible="1~tif( plano_parque_campo17 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo17 = 7 or  plano_parque_paint_campo17 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo17 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo17	=	1	or
+	plano_parque_paint_campo17	=	2	or
+	plano_parque_paint_campo17	=	7	or
+	plano_parque_paint_campo17	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo17=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo17=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo17	=	5	or
+	plano_parque_paint_campo17	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo17	=	9	or
+	plano_parque_paint_campo17	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=20 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo18 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo18 = 1 or  plano_parque_paint_campo18 = 3 or  plano_parque_paint_campo18 = 5 or  plano_parque_paint_campo18 = 7 or  plano_parque_paint_campo18 = 9  or plano_parque_paint_campo18 = 12,rgb(255,255,255),  if ( plano_parque_paint_campo18 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="2757" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo18 visible="1~tif( plano_parque_campo18 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo18 = 7 or  plano_parque_paint_campo18 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo18 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo18	=	1	or
+	plano_parque_paint_campo18	=	2	or
+	plano_parque_paint_campo18	=	7	or
+	plano_parque_paint_campo18	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo18=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo18=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo18	=	5	or
+	plano_parque_paint_campo18	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo18	=	9	or
+	plano_parque_paint_campo18	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=21 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo19 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo19 = 1 or  plano_parque_paint_campo19 = 3 or  plano_parque_paint_campo19 = 5 or  plano_parque_paint_campo19 = 7 or  plano_parque_paint_campo19 = 9  or plano_parque_paint_campo19 = 12,rgb(255,255,255),  if ( plano_parque_paint_campo19 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="2917" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo19 visible="1~tif( plano_parque_campo19 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo19 = 7 or  plano_parque_paint_campo19 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo19 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo19	=	1	or
+	plano_parque_paint_campo19	=	2	or
+	plano_parque_paint_campo19	=	7	or
+	plano_parque_paint_campo19	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo19=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo19=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo19	=	5	or
+	plano_parque_paint_campo19	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo19	=	9	or
+	plano_parque_paint_campo19	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=22 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo20 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo20 = 1 or  plano_parque_paint_campo20 = 3 or  plano_parque_paint_campo20 = 5 or  plano_parque_paint_campo20 = 7 or  plano_parque_paint_campo20 = 9  or plano_parque_paint_campo20 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo20 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="3077" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo20 visible="1~tif( plano_parque_campo20 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo20 = 7 or  plano_parque_paint_campo20 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo20 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo20	=	1	or
+	plano_parque_paint_campo20	=	2	or
+	plano_parque_paint_campo20	=	7	or
+	plano_parque_paint_campo20	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo20=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo20	=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo20	=	5	or
+	plano_parque_paint_campo20	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo20	=	9	or
+	plano_parque_paint_campo20	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=23 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo21 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo21 = 1 or  plano_parque_paint_campo21 = 3 or  plano_parque_paint_campo21 = 5 or  plano_parque_paint_campo21 = 7 or  plano_parque_paint_campo21 = 9  or plano_parque_paint_campo21 = 12,rgb(255,255,255),  if ( plano_parque_paint_campo21 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="3237" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo21 visible="1~tif( plano_parque_campo21 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo21 = 7 or  plano_parque_paint_campo21 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo21 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo21	=	1	or
+	plano_parque_paint_campo21	=	2	or
+	plano_parque_paint_campo21	=	7	or
+	plano_parque_paint_campo21	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo21=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo21=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo21	=	5	or
+	plano_parque_paint_campo21	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo21=	9	or
+	plano_parque_paint_campo21	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=24 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo22 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo22 = 1 or  plano_parque_paint_campo22 = 3 or  plano_parque_paint_campo22 = 5 or  plano_parque_paint_campo22 = 7 or  plano_parque_paint_campo22 = 9  or plano_parque_paint_campo22 = 12, rgb(255,255,255),  if ( plano_parque_paint_campo22 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="3397" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo22 visible="1~tif( plano_parque_campo22 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo22 = 7 or  plano_parque_paint_campo22 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo22 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo22	=	1	or
+	plano_parque_paint_campo22	=	2	or
+	plano_parque_paint_campo22	=	7	or
+	plano_parque_paint_campo22	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo22=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo22=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo22	=	5	or
+	plano_parque_paint_campo22	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo22	=	9	or
+	plano_parque_paint_campo22	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=25 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo23 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo23 = 1 or  plano_parque_paint_campo23 = 3 or  plano_parque_paint_campo23 = 5 or  plano_parque_paint_campo23 = 7 or  plano_parque_paint_campo23 = 9  or plano_parque_paint_campo23 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo23 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="3557" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo23 visible="1~tif( plano_parque_campo23 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo23 = 7 or  plano_parque_paint_campo23 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo23 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo23	=	1	or
+	plano_parque_paint_campo23	=	2	or
+	plano_parque_paint_campo23	=	7	or
+	plano_parque_paint_campo23	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo23=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo23=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo23	=	5	or
+	plano_parque_paint_campo23	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo23	=	9	or
+	plano_parque_paint_campo23	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=26 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo24 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo24 = 1 or  plano_parque_paint_campo24 = 3 or  plano_parque_paint_campo24 = 5 or  plano_parque_paint_campo24 = 7 or  plano_parque_paint_campo24 = 9  or plano_parque_paint_campo24 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo24 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="3717" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo24 visible="1~tif( plano_parque_campo24 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo24 = 7 or  plano_parque_paint_campo24 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo24 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo24	=	1	or
+	plano_parque_paint_campo24	=	2	or
+	plano_parque_paint_campo24	=	7	or
+	plano_parque_paint_campo24	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo24=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo24=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo24	=	5	or
+	plano_parque_paint_campo24	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo24	=	9	or
+	plano_parque_paint_campo24	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=27 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo25 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo25 = 1 or  plano_parque_paint_campo25 = 3 or  plano_parque_paint_campo25 = 5 or  plano_parque_paint_campo25 = 7 or  plano_parque_paint_campo25 = 9  or plano_parque_paint_campo25 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo25 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="3877" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo25 visible="1~tif( plano_parque_campo25 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo25 = 7 or  plano_parque_paint_campo25 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo25 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo25	=	1	or
+	plano_parque_paint_campo25	=	2	or
+	plano_parque_paint_campo25	=	7	or
+	plano_parque_paint_campo25	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo25=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo25=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo25	=	5	or
+	plano_parque_paint_campo25	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo25	=	9	or
+	plano_parque_paint_campo25	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=28 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo26 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo26 = 1 or  plano_parque_paint_campo26 = 3 or  plano_parque_paint_campo26 = 5 or  plano_parque_paint_campo26 = 7 or  plano_parque_paint_campo26 = 9  or plano_parque_paint_campo26 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo26 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="4037" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo26 visible="1~tif( plano_parque_campo26 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo26 = 7 or  plano_parque_paint_campo26 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo26 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo26	=	1	or
+	plano_parque_paint_campo26	=	2	or
+	plano_parque_paint_campo26	=	7	or
+	plano_parque_paint_campo26	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo26=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo26=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo26	=	5	or
+	plano_parque_paint_campo26	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo26	=	9	or
+	plano_parque_paint_campo26	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=29 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo27 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo27 = 1 or  plano_parque_paint_campo27 = 3 or  plano_parque_paint_campo27 = 5 or  plano_parque_paint_campo27 = 7 or  plano_parque_paint_campo27 = 9  or plano_parque_paint_campo27 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo27 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="4197" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo27 visible="1~tif( plano_parque_campo27 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo27 = 7 or  plano_parque_paint_campo27 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo27 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo27	=	1	or
+	plano_parque_paint_campo27	=	2	or
+	plano_parque_paint_campo27	=	7	or
+	plano_parque_paint_campo27	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo27=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo27=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo27	=	5	or
+	plano_parque_paint_campo27	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo27	=	9	or
+	plano_parque_paint_campo27	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=30 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo28 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo28 = 1 or  plano_parque_paint_campo28 = 3 or  plano_parque_paint_campo28 = 5 or  plano_parque_paint_campo28 = 7 or  plano_parque_paint_campo28 = 9  or plano_parque_paint_campo28 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo28 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="4357" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo28 visible="1~tif( plano_parque_campo28 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo28 = 7 or  plano_parque_paint_campo28 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo28 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo28	=	1	or
+	plano_parque_paint_campo28	=	2	or
+	plano_parque_paint_campo28	=	7	or
+	plano_parque_paint_campo28	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo28=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo28=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo28	=	5	or
+	plano_parque_paint_campo28	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo28	=	9	or
+	plano_parque_paint_campo28	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=31 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo29 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo29 = 1 or  plano_parque_paint_campo29 = 3 or  plano_parque_paint_campo29 = 5 or  plano_parque_paint_campo29 = 7 or  plano_parque_paint_campo29 = 9  or plano_parque_paint_campo29 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo29 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="4517" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo29 visible="1~tif( plano_parque_campo29 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo29 = 7 or  plano_parque_paint_campo29 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo29 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo29	=	1	or
+	plano_parque_paint_campo29	=	2	or
+	plano_parque_paint_campo29	=	7	or
+	plano_parque_paint_campo29	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo29=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo29=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo29	=	5	or
+	plano_parque_paint_campo29	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo29	=	9	or
+	plano_parque_paint_campo29	=	10	,rgb(255,0,0),	rgb(0,0,0)	) )	)	)	))
+" )
+column(band=detail id=32 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo30 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo30 = 1 or  plano_parque_paint_campo30 = 3 or  plano_parque_paint_campo30 = 5 or  plano_parque_paint_campo30 = 7 or  plano_parque_paint_campo30 = 9  or plano_parque_paint_campo30 = 12  ,rgb(255,255,255),  if ( plano_parque_paint_campo30 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="4677" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo30 visible="1~tif( plano_parque_campo30 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo30 = 7 or  plano_parque_paint_campo30 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo30 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo30	=	1	or
+	plano_parque_paint_campo30	=	2	or
+	plano_parque_paint_campo30	=	7	or
+	plano_parque_paint_campo30	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo30=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo30=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo30	=	5	or
+	plano_parque_paint_campo30	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo30	=	9	or
+	plano_parque_paint_campo30	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=33 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo31 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo31 = 1 or  plano_parque_paint_campo31 = 3 or  plano_parque_paint_campo31 = 5 or  plano_parque_paint_campo31 = 7 or  plano_parque_paint_campo31 = 9 or plano_parque_paint_campo31 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo31 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="4837" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo31 visible="1~tif( plano_parque_campo31 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo31 = 7 or  plano_parque_paint_campo31 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo31 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo31	=	1	or
+	plano_parque_paint_campo31	=	2	or
+	plano_parque_paint_campo31	=	7	or
+	plano_parque_paint_campo31	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo31=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo31=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo31	=	5	or
+	plano_parque_paint_campo31	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo31	=	9	or
+	plano_parque_paint_campo31	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=34 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo32 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo32 = 1 or  plano_parque_paint_campo32 = 3 or  plano_parque_paint_campo32 = 5 or  plano_parque_paint_campo32 = 7 or  plano_parque_paint_campo32 = 9 or plano_parque_paint_campo32 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo32 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="4997" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo32 visible="1~tif( plano_parque_campo32 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo32 = 7 or  plano_parque_paint_campo32 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo32 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo32	=	1	or
+	plano_parque_paint_campo32	=	2	or
+	plano_parque_paint_campo32	=	7	or
+	plano_parque_paint_campo32	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo32=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo32=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo32	=	5	or
+	plano_parque_paint_campo32	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo32	=	9	or
+	plano_parque_paint_campo32	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=35 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo33 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo33 = 1 or  plano_parque_paint_campo33 = 3 or  plano_parque_paint_campo33 = 5 or  plano_parque_paint_campo33 = 7 or  plano_parque_paint_campo33 = 9 or plano_parque_paint_campo33 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo33 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="5157" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo33 visible="1~tif( plano_parque_campo33 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo33 = 7 or  plano_parque_paint_campo33 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo33 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo33	=	1	or
+	plano_parque_paint_campo33	=	2	or
+	plano_parque_paint_campo33	=	7	or
+	plano_parque_paint_campo33	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo33=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo33=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo33	=	5	or
+	plano_parque_paint_campo33	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo33	=	9	or
+	plano_parque_paint_campo33	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=36 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo34 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo34 = 1 or  plano_parque_paint_campo34 = 3 or  plano_parque_paint_campo34 = 5 or  plano_parque_paint_campo34 = 7 or  plano_parque_paint_campo34 = 9 or plano_parque_paint_campo34 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo34 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="5317" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo34 visible="1~tif( plano_parque_campo34 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo34 = 7 or  plano_parque_paint_campo34 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo34 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo34	=	1	or
+	plano_parque_paint_campo34	=	2	or
+	plano_parque_paint_campo34	=	7	or
+	plano_parque_paint_campo34	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo34=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo34=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo34	=	5	or
+	plano_parque_paint_campo34	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo34	=	9	or
+	plano_parque_paint_campo34	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=37 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo35 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo35 = 1 or  plano_parque_paint_campo35 = 3 or  plano_parque_paint_campo35 = 5 or  plano_parque_paint_campo35 = 7 or  plano_parque_paint_campo35 = 9 or plano_parque_paint_campo35 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo35 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="5477" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo35 visible="1~tif( plano_parque_campo35 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo35 = 7 or  plano_parque_paint_campo35 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo35 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo35	=	1	or
+	plano_parque_paint_campo35	=	2	or
+	plano_parque_paint_campo35	=	7	or
+	plano_parque_paint_campo35	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo35=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo35=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo35	=	5	or
+	plano_parque_paint_campo35	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo35	=	9	or
+	plano_parque_paint_campo35	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=38 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo36 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo36 = 1 or  plano_parque_paint_campo36 = 3 or  plano_parque_paint_campo36 = 5 or  plano_parque_paint_campo36 = 7 or  plano_parque_paint_campo36 = 9 or plano_parque_paint_campo36 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo36 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="5637" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo36 visible="1~tif( plano_parque_campo36 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo36 = 7 or  plano_parque_paint_campo36 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo36 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo36	=	1	or
+	plano_parque_paint_campo36	=	2	or
+	plano_parque_paint_campo36	=	7	or
+	plano_parque_paint_campo36	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo36=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo36=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo36	=	5	or
+	plano_parque_paint_campo36	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo36	=	9	or
+	plano_parque_paint_campo36	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=39 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo37 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo37 = 1 or  plano_parque_paint_campo37 = 3 or  plano_parque_paint_campo37 = 5 or  plano_parque_paint_campo37 = 7 or  plano_parque_paint_campo37 = 9 or plano_parque_paint_campo37 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo37 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="5797" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo37 visible="1~tif( plano_parque_campo37 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo37 = 7 or  plano_parque_paint_campo37 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo37 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo37	=	1	or
+	plano_parque_paint_campo37	=	2	or
+	plano_parque_paint_campo37	=	7	or
+	plano_parque_paint_campo37	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo37=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo37=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo37	=	5	or
+	plano_parque_paint_campo37	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo37	=	9	or
+	plano_parque_paint_campo37	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=40 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo38 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo38 = 1 or  plano_parque_paint_campo38 = 3 or  plano_parque_paint_campo38 = 5 or  plano_parque_paint_campo38 = 7 or  plano_parque_paint_campo38 = 9 or plano_parque_paint_campo38 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo38 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="5957" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo38 visible="1~tif( plano_parque_campo38 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo38 = 7 or  plano_parque_paint_campo38 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo38 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo38	=	1	or
+	plano_parque_paint_campo38	=	2	or
+	plano_parque_paint_campo38	=	7	or
+	plano_parque_paint_campo38	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo38=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo38=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo38	=	5	or
+	plano_parque_paint_campo38	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo38	=	9	or
+	plano_parque_paint_campo38	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=49 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo47 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo47 = 1 or  plano_parque_paint_campo47 = 3 or  plano_parque_paint_campo47 = 5 or  plano_parque_paint_campo47 = 7 or  plano_parque_paint_campo47 = 9 or plano_parque_paint_campo47 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo47 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="7397~tIF ( plano_parque_campo47 =0,0,7397)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo47 visible="1~tif( plano_parque_campo47 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo47 = 7 or  plano_parque_paint_campo47 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo47 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo47	=	1	or
+	plano_parque_paint_campo47	=	2	or
+	plano_parque_paint_campo47	=	7	or
+	plano_parque_paint_campo47	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo47=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo47=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo47	=	5	or
+	plano_parque_paint_campo47	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo47	=	9	or
+	plano_parque_paint_campo47	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=50 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo48 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo48 = 1 or  plano_parque_paint_campo48 = 3 or  plano_parque_paint_campo48 = 5 or  plano_parque_paint_campo48 = 7 or  plano_parque_paint_campo48 = 9 or plano_parque_paint_campo48 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo48 = 4, rgb(0,0,255),  rgb(0,0,0)) ) " x="7557~tIF ( plano_parque_campo48 =0,0,7557)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo48 visible="1~tif( plano_parque_campo48 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo48 = 7 or  plano_parque_paint_campo48 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo48 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo48	=	1	or
+	plano_parque_paint_campo48	=	2	or
+	plano_parque_paint_campo48	=	7	or
+	plano_parque_paint_campo48	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo48=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo48=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo48	=	5	or
+	plano_parque_paint_campo48	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo48	=	9	or
+	plano_parque_paint_campo48	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=51 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo49 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo49 = 1 or  plano_parque_paint_campo49 = 3 or  plano_parque_paint_campo49 = 5 or  plano_parque_paint_campo49 = 7 or  plano_parque_paint_campo49 = 9 or plano_parque_paint_campo49 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo49 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="7717~tIF ( plano_parque_campo49 =0,0,7717)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo49 visible="1~tif( plano_parque_campo49 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo49 = 7 or  plano_parque_paint_campo49 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo49 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo49	=	1	or
+	plano_parque_paint_campo49	=	2	or
+	plano_parque_paint_campo49	=	7	or
+	plano_parque_paint_campo49	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo49=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo49=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo49	=	5	or
+	plano_parque_paint_campo49	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo49	=	9	or
+	plano_parque_paint_campo49	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=52 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo50 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo50 = 1 or  plano_parque_paint_campo50 = 3 or  plano_parque_paint_campo50 = 5 or  plano_parque_paint_campo50 = 7 or  plano_parque_paint_campo50 = 9 or plano_parque_paint_campo50 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo50 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="7877~tIF ( plano_parque_campo50 =0,0,7877)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo50 visible="1~tif( plano_parque_campo50 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo50 = 7 or  plano_parque_paint_campo50 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo50 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo50	=	1	or
+	plano_parque_paint_campo50	=	2	or
+	plano_parque_paint_campo50	=	7	or
+	plano_parque_paint_campo50	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo50=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo50=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo50	=	5	or
+	plano_parque_paint_campo50	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo50	=	9	or
+	plano_parque_paint_campo50	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=53 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo51 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo51 = 1 or  plano_parque_paint_campo51 = 3 or  plano_parque_paint_campo51 = 5 or  plano_parque_paint_campo51 = 7 or  plano_parque_paint_campo51 = 9 or plano_parque_paint_campo51 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo51 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="8037~tIF ( plano_parque_campo51 =0,0,8037)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo51 visible="1~tif( plano_parque_campo51 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo51 = 7 or  plano_parque_paint_campo51 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo51 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo51	=	1	or
+	plano_parque_paint_campo51	=	2	or
+	plano_parque_paint_campo51	=	7	or
+	plano_parque_paint_campo51	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo51=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo51=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo51	=	5	or
+	plano_parque_paint_campo51	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo51	=	9	or
+	plano_parque_paint_campo51	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=54 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo52 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo52 = 1 or  plano_parque_paint_campo52 = 3 or  plano_parque_paint_campo52 = 5 or  plano_parque_paint_campo52 = 7 or  plano_parque_paint_campo52 = 9 or plano_parque_paint_campo52 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo52 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="8197~tIF ( plano_parque_campo52 =0,0,8197)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo52 visible="1~tif( plano_parque_campo52 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo52 = 7 or  plano_parque_paint_campo52 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo52 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo52	=	1	or
+	plano_parque_paint_campo52	=	2	or
+	plano_parque_paint_campo52	=	7	or
+	plano_parque_paint_campo52	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo52=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo52=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo52	=	5	or
+	plano_parque_paint_campo52	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo52	=	9	or
+	plano_parque_paint_campo52	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=55 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo53 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo53 = 1 or  plano_parque_paint_campo53 = 3 or  plano_parque_paint_campo53 = 5 or  plano_parque_paint_campo53 = 7 or  plano_parque_paint_campo53 = 9 or plano_parque_paint_campo53 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo53 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="8357~tIF ( plano_parque_campo53 =0,0,8357)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo53 visible="1~tif( plano_parque_campo53 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo53 = 7 or  plano_parque_paint_campo53 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo53 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo53	=	1	or
+	plano_parque_paint_campo53	=	2	or
+	plano_parque_paint_campo53	=	7	or
+	plano_parque_paint_campo53	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo53=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo53=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo53	=	5	or
+	plano_parque_paint_campo53	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo53	=	9	or
+	plano_parque_paint_campo53	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=56 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo54 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo54 = 1 or  plano_parque_paint_campo54 = 3 or  plano_parque_paint_campo54 = 5 or  plano_parque_paint_campo54 = 7 or  plano_parque_paint_campo54 = 9 or plano_parque_paint_campo54 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo54 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="8517~tIF ( plano_parque_campo54 =0,0,8517)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo54 visible="1~tif( plano_parque_campo54 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo54 = 7 or  plano_parque_paint_campo54 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo54 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo54	=	1	or
+	plano_parque_paint_campo54	=	2	or
+	plano_parque_paint_campo54	=	7	or
+	plano_parque_paint_campo54	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo54=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo54=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo54	=	5	or
+	plano_parque_paint_campo54	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo54	=	9	or
+	plano_parque_paint_campo54	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=57 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo55 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo55 = 1 or  plano_parque_paint_campo55 = 3 or  plano_parque_paint_campo55 = 5 or  plano_parque_paint_campo55 = 7 or  plano_parque_paint_campo55 = 9 or plano_parque_paint_campo55 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo55 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="8677~tIF ( plano_parque_campo55 =0,0,8677)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo55 visible="1~tif( plano_parque_campo55 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo55 = 7 or  plano_parque_paint_campo55 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo55 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo55	=	1	or
+	plano_parque_paint_campo55	=	2	or
+	plano_parque_paint_campo55	=	7	or
+	plano_parque_paint_campo55	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo55=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo55=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo55	=	5	or
+	plano_parque_paint_campo55	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo55	=	9	or
+	plano_parque_paint_campo55	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=58 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo56 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo56 = 1 or  plano_parque_paint_campo56 = 3 or  plano_parque_paint_campo56 = 5 or  plano_parque_paint_campo56 = 7 or  plano_parque_paint_campo56 = 9 or plano_parque_paint_campo56 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo56 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="8837~tIF ( plano_parque_campo56 =0,0,8837)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo56 visible="1~tif( plano_parque_campo56 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo56 = 7 or  plano_parque_paint_campo56 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo56 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo56	=	1	or
+	plano_parque_paint_campo56	=	2	or
+	plano_parque_paint_campo56	=	7	or
+	plano_parque_paint_campo56	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo56=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo56=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo56	=	5	or
+	plano_parque_paint_campo56	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo56	=	9	or
+	plano_parque_paint_campo56	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=59 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo57 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo57 = 1 or  plano_parque_paint_campo57 = 3 or  plano_parque_paint_campo57 = 5 or  plano_parque_paint_campo57 = 7 or  plano_parque_paint_campo57 = 9 or plano_parque_paint_campo57 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo57 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="8997~tIF ( plano_parque_campo57 =0,0,8997)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo57 visible="1~tif( plano_parque_campo57 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo57 = 7 or  plano_parque_paint_campo57 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo57 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo57	=	1	or
+	plano_parque_paint_campo57	=	2	or
+	plano_parque_paint_campo57	=	7	or
+	plano_parque_paint_campo57	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo57=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo57=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo57	=	5	or
+	plano_parque_paint_campo57	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo57	=	9	or
+	plano_parque_paint_campo57	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=60 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo58 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo58 = 1 or  plano_parque_paint_campo58 = 3 or  plano_parque_paint_campo58 = 5 or  plano_parque_paint_campo58 = 7 or  plano_parque_paint_campo58 = 9 or plano_parque_paint_campo58 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo58 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="9157~tIF ( plano_parque_campo58 =0,0,9157)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo58 visible="1~tif( plano_parque_campo58 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo58 = 7 or  plano_parque_paint_campo58 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo58 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo58	=	1	or
+	plano_parque_paint_campo58	=	2	or
+	plano_parque_paint_campo58	=	7	or
+	plano_parque_paint_campo58	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo58=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo58=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo58	=	5	or
+	plano_parque_paint_campo58	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo58	=	9	or
+	plano_parque_paint_campo58	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=61 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo59 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo59 = 1 or  plano_parque_paint_campo59 = 3 or  plano_parque_paint_campo59 = 5 or  plano_parque_paint_campo59 = 7 or  plano_parque_paint_campo59 = 9 or plano_parque_paint_campo59 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo59 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="9317~tIF ( plano_parque_campo59 =0,0,9317)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo59 visible="1~tif( plano_parque_campo59 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo59 = 7 or  plano_parque_paint_campo59 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo59 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo59	=	1	or
+	plano_parque_paint_campo59	=	2	or
+	plano_parque_paint_campo59	=	7	or
+	plano_parque_paint_campo59	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo59=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo59=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo59	=	5	or
+	plano_parque_paint_campo59	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo59	=	9	or
+	plano_parque_paint_campo59	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=62 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo60 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo60 = 1 or  plano_parque_paint_campo60 = 3 or  plano_parque_paint_campo60 = 5 or  plano_parque_paint_campo60 = 7 or  plano_parque_paint_campo60 = 9 or plano_parque_paint_campo60 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo60 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="9477~tIF ( plano_parque_campo60 =0,0,9477)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo60 visible="1~tif( plano_parque_campo60 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo60 = 7 or  plano_parque_paint_campo60 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo60 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo60	=	1	or
+	plano_parque_paint_campo60	=	2	or
+	plano_parque_paint_campo60	=	7	or
+	plano_parque_paint_campo60	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo60=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo60=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo60	=	5	or
+	plano_parque_paint_campo60	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo60	=	9	or
+	plano_parque_paint_campo60	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=63 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo61 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo61 = 1 or  plano_parque_paint_campo61 = 3 or  plano_parque_paint_campo61 = 5 or  plano_parque_paint_campo61 = 7 or  plano_parque_paint_campo61 = 9 or plano_parque_paint_campo61 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo61 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="9637~tIF ( plano_parque_campo61 =0,0,9637)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo61 visible="1~tif( plano_parque_campo61 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo61 = 7 or  plano_parque_paint_campo61 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo61 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo61	=	1	or
+	plano_parque_paint_campo61	=	2	or
+	plano_parque_paint_campo61	=	7	or
+	plano_parque_paint_campo61	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo61=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo61=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo61	=	5	or
+	plano_parque_paint_campo61	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo61	=	9	or
+	plano_parque_paint_campo61	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=64 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo62 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo62 = 1 or  plano_parque_paint_campo62 = 3 or  plano_parque_paint_campo62 = 5 or  plano_parque_paint_campo62 = 7 or  plano_parque_paint_campo62 = 9 or plano_parque_paint_campo62 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo62 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="9797~tIF ( plano_parque_campo62 =0,0,9797)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo62 visible="1~tif( plano_parque_campo62 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo62 = 7 or  plano_parque_paint_campo62 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo62 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo62	=	1	or
+	plano_parque_paint_campo62	=	2	or
+	plano_parque_paint_campo62	=	7	or
+	plano_parque_paint_campo62	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo62=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo62=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo62	=	5	or
+	plano_parque_paint_campo62	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo62	=	9	or
+	plano_parque_paint_campo62	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=65 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo63 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo63 = 1 or  plano_parque_paint_campo63 = 3 or  plano_parque_paint_campo63 = 5 or  plano_parque_paint_campo63 = 7 or  plano_parque_paint_campo63 = 9 or plano_parque_paint_campo63 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo63 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="9957~tIF ( plano_parque_campo63 =0,0,9957)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo63 visible="1~tif( plano_parque_campo63 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo63 = 7 or  plano_parque_paint_campo63 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo63 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo63	=	1	or
+	plano_parque_paint_campo63	=	2	or
+	plano_parque_paint_campo63	=	7	or
+	plano_parque_paint_campo63	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo63=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo63=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo63	=	5	or
+	plano_parque_paint_campo63	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo63	=	9	or
+	plano_parque_paint_campo63	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=66 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo64 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo64 = 1 or  plano_parque_paint_campo64 = 3 or  plano_parque_paint_campo64 = 5 or  plano_parque_paint_campo64 = 7 or  plano_parque_paint_campo64 = 9 or plano_parque_paint_campo64 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo64 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="10117~tIF ( plano_parque_campo64 =0,0,10117)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo64 visible="1~tif( plano_parque_campo64 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo64 = 7 or  plano_parque_paint_campo64 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo64 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo64	=	1	or
+	plano_parque_paint_campo64	=	2	or
+	plano_parque_paint_campo64	=	7	or
+	plano_parque_paint_campo64	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo64=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo64=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo64	=	5	or
+	plano_parque_paint_campo64	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo64	=	9	or
+	plano_parque_paint_campo64	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=67 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo65 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo65 = 1 or  plano_parque_paint_campo65 = 3 or  plano_parque_paint_campo65 = 5 or  plano_parque_paint_campo65 = 7 or  plano_parque_paint_campo65 = 9 or plano_parque_paint_campo65 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo65 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="10277~tIF ( plano_parque_campo65 =0,0,10277)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo65 visible="1~tif( plano_parque_campo65 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo65 = 7 or  plano_parque_paint_campo65 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo65 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo65	=	1	or
+	plano_parque_paint_campo65	=	2	or
+	plano_parque_paint_campo65	=	7	or
+	plano_parque_paint_campo65	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo65=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo65=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo65	=	5	or
+	plano_parque_paint_campo65	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo65	=	9	or
+	plano_parque_paint_campo65	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=68 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo66 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo66 = 1 or  plano_parque_paint_campo66 = 3 or  plano_parque_paint_campo66 = 5 or  plano_parque_paint_campo66 = 7 or  plano_parque_paint_campo66 = 9 or plano_parque_paint_campo66 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo66 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="10437~tIF ( plano_parque_campo66 =0,0,10437)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo66 visible="1~tif( plano_parque_campo66 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo66 = 7 or  plano_parque_paint_campo66 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo66 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo66	=	1	or
+	plano_parque_paint_campo66	=	2	or
+	plano_parque_paint_campo66	=	7	or
+	plano_parque_paint_campo66	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo66=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo66=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo66	=	5	or
+	plano_parque_paint_campo66	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo66	=	9	or
+	plano_parque_paint_campo66	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=69 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo67 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo67 = 1 or  plano_parque_paint_campo67 = 3 or  plano_parque_paint_campo67 = 5 or  plano_parque_paint_campo67 = 7 or  plano_parque_paint_campo67 = 9 or plano_parque_paint_campo67 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo67 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="10597~tIF ( plano_parque_campo67 =0,0,10597)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo67 visible="1~tif( plano_parque_campo67 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo67 = 7 or  plano_parque_paint_campo67 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo67 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo67	=	1	or
+	plano_parque_paint_campo67	=	2	or
+	plano_parque_paint_campo67	=	7	or
+	plano_parque_paint_campo67	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo67=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo67=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo67	=	5	or
+	plano_parque_paint_campo67	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo67	=	9	or
+	plano_parque_paint_campo67	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=70 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo68 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo68 = 1 or  plano_parque_paint_campo68 = 3 or  plano_parque_paint_campo68 = 5 or  plano_parque_paint_campo68 = 7 or  plano_parque_paint_campo68 = 9 or plano_parque_paint_campo68 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo68 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="10757~tIF ( plano_parque_campo68 =0,0,10757)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo68 visible="1~tif( plano_parque_campo68 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo68 = 7 or  plano_parque_paint_campo68 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo68 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo68	=	1	or
+	plano_parque_paint_campo68	=	2	or
+	plano_parque_paint_campo68	=	7	or
+	plano_parque_paint_campo68	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo68=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo68=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo68	=	5	or
+	plano_parque_paint_campo68	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo68	=	9	or
+	plano_parque_paint_campo68	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=71 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo69 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo69 = 1 or  plano_parque_paint_campo69 = 3 or  plano_parque_paint_campo69 = 5 or  plano_parque_paint_campo69 = 7 or  plano_parque_paint_campo69 = 9 or plano_parque_paint_campo69 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo69 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="10917~tIF ( plano_parque_campo69 =0,0,10917)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo69 visible="1~tif( plano_parque_campo69 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo69 = 7 or  plano_parque_paint_campo69 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo69 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo69	=	1	or
+	plano_parque_paint_campo69	=	2	or
+	plano_parque_paint_campo69	=	7	or
+	plano_parque_paint_campo69	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo69=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo69=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo69	=	5	or
+	plano_parque_paint_campo69	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo69	=	9	or
+	plano_parque_paint_campo69	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=72 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo70 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo70 = 1 or  plano_parque_paint_campo70 = 3 or  plano_parque_paint_campo70 = 5 or  plano_parque_paint_campo70 = 7 or  plano_parque_paint_campo70 = 9 or plano_parque_paint_campo70 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo70 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="11077~tIF ( plano_parque_campo70 =0,0,11077)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo70 visible="1~tif( plano_parque_campo70 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo70 = 7 or  plano_parque_paint_campo70 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo70 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo70	=	1	or
+	plano_parque_paint_campo70	=	2	or
+	plano_parque_paint_campo70	=	7	or
+	plano_parque_paint_campo70	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo70=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo70=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo70	=	5	or
+	plano_parque_paint_campo70	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo70	=	9	or
+	plano_parque_paint_campo70	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=73 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo71 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo71 = 1 or  plano_parque_paint_campo71 = 3 or  plano_parque_paint_campo71 = 5 or  plano_parque_paint_campo71 = 7 or  plano_parque_paint_campo71 = 9 or plano_parque_paint_campo71 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo71 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="11237~tIF ( plano_parque_campo71 =0,0,11237)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo71 visible="1~tif( plano_parque_campo71 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo71 = 7 or  plano_parque_paint_campo71 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo71 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo71	=	1	or
+	plano_parque_paint_campo71	=	2	or
+	plano_parque_paint_campo71	=	7	or
+	plano_parque_paint_campo71	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo71=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo71=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo71	=	5	or
+	plano_parque_paint_campo71	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo71	=	9	or
+	plano_parque_paint_campo71	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=74 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo72 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo72 = 1 or  plano_parque_paint_campo72 = 3 or  plano_parque_paint_campo72 = 5 or  plano_parque_paint_campo72 = 7 or  plano_parque_paint_campo72 = 9 or plano_parque_paint_campo72 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo72 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="11397~tIF ( plano_parque_campo72 =0,0,11397)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo72 visible="1~tif( plano_parque_campo72 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo72 = 7 or  plano_parque_paint_campo72 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo72 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo72	=	1	or
+	plano_parque_paint_campo72	=	2	or
+	plano_parque_paint_campo72	=	7	or
+	plano_parque_paint_campo72	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo72=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo72=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo72	=	5	or
+	plano_parque_paint_campo72	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo72	=	9	or
+	plano_parque_paint_campo72	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=75 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo73 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo73 = 1 or  plano_parque_paint_campo73 = 3 or  plano_parque_paint_campo73 = 5 or  plano_parque_paint_campo73 = 7 or  plano_parque_paint_campo73 = 9 or plano_parque_paint_campo73 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo73 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="11557~tIF ( plano_parque_campo73 =0,0,11557)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo73 visible="1~tif( plano_parque_campo73 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo73 = 7 or  plano_parque_paint_campo73 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo73 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo73	=	1	or
+	plano_parque_paint_campo73	=	2	or
+	plano_parque_paint_campo73	=	7	or
+	plano_parque_paint_campo73	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo73=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo73=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo73	=	5	or
+	plano_parque_paint_campo73	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo73	=	9	or
+	plano_parque_paint_campo73	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=76 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo74 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo74 = 1 or  plano_parque_paint_campo74 = 3 or  plano_parque_paint_campo74 = 5 or  plano_parque_paint_campo74 = 7 or  plano_parque_paint_campo74 = 9 or plano_parque_paint_campo74 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo74 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="11717~tIF ( plano_parque_campo74 =0,0,11717)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo74 visible="1~tif( plano_parque_campo74 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo74 = 7 or  plano_parque_paint_campo74 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo74 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo74	=	1	or
+	plano_parque_paint_campo74	=	2	or
+	plano_parque_paint_campo74	=	7	or
+	plano_parque_paint_campo74	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo74=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo74=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo74	=	5	or
+	plano_parque_paint_campo74	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo74	=	9	or
+	plano_parque_paint_campo74	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=77 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo75 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo75 = 1 or  plano_parque_paint_campo75 = 3 or  plano_parque_paint_campo75 = 5 or  plano_parque_paint_campo75 = 7 or  plano_parque_paint_campo75 = 9 or plano_parque_paint_campo75 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo75 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="11877~tIF ( plano_parque_campo75 =0,0,11877)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo75 visible="1~tif( plano_parque_campo75 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo75 = 7 or  plano_parque_paint_campo75 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo75 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo75	=	1	or
+	plano_parque_paint_campo75	=	2	or
+	plano_parque_paint_campo75	=	7	or
+	plano_parque_paint_campo75	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo75=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo75=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo75	=	5	or
+	plano_parque_paint_campo75	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo75	=	9	or
+	plano_parque_paint_campo75	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=78 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo76 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo76 = 1 or  plano_parque_paint_campo76 = 3 or  plano_parque_paint_campo76 = 5 or  plano_parque_paint_campo76 = 7 or  plano_parque_paint_campo76 = 9 or plano_parque_paint_campo76 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo76 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="12037~tIF ( plano_parque_campo76 =0,0,12037)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo76 visible="1~tif( plano_parque_campo76 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo76 = 7 or  plano_parque_paint_campo76 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo76 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo76	=	1	or
+	plano_parque_paint_campo76	=	2	or
+	plano_parque_paint_campo76	=	7	or
+	plano_parque_paint_campo76	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo76=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo76=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo76	=	5	or
+	plano_parque_paint_campo76	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo76	=	9	or
+	plano_parque_paint_campo76	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=79 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo77 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo77 = 1 or  plano_parque_paint_campo77 = 3 or  plano_parque_paint_campo77 = 5 or  plano_parque_paint_campo77 = 7 or  plano_parque_paint_campo77 = 9 or plano_parque_paint_campo77 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo77 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="12197~tIF ( plano_parque_campo77 =0,0,12197)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo77 visible="1~tif( plano_parque_campo77 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo77 = 7 or  plano_parque_paint_campo77 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo77 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo77	=	1	or
+	plano_parque_paint_campo77	=	2	or
+	plano_parque_paint_campo77	=	7	or
+	plano_parque_paint_campo77	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo77=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo77=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo77	=	5	or
+	plano_parque_paint_campo77	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo77	=	9	or
+	plano_parque_paint_campo77	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=80 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo78 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo78 = 1 or  plano_parque_paint_campo78 = 3 or  plano_parque_paint_campo78 = 5 or  plano_parque_paint_campo78 = 7 or  plano_parque_paint_campo78 = 9 or plano_parque_paint_campo78 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo78 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="12357~tIF ( plano_parque_campo78 =0,0,12357)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo78 visible="1~tif( plano_parque_campo78 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo78 = 7 or  plano_parque_paint_campo78 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo78 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo78	=	1	or
+	plano_parque_paint_campo78	=	2	or
+	plano_parque_paint_campo78	=	7	or
+	plano_parque_paint_campo78	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo78=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo78=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo78	=	5	or
+	plano_parque_paint_campo78	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo78	=	9	or
+	plano_parque_paint_campo78	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=81 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo79 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo79 = 1 or  plano_parque_paint_campo79 = 3 or  plano_parque_paint_campo79 = 5 or  plano_parque_paint_campo79 = 7 or  plano_parque_paint_campo79 = 9 or plano_parque_paint_campo79 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo79 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="12517~tIF ( plano_parque_campo79 =0,0,12517)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo79 visible="1~tif( plano_parque_campo79 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo79 = 7 or  plano_parque_paint_campo79 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo79 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo79	=	1	or
+	plano_parque_paint_campo79	=	2	or
+	plano_parque_paint_campo79	=	7	or
+	plano_parque_paint_campo79	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo79=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo79=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo79	=	5	or
+	plano_parque_paint_campo79	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo79	=	9	or
+	plano_parque_paint_campo79	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=82 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo80 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo80 = 1 or  plano_parque_paint_campo80 = 3 or  plano_parque_paint_campo80 = 5 or  plano_parque_paint_campo80 = 7 or  plano_parque_paint_campo80 = 9 or plano_parque_paint_campo80 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo80 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="12677~tIF ( plano_parque_campo80 =0,0,12677)          " y="20" height="60" width="128" format="[general]"  name=plano_parque_campo80 visible="1~tif( plano_parque_campo80 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo80 = 7 or  plano_parque_paint_campo80 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo80 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo80	=	1	or
+	plano_parque_paint_campo80	=	2	or
+	plano_parque_paint_campo80	=	7	or
+	plano_parque_paint_campo80	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo80=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo80=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo80	=	5	or
+	plano_parque_paint_campo80	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo80	=	9	or
+	plano_parque_paint_campo80	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=41 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo39 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo39 = 1 or  plano_parque_paint_campo39 = 3 or  plano_parque_paint_campo39 = 5 or  plano_parque_paint_campo39 = 7 or  plano_parque_paint_campo39 = 9 or plano_parque_paint_campo39 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo39 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="6117~tIF ( plano_parque_campo39 =0,0,6117)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo39 visible="1~tif( plano_parque_campo39 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo39 = 7 or  plano_parque_paint_campo39 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo39 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo39	=	1	or
+	plano_parque_paint_campo39	=	2	or
+	plano_parque_paint_campo39	=	7	or
+	plano_parque_paint_campo39	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo39=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo39=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo39	=	5	or
+	plano_parque_paint_campo39	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo39	=	9	or
+	plano_parque_paint_campo39	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=42 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo40 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo40 = 1 or  plano_parque_paint_campo40 = 3 or  plano_parque_paint_campo40 = 5 or  plano_parque_paint_campo40 = 7 or  plano_parque_paint_campo40 = 9 or plano_parque_paint_campo40 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo40 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="6277~tIF ( plano_parque_campo40 =0,0,6277)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo40 visible="1~tif( plano_parque_campo40 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo40 = 7 or  plano_parque_paint_campo40 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo40 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo40	=	1	or
+	plano_parque_paint_campo40	=	2	or
+	plano_parque_paint_campo40	=	7	or
+	plano_parque_paint_campo40	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo40=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo40=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo40	=	5	or
+	plano_parque_paint_campo40	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo40	=	9	or
+	plano_parque_paint_campo40	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=43 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo41 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo41 = 1 or  plano_parque_paint_campo41 = 3 or  plano_parque_paint_campo41 = 5 or  plano_parque_paint_campo41 = 7 or  plano_parque_paint_campo41 = 9 or plano_parque_paint_campo41 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo41 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="6437~tIF ( plano_parque_campo41 =0,0,6437)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo41 visible="1~tif( plano_parque_campo41 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo41 = 7 or  plano_parque_paint_campo41 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo41 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo41	=	1	or
+	plano_parque_paint_campo41	=	2	or
+	plano_parque_paint_campo41	=	7	or
+	plano_parque_paint_campo41	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo41=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo41=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo41	=	5	or
+	plano_parque_paint_campo41	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo41	=	9	or
+	plano_parque_paint_campo41	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=44 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo42 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo42 = 1 or  plano_parque_paint_campo42 = 3 or  plano_parque_paint_campo42 = 5 or  plano_parque_paint_campo42 = 7 or  plano_parque_paint_campo42 = 9 or plano_parque_paint_campo42 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo42 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="6597~tIF ( plano_parque_campo42 =0,0,6597)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo42 visible="1~tif( plano_parque_campo42 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo42 = 7 or  plano_parque_paint_campo42 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo42 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo42	=	1	or
+	plano_parque_paint_campo42	=	2	or
+	plano_parque_paint_campo42	=	7	or
+	plano_parque_paint_campo42	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo42=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo42=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo42	=	5	or
+	plano_parque_paint_campo42	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo42	=	9	or
+	plano_parque_paint_campo42	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=45 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo43 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo43 = 1 or  plano_parque_paint_campo43 = 3 or  plano_parque_paint_campo43 = 5 or  plano_parque_paint_campo43 = 7 or  plano_parque_paint_campo43 = 9 or plano_parque_paint_campo43 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo43 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="6757~tIF ( plano_parque_campo43 =0,0,6757)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo43 visible="1~tif( plano_parque_campo43 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo43 = 7 or  plano_parque_paint_campo43 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo43 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo43	=	1	or
+	plano_parque_paint_campo43	=	2	or
+	plano_parque_paint_campo43	=	7	or
+	plano_parque_paint_campo43	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo43=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo43=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo43	=	5	or
+	plano_parque_paint_campo43	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo43	=	9	or
+	plano_parque_paint_campo43	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=46 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo44 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo44 = 1 or  plano_parque_paint_campo44 = 3 or  plano_parque_paint_campo44 = 5 or  plano_parque_paint_campo44 = 7 or  plano_parque_paint_campo44 = 9 or plano_parque_paint_campo44 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo44 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="6917~tIF ( plano_parque_campo44 =0,0,6917)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo44 visible="1~tif( plano_parque_campo44 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo44 = 7 or  plano_parque_paint_campo44 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo44 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo44	=	1	or
+	plano_parque_paint_campo44	=	2	or
+	plano_parque_paint_campo44	=	7	or
+	plano_parque_paint_campo44	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo44=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo44=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo44	=	5	or
+	plano_parque_paint_campo44	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo44	=	9	or
+	plano_parque_paint_campo44	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=47 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo45 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo45 = 1 or  plano_parque_paint_campo45 = 3 or  plano_parque_paint_campo45 = 5 or  plano_parque_paint_campo45 = 7 or  plano_parque_paint_campo45 = 9 or plano_parque_paint_campo45 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo45 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="7077~tIF ( plano_parque_campo45 =0,0,7077)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo45 visible="1~tif( plano_parque_campo45 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo45 = 7 or  plano_parque_paint_campo45 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo45 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo45	=	1	or
+	plano_parque_paint_campo45	=	2	or
+	plano_parque_paint_campo45	=	7	or
+	plano_parque_paint_campo45	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo45=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo45=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo45	=	5	or
+	plano_parque_paint_campo45	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo45	=	9	or
+	plano_parque_paint_campo45	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+column(band=detail id=48 alignment="2" tabsequence=32766 border="5~tif ( plano_parque_campo46 = boton ,5,6)" color="16777215~tif( plano_parque_paint_campo46 = 1 or  plano_parque_paint_campo46 = 3 or  plano_parque_paint_campo46 = 5 or  plano_parque_paint_campo46 = 7 or  plano_parque_paint_campo46 = 9 or plano_parque_paint_campo46 = 12 ,rgb(255,255,255),  if ( plano_parque_paint_campo46 = 4, rgb(0,0,255),  rgb(0,0,0)) )" x="7237~tIF ( plano_parque_campo46 =0,0,7237)" y="20" height="60" width="128" format="[general]"  name=plano_parque_campo46 visible="1~tif( plano_parque_campo46 =0,0,1)" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0"font.underline="0~tif ( plano_parque_paint_campo46 = 7 or  plano_parque_paint_campo46 = 8 ,1,0)"  background.mode="0" background.color="32768~tif(             plano_parque_paint_campo46 = 12, rgb(0,106,213),                                      if(	plano_parque_paint_campo46	=	1	or
+	plano_parque_paint_campo46	=	2	or
+	plano_parque_paint_campo46	=	7	or
+	plano_parque_paint_campo46	=	8	,rgb(0,128,64),	
+if(	plano_parque_paint_campo46=	3	,rgb(128,0,255),               if(             plano_parque_paint_campo46=	4              ,rgb(255,255,0),
+if(	plano_parque_paint_campo46	=	5	or
+	plano_parque_paint_campo46	=	6	,rgb(255,128,60),	
+if(	plano_parque_paint_campo46	=	9	or
+	plano_parque_paint_campo46	=	10	,rgb(255,0,0),	rgb(0,0,0)	)	)	)	)))
+" )
+text(band=footer alignment="0" text="Sepult. c / Fallecidos" border="2" color="0" x="2386" y="24" height="56" width="649"  name=t_19  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="" border="2" color="0" x="3063" y="24" height="56" width="146"  name=t_17  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="" border="2" color="0" x="3232" y="24" height="56" width="197"  name=t_18  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="0" text="Sepulturas Asignadas" border="2" color="32768" x="2386" y="24" height="56" width="649"  name=t_12  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="" border="2" color="32768" x="3063" y="24" height="56" width="146"  name=t_9  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="" border="2" color="32768" x="3232" y="24" height="56" width="197"  name=t_15  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="0" text="Sepulturas Sin Asignadas" border="2" color="16711680" x="2386" y="24" height="56" width="649"  name=t_13  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="" border="2" color="16711680" x="3063" y="24" height="56" width="146"  name=t_10  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="" border="2" color="16711680" x="3232" y="24" height="56" width="197"  name=t_16  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="0" text="Total Sepulturas" border="2" color="0" x="2386" y="24" height="56" width="649"  name=t_14  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="" border="2" color="0" x="3063" y="24" height="56" width="146"  name=t_11  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="  Sepultura Asignada   " border="0" color="0" x="37" y="16" height="48" width="699"  name=t_5  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=footer alignment="2" text="123" border="5" color="16777215" x="50" y="16" height="48" width="128"  name=t_1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="32768" )
+text(band=footer alignment="0" text="" border="0" color="0" x="27" y="16" height="48" width="1518"  name=t_8  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="1" text="Sepultura s/ Asignar" border="0" color="0" x="1627" y="16" height="48" width="699"  name=t_7  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=footer alignment="1" text="                        Sepultura Asignada  o No, c/ Fallecido.   " border="0" color="0" x="754" y="16" height="48" width="846"  name=t_6  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=footer alignment="2" text="123" border="5" color="0" x="782" y="16" height="56" width="128"  name=t_2  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="32768" )
+text(band=footer alignment="2" text="123" border="5" color="0" x="782" y="16" height="56" width="128"  name=t_3  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16711680" )
+text(band=footer alignment="2" text="123" border="5" color="16777215" x="1655" y="16" height="56" width="128"  name=t_4  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16711680" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )
+  

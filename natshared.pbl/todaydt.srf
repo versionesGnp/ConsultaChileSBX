@@ -1,0 +1,11 @@
+﻿global type todaydt from function_object
+end type
+
+forward prototypes
+global function datetime todaydt ()
+end prototypes
+
+global function datetime todaydt ();
+Return DateTime( Today( ) )
+end function
+

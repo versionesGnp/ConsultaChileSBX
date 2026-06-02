@@ -1,0 +1,30 @@
+﻿global type f_buscar_parque_por_promesa from function_object
+end type
+
+forward prototypes
+global function string f_buscar_parque_por_promesa (string as_base, string as_serie, double al_numero)
+end prototypes
+
+global function string f_buscar_parque_por_promesa (string as_base, string as_serie, double al_numero);string	ls_parque='XXX'
+Long		ll_cod_parque
+
+SELECT DISTINCT "CADENA"."COD_PARQUE"  
+INTO 		:ll_cod_parque  
+FROM 		"CADENA"  
+WHERE	 ( "CADENA"."CODIGO" = :as_base ) AND  
+       ( "CADENA"."SERIE" = :as_serie ) AND  
+       ( "CADENA"."NUMERO" = :al_numero )
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	SELECT	"COD_PARQ"."NOMBRE"  
+	INTO 		:ls_parque  
+	FROM 		"COD_PARQ"  
+	WHERE 	"COD_PARQ"."CODIGO" = :ll_cod_parque   
+	USING		sqlca;
+	if sqlca.sqlcode<>0 then
+		ls_parque	= 'XXX'
+	end if
+end if
+return ls_parque
+end function
+

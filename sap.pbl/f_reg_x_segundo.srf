@@ -1,0 +1,33 @@
+﻿global type f_reg_x_segundo from function_object
+end type
+
+forward prototypes
+global function long f_reg_x_segundo (string as_tipo_carga, long as_cuenta)
+end prototypes
+
+global function long f_reg_x_segundo (string as_tipo_carga, long as_cuenta);string		ls_ok
+long		ll_tot_reg,ll_cta_reg=0
+
+//f_reg_x_segundo(as_tipo_carga,as_tipo_deuda)
+if as_tipo_carga='CLIE' then
+	ll_tot_reg					=as_cuenta
+elseif as_tipo_carga='CTTO' then
+	ll_tot_reg					= as_cuenta
+end if
+ll_cta_reg++
+if ll_cta_reg<ll_tot_reg then
+	ls_ok					= 'N'
+	do while ls_ok='N' 
+		ll_cta_reg++
+		if ll_cta_reg<ll_tot_reg then
+			 ls_ok='N' 
+		else
+			 ls_ok='S'
+		end if
+	loop
+end if
+if isnull(ll_cta_reg) then ll_cta_reg=0
+return		ll_cta_reg
+
+end function
+

@@ -1,0 +1,14 @@
+﻿global type f_jefe from function_object
+end type
+
+forward prototypes
+global function long f_jefe (string jefe)
+end prototypes
+
+global function long f_jefe (string jefe);long resultado
+
+select sum(total) into :resultado from meta_superint where jefe_venta =:jefe;
+
+return resultado
+end function
+

@@ -1,0 +1,29 @@
+﻿global type f_valida_precio_revision from function_object
+end type
+
+forward prototypes
+global function double f_valida_precio_revision (string as_tipo_sepultura, string as_area, long al_capacidad, string as_uso, string as_moneda, double ld_valor_uf, string as_tipo_construc, long al_cod_parque)
+end prototypes
+
+global function double f_valida_precio_revision (string as_tipo_sepultura, string as_area, long al_capacidad, string as_uso, string as_moneda, double ld_valor_uf, string as_tipo_construc, long al_cod_parque);Double	ldb_precio
+
+SELECT	"LISTA_PRECIO"."VALOR"
+INTO 		:ldb_precio   
+FROM 		"LISTA_PRECIO",
+			"TIPO_SEPULTURA"
+WHERE  ( "LISTA_PRECIO"."T_SEPULT" = "TIPO_SEPULTURA"."TIPO_SEP" ) and 
+		 ( "LISTA_PRECIO"."SECTOR" = :as_area ) AND  
+		 ( "LISTA_PRECIO"."CAPACIDAD" = :al_capacidad ) AND  
+		 ( "LISTA_PRECIO"."T_CONST" = :as_tipo_construc ) AND
+		 ( "LISTA_PRECIO"."CANAL" = :as_uso ) AND  
+		 ( "LISTA_PRECIO"."T_SEPULT" = :as_tipo_sepultura ) AND 
+		 ( "LISTA_PRECIO"."COD_PARQUE" = :al_cod_parque )
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if as_moneda='1' then
+		ldb_precio		= double(ldb_precio )//* ld_valor_uf
+	end if
+end if
+return(ldb_precio)
+end function
+

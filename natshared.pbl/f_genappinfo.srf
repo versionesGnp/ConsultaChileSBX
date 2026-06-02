@@ -1,0 +1,54 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Información interna de APP Eclipse~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genappinfo from function_object
+end type
+
+forward prototypes
+global function string f_genappinfo (string as_project)
+end prototypes
+
+global function string f_genappinfo (string as_project);
+//f_GenAppInfo(String as_project) 
+// CVilela: 30/Ago/2024 - Ver 2. usa objeto para versión
+Long ll_pos, ll_posend
+String ls_version, ls_copyright
+
+n_osversion in_osver
+
+
+String	ls_ver, ls_cpy, ls_leg, ls_nam, ls_cia, ls_ori, ls_pro, ls_des
+
+If in_osver.of_GetFileVersionInfo('natural.exe') Then
+	//	wf_Display()
+	ls_ver = in_osver.FileVersion
+	ls_cia = in_osver.CompanyName
+	ls_cpy = in_osver.LegalCopyright
+	ls_leg = in_osver.LegalTrademarks
+	ls_nam = in_osver.ProductName
+	ls_ori = in_osver.OriginalFileName
+	ls_pro = in_osver.ProductVersion
+	ls_des = in_osver.FileDescription
+	gs_copyright = ls_cpy
+	gs_version = ls_ver
+
+	Return ls_cpy + '|' + ls_ver
+End If
+
+
+
+
+ll_pos = Pos(as_project, 'CPY:')
+ll_posend = Pos(as_project, '~r', ll_pos)
+
+ls_copyright = Mid(as_project, ll_pos + 4, ll_posend - (ll_pos + 4))
+
+ll_pos = Pos(as_project, 'PVN:')
+ll_posend = Pos(as_project, '~r', ll_pos)
+
+ls_version = Mid(as_project, ll_pos + 4, ll_posend - (ll_pos + 4))
+
+gs_copyright = ls_copyright
+gs_version = ls_version
+
+Return ls_copyright + '|' + ls_version
+end function
+

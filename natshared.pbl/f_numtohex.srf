@@ -1,0 +1,27 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Convierte un número INT/LONG a hexadecimal, BLScript~r~n    Recomendación: NO MODIFICAR - EXPERTO - Afecta todo~r~n*/
+global type f_numtohex from function_object
+end type
+
+forward prototypes
+global function string f_numtohex (unsignedlong aul_decimal)
+end prototypes
+
+global function string f_numtohex (unsignedlong aul_decimal);// f_NumToHex( aul_decimal )
+String	ls_hex = '' 
+Char		lch_hex[0 to 15] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', & 
+										'a', 'b', 'c', 'd', 'e', 'f'} 
+
+
+If IsNull( aul_decimal ) Then 
+	SetNull( ls_hex ) 
+	Return ls_hex 
+End If 
+
+Do 
+	ls_hex = lch_hex[mod (aul_decimal, 16)] + ls_hex 
+	aul_decimal /= 16 
+Loop Until aul_decimal= 0 
+
+Return ls_hex 
+end function
+

@@ -1,0 +1,49 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Abrir archivo contenido BLOB~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_fileopentoblob from function_object
+end type
+
+forward prototypes
+global function integer f_fileopentoblob (string as_file, ref blob abl_file)
+end prototypes
+
+global function integer f_fileopentoblob (string as_file, ref blob abl_file);/* f_FileOpenToBlob( as_file, abl_file ) */
+
+Blob		lbl_read, lbl_file
+Integer	li_file, li_loops, i
+Long		ll_flen, ll_bytes_read
+
+
+// Set a wait cursor
+SetPointer(HourGlass!)
+
+// Get the file length, and open the file
+ll_flen = FileLength( as_file )
+
+li_file = FileOpen( as_file, StreamMode!, Read!, LockRead!)
+If li_file = -1 Then Return -1
+
+// Determine how many times to call FileRead ( 32765 bytes = max )
+If ll_flen > 32765 Then
+	If Mod(ll_flen, 32765) = 0 Then
+		li_loops = ll_flen/32765	
+	Else
+		li_loops = (ll_flen/32765) + 1
+	End If	
+Else
+	li_loops = 1
+End If
+
+// Read the file
+For i = 1 To li_loops
+	ll_bytes_read = FileRead(li_file, lbl_read)
+	lbl_file = lbl_file + lbl_read
+Next
+
+abl_file = lbl_file
+FileClose( li_file )
+
+SetPointer(Arrow!)
+
+Return li_file
+end function
+

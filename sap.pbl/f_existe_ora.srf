@@ -1,0 +1,20 @@
+﻿global type f_existe_ora from function_object
+end type
+
+forward prototypes
+global function long f_existe_ora (double adb_rut)
+end prototypes
+
+global function long f_existe_ora (double adb_rut);long	ll_existe
+
+//f_existe_ora(adb_rut)
+SELECT	count("SAP_AMPLIACION_CLIENTE"."TIPO_CLIENTE")
+INTO		:ll_existe
+FROM		"SAP_AMPLIACION_CLIENTE"
+WHERE	"SAP_AMPLIACION_CLIENTE"."RUT" = :adb_rut AND  
+			"SAP_AMPLIACION_CLIENTE"."MANDT" = :gs_mandatario  
+USING	sqlca;
+if isnull(ll_existe) then ll_existe=0
+return	 ll_existe
+end function
+

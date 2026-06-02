@@ -1,0 +1,39 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Formato de fecha para SQL~r~n    Recomendación: Consultar Experto~r~n*/
+global type f_gendateformat from function_object
+end type
+
+forward prototypes
+global function string f_gendateformat (string as_emp)
+end prototypes
+
+global function string f_gendateformat (string as_emp);/* f_GenDateFormat( as_emp )
+	-- Este método se usará para retornar el formato de fechas para procesos que requieran como cadena x ejm.
+	-- Retorna String dd/mm/yyyy.
+*/
+String	ls_ret, ls_tit
+
+
+ls_tit = 'f_GenDateFormat'
+
+Select	dbo.fn_WordCap( v_dateformat_emp )
+Into		:ls_ret
+From		genempresa
+Where		c_codigo_emp = :as_emp
+Using		SqlCa ;
+
+If f_SqlError( SqlCa, ls_tit + Char(13) + &
+								'No se pudo obtener información sobre Formato de Fechas para la Empresa (' + as_emp + ')' ) = -1 Then
+	Return ''
+End If
+
+ls_ret = f_Trim( ls_ret )
+
+If ls_ret = '' Then
+	MessageBox( ls_tit, 'Es necesario Configurar previamente el Formato de Fechas de la Empresa.', Exclamation! )
+End If
+
+Return ls_ret
+
+
+end function
+

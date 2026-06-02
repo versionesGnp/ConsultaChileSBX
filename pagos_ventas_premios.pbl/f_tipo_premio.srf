@@ -1,0 +1,28 @@
+﻿global type f_tipo_premio from function_object
+end type
+
+forward prototypes
+global function string f_tipo_premio (string as_cod_contab)
+end prototypes
+
+global function string f_tipo_premio (string as_cod_contab);string	ls_tipo_premio
+SELECT	"CODIGO_CONTABLE"."DESCRIPCION"  
+INTO 		:ls_tipo_premio  
+FROM		"CODIGO_CONTABLE"  
+WHERE 	"CODIGO_CONTABLE"."CODIGO" = :as_cod_contab
+USING		sqlca;
+if sqlca.sqlcode=0 then
+	if not isnull(ls_tipo_premio) and ls_tipo_premio<>'' then
+		ls_tipo_premio				= ls_tipo_premio
+	else
+		ls_tipo_premio				= ''
+	end if
+else
+	ls_tipo_premio					= ''
+end if
+
+if isnull(ls_tipo_premio) then ls_tipo_premio = ''
+Return ls_tipo_premio
+
+end function
+

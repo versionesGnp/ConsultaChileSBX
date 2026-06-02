@@ -1,0 +1,146 @@
+﻿global type f_consulta_cheque from function_object
+end type
+
+forward prototypes
+global subroutine f_consulta_cheque (ref integer protesto, ref integer prorrogado, ref integer cancelado, ref integer reemplazado, ref integer sin_proceso)
+end prototypes
+
+global subroutine f_consulta_cheque (ref integer protesto, ref integer prorrogado, ref integer cancelado, ref integer reemplazado, ref integer sin_proceso);
+//-------------------------------Protesto-------------------------------//
+SELECT DISTINCT count("DOCUMENTOS"."FOLIO")  
+INTO :protesto  
+FROM "DOCUMENTOS"   
+WHERE ( "DOCUMENTOS"."FOLIO" = (SELECT DISTINCT "DOCUMENTOS"."FOLIO"
+    FROM "INGRESO",   
+         "COD_PAGO",   
+         "DOCUMENTOS",   
+         "BANCOS"  
+   WHERE ( ingreso.tipo_cob = cod_pago.tipo_cob (+)) and  
+         ( ingreso.folio = documentos.folio (+)) and  
+         ( ingreso.tipo_cob = documentos.tipo_cob (+)) and  
+         ( "DOCUMENTOS"."COD_BANCO" = "BANCOS"."COD_BANCO" ) and  
+         ("INGRESO"."SERIE" = :gs_serie AND  
+         "INGRESO"."CONTRATO" = :gi_numero AND  
+         "INGRESO"."BASE" = :gs_base) AND  
+         "DOCUMENTOS"."ESTADO_CH" = 'P' AND  
+         "DOCUMENTOS"."COD_PAGO" = 'CH' AND  
+         ("INGRESO"."TIPO_MOV" = 'A' OR  
+         "INGRESO"."TIPO_MOV" = 'E' OR  
+         "INGRESO"."TIPO_MOV" = 'I' OR  
+         "INGRESO"."TIPO_MOV" = 'F' OR  
+         "INGRESO"."TIPO_MOV" = 'K' OR  
+         "INGRESO"."TIPO_MOV" = 'M' OR  
+         "INGRESO"."TIPO_MOV" = 'L') ))   and
+   		( "DOCUMENTOS"."ESTADO_CH" = 'P' ) ;
+//-------------------------------Prorrogado-------------------------------//
+SELECT DISTINCT count("DOCUMENTOS"."FOLIO")  
+INTO :prorrogado 
+FROM "DOCUMENTOS"   
+WHERE ( "DOCUMENTOS"."FOLIO" = (SELECT DISTINCT "DOCUMENTOS"."FOLIO"
+    FROM "INGRESO",   
+         "COD_PAGO",   
+         "DOCUMENTOS",   
+         "BANCOS"  
+   WHERE ( ingreso.tipo_cob = cod_pago.tipo_cob (+)) and  
+         ( ingreso.folio = documentos.folio (+)) and  
+         ( ingreso.tipo_cob = documentos.tipo_cob (+)) and  
+         ( "DOCUMENTOS"."COD_BANCO" = "BANCOS"."COD_BANCO" ) and  
+         ("INGRESO"."SERIE" = :gs_serie AND  
+         "INGRESO"."CONTRATO" = :gi_numero AND  
+         "INGRESO"."BASE" = :gs_base) AND  
+         "DOCUMENTOS"."ESTADO_CH" = 'D' AND  
+         "DOCUMENTOS"."COD_PAGO" = 'CH' AND  
+         ("INGRESO"."TIPO_MOV" = 'A' OR  
+         "INGRESO"."TIPO_MOV" = 'E' OR  
+         "INGRESO"."TIPO_MOV" = 'I' OR  
+         "INGRESO"."TIPO_MOV" = 'F' OR  
+         "INGRESO"."TIPO_MOV" = 'K' OR  
+         "INGRESO"."TIPO_MOV" = 'M' OR  
+         "INGRESO"."TIPO_MOV" = 'L') ))   and
+   		( "DOCUMENTOS"."ESTADO_CH" = 'D' ) ;
+//-------------------------------Cancelado-------------------------------//
+SELECT DISTINCT count("DOCUMENTOS"."FOLIO")  
+INTO :cancelado 
+FROM "DOCUMENTOS"   
+WHERE ( "DOCUMENTOS"."FOLIO" = (SELECT DISTINCT "DOCUMENTOS"."FOLIO"
+    FROM "INGRESO",   
+         "COD_PAGO",   
+         "DOCUMENTOS",   
+         "BANCOS"  
+   WHERE ( ingreso.tipo_cob = cod_pago.tipo_cob (+)) and  
+         ( ingreso.folio = documentos.folio (+)) and  
+         ( ingreso.tipo_cob = documentos.tipo_cob (+)) and  
+         ( "DOCUMENTOS"."COD_BANCO" = "BANCOS"."COD_BANCO" ) and  
+         ("INGRESO"."SERIE" = :gs_serie AND  
+         "INGRESO"."CONTRATO" = :gi_numero AND  
+         "INGRESO"."BASE" = :gs_base) AND  
+         "DOCUMENTOS"."ESTADO_CH" = 'C' AND  
+         "DOCUMENTOS"."COD_PAGO" = 'CH' AND  
+         ("INGRESO"."TIPO_MOV" = 'A' OR  
+         "INGRESO"."TIPO_MOV" = 'E' OR  
+         "INGRESO"."TIPO_MOV" = 'I' OR  
+         "INGRESO"."TIPO_MOV" = 'F' OR  
+         "INGRESO"."TIPO_MOV" = 'K' OR  
+         "INGRESO"."TIPO_MOV" = 'M' OR  
+         "INGRESO"."TIPO_MOV" = 'L') ))   and
+   		( "DOCUMENTOS"."ESTADO_CH" = 'C' ) ;
+//-------------------------------Reemplazado-------------------------------//
+SELECT DISTINCT count("DOCUMENTOS"."FOLIO")  
+INTO :reemplazado 
+FROM "DOCUMENTOS"   
+WHERE ( "DOCUMENTOS"."FOLIO" = (SELECT DISTINCT "DOCUMENTOS"."FOLIO"
+    FROM "INGRESO",   
+         "COD_PAGO",   
+         "DOCUMENTOS",   
+         "BANCOS"  
+   WHERE ( ingreso.tipo_cob = cod_pago.tipo_cob (+)) and  
+         ( ingreso.folio = documentos.folio (+)) and  
+         ( ingreso.tipo_cob = documentos.tipo_cob (+)) and  
+         ( "DOCUMENTOS"."COD_BANCO" = "BANCOS"."COD_BANCO" ) and  
+         ("INGRESO"."SERIE" = :gs_serie AND  
+         "INGRESO"."CONTRATO" = :gi_numero AND  
+         "INGRESO"."BASE" = :gs_base) AND  
+         "DOCUMENTOS"."ESTADO_CH" = 'R' AND  
+         "DOCUMENTOS"."COD_PAGO" = 'CH' AND  
+         ("INGRESO"."TIPO_MOV" = 'A' OR  
+         "INGRESO"."TIPO_MOV" = 'E' OR  
+         "INGRESO"."TIPO_MOV" = 'I' OR  
+         "INGRESO"."TIPO_MOV" = 'F' OR  
+         "INGRESO"."TIPO_MOV" = 'K' OR  
+         "INGRESO"."TIPO_MOV" = 'M' OR  
+         "INGRESO"."TIPO_MOV" = 'L') ))   and
+   		( "DOCUMENTOS"."ESTADO_CH" = 'R' ) ;
+//-------------------------------sin_proceso-------------------------------//
+SELECT DISTINCT count("DOCUMENTOS"."FOLIO")  
+INTO :sin_proceso 
+FROM "DOCUMENTOS"   
+WHERE ( "DOCUMENTOS"."FOLIO" = (SELECT DISTINCT "DOCUMENTOS"."FOLIO"
+    FROM "INGRESO",   
+         "COD_PAGO",   
+         "DOCUMENTOS",   
+         "BANCOS"  
+   WHERE ( ingreso.tipo_cob = cod_pago.tipo_cob (+)) and  
+         ( ingreso.folio = documentos.folio (+)) and  
+         ( ingreso.tipo_cob = documentos.tipo_cob (+)) and  
+         ( "DOCUMENTOS"."COD_BANCO" = "BANCOS"."COD_BANCO" ) and  
+         ("INGRESO"."SERIE" = :gs_serie AND  
+         "INGRESO"."CONTRATO" = :gi_numero AND  
+         "INGRESO"."BASE" = :gs_base) AND  
+         ("DOCUMENTOS"."ESTADO_CH" <> 'P' AND  
+         "DOCUMENTOS"."ESTADO_CH"  <> 'D' AND  
+         "DOCUMENTOS"."ESTADO_CH"  <> 'C' AND  
+         "DOCUMENTOS"."ESTADO_CH"  <> 'R' ) AND 
+         "DOCUMENTOS"."COD_PAGO" = 'CH' AND  
+         ("INGRESO"."TIPO_MOV" = 'A' OR  
+         "INGRESO"."TIPO_MOV" = 'E' OR  
+         "INGRESO"."TIPO_MOV" = 'I' OR  
+         "INGRESO"."TIPO_MOV" = 'F' OR  
+         "INGRESO"."TIPO_MOV" = 'K' OR  
+         "INGRESO"."TIPO_MOV" = 'M' OR  
+         "INGRESO"."TIPO_MOV" = 'L') ))   and
+         ("DOCUMENTOS"."ESTADO_CH" <> 'P' AND  
+         "DOCUMENTOS"."ESTADO_CH"  <> 'D' AND  
+         "DOCUMENTOS"."ESTADO_CH"  <> 'C' AND  
+         "DOCUMENTOS"."ESTADO_CH"  <> 'R' ) ;
+end subroutine
+

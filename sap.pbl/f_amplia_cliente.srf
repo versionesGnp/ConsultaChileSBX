@@ -1,0 +1,49 @@
+﻿global type f_amplia_cliente from function_object
+end type
+
+forward prototypes
+global subroutine f_amplia_cliente (string as_rut, string as_grupo_cta, string as_sociedad, string as_tipo_vta, string as_uso, string as_origen_vta, string as_moneda, long al_ano, string as_pais, string as_tipo_cliente, string dv_registro, string dv_anexo)
+end prototypes
+
+global subroutine f_amplia_cliente (string as_rut, string as_grupo_cta, string as_sociedad, string as_tipo_vta, string as_uso, string as_origen_vta, string as_moneda, long al_ano, string as_pais, string as_tipo_cliente, string dv_registro, string dv_anexo);string		ls_dv
+long		ll_pos,ll_estado
+double	ldb_rut
+
+//wf_amplia_cliente(as_rut,as_grupo_cta,as_sociedad,as_tipo_vta,as_uso,as_origen_vta,as_moneda,al_ano,as_pais,as_tipo_cliente,dv_registro,dv_anexo)
+
+SELECT	SYSDATE
+INTO 		:gdt_fec_sistema
+FROM		"TASA"  
+WHERE	"TASA"."LOOK" = 1   
+USING	sqlca;
+if as_tipo_cliente='C' then
+	ll_estado			= 1
+else
+	ll_estado			= 3
+end if
+	
+ll_pos               	= POS (as_rut,'-')
+if isnull(ll_pos) or ll_pos=0 then
+	ldb_rut			= long(trim(as_rut))
+	SELECT DISTINCT "SAP_AMPLIACION_CLIENTE"."RUT_DV"  
+    	INTO 		:ls_dv  
+    	FROM		"SAP_AMPLIACION_CLIENTE"  
+   	WHERE	"SAP_AMPLIACION_CLIENTE"."RUT" = :ldb_rut
+	USING	sqlca;
+else
+	ll_pos 			= ll_pos - 1
+	ldb_rut			= long(trim(mid(as_rut,1,ll_pos)))
+end if
+if not isnull(ldb_rut) and ldb_rut>0 then	
+	INSERT INTO "SAP_AMPLIACION_CLIENTE"  
+				( "RUT",		"MANDT",			"GRUPO_CUENTA",	"SOCIEDAD",	"ORGANIZACION",	"ESTADO_SAP",	"FECHA_SAP",		"NRO_CLIENTE_SAP",	"FECHA_CREACION",	"USUARIO_CREADOR",	"RUT_DV",	"ORIGEN_VENTA",	"USO",	"TIPO_CLIENTE",	"MONEDA",		"ANO_RENTA",	"PAIS" )  
+	VALUES	( :ldb_rut,	:gs_mandatario,	:as_grupo_cta,			:as_sociedad,	:as_tipo_vta,		:ll_estado,			null,					null,						:gdt_fec_sistema,		:gs_user,					:ls_dv,		:as_origen_vta,		:as_uso,	:as_tipo_cliente,	:as_moneda,	:al_ano,			:as_pais)
+	USING	sqlca;
+	if sqlca.sqlcode=0 then
+		commit using sqlca;
+	else
+		rollback using sqlca;
+	end if
+end if
+end subroutine
+

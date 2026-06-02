@@ -1,0 +1,12 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Nombre empresa para encabezados~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_getcianame from function_object
+end type
+
+forward prototypes
+global function string f_getcianame ()
+end prototypes
+
+global function string f_getcianame ();/* f_GetCiaName( ) */
+Return f_GetGenerica( gs_emp, 'EMP' )
+end function
+

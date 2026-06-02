@@ -1,0 +1,523 @@
+﻿forward
+global type m_planimetria from menu
+end type
+type m_porzona from menu within m_planimetria
+end type
+type m_planimetriaparque from menu within m_porzona
+end type
+type m_planimetriaparque1 from menu within m_planimetriaparque
+end type
+type m_verparque1 from menu within m_planimetriaparque
+end type
+type m_stocktotalsepultura from menu within m_planimetriaparque
+end type
+type m_resumenstocktotal from menu within m_planimetriaparque
+end type
+type m_buscarporsector from menu within m_planimetriaparque
+end type
+type m_promesasinasignar from menu within m_planimetriaparque
+end type
+type m_contratosisasinasignar from menu within m_planimetriaparque
+end type
+type m_fallecidossinasignar from menu within m_planimetriaparque
+end type
+type m_nulosconfallecidos from menu within m_planimetriaparque
+end type
+type m_contratosfallidos from menu within m_planimetriaparque
+end type
+type m_planimetriaparque from menu within m_porzona
+m_planimetriaparque1 m_planimetriaparque1
+m_verparque1 m_verparque1
+m_stocktotalsepultura m_stocktotalsepultura
+m_resumenstocktotal m_resumenstocktotal
+m_buscarporsector m_buscarporsector
+m_promesasinasignar m_promesasinasignar
+m_contratosisasinasignar m_contratosisasinasignar
+m_fallecidossinasignar m_fallecidossinasignar
+m_nulosconfallecidos m_nulosconfallecidos
+m_contratosfallidos m_contratosfallidos
+end type
+type m_verparque from menu within m_porzona
+end type
+type m_stocktotalsepulturas from menu within m_porzona
+end type
+type m_agregarsepultasector from menu within m_porzona
+end type
+type m_actualización from menu within m_porzona
+end type
+type m_cambiodearea from menu within m_porzona
+end type
+type m_estadistica from menu within m_porzona
+end type
+type m_- from menu within m_porzona
+end type
+type m_salir from menu within m_porzona
+end type
+type m_porzona from menu within m_planimetria
+m_planimetriaparque m_planimetriaparque
+m_verparque m_verparque
+m_stocktotalsepulturas m_stocktotalsepulturas
+m_agregarsepultasector m_agregarsepultasector
+m_actualización m_actualización
+m_cambiodearea m_cambiodearea
+m_estadistica m_estadistica
+m_- m_-
+m_salir m_salir
+end type
+global type m_planimetria from menu
+m_porzona m_porzona
+end type
+end forward
+
+global type m_planimetria from menu
+m_porzona m_porzona
+end type
+global m_planimetria m_planimetria
+
+on m_planimetria.create
+m_planimetria=this
+call super::create
+this.text = "m_planimetria"
+this.m_porzona=create m_porzona
+this.Item[UpperBound(this.Item)+1]=this.m_porzona
+end on
+
+on m_planimetria.destroy
+call super::destroy
+destroy(this.m_porzona)
+end on
+
+type m_porzona from menu within m_planimetria
+m_planimetriaparque m_planimetriaparque
+m_verparque m_verparque
+m_stocktotalsepulturas m_stocktotalsepulturas
+m_agregarsepultasector m_agregarsepultasector
+m_actualización m_actualización
+m_cambiodearea m_cambiodearea
+m_estadistica m_estadistica
+m_- m_-
+m_salir m_salir
+end type
+
+on m_porzona.create
+call super::create
+this.visible = false
+this.text = "Planimetria"
+this.m_planimetriaparque=create m_planimetriaparque
+this.m_verparque=create m_verparque
+this.m_stocktotalsepulturas=create m_stocktotalsepulturas
+this.m_agregarsepultasector=create m_agregarsepultasector
+this.m_actualización=create m_actualización
+this.m_cambiodearea=create m_cambiodearea
+this.m_estadistica=create m_estadistica
+this.m_-=create m_-
+this.m_salir=create m_salir
+this.Item[UpperBound(this.Item)+1]=this.m_planimetriaparque
+this.Item[UpperBound(this.Item)+1]=this.m_verparque
+this.Item[UpperBound(this.Item)+1]=this.m_stocktotalsepulturas
+this.Item[UpperBound(this.Item)+1]=this.m_agregarsepultasector
+this.Item[UpperBound(this.Item)+1]=this.m_actualización
+this.Item[UpperBound(this.Item)+1]=this.m_cambiodearea
+this.Item[UpperBound(this.Item)+1]=this.m_estadistica
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_salir
+end on
+
+on m_porzona.destroy
+call super::destroy
+destroy(this.m_planimetriaparque)
+destroy(this.m_verparque)
+destroy(this.m_stocktotalsepulturas)
+destroy(this.m_agregarsepultasector)
+destroy(this.m_actualización)
+destroy(this.m_cambiodearea)
+destroy(this.m_estadistica)
+destroy(this.m_-)
+destroy(this.m_salir)
+end on
+
+type m_planimetriaparque from menu within m_porzona
+m_planimetriaparque1 m_planimetriaparque1
+m_verparque1 m_verparque1
+m_stocktotalsepultura m_stocktotalsepultura
+m_resumenstocktotal m_resumenstocktotal
+m_buscarporsector m_buscarporsector
+m_promesasinasignar m_promesasinasignar
+m_contratosisasinasignar m_contratosisasinasignar
+m_fallecidossinasignar m_fallecidossinasignar
+m_nulosconfallecidos m_nulosconfallecidos
+m_contratosfallidos m_contratosfallidos
+end type
+
+on m_planimetriaparque.create
+call super::create
+this.text = "Por Zona"
+this.m_planimetriaparque1=create m_planimetriaparque1
+this.m_verparque1=create m_verparque1
+this.m_stocktotalsepultura=create m_stocktotalsepultura
+this.m_resumenstocktotal=create m_resumenstocktotal
+this.m_buscarporsector=create m_buscarporsector
+this.m_promesasinasignar=create m_promesasinasignar
+this.m_contratosisasinasignar=create m_contratosisasinasignar
+this.m_fallecidossinasignar=create m_fallecidossinasignar
+this.m_nulosconfallecidos=create m_nulosconfallecidos
+this.m_contratosfallidos=create m_contratosfallidos
+this.Item[UpperBound(this.Item)+1]=this.m_planimetriaparque1
+this.Item[UpperBound(this.Item)+1]=this.m_verparque1
+this.Item[UpperBound(this.Item)+1]=this.m_stocktotalsepultura
+this.Item[UpperBound(this.Item)+1]=this.m_resumenstocktotal
+this.Item[UpperBound(this.Item)+1]=this.m_buscarporsector
+this.Item[UpperBound(this.Item)+1]=this.m_promesasinasignar
+this.Item[UpperBound(this.Item)+1]=this.m_contratosisasinasignar
+this.Item[UpperBound(this.Item)+1]=this.m_fallecidossinasignar
+this.Item[UpperBound(this.Item)+1]=this.m_nulosconfallecidos
+this.Item[UpperBound(this.Item)+1]=this.m_contratosfallidos
+end on
+
+on m_planimetriaparque.destroy
+call super::destroy
+destroy(this.m_planimetriaparque1)
+destroy(this.m_verparque1)
+destroy(this.m_stocktotalsepultura)
+destroy(this.m_resumenstocktotal)
+destroy(this.m_buscarporsector)
+destroy(this.m_promesasinasignar)
+destroy(this.m_contratosisasinasignar)
+destroy(this.m_fallecidossinasignar)
+destroy(this.m_nulosconfallecidos)
+destroy(this.m_contratosfallidos)
+end on
+
+type m_planimetriaparque1 from menu within m_planimetriaparque
+end type
+
+event clicked;//open(w_a_ppal)
+end event
+
+on m_planimetriaparque1.create
+call super::create
+this.text = "Planimetria Parque"
+this.toolbaritemvisible = false
+this.toolbaritemname = "AddWatch!"
+this.toolbaritemtext = "Planimetria Parque"
+end on
+
+on m_planimetriaparque1.destroy
+call super::destroy
+end on
+
+type m_verparque1 from menu within m_planimetriaparque
+end type
+
+event clicked;//	if gs_empresa ="El Prado" then
+//		open(w_plano)
+//	else
+//	end if
+end event
+
+on m_verparque1.create
+call super::create
+this.visible = false
+this.text = "Ver Parque"
+this.toolbaritemvisible = false
+this.toolbaritemname = "AddWatch5!"
+this.toolbaritemtext = "Ver Parque"
+end on
+
+on m_verparque1.destroy
+call super::destroy
+end on
+
+type m_stocktotalsepultura from menu within m_planimetriaparque
+end type
+
+event clicked;//open(w_a_ppal_info_total)
+end event
+
+on m_stocktotalsepultura.create
+call super::create
+this.text = "Stock total Sepultura"
+this.toolbaritemvisible = false
+this.toolbaritemname = "AlignBottom!"
+this.toolbaritemtext = "Stock total Sepultura"
+end on
+
+on m_stocktotalsepultura.destroy
+call super::destroy
+end on
+
+type m_resumenstocktotal from menu within m_planimetriaparque
+end type
+
+event clicked;//open(w_a_ppal_info_total_grupo)
+end event
+
+on m_resumenstocktotal.create
+call super::create
+this.text = "Resumen Stock Total"
+this.toolbaritemvisible = false
+this.toolbaritemname = "ArrangeIcons!"
+this.toolbaritemtext = "Resumen Stock Total"
+end on
+
+on m_resumenstocktotal.destroy
+call super::destroy
+end on
+
+type m_buscarporsector from menu within m_planimetriaparque
+end type
+
+event clicked;//open(w_consultar_x_sector_todos)
+end event
+
+on m_buscarporsector.create
+call super::create
+this.text = "Buscar por Sector"
+this.toolbaritemvisible = false
+this.toolbaritemname = "BringToFront!"
+this.toolbaritemtext = "Buscar por Sector"
+end on
+
+on m_buscarporsector.destroy
+call super::destroy
+end on
+
+type m_promesasinasignar from menu within m_planimetriaparque
+end type
+
+event clicked;//OPEN(w_principal_oferta_sin_asignar)
+end event
+
+on m_promesasinasignar.create
+call super::create
+this.text = "Promesa sin Asignar"
+this.toolbaritemvisible = false
+this.toolbaritemname = "BrowseClasses!"
+this.toolbaritemtext = "Promesa sin Asignar"
+end on
+
+on m_promesasinasignar.destroy
+call super::destroy
+end on
+
+type m_contratosisasinasignar from menu within m_planimetriaparque
+end type
+
+event clicked;//integer Net_a
+//
+//	//Net_a = MessageBox("Información"  , "Proceso puede tardar algunos segundos", Exclamation!, OKCancel!, 2)
+//	//IF Net_a = 1 THEN 
+//		OPEN(w_principal_contrato_isa_sin_asignar)
+//	//ELSE
+//	//END IF
+end event
+
+on m_contratosisasinasignar.create
+call super::create
+this.text = "Contratos ISA sin Asignar"
+this.toolbaritemvisible = false
+this.toolbaritemname = "CheckIn5!"
+this.toolbaritemtext = "Contratos ISA sin Asignar"
+end on
+
+on m_contratosisasinasignar.destroy
+call super::destroy
+end on
+
+type m_fallecidossinasignar from menu within m_planimetriaparque
+end type
+
+event clicked;//open(w_fallecidos_sin_asignar)
+end event
+
+on m_fallecidossinasignar.create
+call super::create
+this.text = "Fallecidos sin Asignar"
+this.toolbaritemvisible = false
+this.toolbaritemname = "ComputeToday!"
+this.toolbaritemtext = "Fallecidos sin Asignar"
+end on
+
+on m_fallecidossinasignar.destroy
+call super::destroy
+end on
+
+type m_nulosconfallecidos from menu within m_planimetriaparque
+end type
+
+event clicked;//open(w_nulos_con_fallecidos)
+end event
+
+on m_nulosconfallecidos.create
+call super::create
+this.text = "Nulos con Fallecidos"
+this.toolbaritemvisible = false
+this.toolbaritemname = "Custom093!"
+this.toolbaritemtext = "Nulos con Fallecidos"
+end on
+
+on m_nulosconfallecidos.destroy
+call super::destroy
+end on
+
+type m_contratosfallidos from menu within m_planimetriaparque
+end type
+
+event clicked;//open(w_fallidos)
+end event
+
+on m_contratosfallidos.create
+call super::create
+this.text = "Contratos Fallidos"
+this.toolbaritemvisible = false
+this.toolbaritemname = "Custom053!"
+this.toolbaritemtext = "Contratos Fallidos"
+end on
+
+on m_contratosfallidos.destroy
+call super::destroy
+end on
+
+type m_verparque from menu within m_porzona
+end type
+
+on m_verparque.create
+call super::create
+this.text = "-"
+end on
+
+on m_verparque.destroy
+call super::destroy
+end on
+
+type m_stocktotalsepulturas from menu within m_porzona
+end type
+
+on m_stocktotalsepulturas.create
+call super::create
+this.text = "Crear Sectores totales"
+this.toolbaritemvisible = false
+this.toolbaritemname = "Library!"
+this.toolbaritemtext = "Crear Sectores totales"
+this.toolbaritemspace = 3
+end on
+
+on m_stocktotalsepulturas.destroy
+call super::destroy
+end on
+
+event clicked;//if gs_acceso = '3' then
+//  	open(w_a_crea_sector)
+//else
+//	messagebox('No tiene Acceso','Ud. no tiene acceso a este menú.',stopsign!)
+//end if	
+end event
+
+type m_agregarsepultasector from menu within m_porzona
+end type
+
+on m_agregarsepultasector.create
+call super::create
+this.text = "Agregar Sepult. a Sector"
+this.toolbaritemvisible = false
+this.toolbaritemname = "Custom090!"
+this.toolbaritemtext = "Agregar Sepult. a Sector"
+end on
+
+on m_agregarsepultasector.destroy
+call super::destroy
+end on
+
+event clicked;//open(w_a_crea_sector_add)
+end event
+
+type m_actualización from menu within m_porzona
+end type
+
+on m_actualización.create
+call super::create
+this.text = "Actualización"
+this.toolbaritemvisible = false
+this.toolbaritemname = "Preferences!"
+this.toolbaritemtext = "Actualización"
+this.toolbaritemspace = 2
+end on
+
+on m_actualización.destroy
+call super::destroy
+end on
+
+event clicked;//if gs_acceso = '3' then
+//	open(w_calculo)
+//else
+//	messagebox('No tiene Acceso','Ud. no tiene acceso a este menú.',stopsign!)
+//end if
+end event
+
+type m_cambiodearea from menu within m_porzona
+end type
+
+on m_cambiodearea.create
+call super::create
+this.text = "Cambio de Area"
+this.toolbaritemvisible = false
+this.toolbaritemname = "QueryGovernor!"
+this.toolbaritemtext = "Cambio de Area"
+this.toolbaritemspace = 2
+end on
+
+on m_cambiodearea.destroy
+call super::destroy
+end on
+
+event clicked;//open(w_cambia_area)
+end event
+
+type m_estadistica from menu within m_porzona
+end type
+
+on m_estadistica.create
+call super::create
+this.text = "Estadistica"
+this.toolbaritemvisible = false
+this.toolbaritemname = "ShowWatch!"
+this.toolbaritemtext = "Estadistica"
+end on
+
+on m_estadistica.destroy
+call super::destroy
+end on
+
+event clicked;//open(w_estadistica_falle)
+end event
+
+type m_- from menu within m_porzona
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_salir from menu within m_porzona
+end type
+
+event clicked;close(w_plano_sector_parque)
+end event
+
+on m_salir.create
+call super::create
+this.text = "Salir"
+this.toolbaritemname = "Exit!"
+this.toolbaritemtext = "Cerrar Ventana"
+this.toolbaritemspace = 3
+end on
+
+on m_salir.destroy
+call super::destroy
+end on
+

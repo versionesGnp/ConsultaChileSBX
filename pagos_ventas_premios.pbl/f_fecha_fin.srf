@@ -1,0 +1,29 @@
+﻿global type f_fecha_fin from function_object
+end type
+
+forward prototypes
+global function datetime f_fecha_fin (long al_mes, long al_anno)
+end prototypes
+
+global function datetime f_fecha_fin (long al_mes, long al_anno);long		ll_dia
+datetime	ldt_fec_fin,ldt_nulo
+
+setnull(ldt_nulo)
+//f_fecha_fin(al_mes,al_anno)
+if al_mes = 2 then
+	if int(al_anno/4) = (al_anno/4) then 
+		ll_dia			= 29
+	else
+		ll_dia			= 28
+	end if
+elseif al_mes=1 or al_mes=3 or al_mes=5 or al_mes=7 or al_mes=8 or al_mes=10 or al_mes=12 then
+	ll_dia				= 31
+elseif al_mes=4 or al_mes=6 or al_mes=9 or al_mes=11 then
+	ll_dia				= 30	
+end if
+ldt_fec_fin				= datetime(date(string(ll_dia,'00')+'/'+string(al_mes,'00')+'/'+string(al_anno,'0000')),time('00:00:00'))
+if isnull(ldt_fec_fin) then ldt_fec_fin=ldt_nulo
+Return ldt_fec_fin
+
+end function
+

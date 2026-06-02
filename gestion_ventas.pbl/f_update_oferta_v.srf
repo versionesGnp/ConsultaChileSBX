@@ -1,0 +1,74 @@
+﻿global type f_update_oferta_v from function_object
+end type
+
+forward prototypes
+global subroutine f_update_oferta_v (ref datawindow dw_2, ref editmask em_1, ref editmask em_2)
+end prototypes
+
+global subroutine f_update_oferta_v (ref datawindow dw_2, ref editmask em_1, ref editmask em_2);datetime fecha1,fecha2,fecha,fecha_pago,fecha_venc,fecha_ant,fcha_ant,fecha_dw
+integer i,j = 1
+long folio,cuotas_pag,monto,valor_uf,rut
+string serie,tipo_cob,tipo_mov,cod_caja,rezago,pago_hist,base,usuario,&
+		 cod_age,pago_externo,lugar_externo,viene_de,t_cob,t_mov
+Double	contrato
+SetPointer(HourGlass!)
+fecha1 = datetime(date(em_1.text),time('00:00:00'))
+fecha2 = datetime(date(em_2.text),time('23:59:59'))
+dw_2.settransobject(sqlca)
+if dw_2.retrieve(fecha1,fecha2) > 0 then
+	for i = 1 to dw_2.rowcount()
+		serie    = dw_2.getitemstring(i,'ingreso_serie')
+		contrato = dw_2.getitemnumber(i,'ingreso_contrato')
+		base     = dw_2.getitemstring(i,'ingreso_base')
+		t_cob    = dw_2.getitemstring(i,'ingreso_tipo_cob')
+		t_mov    = dw_2.getitemstring(i,'ingreso_tipo_mov')		
+		fecha    = f_busca_inicio(serie,contrato,base,t_cob,t_mov)
+		if fecha >= fecha1 and fecha <= fecha2 then
+				  SELECT  DISTINCT "INGRESO"."FOLIO","INGRESO"."TIPO_COB",   
+					"INGRESO"."FECHA_PAGO","INGRESO"."TIPO_MOV",   
+					"INGRESO"."MONTO","INGRESO"."CUOTAS_PAG",   
+					"INGRESO"."SERIE","INGRESO"."CONTRATO",   
+					"INGRESO"."COD_CAJA","INGRESO"."REZAGO",   
+					"INGRESO"."VALOR_UF","INGRESO"."PAGO_HIST",   
+					"INGRESO"."BASE","INGRESO"."RUT",   
+					"INGRESO"."USUARIO","INGRESO"."COD_AGE",   
+					"INGRESO"."FECHA_VENC","INGRESO"."PAGO_EXTERNO",   
+					"INGRESO"."LUGAR_EXTERNO","INGRESO"."VIENE_DE",   
+					"INGRESO"."FECHA_ANT","INGRESO"."FCHA_ANT"  
+				 INTO :folio,:tipo_cob,   
+					:fecha_pago,:tipo_mov,   
+					:monto,:cuotas_pag,   
+					:serie,:contrato,   
+					:cod_caja,:rezago,   
+					:valor_uf,:pago_hist,   
+					:base,:rut,   
+					:usuario,:cod_age,   
+					:fecha_venc,:pago_externo,   
+					:lugar_externo,:viene_de,   
+					:fecha_ant,:fcha_ant  
+				 FROM "INGRESO"  
+				WHERE ( "INGRESO"."BASE" = :base ) AND  
+       			   ( "INGRESO"."SERIE" = :serie ) AND  
+                  ( "INGRESO"."CONTRATO" = :contrato ) AND  
+                  ( "INGRESO"."TIPO_COB" = :t_cob )AND  
+                  ( "INGRESO"."TIPO_MOV" = :t_mov )  AND
+						( "INGRESO"."FECHA_PAGO" = :FECHA );
+			if sqlca.sqlcode = 0 then			
+					UPDATE "OFERTA_V"  
+					SET "U_FOLIO" = :folio,   
+					    "U_FECHA" = :fecha_pago  
+					WHERE ( "OFERTA_V"."SERIE" = :serie ) AND  
+							( "OFERTA_V"."NRO_OFERTA" = :contrato )   ;
+				if sqlca.sqlcode <> 0 then
+					ROLLBACK;
+				else
+					COMMIT;		
+				end if
+			end if	
+		end if
+		j ++
+   next
+end if	
+SetPointer(Arrow!)
+end subroutine
+

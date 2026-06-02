@@ -1,0 +1,23 @@
+﻿global type f_existe_sap from function_object
+end type
+
+forward prototypes
+global function string f_existe_sap (string as_rut)
+end prototypes
+
+global function string f_existe_sap (string as_rut);string		ls_nro_sap
+connect using Trans_hana;
+
+//f_existe_sap(as_rut)
+
+SELECT	distinct  "SAPABAP1"."ZV_CLIENTES"."KUNNR"
+INTO		:ls_nro_sap
+FROM 	"SAPABAP1"."ZV_CLIENTES"
+WHERE	"SAPABAP1"."ZV_CLIENTES"."MANDT" = :gs_mandatario AND
+			"SAPABAP1"."ZV_CLIENTES"."STCD1" = :as_rut
+USING	Trans_hana;
+if isnull(ls_nro_sap) then ls_nro_sap=''
+return		ls_nro_sap
+disconnect using Trans_hana;
+end function
+

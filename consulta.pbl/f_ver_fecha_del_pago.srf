@@ -1,0 +1,20 @@
+﻿global type f_ver_fecha_del_pago from function_object
+end type
+
+forward prototypes
+global function string f_ver_fecha_del_pago (string as_base, string as_serie, double al_numero, long al_cuota)
+end prototypes
+
+global function string f_ver_fecha_del_pago (string as_base, string as_serie, double al_numero, long al_cuota);String	ls_fecha
+CHOOSE CASE as_base
+	CASE 'O'
+	CASE 'L'
+	CASE 'C'
+	CASE 'D'
+	CASE 'P'
+	CASE 'A'
+
+END CHOOSE
+return ls_fecha
+end function
+

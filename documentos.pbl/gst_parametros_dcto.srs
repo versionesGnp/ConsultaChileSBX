@@ -1,0 +1,15 @@
+﻿global type gst_parametros_dcto from structure
+	long		rut
+	long		folio
+	long		num_cheque
+	string		fecha_ini
+	string		fecha_fin
+	string		titulo
+	string		sql_new
+	string		fecha_ini1
+	string		fecha_fin2
+	string		caja1
+	string		caja2
+	string		datawindows
+end type
+

@@ -1,0 +1,38 @@
+﻿global type f_buscar_haberes from function_object
+end type
+
+forward prototypes
+global function long f_buscar_haberes (long al_rut, datetime ad_fec_ini, datetime ad_fec_fin)
+end prototypes
+
+global function long f_buscar_haberes (long al_rut, datetime ad_fec_ini, datetime ad_fec_fin);long		ll_suma_haberes, ll_per_ini, ll_per_fin
+long		ll_mes_ini, ll_anno_ini, ll_mes_fin, ll_anno_fin
+ll_mes_ini	= month(date(ad_fec_ini))
+ll_anno_ini	= year(date(ad_fec_ini))
+ll_mes_fin	= month(date(ad_fec_fin))
+ll_anno_fin	= year(date(ad_fec_fin))
+if len(string(ll_mes_ini))=2 then
+	ll_per_ini	= long(string(ll_anno_ini)+string(ll_mes_ini))	
+elseif len(string(ll_mes_ini))=1 then
+	ll_per_ini	= long(string(ll_anno_ini)+'0'+string(ll_mes_ini))	
+end if
+if len(string(ll_mes_fin))=2 then
+	ll_per_fin	= long(string(ll_anno_fin)+string(ll_mes_fin))	
+elseif len(string(ll_mes_fin))=1 then
+	ll_per_fin	= long(string(ll_anno_fin)+'0'+string(ll_mes_fin))	
+end if
+SELECT	sum("REMU"."T_HABERES")
+INTO 		:ll_suma_haberes  
+FROM 		"REMU"  
+WHERE ( "REMU"."NUM_RUT" = :al_rut ) AND  
+         (to_number(rtrim(ltrim(to_char("REMU"."NUM_PERIODO"))) || rtrim(ltrim(  to_char("REMU"."GLS_MES",'09')))) >= :ll_per_ini AND  
+         to_number(rtrim(ltrim(to_char("REMU"."NUM_PERIODO"))) || rtrim(ltrim(  to_char("REMU"."GLS_MES",'09')))) <= :ll_per_fin)    
+Using		sqlca;
+if sqlca.sqlcode=0 then
+	if isnull(ll_suma_haberes) or ll_suma_haberes=0 then ll_suma_haberes=0
+else
+	ll_suma_haberes=0
+end if
+return(ll_suma_haberes)
+end function
+

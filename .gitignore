@@ -1,0 +1,49 @@
+# PowerBuilder 2025 Solution - Archivos a ignorar
+
+# Archivos de usuario y configuración personal
+*.sln.user
+*.suo
+*.user
+*.pbw.user
+*.srstate
+
+# Caché y archivos temporales de Solution
+.sr_cache/
+.cache/
+.vs/
+*.tmp
+*.bak
+*.~*
+*~
+
+# Archivos compilados (no código fuente)
+*.exe
+*.dll
+*.pbd
+*.pbd_
+*.pbo
+*.obj
+*.lib
+
+# Archivos de respaldo de PowerBuilder
+*.pb~
+
+# Carpetas de compilación
+/bin/
+/obj/
+/publish/
+/debug/
+/release/
+
+# Archivos específicos de entorno
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+*.runtimeconfig.json
+
+# Archivos de conexión a base de datos (si tienen contraseñas)
+*.dbconn
+*.connection

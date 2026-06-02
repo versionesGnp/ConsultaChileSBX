@@ -1,0 +1,30 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Ejecuta una App externa~r~n    Recomendación: NO MODIFICAR - Experto~r~n*/
+global type f_run from function_object
+end type
+
+forward prototypes
+global function integer f_run (string as_exe, boolean ab_wait)
+end prototypes
+
+global function integer f_run (string as_exe, boolean ab_wait);/* f_Run( as_exe, ab_wait ) */
+OleObject wsh
+integer  li_rc
+
+CONSTANT integer MAXIMIZED = 3
+CONSTANT integer MINIMIZED = 2
+CONSTANT integer NORMAL = 1
+CONSTANT boolean WAIT = TRUE
+CONSTANT boolean NOWAIT = FALSE
+
+wsh = CREATE OleObject
+li_rc = wsh.ConnectToNewObject( "WScript.Shell" )
+
+If ab_wait Then
+	li_rc = wsh.Run( as_exe, MINIMIZED, WAIT )
+Else
+	li_rc = wsh.Run( as_exe, NORMAL, NOWAIT )
+End If	
+
+Return li_rc
+end function
+

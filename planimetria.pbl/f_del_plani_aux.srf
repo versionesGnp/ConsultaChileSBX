@@ -1,0 +1,13 @@
+﻿global type f_del_plani_aux from function_object
+end type
+
+forward prototypes
+global subroutine f_del_plani_aux ()
+end prototypes
+
+global subroutine f_del_plani_aux ();//declare del_plani procedure for sp_del_planimetria_aux ;
+//execute del_plani ;
+declare del_plani procedure for sp_borra_reg_plani_aux ;
+execute del_plani ;
+end subroutine
+

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Project>
+  <Type Name="pb"/>
+  <Application Name="consulta"/>
+  <Libraries AppEntry="consulta.pbl">
+    <Library Path="consulta.pbl"/>
+    <Library Path="adm_venta.pbl"/>
+    <Library Path="atencion_terreno.pbl"/>
+    <Library Path="bldw2xls.pbl"/>
+    <Library Path="caja.pbl"/>
+    <Library Path="calendario.pbl"/>
+    <Library Path="cierre_caja.pbl"/>
+    <Library Path="clasificacion.pbl"/>
+    <Library Path="cliser.pbl"/>
+    <Library Path="cobranza telefonica.pbl"/>
+    <Library Path="cobranza_carta.pbl"/>
+    <Library Path="control_documentario.pbl"/>
+    <Library Path="control_sepultacion.pbl"/>
+    <Library Path="convenio.pbl"/>
+    <Library Path="cotizacion.pbl"/>
+    <Library Path="crematorio.pbl"/>
+    <Library Path="cuponera.pbl"/>
+    <Library Path="desarrollo_soporte.pbl"/>
+    <Library Path="desarrollo_web.pbl"/>
+    <Library Path="digitacion.pbl"/>
+    <Library Path="documentos.pbl"/>
+    <Library Path="facturacion.pbl"/>
+    <Library Path="fallecidos.pbl"/>
+    <Library Path="ficha_implementacion.pbl"/>
+    <Library Path="fosa_comun.pbl"/>
+    <Library Path="funeraria.pbl"/>
+    <Library Path="gestion_cartera.pbl"/>
+    <Library Path="gestion_historica.pbl"/>
+    <Library Path="gestion_individual.pbl"/>
+    <Library Path="gestion_premios.pbl"/>
+    <Library Path="gestion_real.pbl"/>
+    <Library Path="gestion_ventas.pbl"/>
+    <Library Path="grafico_gestiones.pbl"/>
+    <Library Path="indicadores.pbl"/>
+    <Library Path="ingreso_caja.pbl"/>
+    <Library Path="licencias.pbl"/>
+    <Library Path="mantenedor.pbl"/>
+    <Library Path="mensajeria.pbl"/>
+    <Library Path="modulo_condolencias.pbl"/>
+    <Library Path="mora_agentes.pbl"/>
+    <Library Path="operacion_gestion.pbl"/>
+    <Library Path="ortografia.pbl"/>
+    <Library Path="p_consulta19.pbl"/>
+    <Library Path="pac.pbl"/>
+    <Library Path="pagos_ventas.pbl"/>
+    <Library Path="pagos_ventas_comision.pbl"/>
+    <Library Path="pagos_ventas_premios.pbl"/>
+    <Library Path="pat.pbl"/>
+    <Library Path="perfil_usuario.pbl"/>
+    <Library Path="planimetria.pbl"/>
+    <Library Path="presupuesto.pbl"/>
+    <Library Path="reclamos.pbl"/>
+    <Library Path="repacta.pbl"/>
+    <Library Path="sap.pbl"/>
+    <Library Path="seguros.pbl"/>
+    <Library Path="solicitudes.pbl"/>
+    <Library Path="str_formula.pbl"/>
+    <Library Path="usuarios.pbl"/>
+    <Library Path="natfile.pbl"/>
+    <Library Path="natmulfile.pbl"/>
+    <Library Path="natshared.pbl"/>
+    <Library Path="descuentos.pbl"/>
+  </Libraries>
+  <Deployings>
+    <Deploying Deploy="1" Library="consulta.pbl" Name="p_consulta2"/>
+    <Deploying Deploy="1" Library="consulta.pbl" Name="pc_consulta19_2"/>
+    <Deploying Deploy="1" Library="consulta.pbl" Name="pc_consulta19_3"/>
+  </Deployings>
+</Project>

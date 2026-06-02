@@ -1,0 +1,51 @@
+﻿global type nullifinvalid from function_object
+end type
+
+forward prototypes
+global function datetime nullifinvalid (datetime adata)
+end prototypes
+
+global function datetime nullifinvalid (datetime adata);
+/* NullIfInvalid( aData ) */
+
+DateTime	ldNil
+String	lsNil
+
+
+SetNull( ldNil )
+SetNull( lsNil )
+		DateTime	ldRet
+		
+		ldRet = DateTime( aData )
+		If f_IsDate( ldRet ) Then 
+			Return ldRet
+		Else
+			Return ldNil
+		End If
+		
+/*
+String	lsClass
+
+lsClass = ClassName( adata )
+Choose Case lsClass
+	Case 'datetime'
+		DateTime	ldRet
+		
+		ldRet = DateTime( aData )
+		If f_IsDate( ldRet ) Then 
+			Return ldRet
+		Else
+			Return ldNil
+		End If
+		
+	Case 'string'
+		If f_Trim( String( aData )) = '' Then
+			Return String( aData )
+		Else
+			Return lsNil
+		End If
+
+End Choose
+*/
+end function
+

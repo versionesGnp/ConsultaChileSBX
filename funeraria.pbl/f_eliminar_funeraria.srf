@@ -1,0 +1,159 @@
+﻿global type f_eliminar_funeraria from function_object
+end type
+
+forward prototypes
+global function long f_eliminar_funeraria (string as_base, string as_serie, double adb_numero)
+end prototypes
+
+global function long f_eliminar_funeraria (string as_base, string as_serie, double adb_numero);string		ls_glosa
+long		ll_existe_cad,ll_res,ll_existe_cd,ll_estado,ll_graba=0,ll_asigna
+datetime	ldt_fecha_estado
+
+//f_eliminar_funeraria(as_base,as_serie,adb_numero)
+
+SELECT	COUNT("CADENA"."CODIGO")
+INTO		:ll_existe_cad
+FROM		"CADENA"
+WHERE	"CADENA"."CODIGO" = :as_base AND
+			"CADENA"."SERIE" = :as_serie AND
+			"CADENA"."NUMERO" = :adb_numero
+USING	sqlca;
+if isnull(ll_existe_cad) then ll_existe_cad=0
+
+if ll_existe_cad = 0 then
+	SELECT	MAX("CD_FOLIO_DETALLE"."FECHA_ESTADO")
+	INTO		:ll_asigna
+	FROM		"CD_FOLIO_DETALLE"
+	WHERE	"CD_FOLIO_DETALLE"."BASE" = :as_base AND
+				"CD_FOLIO_DETALLE"."SERIE" = :as_serie AND
+				"CD_FOLIO_DETALLE"."NUMERO" = :adb_numero AND
+				("CD_FOLIO_DETALLE"."ESTADO" = 2 or "CD_FOLIO_DETALLE"."ESTADO" = 14)
+	USING	sqlca;
+	if isnull(ll_asigna) then ll_asigna=0
+	if ll_asigna > 0 then
+		ll_estado 							= 3
+	else
+		ll_estado 							= 1
+	end if
+		
+	SELECT	count("CD_FOLIO_DETALLE"."BASE")
+	INTO		:ll_existe_cd
+	FROM		"CD_FOLIO","CD_FOLIO_DETALLE"
+	WHERE	"CD_FOLIO"."BASE" = "CD_FOLIO_DETALLE"."BASE" AND
+				"CD_FOLIO"."SERIE" = "CD_FOLIO_DETALLE"."SERIE" AND
+				"CD_FOLIO"."NUMERO" = "CD_FOLIO_DETALLE"."NUMERO" AND  
+				"CD_FOLIO"."BASE" = :as_base AND
+				"CD_FOLIO"."SERIE" = :as_serie AND
+				"CD_FOLIO"."NUMERO" = :adb_numero AND
+				"CD_FOLIO_DETALLE"."ESTADO" = :ll_estado AND
+				"CD_FOLIO_DETALLE"."FECHA_ESTADO" = (	SELECT	MAX("CD_FOLIO_DETALLE"."FECHA_ESTADO")
+																			FROM		"CD_FOLIO_DETALLE"
+																			WHERE	"CD_FOLIO_DETALLE"."BASE" = :as_base AND
+																						"CD_FOLIO_DETALLE"."SERIE" = :as_serie AND
+																						"CD_FOLIO_DETALLE"."NUMERO" = :adb_numero AND
+																						"CD_FOLIO_DETALLE"."ESTADO" = :ll_estado )
+	USING	sqlca;
+	if isnull(ll_existe_cd) then ll_existe_cd=0
+			
+	if ll_existe_cd > 0 then 
+		SELECT	"CD_FOLIO_DETALLE"."FECHA_ESTADO",	"CD_FOLIO_DETALLE"."GLOSA"
+		INTO		:ldt_fecha_estado,									:ls_glosa
+		FROM		"CD_FOLIO","CD_FOLIO_DETALLE"
+		WHERE	"CD_FOLIO"."BASE" = "CD_FOLIO_DETALLE"."BASE" AND
+					"CD_FOLIO"."SERIE" = "CD_FOLIO_DETALLE"."SERIE" AND
+					"CD_FOLIO"."NUMERO" = "CD_FOLIO_DETALLE"."NUMERO" AND  
+					"CD_FOLIO"."BASE" = :as_base AND
+					"CD_FOLIO"."SERIE" = :as_serie AND
+					"CD_FOLIO"."NUMERO" = :adb_numero AND
+					"CD_FOLIO_DETALLE"."ESTADO" = :ll_estado AND
+					"CD_FOLIO_DETALLE"."FECHA_ESTADO" = (	SELECT	MAX("CD_FOLIO_DETALLE"."FECHA_ESTADO")
+																				FROM		"CD_FOLIO_DETALLE"
+																				WHERE	"CD_FOLIO_DETALLE"."BASE" = :as_base AND
+																							"CD_FOLIO_DETALLE"."SERIE" = :as_serie AND
+																							"CD_FOLIO_DETALLE"."NUMERO" = :adb_numero AND
+																							"CD_FOLIO_DETALLE"."ESTADO" = :ll_estado )
+		USING sqlca;
+		if isnull(ll_estado) then ll_estado=0
+		
+		UPDATE	"CD_FOLIO"  
+		SET		"ULT_ESTADO" = :ll_estado,   
+					"ULT_FECHA_ESTADO" = :ldt_fecha_estado,
+					"ULT_GLOSA_ESTADO" = :ls_glosa
+		WHERE	"CD_FOLIO"."BASE" = :as_base AND
+					"CD_FOLIO"."SERIE" = :as_serie AND  	
+					"CD_FOLIO"."NUMERO" = :adb_numero   
+		USING	sqlca;
+		if sqlca.sqlcode=0 then
+			commit using sqlca;
+			ll_graba++
+		else
+			rollback using sqlca;
+		end if
+		
+		DELETE FROM	"CD_FOLIO_DETALLE"
+		WHERE  			"CD_FOLIO_DETALLE"."BASE" = :as_base AND
+							"CD_FOLIO_DETALLE"."SERIE" = :as_serie AND
+							"CD_FOLIO_DETALLE"."NUMERO" = :adb_numero AND
+							"CD_FOLIO_DETALLE"."FECHA_ESTADO" > :ldt_fecha_estado
+		USING	sqlca;
+		if sqlca.sqlcode=0 then
+			commit using sqlca;
+			ll_graba++
+		else
+			rollback using sqlca;
+		end if
+	end if	
+			
+	DELETE FROM	"REVISION_CONTRATOS"
+	WHERE  			"REVISION_CONTRATOS"."BASE" = :as_base AND
+						"REVISION_CONTRATOS"."SERIE" = :as_serie AND
+						"REVISION_CONTRATOS"."NUMERO" = :adb_numero 
+	USING	sqlca;
+	if sqlca.sqlcode=0 then
+		commit using sqlca;
+		ll_graba++
+	else
+		rollback using sqlca;
+	end if
+				
+	DELETE FROM	"REVISION_CONTRATOS_OBSERVACION"
+	WHERE  			"REVISION_CONTRATOS_OBSERVACION"."BASE" = :as_base AND
+						"REVISION_CONTRATOS_OBSERVACION"."SERIE" = :as_serie AND
+						"REVISION_CONTRATOS_OBSERVACION"."NUMERO" = :adb_numero 
+	USING	sqlca;
+	if sqlca.sqlcode=0 then
+		commit using sqlca;
+		ll_graba++
+	else
+		rollback using sqlca;
+	end if
+				
+	DELETE FROM	"PRODUCTO_VENTA_ASOCIADA"
+	WHERE  			"PRODUCTO_VENTA_ASOCIADA"."BASE" = :as_base AND
+						"PRODUCTO_VENTA_ASOCIADA"."SERIE" = :as_serie AND
+						"PRODUCTO_VENTA_ASOCIADA"."NUMERO" = :adb_numero 
+	USING	sqlca;
+	if sqlca.sqlcode=0 then
+		commit using sqlca;
+		ll_graba++
+	else
+		rollback using sqlca;
+	end if
+				
+	DELETE FROM	"PRODUCTO_BENEFICIARIO"
+	WHERE  			"PRODUCTO_BENEFICIARIO"."BASE" = :as_base AND
+						"PRODUCTO_BENEFICIARIO"."SERIE" = :as_serie AND
+						"PRODUCTO_BENEFICIARIO"."NUMERO" = :adb_numero 
+	USING	sqlca;
+	if sqlca.sqlcode=0 then
+		commit using sqlca;
+		ll_graba++
+	else
+		rollback using sqlca;
+	end if
+end if
+
+if isnull(ll_graba) then ll_graba=0
+Return ll_graba
+end function
+

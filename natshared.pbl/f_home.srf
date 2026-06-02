@@ -1,0 +1,29 @@
+﻿global type f_home from function_object
+end type
+
+forward prototypes
+global function string f_home ()
+end prototypes
+
+global function string f_home ();
+String	ls_std
+
+Select	c_menustd_usu
+Into		:ls_std
+From		genlogin
+Where		c_codigo_usu = :gs_usuario
+Using		SqlCa ;
+
+
+ls_std = f_Trim( ls_std )
+If ls_std = '0' Then ls_std = '1'
+
+
+ls_std = '1' 
+If ls_std = '1' Then
+	OpenSheet( w_arch_gen_pagina_inicio, gw_frame, 1, Original! )
+End If
+
+Return ls_std
+end function
+

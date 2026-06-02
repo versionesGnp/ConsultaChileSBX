@@ -1,0 +1,53 @@
+﻿global type f_valida_menu_revision from function_object
+end type
+
+forward prototypes
+global subroutine f_valida_menu_revision (string ls_tipo, string ls_objeto)
+end prototypes
+
+global subroutine f_valida_menu_revision (string ls_tipo, string ls_objeto);CHOOSE CASE ls_tipo
+	CASE 'menu'
+		CHOOSE CASE ls_objeto
+			CASE 'm_menu_principal.m_revisióncontrato'
+				m_menu_principal.m_revisióncontrato.visible											= false
+				m_menu_principal.m_revisióncontrato.toolbaritemvisible							= false
+				m_menu_principal.m_revisióncontrato.m_revisar.visible								= false
+				m_menu_principal.m_revisióncontrato.m_cotización.visible							= false
+				m_menu_principal.m_revisióncontrato.m_simulaciónclasificación.visible		= false
+				m_menu_principal.m_revisióncontrato.m_simulaciónclasificación.m_nf.visible	= false
+				m_menu_principal.m_revisióncontrato.m_simulaciónclasificación.m_ni.visible	= false
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.visible			= false
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.m_gestionarinforme.visible				= false
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.m_proximoscontactosagendados.visible	= false
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.m_reportes.visible							= false
+				m_menu_principal.m_revisióncontrato.m_revisarcomisiones.visible				= false
+			CASE 'm_menu_principal.m_revisióncontrato.m_revisar'
+				m_menu_principal.m_revisióncontrato.m_revisar.visible								= false
+			CASE 'm_menu_principal.m_revisióncontrato.m_cotización'
+				m_menu_principal.m_revisióncontrato.m_cotización.visible							= false
+			CASE 'm_menu_principal.m_revisióncontrato.m_simulaciónclasificación'
+				m_menu_principal.m_revisióncontrato.m_simulaciónclasificación.visible		= false
+				m_menu_principal.m_revisióncontrato.m_simulaciónclasificación.m_nf.visible	= false
+				m_menu_principal.m_revisióncontrato.m_simulaciónclasificación.m_ni.visible	= false
+			CASE 'm_menu_principal.m_revisióncontrato.m_simulaciónclasificación.m_nf'
+				m_menu_principal.m_revisióncontrato.m_simulaciónclasificación.m_nf.visible	= false
+			CASE 'm_menu_principal.m_revisióncontrato.m_simulaciónclasificación.m_ni'
+				m_menu_principal.m_revisióncontrato.m_simulaciónclasificación.m_ni.visible	= false
+			CASE 'm_menu_principal.m_revisióncontrato.m_informegestiónagente'
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.visible										= false
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.m_gestionarinforme.visible				= false
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.m_proximoscontactosagendados.visible	= false
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.m_reportes.visible							= false
+			CASE 'm_menu_principal.m_revisióncontrato.m_informegestiónagente.m_gestionarinforme'
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.m_gestionarinforme.visible				= false
+			CASE 'm_menu_principal.m_revisióncontrato.m_informegestiónagente.m_proximoscontactosagendados'
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.m_proximoscontactosagendados.visible	= false
+			CASE 'm_menu_principal.m_revisióncontrato.m_informegestiónagente.m_reportes'
+				m_menu_principal.m_revisióncontrato.m_informegestiónagente.m_reportes.visible							= false
+			CASE 'm_menu_principal.m_revisióncontrato.m_revisarcomisiones'
+				m_menu_principal.m_revisióncontrato.m_revisarcomisiones.visible											= false
+		END CHOOSE
+//				CASE 'objeto' //no tiene
+END CHOOSE
+end subroutine
+

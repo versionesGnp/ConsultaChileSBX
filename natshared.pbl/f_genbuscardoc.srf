@@ -1,0 +1,42 @@
+﻿//objectcomments /* Autor: César Vilela~r~n    Función: Buscador de documentos x winPopup (class)~r~n    Recomendación: NO MODIFICAR~r~n*/
+global type f_genbuscardoc from function_object
+end type
+
+forward prototypes
+global function string f_genbuscardoc (string as_tip, string as_doc, ref s_parm astr_parm)
+end prototypes
+
+global function string f_genbuscardoc (string as_tip, string as_doc, ref s_parm astr_parm);/* f_GenBuscarDoc( as_tip, as_doc, astr_parm ) */
+String	ls_tem, ls_doc
+s_parm	lstr_parm
+
+
+gs_winnumdoc = ''
+
+SetNull( Message.PowerObjectParm )
+
+If Not as_doc = '' Then
+	gb_winopendoc = True
+	gs_winnumdoc = as_doc
+End If
+
+
+OpenWithParm( w_arch_gen_documento_abrir, as_tip )
+lstr_parm = Message.PowerObjectParm
+
+If Not IsValid( lstr_parm ) Then Return ''
+If IsNull( lstr_parm ) Then Return ''
+If UpperBound( lstr_parm.s_cad[] ) = 0 Then Return ''
+
+astr_parm = lstr_parm
+
+If lstr_parm.s_cad[ 1] = 'NEW' Then
+	lstr_parm.s_cad[ 2] = ''
+Else
+	ls_tem = lstr_parm.s_cad[ 1]
+	ls_doc = lstr_parm.s_cad[ 2]
+End If
+
+Return ls_doc
+end function
+
