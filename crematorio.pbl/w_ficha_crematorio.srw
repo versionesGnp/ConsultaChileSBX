@@ -3915,8 +3915,8 @@ end event
 
 type sle_1 from uo_convierte_numero within w_ficha_crematorio
 boolean visible = false
-integer x = 3227
-integer y = 2284
+integer x = 3447
+integer y = 2056
 integer width = 494
 integer taborder = 0
 boolean hideselection = false
